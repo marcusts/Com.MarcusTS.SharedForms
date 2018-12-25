@@ -1,0 +1,2650 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Com.MarcusTS.SharedForms</name>
+    </assembly>
+    <members>
+        <member name="T:Com.MarcusTS.SharedForms.DeviceServices.OrientationService">
+            <summary>
+            Class OrientationService.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.DeviceServices.OrientationService.HandleDeviceSizeChanged(System.Object,Com.MarcusTS.SharedForms.Utils.LocalDeviceSizeChangedMessage)">
+            <summary>
+            Handles the device size changed.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.DeviceServices.OrientationService.IsLandscape">
+            <summary>
+            Gets or sets a value indicating whether this instance is landscape.
+            </summary>
+            <value><c>true</c> if this instance is landscape; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.DeviceServices.OrientationService.ScreenHeight">
+            <summary>
+            Gets or sets the height of the screen.
+            </summary>
+            <value>The height of the screen.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.DeviceServices.OrientationService.ScreenWidth">
+            <summary>
+            Gets or sets the width of the screen.
+            </summary>
+            <value>The width of the screen.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Interfaces.IDummyPageViewModel">
+            <summary>
+            Interface IDummyPageViewModel
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.IPageViewModelBase" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.ViewModels.IPageViewModelBase" />
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Navigation.IStateMachineBase">
+            <summary>
+            Interface IStateMachineBase
+            Implements the <see cref="T:System.IDisposable" />
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Navigation.IStateMachineBase.MenuItems">
+            <summary>
+            Gets the menu items.
+            </summary>
+            <value>The menu items.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.IStateMachineBase.GoToAppState(System.String,System.Boolean)">
+            <summary>
+            Goes the state of to application.
+            </summary>
+            <param name="newState">The new state.</param>
+            <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.IStateMachineBase.GoToLandingPage(System.Boolean)">
+            <summary>
+            Goes to landing page.
+            </summary>
+            <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.IStateMachineBase.GoToStartUpState">
+            <summary>
+            Goes the state of to start up.
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Navigation.StateMachineBase">
+            <summary>
+            A controller to manage which views and view models are shown for a given state
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Navigation.IStateMachineBase" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Navigation.IStateMachineBase" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:Com.MarcusTS.SharedForms.Navigation.StateMachineBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.SeekPageEventProvider(System.Func{Com.MarcusTS.SharedForms.ViewModels.IViewModelBase},Xamarin.Forms.Page)">
+            <summary>
+            Seeks the page event provider.
+            </summary>
+            <param name="viewModelCreator">The view model creator.</param>
+            <param name="page">The page.</param>
+            <returns>IViewModelBase.</returns>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.AppStartUpMessage">
+            <summary>
+            Class AppStartUpMessage.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Utils.NoPayloadMessage" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Utils.NoPayloadMessage" />
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Navigation.StateMachineBase._lastAppState">
+            <summary>
+            The last application state
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Navigation.StateMachineBase._lastPage">
+            <summary>
+            The last page
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.APP_STATES">
+            <summary>
+            Gets the application states.
+            </summary>
+            <value>The application states.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.AppStartUpState">
+            <summary>
+            Gets the state of the application start up.
+            </summary>
+            <value>The state of the application start up.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.MenuItems">
+            <summary>
+            Gets the menu items.
+            </summary>
+            <value>The menu items.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.GoToAppState(System.String,System.Boolean)">
+            <summary>
+            Goes the state of to application.
+            </summary>
+            <param name="newState">The new state.</param>
+            <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.GoToLandingPage(System.Boolean)">
+            <summary>
+            Goes to landing page.
+            </summary>
+            <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.GoToStartUpState">
+            <summary>
+            Goes the state of to start up.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.CheckAgainstLastPage(System.Type,System.Func{Xamarin.Forms.Page},System.Func{Com.MarcusTS.SharedForms.ViewModels.IViewModelBase},System.Boolean)">
+            <summary>
+            Checks the against last page.
+            </summary>
+            <param name="pageType">Type of the page.</param>
+            <param name="pageCreator">The page creator.</param>
+            <param name="viewModelCreator">The view model creator.</param>
+            <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.GetMenuOrderFromAppState(System.String)">
+            <summary>
+            Gets the state of the menu order from application.
+            </summary>
+            <param name="appState">State of the application.</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.ReleaseUnmanagedResources">
+            <summary>
+            Releases the unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Navigation.StateMachineBase.RespondToAppStateChange(System.String,Com.MarcusTS.SharedUtils.Interfaces.IMenuNavigationState,System.Boolean)">
+            <summary>
+            Responds to application state change.
+            </summary>
+            <param name="newState">The new state.</param>
+            <param name="menuData">The menu data.</param>
+            <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.BindableUtils">
+            <summary>
+            Class BindableUtils.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.BindableUtils.CreateBindableProperty``2(System.String,``1,Xamarin.Forms.BindingMode,System.Action{``0,``1,``1})">
+            <summary>
+            Creates the bindable property.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <param name="localPropName">Name of the local property.</param>
+            <param name="defaultVal">The default value.</param>
+            <param name="bindingMode">The binding mode.</param>
+            <param name="callbackAction">The callback action.</param>
+            <returns>BindableProperty.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.BindableUtils.CreateReadOnlyBindableProperty``2(System.String,``1,Xamarin.Forms.BindingMode,System.Action{``0,``1,``1})">
+            <summary>
+            Creates the read only bindable property.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <param name="localPropName">Name of the local property.</param>
+            <param name="defaultVal">The default value.</param>
+            <param name="bindingMode">The binding mode.</param>
+            <param name="callbackAction">The callback action.</param>
+            <returns>BindableProperty.</returns>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.ColorUtils">
+            <summary>
+            Class ColorUtils.
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.DEEP_GRAY_BLUE">
+            <summary>
+            The deep gray blue
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.DEEP_GRAY_GREEN">
+            <summary>
+            The deep gray green
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.DEEP_GRAY_RED">
+            <summary>
+            The deep gray red
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.HEADER_AND_TOOLBAR_COLOR">
+            <summary>
+            The header and toolbar color
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.HEADER_AND_TOOLBAR_COLOR_DEEP">
+            <summary>
+            The header and toolbar color deep
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.HEADER_AND_TOOLBAR_COLOR_PALE">
+            <summary>
+            The header and toolbar color pale
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.MAIN_PAGE_BACKGROUND_COLOR">
+            <summary>
+            The main page background color
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.PALE_GRAY">
+            <summary>
+            The pale gray
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ColorUtils.SIDE_MENU_COLOR">
+            <summary>
+            The side menu color
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.FormsExtensions">
+            <summary>
+            Class FormsExtensions.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsExtensions.IsDifferentThan(Xamarin.Forms.Rectangle,Xamarin.Forms.Rectangle)">
+            <summary>
+            Determines whether [is different than] [the specified other rect].
+            </summary>
+            <param name="mainRect">The main rect.</param>
+            <param name="otherRect">The other rect.</param>
+            <returns><c>true</c> if [is different than] [the specified other rect]; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsExtensions.IsSameAs(Xamarin.Forms.Rectangle,Xamarin.Forms.Rectangle)">
+            <summary>
+            Determines whether [is same as] [the specified other rect].
+            </summary>
+            <param name="mainRect">The main rect.</param>
+            <param name="otherRect">The other rect.</param>
+            <returns><c>true</c> if [is same as] [the specified other rect]; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents">
+            <summary>
+            Enum PageLifecycleEvents
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents.BeforeConstructing">
+            <summary>
+            The before constructing
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents.AfterConstructing">
+            <summary>
+            The after constructing
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents.BeforeAppearing">
+            <summary>
+            The before appearing
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents.AfterAppearing">
+            <summary>
+            The after appearing
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents.BeforeDisappearing">
+            <summary>
+            The before disappearing
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents.AfterDisappearing">
+            <summary>
+            The after disappearing
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.IDeviceSizeChangeMessageArgs">
+            <summary>
+            Interface IDeviceSizeChangeMessageArgs
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.IDeviceSizeChangeMessageArgs.ScreenHeight">
+            <summary>
+            Gets or sets the height of the screen.
+            </summary>
+            <value>The height of the screen.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.IDeviceSizeChangeMessageArgs.ScreenWidth">
+            <summary>
+            Gets or sets the width of the screen.
+            </summary>
+            <value>The width of the screen.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.IMessage">
+            <summary>
+            Interface IMessage
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs">
+            <summary>
+            Interface IPageLifecycleMessageArgs
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs.PageEvent">
+            <summary>
+            Gets or sets the page event.
+            </summary>
+            <value>The page event.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs.SendingPage">
+            <summary>
+            Gets or sets the sending page.
+            </summary>
+            <value>The sending page.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.FormsMessengerUtils">
+            <summary>
+            A global static utilty library to assist with Xamarin.Forms.MessagingCenter calls.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsMessengerUtils.Send``1(``0,System.Object)">
+            <summary>
+            Sends the specified message.
+            </summary>
+            <typeparam name="TMessage">The type of the t message.</typeparam>
+            <param name="message">The message.</param>
+            <param name="sender">The sender.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsMessengerUtils.Subscribe``1(System.Object,System.Action{System.Object,``0})">
+            <summary>
+            Subscribes the specified subscriber.
+            </summary>
+            <typeparam name="TMessage">The type of the t message.</typeparam>
+            <param name="subscriber">The subscriber.</param>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsMessengerUtils.Unsubscribe``1(System.Object)">
+            <summary>
+            Unsubscribes the specified subscriber.
+            </summary>
+            <typeparam name="TMessage">The type of the t message.</typeparam>
+            <param name="subscriber">The subscriber.</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.AppStateChangedMessage">
+            <summary>
+            Class AppStateChangedMessage.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Utils.AppStateChangeMessageArgs&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Utils.AppStateChangeMessageArgs&gt;" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.AppStateChangedMessage.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Utils.AppStateChangedMessage" /> class.
+            </summary>
+            <param name="oldAppState">Old state of the application.</param>
+            <param name="preventNavStackPush">if set to <c>true</c> [prevent nav stack push].</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.AppStateChangeMessageArgs">
+            <summary>
+            Class AppStateChangeMessageArgs.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.AppStateChangeMessageArgs.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Utils.AppStateChangeMessageArgs" /> class.
+            </summary>
+            <param name="oldAppState">Old state of the application.</param>
+            <param name="preventNavStackPush">if set to <c>true</c> [prevent nav stack push].</param>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.AppStateChangeMessageArgs.OldAppState">
+            <summary>
+            Gets or sets the old state of the application.
+            </summary>
+            <value>The old state of the application.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.AppStateChangeMessageArgs.PreventNavStackPush">
+            <summary>
+            Gets or sets a value indicating whether [prevent nav stack push].
+            </summary>
+            <value><c>true</c> if [prevent nav stack push]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.BroadcastDeviceSizeChangedMessage">
+            <summary>
+            Notifies the app that the device size has changed
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs&gt;" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.BroadcastDeviceSizeChangedMessage.#ctor(System.Single,System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Utils.BroadcastDeviceSizeChangedMessage" /> class.
+            </summary>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs">
+            <summary>
+            This message is issued as the args whenever a local platform senses a change in its orientation.
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Utils.IDeviceSizeChangeMessageArgs" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs.#ctor(System.Single,System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs" /> class.
+            </summary>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs.ScreenHeight">
+            <summary>
+            Gets or sets the height of the screen.
+            </summary>
+            <value>The height of the screen.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs.ScreenWidth">
+            <summary>
+            Gets or sets the width of the screen.
+            </summary>
+            <value>The width of the screen.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload`1">
+            <summary>
+            Class GenericMessageWithPayload.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Utils.IMessage" />
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Utils.IMessage" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload`1.Payload">
+            <summary>
+            Gets or sets the payload.
+            </summary>
+            <value>The payload.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.LocalDeviceSizeChangedMessage">
+            <summary>
+            Notifies the orientation service that a the local device size has changed.
+            Do *not* use for general broadcast, as it will recur!
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Utils.DeviceSizeChangeMessageArgs&gt;" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.LocalDeviceSizeChangedMessage.#ctor(System.Single,System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Utils.LocalDeviceSizeChangedMessage" /> class.
+            </summary>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.MainPageBindingContextChangeRequestMessage">
+            <summary>
+            Class MainPageBindingContextChangeRequestMessage.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IViewModelBase&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IViewModelBase&gt;" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.MainPageBindingContextChangeRequestMessage.PreventNavStackPush">
+            <summary>
+            Gets or sets a value indicating whether [prevent nav stack push].
+            </summary>
+            <value><c>true</c> if [prevent nav stack push]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.MainPageChangeRequestMessage">
+            <summary>
+            Class MainPageChangeRequestMessage.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Xamarin.Forms.Page&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Xamarin.Forms.Page&gt;" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.MainPageChangeRequestMessage.PreventNavStackPush">
+            <summary>
+            Gets or sets a value indicating whether [prevent nav stack push].
+            </summary>
+            <value><c>true</c> if [prevent nav stack push]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.MenuLoadedMessage">
+            <summary>
+            Class MenuLoadedMessage.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Utils.NoPayloadMessage" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Utils.NoPayloadMessage" />
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.NavBarMenuTappedMessage">
+            <summary>
+            Class NavBarMenuTappedMessage.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Utils.NoPayloadMessage" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Utils.NoPayloadMessage" />
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.NoPayloadMessage">
+            <summary>
+            Class NoPayloadMessage.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Utils.IMessage" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Utils.IMessage" />
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.ObjectDisappearingMessage">
+            <summary>
+            Class ObjectDisappearingMessage.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;System.Object&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;System.Object&gt;" />
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessage">
+            <summary>
+            Class PageLifecycleMessage.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Utils.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs&gt;" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessage.#ctor(Com.MarcusTS.SharedUtils.Interfaces.IProvidePageEvents,Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessage" /> class.
+            </summary>
+            <param name="sendingPage">The sending page.</param>
+            <param name="pageEvent">The page event.</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessageArgs">
+            <summary>
+            Class PageLifecycleMessageArgs.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessageArgs.#ctor(Com.MarcusTS.SharedUtils.Interfaces.IProvidePageEvents,Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessageArgs" /> class.
+            </summary>
+            <param name="sendingPage">The sending page.</param>
+            <param name="pageEvent">The page event.</param>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessageArgs.PageEvent">
+            <summary>
+            Gets or sets the page event.
+            </summary>
+            <value>The page event.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Utils.PageLifecycleMessageArgs.SendingPage">
+            <summary>
+            Gets or sets the sending page.
+            </summary>
+            <value>The sending page.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.FormsUtils">
+            <summary>
+            Class FormsUtils.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetExpandingScrollView">
+            <summary>
+            Gets the expanding scroll view.
+            </summary>
+            <returns>ScrollView.</returns>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.FormsUtils.FALSE_STR">
+            <summary>
+            The false string
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.FormsUtils.TRUE_STR">
+            <summary>
+            The true string
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.FormsUtils.BUTTON_RADIUS_FACTOR">
+            <summary>
+            The button radius factor
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.FormsUtils.DEFAULT_TEXT_SIZE">
+            <summary>
+            The default text size
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.FormsUtils.MAJOR_BUTTON_HEIGHT">
+            <summary>
+            The major button height
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.FormsUtils.MAJOR_BUTTON_WIDTH">
+            <summary>
+            The major button width
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.AddAutoColumn(Xamarin.Forms.Grid)">
+            <summary>
+            Adds the automatic column.
+            </summary>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.AddAutoRow(Xamarin.Forms.Grid)">
+            <summary>
+            Adds the automatic row.
+            </summary>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.AddFixedColumn(Xamarin.Forms.Grid,System.Double)">
+            <summary>
+            Adds the fixed column.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="width">The width.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.AddFixedRow(Xamarin.Forms.Grid,System.Double)">
+            <summary>
+            Adds the fixed row.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="height">The height.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.AddStarColumn(Xamarin.Forms.Grid,System.Double)">
+            <summary>
+            Adds the star column.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="factor">The factor.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.AddStarRow(Xamarin.Forms.Grid,System.Double)">
+            <summary>
+            Adds the star row.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="factor">The factor.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.CreateRelativeOverlay(Xamarin.Forms.RelativeLayout,Xamarin.Forms.View)">
+            <summary>
+            Creates the relative overlay.
+            </summary>
+            <param name="layout">The layout.</param>
+            <param name="viewToAdd">The view to add.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.ForceStyle(Xamarin.Forms.View,Xamarin.Forms.Style)">
+            <summary>
+            Forces the style.
+            </summary>
+            <param name="view">The view.</param>
+            <param name="style">The style.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetExpandingAbsoluteLayout">
+            <summary>
+            Gets the expanding absolute layout.
+            </summary>
+            <returns>AbsoluteLayout.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetExpandingGrid">
+            <summary>
+            Gets the expanding grid.
+            </summary>
+            <returns>Grid.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetExpandingRelativeLayout">
+            <summary>
+            Gets the expanding relative layout.
+            </summary>
+            <returns>RelativeLayout.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetExpandingStackLayout">
+            <summary>
+            Gets the expanding stack layout.
+            </summary>
+            <returns>StackLayout.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetImage(System.String,System.Double,System.Double,Xamarin.Forms.Aspect)">
+            <summary>
+            Gets the image.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="aspect">The aspect.</param>
+            <returns>Image.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetSimpleLabel(System.String,Xamarin.Forms.Color,Xamarin.Forms.TextAlignment,Xamarin.Forms.NamedSize,System.Double,Xamarin.Forms.FontAttributes,System.Double,System.Double,System.String,System.Object,Xamarin.Forms.LineBreakMode)">
+            <summary>
+            Gets the simple label.
+            </summary>
+            <param name="labelText">The label text.</param>
+            <param name="textColor">Color of the text.</param>
+            <param name="textAlignment">The text alignment.</param>
+            <param name="fontNamedSize">Size of the font named.</param>
+            <param name="fontSize">Size of the font.</param>
+            <param name="fontAttributes">The font attributes.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="labelBindingPropertyName">Name of the label binding property.</param>
+            <param name="labelBindingSource">The label binding source.</param>
+            <param name="breakMode">The break mode.</param>
+            <returns>Label.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.GetSpacer(System.Double)">
+            <summary>
+            Gets the spacer.
+            </summary>
+            <param name="height">The height.</param>
+            <returns>BoxView.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.HorizontalOptionsFromTextAlignment(Xamarin.Forms.TextAlignment)">
+            <summary>
+            Horizontals the options from text alignment.
+            </summary>
+            <param name="textAlignment">The text alignment.</param>
+            <returns>LayoutOptions.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.MergeStyle``1(Xamarin.Forms.Style,Xamarin.Forms.Style)">
+            <summary>
+            Merges the style.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="mainStyle">The main style.</param>
+            <param name="newStyle">The new style.</param>
+            <returns>Style.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.SetUpBinding(Xamarin.Forms.BindableObject,Xamarin.Forms.BindableProperty,System.String,Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.String,System.Object)">
+            <summary>
+            Sets up binding.
+            </summary>
+            <param name="view">The view.</param>
+            <param name="bindableProperty">The bindable property.</param>
+            <param name="viewModelPropertyName">Name of the view model property.</param>
+            <param name="bindingMode">The binding mode.</param>
+            <param name="converter">The converter.</param>
+            <param name="converterParameter">The converter parameter.</param>
+            <param name="stringFormat">The string format.</param>
+            <param name="source">The source.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.WithoutChangingContext(System.Threading.Tasks.Task)">
+            <summary>
+            Withouts the changing context.
+            </summary>
+            <param name="task">The task.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.FormsUtils.WithoutChangingContext``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            Withouts the changing context.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="task">The task.</param>
+            <returns>Task&lt;T&gt;.</returns>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Utils.ViewUtils">
+            <summary>
+            Class ViewUtils.
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ViewUtils.NORMAL_BUTTON_FONT_SIZE">
+            <summary>
+            The normal button font size
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ViewUtils.SELECTED_BUTTON_FONT_SIZE">
+            <summary>
+            The selected button font size
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ViewUtils.SLOP">
+            <summary>
+            The slop
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Utils.ViewUtils.SELECTED_IMAGE_BUTTON_BORDER_WIDTH">
+            <summary>
+            The selected image button border width
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.ViewUtils.ClearCompletely(Xamarin.Forms.Grid)">
+            <summary>
+            Clears the completely.
+            </summary>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.ViewUtils.GetAdjustedScreenWidth(System.Int32,System.Double)">
+            <summary>
+            Gets the width of the adjusted screen.
+            </summary>
+            <param name="viewIdx">Index of the view.</param>
+            <param name="currentWidth">Width of the current.</param>
+            <returns>System.Double.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.ViewUtils.SetBorderSelectionStyles(Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton)">
+            <summary>
+            Sets the border selection styles.
+            </summary>
+            <param name="retButton">The ret button.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Utils.ViewUtils.SetReverseStyles(Com.MarcusTS.SharedForms.Views.Controls.LabelButton)">
+            <summary>
+            Sets the reverse styles.
+            </summary>
+            <param name="retButton">The ret button.</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.ViewModels.IPageViewModelBase">
+            <summary>
+            Interface IPageViewModelBase
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+            Implements the <see cref="T:Com.MarcusTS.SharedUtils.Interfaces.IReceivePageEvents" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+            <seealso cref="T:Com.MarcusTS.SharedUtils.Interfaces.IReceivePageEvents" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.ViewModels.IPageViewModelBase.PageTitle">
+            <summary>
+            Copied from the menu item to this page (at least for now)
+            </summary>
+            <value>The page title.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase">
+            <summary>
+            Class PageViewModelBase.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.IPageViewModelBase" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.ViewModels.IPageViewModelBase" />
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase.Machine">
+            <summary>
+            The machine
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase.#ctor(Com.MarcusTS.SharedForms.Navigation.IStateMachineBase,Com.MarcusTS.SharedUtils.Interfaces.IProvidePageEvents)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase" /> class.
+            </summary>
+            <param name="stateMachine">The state machine.</param>
+            <param name="pageEventProvider">The page event provider.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase.OnPageLifecycleChanged(Com.MarcusTS.SharedForms.Utils.IPageLifecycleMessageArgs)">
+            <summary>
+            Make this page lifecycle event visible to derivers
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase.HandlePageLifecycleChanged(System.Object,Com.MarcusTS.SharedForms.Utils.PageLifecycleMessage)">
+            <summary>
+            Handles the page lifecycle changed.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase.PageEventProvider">
+            <summary>
+            Gets or sets the page event provider.
+            </summary>
+            <value>The page event provider.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.ViewModels.PageViewModelBase.PageTitle">
+            <summary>
+            Copied from the menu item to this page (at least for now)
+            </summary>
+            <value>The page title.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase">
+            <summary>
+            Interface IViewModelBase
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.ViewModels.ViewModelBase">
+            <summary>
+            The base class for all view models
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.IImageButton">
+            <summary>
+            Interface IImageButton
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageButton.ImageFileNameRoot">
+            <summary>
+            Gets or sets the image file name root.
+            </summary>
+            <value>The image file name root.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageButton.ImageHeight">
+            <summary>
+            Gets or sets the height of the image.
+            </summary>
+            <value>The height of the image.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageButton.ImageWidth">
+            <summary>
+            Gets or sets the width of the image.
+            </summary>
+            <value>The width of the image.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton">
+            <summary>
+            Class CustomImageButton.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.IImageButton" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.IImageButton" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton" /> class.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.CreateImageButtonBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton,``0,``0})">
+            <summary>
+            Creates the image button bindable property.
+            </summary>
+            <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+            <param name="localPropName">Name of the local property.</param>
+            <param name="defaultVal">The default value.</param>
+            <param name="bindingMode">The binding mode.</param>
+            <param name="callbackAction">The callback action.</param>
+            <returns>BindableProperty.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.SetStyle">
+            <summary>
+            Sets the style.
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.ImageFileNameRootProperty">
+            <summary>
+            The image file name root property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.ImageHeightProperty">
+            <summary>
+            The image height property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.ImageWidthProperty">
+            <summary>
+            The image width property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.DISABLED_SUFFIX">
+            <summary>
+            The disabled suffix
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.PNG_SUFFIX">
+            <summary>
+            The PNG suffix
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.SELECTED_SUFFIX">
+            <summary>
+            The selected suffix
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton._imageFileNameRoot">
+            <summary>
+            The image file name root
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton._imageHeight">
+            <summary>
+            The image height
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton._imageWidth">
+            <summary>
+            The image width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton._lastImageFileName">
+            <summary>
+            The last image file name
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton._setStyleEntered">
+            <summary>
+            The set style entered
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.ImageFileNameRoot">
+            <summary>
+            Gets or sets the image file name root.
+            </summary>
+            <value>The image file name root.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.ImageHeight">
+            <summary>
+            Gets or sets the height of the image.
+            </summary>
+            <value>The height of the image.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.ImageWidth">
+            <summary>
+            Gets or sets the width of the image.
+            </summary>
+            <value>The width of the image.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.CallRecreateImageSafely">
+            <summary>
+            Calls the recreate image safely.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.CustomImageButton.RecreateImage">
+            <summary>
+            Recreates the image.
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1">
+            <summary>
+            Interface IGenericViewButtonBase
+            Implements the <see cref="T:Com.MarcusTS.SharedUtils.Interfaces.IHaveButtonState" />
+            Implements the <see cref="T:System.IDisposable" />
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:Com.MarcusTS.SharedUtils.Interfaces.IHaveButtonState" />
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.ButtonCommand">
+            <summary>
+            Gets or sets the button command.
+            </summary>
+            <value>The button command.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.ButtonCommandBindingName">
+            <summary>
+            Gets or sets the name of the button command binding.
+            </summary>
+            <value>The name of the button command binding.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.ButtonCommandConverter">
+            <summary>
+            Gets or sets the button command converter.
+            </summary>
+            <value>The button command converter.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.ButtonCommandConverterParameter">
+            <summary>
+            Gets or sets the button command converter parameter.
+            </summary>
+            <value>The button command converter parameter.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.ButtonCommandSource">
+            <summary>
+            Gets or sets the button command source.
+            </summary>
+            <value>The button command source.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.SelectedButtonStyle">
+            <summary>
+            Gets or sets the selected button style.
+            </summary>
+            <value>The selected button style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.DeselectedButtonStyle">
+            <summary>
+            Gets or sets the deselected button style.
+            </summary>
+            <value>The deselected button style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.DisabledButtonStyle">
+            <summary>
+            Gets or sets the disabled button style.
+            </summary>
+            <value>The disabled button style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.InternalView">
+            <summary>
+            Gets or sets the internal view.
+            </summary>
+            <value>The internal view.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.CornerRadiusFixed">
+            <summary>
+            Gets or sets the corner radius fixed.
+            </summary>
+            <value>The corner radius fixed.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.CornerRadiusFactor">
+            <summary>
+            Gets or sets the corner radius factor.
+            </summary>
+            <value>The corner radius factor.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.CanSelect">
+            <summary>
+            Gets or sets a value indicating whether this instance can select.
+            </summary>
+            <value><c>true</c> if this instance can select; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.ToggleSelection">
+            <summary>
+            Converts to ggleselection.
+            </summary>
+            <value><c>true</c> if [toggle selection]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1.BackColor">
+            <summary>
+            Gets or sets the color of the back.
+            </summary>
+            <value>The color of the back.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1">
+            <summary>
+            A button that takes a view to lay on top of it -- can be a label image, etc. NOTE that we need
+            our own property change handling, since we have no view model. ISSUES:
+            * On any setting or style change, we need to re-render !!!
+            * Rendering needs to take the various appearance settings into account, especially radius,
+            background color, etc. NEEDS:
+            * Tap effects -- to grow or shake or vibrate on tap -- ?
+            * Border Thickness
+            * Border Color
+            * Shadow Properties
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1" />
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase`1" />
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonStateProperty">
+            <summary>
+            The button state property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandProperty">
+            <summary>
+            The button command property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandBindingNameProperty">
+            <summary>
+            The button command binding name property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandConverterProperty">
+            <summary>
+            The button command converter property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandConverterParameterProperty">
+            <summary>
+            The button command converter parameter property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.SelectedButtonStyleProperty">
+            <summary>
+            The selected button style property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.DeselectedButtonStyleProperty">
+            <summary>
+            The deselected button style property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.DisabledButtonStyleProperty">
+            <summary>
+            The disabled button style property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CornerRadiusFixedProperty">
+            <summary>
+            The corner radius fixed property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CornerRadiusFactorProperty">
+            <summary>
+            The corner radius factor property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.BackColorProperty">
+            <summary>
+            The back color property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CanSelectProperty">
+            <summary>
+            The can select property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ToggleSelectionProperty">
+            <summary>
+            Converts to ggleselectionproperty.
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.SelectionGroupProperty">
+            <summary>
+            The selection group property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._tapGesture">
+            <summary>
+            The tap gesture
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._buttonCommand">
+            <summary>
+            The button command
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._buttonCommandBindingName">
+            <summary>
+            The button command binding name
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._buttonCommandConverter">
+            <summary>
+            The button command converter
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._buttonCommandConverterParameter">
+            <summary>
+            The button command converter parameter
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._buttonCommandSource">
+            <summary>
+            The button command source
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._cornerRadiusFactor">
+            <summary>
+            The corner radius factor
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._cornerRadiusFixed">
+            <summary>
+            The corner radius fixed
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._deselectedStyle">
+            <summary>
+            The deselected style
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._disabledStyle">
+            <summary>
+            The disabled style
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._internalViewEntered">
+            <summary>
+            The internal view entered
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._isReleasing">
+            <summary>
+            The is releasing
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._selectedStyle">
+            <summary>
+            The selected style
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._selectionGroup">
+            <summary>
+            The selection group
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1._tappedListenerEntered">
+            <summary>
+            The tapped listener entered
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1" /> class.
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonState">
+            <summary>
+            Gets or sets the state of the button.
+            </summary>
+            <value>The state of the button.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.SelectionGroup">
+            <summary>
+            Leave at 0 if multiple selection is OK
+            </summary>
+            <value>The selection group.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CanSelect">
+            <summary>
+            Gets or sets a value indicating whether this instance can select.
+            </summary>
+            <value><c>true</c> if this instance can select; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ToggleSelection">
+            <summary>
+            Converts to ggleselection.
+            </summary>
+            <value><c>true</c> if [toggle selection]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.BackColor">
+            <summary>
+            Gets or sets the color of the back.
+            </summary>
+            <value>The color of the back.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommand">
+            <summary>
+            Gets or sets the button command.
+            </summary>
+            <value>The button command.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandBindingName">
+            <summary>
+            Gets or sets the name of the button command binding.
+            </summary>
+            <value>The name of the button command binding.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandConverter">
+            <summary>
+            Gets or sets the button command converter.
+            </summary>
+            <value>The button command converter.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandConverterParameter">
+            <summary>
+            Gets or sets the button command converter parameter.
+            </summary>
+            <value>The button command converter parameter.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonCommandSource">
+            <summary>
+            Gets or sets the button command source.
+            </summary>
+            <value>The button command source.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.DeselectedButtonStyle">
+            <summary>
+            Gets or sets the deselected button style.
+            </summary>
+            <value>The deselected button style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.DisabledButtonStyle">
+            <summary>
+            Gets or sets the disabled button style.
+            </summary>
+            <value>The disabled button style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.InternalView">
+            <summary>
+            Gets or sets the internal view.
+            </summary>
+            <value>The internal view.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.SelectedButtonStyle">
+            <summary>
+            Gets or sets the selected button style.
+            </summary>
+            <value>The selected button style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CornerRadiusFixed">
+            <summary>
+            Gets or sets the corner radius fixed.
+            </summary>
+            <value>The corner radius fixed.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CornerRadiusFactor">
+            <summary>
+            Gets or sets the corner radius factor.
+            </summary>
+            <value>The corner radius factor.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="E:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ViewButtonPressed">
+            <summary>
+            Occurs when [view button pressed].
+            </summary>
+        </member>
+        <member name="E:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ButtonStateChanged">
+            <summary>
+            Occurs when [button state changed].
+            </summary>
+        </member>
+        <member name="E:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.IAmSelectedStatic">
+            <summary>
+            Occurs when [i am selected static].
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.AfterInternalViewSet">
+            <summary>
+            Afters the internal view set.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.SetStyle">
+            <summary>
+            Sets the style.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.SetUpCompleteViewButtonCommandBinding">
+            <summary>
+            Sets up complete view button command binding.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.SetCornerRadius">
+            <summary>
+            Sets the corner radius.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.BroadcastIfSelected">
+            <summary>
+            Broadcasts if selected.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.HandleButtonCommandCanExecuteChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the button command can execute changed.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.HandleStaticSelectionChanges(Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase{`0})">
+            <summary>
+            Handles the static selection changes.
+            </summary>
+            <param name="sender">The sender.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.HandleTapGestureTapped(System.Object,System.EventArgs)">
+            <summary>
+            Handles the tap gesture tapped.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.OnSizeAllocated(System.Double,System.Double)">
+            <summary>
+            This method is called when the size of the element is set during a layout cycle. This method is called directly before the <see cref="E:Xamarin.Forms.VisualElement.SizeChanged" /> event is emitted. Implement this method to add class handling for this event.
+            </summary>
+            <param name="width">The new width of the element.</param>
+            <param name="height">The new height of the element.</param>
+            <remarks>This method has a default implementation which triggers the layout cycle of the Layout to begin.</remarks>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.RemoveButtonCommandEventListener">
+            <summary>
+            Removes the button command event listener.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.HandleButtonStateChanged">
+            <summary>
+            Handles the button state changed.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CreateViewButtonStyle(Xamarin.Forms.Color,System.Nullable{System.Double},Xamarin.Forms.Color)">
+            <summary>
+            Creates the view button style.
+            </summary>
+            <param name="backColor">Color of the back.</param>
+            <param name="borderWidth">Width of the border.</param>
+            <param name="borderColor">Color of the border.</param>
+            <returns>Style.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.CreateGenericViewButtonBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase{`0},``0,``0})">
+            <summary>
+            Creates the generic view button bindable property.
+            </summary>
+            <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+            <param name="localPropName">Name of the local property.</param>
+            <param name="defaultVal">The default value.</param>
+            <param name="bindingMode">The binding mode.</param>
+            <param name="callbackAction">The callback action.</param>
+            <returns>BindableProperty.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.ReleaseUnmanagedResources">
+            <summary>
+            Releases the unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase`1" /> class.
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.ILabelButton">
+            <summary>
+            Interface ILabelButton
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase&lt;Xamarin.Forms.Label&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase&lt;Xamarin.Forms.Label&gt;" />
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.LabelButton">
+            <summary>
+            Class LabelButton.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase&lt;Xamarin.Forms.Label&gt;" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ILabelButton" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase&lt;Xamarin.Forms.Label&gt;" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.ILabelButton" />
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.LabelButton._deselectedLabelButtonStyle">
+            <summary>
+            The deselected label button style
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.LabelButton._disabledLabelButtonStyle">
+            <summary>
+            The disabled label button style
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.LabelButton._selectedLabelButtonStyle">
+            <summary>
+            The selected label button style
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.#ctor(Xamarin.Forms.Label)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.LabelButton" /> class.
+            </summary>
+            <param name="label">The label.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.LabelButton" /> class.
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.SelectedLabelStyle">
+            <summary>
+            Gets or sets the selected label style.
+            </summary>
+            <value>The selected label style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.DeselectedLabelStyle">
+            <summary>
+            Gets or sets the deselected label style.
+            </summary>
+            <value>The deselected label style.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.DisabledLabelStyle">
+            <summary>
+            Gets or sets the disabled label style.
+            </summary>
+            <value>The disabled label style.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.SetStyle">
+            <summary>
+            Sets the style.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.CreateLabelStyle(Xamarin.Forms.Color,System.Double,Xamarin.Forms.FontAttributes)">
+            <summary>
+            Creates the label style.
+            </summary>
+            <param name="textColor">Color of the text.</param>
+            <param name="fontSize">Size of the font.</param>
+            <param name="fontAttributes">The font attributes.</param>
+            <returns>Style.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.LabelButton.CreateLabelButtonBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{Com.MarcusTS.SharedForms.Views.Controls.LabelButton,``0,``0})">
+            <summary>
+            Creates the label button bindable property.
+            </summary>
+            <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+            <param name="localPropName">Name of the local property.</param>
+            <param name="defaultVal">The default value.</param>
+            <param name="bindingMode">The binding mode.</param>
+            <param name="callbackAction">The callback action.</param>
+            <returns>BindableProperty.</returns>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeType">
+            <summary>
+            Represents pre-defined shape types
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Box">
+            <summary>
+            A 4-sides shape (square/rectangle) - can have rounded corners
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Circle">
+            <summary>
+            A circle shape with a radius equals to the minimum value between height &amp; width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Star">
+            <summary>
+            A star shape for which you can define the number of points and the radius ratio
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Triangle">
+            <summary>
+            A triangle shape - the appearance depends on the height/width ratio
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Oval">
+            <summary>
+            An oval shape - the appearance depends on the height/width ratio
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Diamond">
+            <summary>
+            A diamond shape - 4-sides - the same you can find in a card deck - the appearance depends on the height/width ratio
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Heart">
+            <summary>
+            A heart shape - the appearance depends on the minimum value between height &amp; width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.ProgressCircle">
+            <summary>
+            A progress circle shape acting like a progress bar with a radius equals to the minimum value between height &amp;
+            width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeType.Path">
+            <summary>
+            A custom path shape defined by a list of points
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView">
+            <summary>
+            This class allows you to draw different kind of shapes in your Xamarin.Forms PCL
+            Implements the <see cref="T:Xamarin.Forms.ContentView" />
+            </summary>
+            <seealso cref="T:Xamarin.Forms.ContentView" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ShapeType">
+            <summary>
+            Gets or sets the shape type - default value is ShapeType.Box
+            </summary>
+            <value>The type of the shape.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.Color">
+            <summary>
+            Gets or sets the fill color - default value is Color.Default
+            </summary>
+            <value>The color.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.BorderColor">
+            <summary>
+            Gets or sets the border color (ignored if fully transparent or BorderColor &lt;= 0) - default value is Color.Black
+            </summary>
+            <value>The color of the border.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.BorderWidth">
+            <summary>
+            Gets or sets the border width (ignored if value is &lt; 0 or BorderColor is fully transparent) - default value is 0
+            </summary>
+            <value>The width of the border.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.CornerRadius">
+            <summary>
+            Gets or sets the corner radius - (ignored if &lt;=0) - default value is 0
+            </summary>
+            <value>The corner radius.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.Points">
+            <summary>
+            Gets or sets the points describing the path - (ignored if null or empty) - only for Path shape - default value is
+            null
+            </summary>
+            <value>The points.</value>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ShapeTypeProperty">
+            <summary>
+            The shape type property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.BorderColorProperty">
+            <summary>
+            The border color property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.BorderWidthProperty">
+            <summary>
+            The border width property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.CornerRadiusProperty">
+            <summary>
+            The corner radius property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ProgressProperty">
+            <summary>
+            The progress property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.NumberOfPointsProperty">
+            <summary>
+            The number of points property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ProgressBorderColorProperty">
+            <summary>
+            The progress border color property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ProgressBorderWidthProperty">
+            <summary>
+            The progress border width property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.RadiusRatioProperty">
+            <summary>
+            The radius ratio property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ColorProperty">
+            <summary>
+            The color property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.PointsProperty">
+            <summary>
+            The points property
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.RadiusRatio">
+            <summary>
+            Gets or sets the ratio between inner radius and outer radius (outer = inner * RadiusRatio) - only for Star shape -
+            default value is 0.5
+            </summary>
+            <value>The radius ratio.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.NumberOfPoints">
+            <summary>
+            Gets or sets the number of points of a star - only for Star shape - default value is 5
+            </summary>
+            <value>The number of points.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.Progress">
+            <summary>
+            Gets or sets the progress value - range from 0 to 100 - only for CircleProgress shape - default value is 0
+            </summary>
+            <value>The progress.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ProgressBorderWidth">
+            <summary>
+            Gets or sets the progress border width - only for CircleProgress shape - default value is 3
+            </summary>
+            <value>The width of the progress border.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ProgressBorderColor">
+            <summary>
+            Gets or sets the progress border color (ignored if fully transparent or ProgressBorderWidth &lt;= 0) - default value
+            is Color.Black
+            </summary>
+            <value>The color of the progress border.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Pages.DummyPage">
+            <summary>
+            Class DummyPage.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase&lt;Com.MarcusTS.SharedForms.Interfaces.IDummyPageViewModel&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase&lt;Com.MarcusTS.SharedForms.Interfaces.IDummyPageViewModel&gt;" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.DummyPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.DummyPage" /> class.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.DummyPage.ConstructPageView">
+            <summary>
+            Constructs the page view.
+            </summary>
+            <returns>View.</returns>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Pages.IMenuNavPageBase">
+            <summary>
+            Interface IMenuNavPageBase
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafePageBase" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafePageBase" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.IMenuNavPageBase.RemoveMenuFromLayout">
+            <summary>
+            Removes the menu from layout.
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1">
+            <summary>
+            A page with a navigation header.
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.IMenuNavPageBase" />
+            </summary>
+            <typeparam name="InterfaceT">The type of the interface t.</typeparam>
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Pages.IMenuNavPageBase" />
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1" /> class.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.RemoveMenuFromLayout">
+            <summary>
+            Removes the menu from layout.
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.MENU_ANIMATE_MILLISECONDS">
+            <summary>
+            The menu animate milliseconds
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.MENU_FADE_MILLISECONDS">
+            <summary>
+            The menu fade milliseconds
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.NAV_BAR_CONTROL_TEMPLATE">
+            <summary>
+            The nav bar control template
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1._canvas">
+            <summary>
+            The canvas
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1._isPageMenuShowing">
+            <summary>
+            The is page menu showing
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.PageMenu">
+            <summary>
+            Gets or sets the page menu.
+            </summary>
+            <value>The page menu.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.IsPageMenuShowing">
+            <summary>
+            Gets or sets a value indicating whether this instance is page menu showing.
+            </summary>
+            <value><c>true</c> if this instance is page menu showing; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.PageMenuView">
+            <summary>
+            Gets the page menu view.
+            </summary>
+            <value>The page menu view.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.AfterContentSet(Xamarin.Forms.RelativeLayout)">
+            <summary>
+            Afters the content set.
+            </summary>
+            <param name="layout">The layout.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.OnDisappearing">
+            <summary>
+            Called when [disappearing].
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.CreateOfflineRectangle">
+            <summary>
+            Creates the offline rectangle.
+            </summary>
+            <returns>Rectangle.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.AnimatePageMenu">
+            <summary>
+            Animates the panel in our out depending on the state
+            </summary>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.MenuNavPageBase`1.OnMainMenuItemSelected(System.Object,Com.MarcusTS.SharedForms.Utils.NavBarMenuTappedMessage)">
+            <summary>
+            Called when [main menu item selected].
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafePageBase">
+            <summary>
+            Interface ITypeSafePageBase
+            Implements the <see cref="T:Com.MarcusTS.SharedUtils.Interfaces.IProvidePageEvents" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedUtils.Interfaces.IProvidePageEvents" />
+            <remarks>WARNING: .Net does not provide an IContentPage interface, so we cannot reference the page from
+            this interface without a hard cast!</remarks>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1">
+            <summary>
+            A base class for content pages that protects the type safety of the binding context.
+            Implements the <see cref="T:Xamarin.Forms.ContentPage" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafePageBase" />
+            </summary>
+            <typeparam name="InterfaceT">The required interface for this view.</typeparam>
+            <seealso cref="T:Xamarin.Forms.ContentPage" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafePageBase" />
+            <remarks>This code is similar to that at <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1" /> except it manages a
+            page rather than a view.</remarks>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1._contentRelativeLayout">
+            <summary>
+            The content relative layout
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1" /> class.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.ConstructTypeSafePageView">
+            <summary>
+            We create an "is busy" view by default so it is always available. We insert the deriver's
+            content below this is busy view.
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.BindingContext">
+             <summary>
+             InterfaceT is cast to the base to make it type-safe.
+             NOTE: This hides the base BindingContext.
+             </summary>
+             <value>An <see cref="T:System.Object" /> that contains the properties that will be targeted by the bound properties that belong to this <see cref="T:Xamarin.Forms.BindableObject" />. This is a bindable property.</value>
+             <remarks><block subset="none" type="note">Typically, the runtime performance is better if  <see cref="P:Xamarin.Forms.BindableObject.BindingContext" /> is set after all calls to <see cref="M:Xamarin.Forms.BindableObject.SetBinding(Xamarin.Forms.BindableProperty,Xamarin.Forms.BindingBase)" /> have been made.</block>
+             <para>The following example shows how to apply a BindingContext and a Binding to a Label (inherits from BindableObject):</para>
+             <example>
+              <code lang="C#"><![CDATA[
+            var label = new Label ();
+            label.SetBinding (Label.TextProperty, "Name");
+            label.BindingContext = new {Name = "John Doe", Company = "Xamarin"};
+            Debug.WriteLine (label.Text); //prints "John Doe"
+            ]]></code>
+             </example></remarks>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.GetEventBroadcaster">
+            <summary>
+            Gets the get event broadcaster.
+            </summary>
+            <value>The get event broadcaster.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.AfterContentSet(Xamarin.Forms.RelativeLayout)">
+            <summary>
+            Afters the content set.
+            </summary>
+            <param name="layout">The layout.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.ConstructPageView">
+            <summary>
+            Requests that the deriver create the physical view.
+            </summary>
+            <returns>View.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.OnAppearing">
+            <summary>
+            Called when the page appears.
+            </summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1.OnDisappearing">
+            <summary>
+            Called when [disappearing].
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase">
+            <summary>
+            Interface ITypeSafeViewBase
+            Implements the <see cref="T:Com.MarcusTS.SharedUtils.Interfaces.IReceivePageEvents" />
+            </summary>
+            <seealso cref="T:Com.MarcusTS.SharedUtils.Interfaces.IReceivePageEvents" />
+            <remarks>WARNING: .Net does not provide an IContentView interface, so we cannot reference the view from
+            this interface without a hard cast!</remarks>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1">
+            <summary>
+            A base class for content views that protects the type safety of the binding context.
+            Implements the <see cref="T:Xamarin.Forms.ContentView" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
+            </summary>
+            <typeparam name="InterfaceT">The required interface for this view.</typeparam>
+            <seealso cref="T:Xamarin.Forms.ContentView" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
+            <remarks>This code is similar to that at <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafePageBase`1" /> except it manages a
+            view rather than a page.</remarks>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.#ctor(Com.MarcusTS.SharedUtils.Interfaces.IProvidePageEvents)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1" /> class.
+            </summary>
+            <param name="pageEventProvider">The page event provider.</param>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1._contentRelativeLayout">
+            <summary>
+            The content relative layout
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1._pageEventProvider">
+            <summary>
+            The page event provider
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.BindingContext">
+             <summary>
+             T is normally an interface -- not a class -- but there is no such constraint available.
+             </summary>
+             <value>An <see cref="T:System.Object" /> that contains the properties that will be targeted by the bound properties that belong to this <see cref="T:Xamarin.Forms.BindableObject" />. This is a bindable property.</value>
+             <remarks><block subset="none" type="note">Typically, the runtime performance is better if  <see cref="P:Xamarin.Forms.BindableObject.BindingContext" /> is set after all calls to <see cref="M:Xamarin.Forms.BindableObject.SetBinding(Xamarin.Forms.BindableProperty,Xamarin.Forms.BindingBase)" /> have been made.</block>
+             <para>The following example shows how to apply a BindingContext and a Binding to a Label (inherits from BindableObject):</para>
+             <example>
+              <code lang="C#"><![CDATA[
+            var label = new Label ();
+            label.SetBinding (Label.TextProperty, "Name");
+            label.BindingContext = new {Name = "John Doe", Company = "Xamarin"};
+            Debug.WriteLine (label.Text); //prints "John Doe"
+            ]]></code>
+             </example></remarks>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.PageEventProvider">
+            <summary>
+            Gets or sets the page event provider.
+            </summary>
+            <value>The page event provider.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.AfterContentSet(Xamarin.Forms.RelativeLayout)">
+            <summary>
+            Afters the content set.
+            </summary>
+            <param name="layout">The layout.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.ConstructView">
+            <summary>
+            Requests that the deriver create the physical view.
+            </summary>
+            <returns>View.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.OnPageLifecycleChange(Com.MarcusTS.SharedForms.Utils.PageLifecycleEvents)">
+            <summary>
+            Called when [page lifecycle change].
+            </summary>
+            <param name="pageEvent">The page event.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.AddPageProviderListeners">
+            <summary>
+            Adds the page provider listeners.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.HandlePageLifeCycleChange(System.Object,Com.MarcusTS.SharedForms.Utils.PageLifecycleMessage)">
+            <summary>
+            Handles the page life cycle change.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Pages.TypeSafeViewBase`1.RemovePageProviderListeners">
+            <summary>
+            Removes the page provider listeners.
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu">
+            <summary>
+            Interface IMainMenu
+            </summary>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu.IsMenuLoaded">
+            <summary>
+            Gets a value indicating whether this instance is menu loaded.
+            </summary>
+            <value><c>true</c> if this instance is menu loaded; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu.MenuHeight">
+            <summary>
+            Gets the height of the menu.
+            </summary>
+            <value>The height of the menu.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu">
+            <summary>
+            Class MainMenu.
+            Implements the <see cref="T:Xamarin.Forms.ContentView" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
+            </summary>
+            <seealso cref="T:Xamarin.Forms.ContentView" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.ALLOW_EVENT_TUNNELING">
+            <summary>
+            The allow event tunneling
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_GROSS_WIDTH">
+            <summary>
+            The menu gross width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_INSIDE_SINGLE_MARGIN">
+            <summary>
+            The menu inside single margin
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_ITEM_WIDTH">
+            <summary>
+            The menu item width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_OUTSIDE_MARGIN">
+            <summary>
+            The menu outside margin
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_OUTSIDE_SINGLE_MARGIN">
+            <summary>
+            The menu outside single margin
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MAIN_MENU_OPACITY">
+            <summary>
+            The main menu opacity
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_ITEM_HEIGHT">
+            <summary>
+            The menu item height
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu._stateMachine">
+            <summary>
+            The state machine
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu._isMenuLoaded">
+            <summary>
+            The is menu loaded
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.#ctor(Com.MarcusTS.SharedForms.Navigation.IStateMachineBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu" /> class.
+            </summary>
+            <param name="stateMachine">The state machine.</param>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.IsMenuLoaded">
+            <summary>
+            Gets a value indicating whether this instance is menu loaded.
+            </summary>
+            <value><c>true</c> if this instance is menu loaded; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MenuHeight">
+            <summary>
+            Gets the height of the menu.
+            </summary>
+            <value>The height of the menu.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.CreateMenuItemButton(Com.MarcusTS.SharedUtils.Interfaces.IMenuNavigationState)">
+            <summary>
+            Creates the menu item button.
+            </summary>
+            <param name="menuData">The menu data.</param>
+            <returns>Button.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.LoadMenuFromStateMachine">
+            <summary>
+            Loads the menu from state machine.
+            </summary>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.SubViews.INavAndMenuBar">
+            <summary>
+            Interface INavAndMenuBar
+            Implements the <see cref="T:System.IDisposable" />
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.INavAndMenuBar.HostingPage">
+            <summary>
+            Gets or sets the hosting page.
+            </summary>
+            <value>The hosting page.</value>
+        </member>
+        <member name="T:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar">
+            <summary>
+            Class NavAndMenuBar.
+            Implements the <see cref="T:Xamarin.Forms.ContentView" />
+            Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.SubViews.INavAndMenuBar" />
+            </summary>
+            <seealso cref="T:Xamarin.Forms.ContentView" />
+            <seealso cref="T:Com.MarcusTS.SharedForms.Views.SubViews.INavAndMenuBar" />
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.BACK_IMAGE">
+            <summary>
+            The back image
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.HAMBURGER_IMAGE">
+            <summary>
+            The hamburger image
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.HostingPageProperty">
+            <summary>
+            The hosting page property
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.OVERALL_HEIGHT">
+            <summary>
+            The overall height
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar._appStateBackButtonStack">
+            <summary>
+            The application state back button stack
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.BUTTON_HEIGHT">
+            <summary>
+            The button height
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.IOS_MARGIN">
+            <summary>
+            The ios margin
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar._stateMachine">
+            <summary>
+            The state machine
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar._backButton">
+            <summary>
+            The back button
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar._hostingPage">
+            <summary>
+            The hosting page
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar._menuButton">
+            <summary>
+            The menu button
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar._menuButtonEntered">
+            <summary>
+            The menu button entered
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar._titleLabel">
+            <summary>
+            The title label
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.#ctor(Com.MarcusTS.SharedForms.Navigation.IStateMachineBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar" /> class.
+            </summary>
+            <param name="stateMachine">The state machine.</param>
+            <remarks>Not used in the run-time app but can be called for unit testing.</remarks>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar" /> class.
+            </summary>
+            <remarks>Must be parameterless due to the XAML page control template at app.xaml. This defeats the
+            flexibility of menu unit testing, as the injected dependency is hard-coded below.</remarks>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.IsMenuLoaded">
+            <summary>
+            Gets or sets a value indicating whether this instance is menu loaded.
+            </summary>
+            <value><c>true</c> if this instance is menu loaded; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.IsNavigationAvailable">
+            <summary>
+            Gets a value indicating whether this instance is navigation available.
+            </summary>
+            <value><c>true</c> if this instance is navigation available; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.HostingPage">
+            <summary>
+            Gets or sets the hosting page.
+            </summary>
+            <value>The hosting page.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar" /> class.
+            </summary>
+        </member>
+        <member name="E:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.AskToSetBackButtonVisiblity">
+            <summary>
+            Occurs when [ask to set back button visiblity].
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.CreateNavBarButton(System.String,System.EventHandler)">
+            <summary>
+            Creates the nav bar button.
+            </summary>
+            <param name="imagePath">The image path.</param>
+            <param name="menuButtonTapped">The menu button tapped.</param>
+            <returns>Image.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.OnAppStateChanged(System.Object,Com.MarcusTS.SharedForms.Utils.AppStateChangedMessage)">
+            <summary>
+            Called when [application state changed].
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="appStateChangedMessage">The application state changed message.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.OnHostingPageChanged(Xamarin.Forms.BindableObject,System.Object,System.Object)">
+            <summary>
+            Called when [hosting page changed].
+            </summary>
+            <param name="bindable">The bindable.</param>
+            <param name="oldvalue">The oldvalue.</param>
+            <param name="newvalue">The newvalue.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.RemoveButtonTappedListeners(Xamarin.Forms.Image,System.EventHandler)">
+            <summary>
+            Removes the button tapped listeners.
+            </summary>
+            <param name="imageButton">The image button.</param>
+            <param name="buttonTapped">The button tapped.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.BackButtonTapped(System.Object,System.EventArgs)">
+            <summary>
+            Backs the button tapped.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.MenuButtonTapped(System.Object,System.EventArgs)">
+            <summary>
+            Menus the button tapped.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.OnHostingPageBindingContextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the <see cref="E:HostingPageBindingContextChanged" /> event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.OnMenuLoaded(System.Object,Com.MarcusTS.SharedForms.Utils.MenuLoadedMessage)">
+            <summary>
+            Called when [menu loaded].
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.ReleaseUnmanagedResources">
+            <summary>
+            Releases the unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.RemoveHostingPageBindingContextChangedHandler">
+            <summary>
+            Removes the hosting page binding context changed handler.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.SetBackButtonVisiblity">
+            <summary>
+            Sets the back button visiblity.
+            </summary>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.NavAndMenuBar.SetUpHostingBindingContexts">
+            <summary>
+            Sets up hosting binding contexts.
+            </summary>
+        </member>
+        <member name="T:SharedForms.Views.Controls.FlexibleStack`1">
+            <summary>
+            Class FlexibleStack.
+            Implements the <see cref="T:System.Collections.Generic.IEnumerable`1" />
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:System.Collections.Generic.IEnumerable`1" />
+        </member>
+        <member name="F:SharedForms.Views.Controls.FlexibleStack`1._items">
+            <summary>
+            The items
+            </summary>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.PopOrPeek(System.Boolean)">
+            <summary>
+            Pops the or peek.
+            </summary>
+            <param name="removeIt">if set to <c>true</c> [remove it].</param>
+            <returns>T.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.Clear">
+            <summary>
+            Clears this instance.
+            </summary>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>An enumerator that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.Peek">
+            <summary>
+            Peeks this instance.
+            </summary>
+            <returns>T.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.Pop">
+            <summary>
+            Pops this instance.
+            </summary>
+            <returns>T.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.Push(`0)">
+            <summary>
+            Pushes the specified item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:SharedForms.Views.Controls.FlexibleStack`1.RemoveIfPresent(`0,System.Predicate{`0})">
+            <summary>
+            Removes if present.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="dupTest">The dup test.</param>
+        </member>
+        <member name="T:SharedForms.Views.Controls.IImageButton">
+            <summary>
+            Interface IImageButton
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Views.Controls.IGenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+        </member>
+        <member name="P:SharedForms.Views.Controls.IImageButton.ImageFileNameRoot">
+            <summary>
+            Gets or sets the image file name root.
+            </summary>
+            <value>The image file name root.</value>
+        </member>
+        <member name="P:SharedForms.Views.Controls.IImageButton.ImageHeight">
+            <summary>
+            Gets or sets the height of the image.
+            </summary>
+            <value>The height of the image.</value>
+        </member>
+        <member name="P:SharedForms.Views.Controls.IImageButton.ImageWidth">
+            <summary>
+            Gets or sets the width of the image.
+            </summary>
+            <value>The width of the image.</value>
+        </member>
+        <member name="T:SharedForms.Views.Controls.ImageButton">
+            <summary>
+            Class ImageButton.
+            Implements the <see cref="!:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+            Implements the <see cref="T:SharedForms.Views.Controls.IImageButton" />
+            </summary>
+            <seealso cref="!:Com.MarcusTS.SharedForms.Views.Controls.GenericViewButtonBase&lt;Xamarin.Forms.Image&gt;" />
+            <seealso cref="T:SharedForms.Views.Controls.IImageButton" />
+        </member>
+        <member name="M:SharedForms.Views.Controls.ImageButton.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharedForms.Views.Controls.ImageButton" /> class.
+            </summary>
+        </member>
+        <member name="M:SharedForms.Views.Controls.ImageButton.CreateImageButtonBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{SharedForms.Views.Controls.ImageButton,``0,``0})">
+            <summary>
+            Creates the image button bindable property.
+            </summary>
+            <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+            <param name="localPropName">Name of the local property.</param>
+            <param name="defaultVal">The default value.</param>
+            <param name="bindingMode">The binding mode.</param>
+            <param name="callbackAction">The callback action.</param>
+            <returns>BindableProperty.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.ImageButton.SetStyle">
+            <summary>
+            Sets the style.
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton.ImageFileNameRootProperty">
+            <summary>
+            The image file name root property
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton.ImageHeightProperty">
+            <summary>
+            The image height property
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton.ImageWidthProperty">
+            <summary>
+            The image width property
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton.DISABLED_SUFFIX">
+            <summary>
+            The disabled suffix
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton.PNG_SUFFIX">
+            <summary>
+            The PNG suffix
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton.SELECTED_SUFFIX">
+            <summary>
+            The selected suffix
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton._imageFileNameRoot">
+            <summary>
+            The image file name root
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton._imageHeight">
+            <summary>
+            The image height
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton._imageWidth">
+            <summary>
+            The image width
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton._lastImageFileName">
+            <summary>
+            The last image file name
+            </summary>
+        </member>
+        <member name="F:SharedForms.Views.Controls.ImageButton._setStyleEntered">
+            <summary>
+            The set style entered
+            </summary>
+        </member>
+        <member name="P:SharedForms.Views.Controls.ImageButton.ImageFileNameRoot">
+            <summary>
+            Gets or sets the image file name root.
+            </summary>
+            <value>The image file name root.</value>
+        </member>
+        <member name="P:SharedForms.Views.Controls.ImageButton.ImageHeight">
+            <summary>
+            Gets or sets the height of the image.
+            </summary>
+            <value>The height of the image.</value>
+        </member>
+        <member name="P:SharedForms.Views.Controls.ImageButton.ImageWidth">
+            <summary>
+            Gets or sets the width of the image.
+            </summary>
+            <value>The width of the image.</value>
+        </member>
+        <member name="M:SharedForms.Views.Controls.ImageButton.CallRecreateImageSafely">
+            <summary>
+            Calls the recreate image safely.
+            </summary>
+        </member>
+        <member name="M:SharedForms.Views.Controls.ImageButton.RecreateImage">
+            <summary>
+            Recreates the image.
+            </summary>
+        </member>
+        <member name="T:SharedForms.Views.Controls.IThreadSafeAccessor">
+            <summary>
+            Interface IThreadSafeAccessor
+            </summary>
+        </member>
+        <member name="M:SharedForms.Views.Controls.IThreadSafeAccessor.ReadStoredValue">
+            <summary>
+            Reads the stored value.
+            </summary>
+            <returns>System.Object.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.IThreadSafeAccessor.WriteStoredValue(System.Object)">
+            <summary>
+            Writes the stored value.
+            </summary>
+            <param name="valueToStore">The value to store.</param>
+        </member>
+        <member name="T:SharedForms.Views.Controls.ThreadSafeAccessor">
+            <summary>
+            Class ThreadSafeAccessor.
+            Implements the <see cref="T:SharedForms.Views.Controls.IThreadSafeAccessor" />
+            </summary>
+            <seealso cref="T:SharedForms.Views.Controls.IThreadSafeAccessor" />
+        </member>
+        <member name="F:SharedForms.Views.Controls.ThreadSafeAccessor._storedValue">
+            <summary>
+            The stored value
+            </summary>
+        </member>
+        <member name="M:SharedForms.Views.Controls.ThreadSafeAccessor.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharedForms.Views.Controls.ThreadSafeAccessor" /> class.
+            </summary>
+            <param name="storedValue">The stored value.</param>
+        </member>
+        <member name="M:SharedForms.Views.Controls.ThreadSafeAccessor.ReadStoredValue">
+            <summary>
+            Reads the stored value.
+            </summary>
+            <returns>System.Object.</returns>
+        </member>
+        <member name="M:SharedForms.Views.Controls.ThreadSafeAccessor.WriteStoredValue(System.Object)">
+            <summary>
+            Writes the stored value.
+            </summary>
+            <param name="valueToStore">The value to store.</param>
+        </member>
+    </members>
+</doc>
