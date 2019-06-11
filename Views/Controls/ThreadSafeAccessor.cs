@@ -1,11 +1,6 @@
 ﻿// *********************************************************************************
-// Assembly         : Com.MarcusTS.SharedForms
-// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
-// Created          : 12-23-2018
-// Last Modified On : 12-23-2018
-//
-// <copyright file="ThreadSafeAccessor.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2018 Marcus Technical Services, Inc.
+// <copyright file=ThreadSafeAccessor.cs company="Marcus Technical Services, Inc.">
+//     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
 // MIT License
@@ -29,52 +24,44 @@
 // SOFTWARE.
 // *********************************************************************************
 
-namespace SharedForms.Views.Controls
+namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using System.Threading;
 
    /// <summary>
-   /// Interface IThreadSafeAccessor
+   ///    Interface IThreadSafeAccessor
    /// </summary>
    public interface IThreadSafeAccessor
    {
-      #region Public Methods
-
       /// <summary>
-      /// Reads the stored value.
+      ///    Reads the stored value.
       /// </summary>
       /// <returns>System.Object.</returns>
       object ReadStoredValue();
 
       /// <summary>
-      /// Writes the stored value.
+      ///    Writes the stored value.
       /// </summary>
       /// <param name="valueToStore">The value to store.</param>
       void WriteStoredValue(object valueToStore);
-
-      #endregion Public Methods
    }
 
    /// <summary>
-   /// Class ThreadSafeAccessor.
-   /// Implements the <see cref="SharedForms.Views.Controls.IThreadSafeAccessor" />
+   ///    Class ThreadSafeAccessor.
+   ///    Implements the <see cref="SharedForms.Views.Controls.IThreadSafeAccessor" />
+   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IThreadSafeAccessor" />
    /// </summary>
+   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IThreadSafeAccessor" />
    /// <seealso cref="SharedForms.Views.Controls.IThreadSafeAccessor" />
    public class ThreadSafeAccessor : IThreadSafeAccessor
    {
-      #region Private Fields
-
       /// <summary>
-      /// The stored value
+      ///    The stored value
       /// </summary>
       private object _storedValue;
 
-      #endregion Private Fields
-
-      #region Public Constructors
-
       /// <summary>
-      /// Initializes a new instance of the <see cref="ThreadSafeAccessor" /> class.
+      ///    Initializes a new instance of the <see cref="ThreadSafeAccessor" /> class.
       /// </summary>
       /// <param name="storedValue">The stored value.</param>
       public ThreadSafeAccessor(object storedValue = null)
@@ -85,12 +72,8 @@ namespace SharedForms.Views.Controls
          }
       }
 
-      #endregion Public Constructors
-
-      #region Public Methods
-
       /// <summary>
-      /// Reads the stored value.
+      ///    Reads the stored value.
       /// </summary>
       /// <returns>System.Object.</returns>
       public object ReadStoredValue()
@@ -99,14 +82,12 @@ namespace SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Writes the stored value.
+      ///    Writes the stored value.
       /// </summary>
       /// <param name="valueToStore">The value to store.</param>
       public void WriteStoredValue(object valueToStore)
       {
          Interlocked.Exchange(ref _storedValue, valueToStore);
       }
-
-      #endregion Public Methods
    }
 }

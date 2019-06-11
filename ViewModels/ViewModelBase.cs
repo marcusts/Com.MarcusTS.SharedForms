@@ -1,11 +1,6 @@
 ﻿// *********************************************************************************
-// Assembly         : Com.MarcusTS.SharedForms
-// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
-// Created          : 12-23-2018
-// Last Modified On : 12-23-2018
-//
-// <copyright file="ViewModelBase.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2018 Marcus Technical Services, Inc.
+// <copyright file=ViewModelBase.cs company="Marcus Technical Services, Inc.">
+//     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
 // MIT License
@@ -31,17 +26,76 @@
 
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
-   /// <summary>
-   /// Interface IViewModelBase
-   /// </summary>
-   public interface IViewModelBase
-   { }
+   using Com.MarcusTS.SharedForms.Annotations;
+   using Com.MarcusTS.SharedForms.Common.Interfaces;
+   using Com.MarcusTS.SharedUtils.Utils;
+   using System.ComponentModel;
+   using System.Runtime.CompilerServices;
 
    /// <summary>
-   /// The base class for all view models
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+   ///    Interface IViewModelBase
+   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.IAmBusy" />
+   ///    Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
+   /// </summary>
+   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.IAmBusy" />
+   /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
+   public interface IViewModelBase : IAmBusy, INotifyPropertyChanged
+   {
+   }
+
+   /// <summary>
+   ///    The base class for all view models
+   ///    Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
    /// </summary>
    /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
    public abstract class ViewModelBase : IViewModelBase
-   { }
+   {
+      /// <summary>
+      ///    The is busy
+      /// </summary>
+      private bool _isBusy;
+
+      /// <summary>
+      ///    Occurs when [is busy changed].
+      /// </summary>
+      public event EventUtils.GenericDelegate<IAmBusy> IsBusyChanged;
+
+      /// <summary>
+      ///    Occurs when [property changed].
+      /// </summary>
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      /// <summary>
+      ///    Gets or sets a value indicating whether this instance is busy.
+      /// </summary>
+      /// <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
+      public bool IsBusy
+      {
+         get => _isBusy;
+         set
+         {
+            if (_isBusy != value)
+            {
+               _isBusy = value;
+               IsBusyChanged?.Invoke(this);
+            }
+         }
+      }
+
+      /// <summary>
+      ///    Gets the is busy message.
+      /// </summary>
+      /// <value>The is busy message.</value>
+      public string IsBusyMessage { get; }
+
+      /// <summary>
+      ///    Called when [property changed].
+      /// </summary>
+      /// <param name="propertyName">Name of the property.</param>
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+   }
 }

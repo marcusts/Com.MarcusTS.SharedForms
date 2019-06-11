@@ -1,11 +1,6 @@
 ﻿// *********************************************************************************
-// Assembly         : Com.MarcusTS.SharedForms
-// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
-// Created          : 12-23-2018
-// Last Modified On : 12-23-2018
-//
-// <copyright file="FlexibleStack.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2018 Marcus Technical Services, Inc.
+// <copyright file=FlexibleStack.cs company="Marcus Technical Services, Inc.">
+//     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
 // MIT License
@@ -29,69 +24,28 @@
 // SOFTWARE.
 // *********************************************************************************
 
-namespace SharedForms.Views.Controls
+namespace Com.MarcusTS.SharedForms.Views.Controls
 {
+   using Com.MarcusTS.SharedUtils.Utils;
    using System;
    using System.Collections;
    using System.Collections.Generic;
-   using Com.MarcusTS.SharedUtils.Utils;
 
    /// <summary>
-   /// Class FlexibleStack.
-   /// Implements the <see cref="System.Collections.Generic.IEnumerable{T}" />
+   ///    Class FlexibleStack.
+   ///    Implements the <see cref="System.Collections.Generic.IEnumerable{T}" />
    /// </summary>
    /// <typeparam name="T"></typeparam>
    /// <seealso cref="System.Collections.Generic.IEnumerable{T}" />
    public class FlexibleStack<T> : IEnumerable<T>
    {
-      #region Private Fields
-
       /// <summary>
-      /// The items
+      ///    The items
       /// </summary>
       private readonly IList<T> _items = new List<T>();
 
-      #endregion Private Fields
-
-      #region Private Methods
-
       /// <summary>
-      /// Pops the or peek.
-      /// </summary>
-      /// <param name="removeIt">if set to <c>true</c> [remove it].</param>
-      /// <returns>T.</returns>
-      private T PopOrPeek(bool removeIt)
-      {
-         if (_items.Count > 0)
-         {
-            var temp = _items[_items.Count - 1];
-
-            if (removeIt)
-            {
-               _items.RemoveAt(_items.Count - 1);
-            }
-
-            return temp;
-         }
-
-         // FAIL CASE
-         return default(T);
-      }
-
-      #endregion Private Methods
-
-      #region Public Methods
-
-      /// <summary>
-      /// Clears this instance.
-      /// </summary>
-      public void Clear()
-      {
-         _items.Clear();
-      }
-
-      /// <summary>
-      /// Returns an enumerator that iterates through the collection.
+      ///    Returns an enumerator that iterates through the collection.
       /// </summary>
       /// <returns>An enumerator that can be used to iterate through the collection.</returns>
       public IEnumerator<T> GetEnumerator()
@@ -100,16 +54,27 @@ namespace SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Returns an enumerator that iterates through a collection.
+      ///    Returns an enumerator that iterates through a collection.
       /// </summary>
-      /// <returns>An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate through the collection.</returns>
+      /// <returns>
+      ///    An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate through the
+      ///    collection.
+      /// </returns>
       IEnumerator IEnumerable.GetEnumerator()
       {
          return GetEnumerator();
       }
 
       /// <summary>
-      /// Peeks this instance.
+      ///    Clears this instance.
+      /// </summary>
+      public void Clear()
+      {
+         _items.Clear();
+      }
+
+      /// <summary>
+      ///    Peeks this instance.
       /// </summary>
       /// <returns>T.</returns>
       public T Peek()
@@ -118,7 +83,7 @@ namespace SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Pops this instance.
+      ///    Pops this instance.
       /// </summary>
       /// <returns>T.</returns>
       public T Pop()
@@ -127,7 +92,7 @@ namespace SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Pushes the specified item.
+      ///    Pushes the specified item.
       /// </summary>
       /// <param name="item">The item.</param>
       public void Push(T item)
@@ -136,12 +101,15 @@ namespace SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Removes if present.
+      ///    Removes if present.
       /// </summary>
       /// <param name="item">The item.</param>
       /// <param name="dupTest">The dup test.</param>
-      public void RemoveIfPresent(T            item,
-                                  Predicate<T> dupTest)
+      public void RemoveIfPresent
+      (
+         T            item,
+         Predicate<T> dupTest
+      )
       {
          if (_items.IsEmpty() || dupTest == null)
          {
@@ -164,10 +132,32 @@ namespace SharedForms.Views.Controls
             {
                itemIdx++;
             }
-         } while (itemIdx < _items.Count);
+         }
+         while (itemIdx < _items.Count);
       }
 
-      #endregion Public Methods
+      /// <summary>
+      ///    Pops the or peek.
+      /// </summary>
+      /// <param name="removeIt">if set to <c>true</c> [remove it].</param>
+      /// <returns>T.</returns>
+      private T PopOrPeek(bool removeIt)
+      {
+         if (_items.Count > 0)
+         {
+            var temp = _items[_items.Count - 1];
+
+            if (removeIt)
+            {
+               _items.RemoveAt(_items.Count - 1);
+            }
+
+            return temp;
+         }
+
+         // FAIL CASE
+         return default;
+      }
 
       //public void RemoveIfPresent(T item)
       //{

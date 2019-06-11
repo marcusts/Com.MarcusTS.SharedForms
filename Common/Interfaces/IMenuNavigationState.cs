@@ -1,5 +1,5 @@
 ﻿// *********************************************************************************
-// <copyright file=ShapeType.cs company="Marcus Technical Services, Inc.">
+// <copyright file=IMenuNavigationState.cs company="Marcus Technical Services, Inc.">
 //     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
@@ -24,57 +24,35 @@
 // SOFTWARE.
 // *********************************************************************************
 
-namespace Com.MarcusTS.SharedForms.Views.Controls
+namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
    /// <summary>
-   ///    Represents pre-defined shape types
+   ///    A view model base for pages.
    /// </summary>
-   public enum ShapeType
+   public interface IMenuNavigationState
    {
       /// <summary>
-      ///    A 4-sides shape (square/rectangle) - can have rounded corners
+      ///    The app state to navigate to
       /// </summary>
-      Box,
+      /// <value>The state of the application.</value>
+      string AppState { get; }
 
       /// <summary>
-      ///    A circle shape with a radius equals to the minimum value between height &amp; width
+      ///    Gets the menu order.
       /// </summary>
-      Circle,
+      /// <value>The menu order.</value>
+      int MenuOrder { get; }
 
       /// <summary>
-      ///    A star shape for which you can define the number of points and the radius ratio
+      ///    The menu title
       /// </summary>
-      Star,
+      /// <value>The menu title.</value>
+      string MenuTitle { get; }
 
       /// <summary>
-      ///    A triangle shape - the appearance depends on the height/width ratio
+      ///    The page or view title (default: centered on the page)
       /// </summary>
-      Triangle,
-
-      /// <summary>
-      ///    An oval shape - the appearance depends on the height/width ratio
-      /// </summary>
-      Oval,
-
-      /// <summary>
-      ///    A diamond shape - 4-sides - the same you can find in a card deck - the appearance depends on the height/width ratio
-      /// </summary>
-      Diamond,
-
-      /// <summary>
-      ///    A heart shape - the appearance depends on the minimum value between height &amp; width
-      /// </summary>
-      Heart,
-
-      /// <summary>
-      ///    A progress circle shape acting like a progress bar with a radius equals to the minimum value between height &amp;
-      ///    width
-      /// </summary>
-      ProgressCircle,
-
-      /// <summary>
-      ///    A custom path shape defined by a list of points
-      /// </summary>
-      Path
+      /// <value>The view title.</value>
+      string ViewTitle { get; }
    }
 }

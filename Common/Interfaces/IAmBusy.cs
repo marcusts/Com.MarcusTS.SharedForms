@@ -1,5 +1,5 @@
 ﻿// *********************************************************************************
-// <copyright file=ShapeType.cs company="Marcus Technical Services, Inc.">
+// <copyright file=IAmBusy.cs company="Marcus Technical Services, Inc.">
 //     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
@@ -24,57 +24,30 @@
 // SOFTWARE.
 // *********************************************************************************
 
-namespace Com.MarcusTS.SharedForms.Views.Controls
+namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
+   using Com.MarcusTS.SharedUtils.Utils;
+
    /// <summary>
-   ///    Represents pre-defined shape types
+   ///    The IsBusy interface.
    /// </summary>
-   public enum ShapeType
+   public interface IAmBusy
    {
       /// <summary>
-      ///    A 4-sides shape (square/rectangle) - can have rounded corners
+      ///    Gets a value indicating whether is busy.
       /// </summary>
-      Box,
+      /// <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
+      bool IsBusy { get; }
 
       /// <summary>
-      ///    A circle shape with a radius equals to the minimum value between height &amp; width
+      ///    Gets the is busy message.
       /// </summary>
-      Circle,
+      /// <value>The is busy message.</value>
+      string IsBusyMessage { get; }
 
       /// <summary>
-      ///    A star shape for which you can define the number of points and the radius ratio
+      ///    Occurs when [is busy changed].
       /// </summary>
-      Star,
-
-      /// <summary>
-      ///    A triangle shape - the appearance depends on the height/width ratio
-      /// </summary>
-      Triangle,
-
-      /// <summary>
-      ///    An oval shape - the appearance depends on the height/width ratio
-      /// </summary>
-      Oval,
-
-      /// <summary>
-      ///    A diamond shape - 4-sides - the same you can find in a card deck - the appearance depends on the height/width ratio
-      /// </summary>
-      Diamond,
-
-      /// <summary>
-      ///    A heart shape - the appearance depends on the minimum value between height &amp; width
-      /// </summary>
-      Heart,
-
-      /// <summary>
-      ///    A progress circle shape acting like a progress bar with a radius equals to the minimum value between height &amp;
-      ///    width
-      /// </summary>
-      ProgressCircle,
-
-      /// <summary>
-      ///    A custom path shape defined by a list of points
-      /// </summary>
-      Path
+      event EventUtils.GenericDelegate<IAmBusy> IsBusyChanged;
    }
 }

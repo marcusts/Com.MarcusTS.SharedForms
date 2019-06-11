@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Com.MarcusTS.SharedForms</name>
+  </assembly>
+  <members>
+    <member name="" />
+    <member name="N:Com.MarcusTS.SharedForms.Common.Utils" />
+    <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetSimpleLabel(System.String,Color,TextAlignment,NamedSize,System.Double,FontAttributes,System.Double,System.Double,System.String,System.Object,LineBreakMode)"> <summary>
+    Gets the simple label.
+ </summary>
+ <param name="labelText">The label text.</param>
+ <param name="textColor">Color of the text.</param>
+ <param name="textAlignment">The text alignment.</param>
+ <param name="fontNamedSize">Size of the font named.</param>
+ <param name="fontSize">Size of the font.</param>
+ <param name="fontAttributes">The font attributes.</param>
+ <param name="width">The width.</param>
+ <param name="height">The height.</param>
+ <param name="labelBindingPropertyName">Name of the label binding property.</param>
+ <param name="labelBindingSource">The label binding source.</param>
+ <param name="breakMode">The break mode.</param>
+ <returns>Label.</returns></member>
+  </members>
+</doc>

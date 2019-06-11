@@ -1,11 +1,6 @@
 ﻿// *********************************************************************************
-// Assembly         : Com.MarcusTS.SharedForms
-// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
-// Created          : 12-23-2018
-// Last Modified On : 12-23-2018
-//
-// <copyright file="TypeSafeViewBase.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2018 Marcus Technical Services, Inc.
+// <copyright file=TypeSafeViewBase.cs company="Marcus Technical Services, Inc.">
+//     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
 // MIT License
@@ -31,43 +26,50 @@
 
 namespace Com.MarcusTS.SharedForms.Views.Pages
 {
-   using SharedUtils.Interfaces;
-   using Utils;
+   using Com.MarcusTS.SharedForms.Common.Interfaces;
+   using Com.MarcusTS.SharedForms.Common.Utils;
    using Xamarin.Forms;
 
    /// <summary>
-   /// Interface ITypeSafeViewBase
-   /// Implements the <see cref="Com.MarcusTS.SharedUtils.Interfaces.IReceivePageEvents" />
+   ///    Interface ITypeSafeViewBase
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedUtils.Interfaces.IReceivePageEvents" />
-   /// <remarks>WARNING: .Net does not provide an IContentView interface, so we cannot reference the view from
-   /// this interface without a hard cast!</remarks>
-   public interface ITypeSafeViewBase : IReceivePageEvents
-   { }
+   public interface ITypeSafeViewBase
+   {
+   }
 
    /// <summary>
-   /// A base class for content views that protects the type safety of the binding context.
-   /// Implements the <see cref="Xamarin.Forms.ContentView" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
+   ///    A base class for content views that protects the type safety of the binding context.
+   ///    Implements the <see cref="Xamarin.Forms.ContentView" />
+   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
    /// </summary>
    /// <typeparam name="InterfaceT">The required interface for this view.</typeparam>
    /// <seealso cref="Xamarin.Forms.ContentView" />
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
-   /// <remarks>This code is similar to that at <see cref="TypeSafePageBase{InterfaceT}" /> except it manages a
-   /// view rather than a page.</remarks>
+   /// <remarks>
+   ///    This code is similar to that at <see cref="TypeSafePageBase{InterfaceT}" /> except it manages a
+   ///    view rather than a page.
+   /// </remarks>
    public abstract class TypeSafeViewBase<InterfaceT> : ContentView, ITypeSafeViewBase
       where InterfaceT : class
    {
-      #region Protected Constructors
+      /// <summary>
+      ///    The content relative layout
+      /// </summary>
+      private readonly RelativeLayout _contentRelativeLayout = FormsUtils.GetExpandingRelativeLayout();
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="TypeSafeViewBase{InterfaceT}" /> class.
+      ///    The page event provider
+      /// </summary>
+      private readonly IProvidePageEvents _pageEventProvider;
+
+      /// <summary>
+      ///    Initializes a new instance of the <see cref="TypeSafeViewBase{InterfaceT}" /> class.
       /// </summary>
       /// <param name="pageEventProvider">The page event provider.</param>
       protected TypeSafeViewBase(IProvidePageEvents pageEventProvider = null)
       {
-         PageEventProvider = pageEventProvider;
-         BackgroundColor   = Color.Transparent;
+         // PageEventProvider = pageEventProvider;
+         BackgroundColor = Color.Transparent;
 
          // Resharper doesn't like the derived methods in the constructor, but there's not much we can do about it.
          // We could move this to the page events and catch the page OnAppearing, but if our page event provider is null, that will not occur.
@@ -77,44 +79,40 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
 #pragma warning restore CC0067 // Virtual Method Called On Constructor
       }
 
-      #endregion Protected Constructors
-
-      #region Private Variables
-
       /// <summary>
-      /// The content relative layout
+      ///    T is normally an interface -- not a class -- but there is no such constraint available.
       /// </summary>
-      private readonly RelativeLayout _contentRelativeLayout = FormsUtils.GetExpandingRelativeLayout();
-
-      /// <summary>
-      /// The page event provider
-      /// </summary>
-      private IProvidePageEvents _pageEventProvider;
-
-      #endregion Private Variables
-
-      #region Public Properties
-
-      /// <summary>
-      /// T is normally an interface -- not a class -- but there is no such constraint available.
-      /// </summary>
-      /// <value>An <see cref="T:System.Object" /> that contains the properties that will be targeted by the bound properties that belong to this <see cref="T:Xamarin.Forms.BindableObject" />. This is a bindable property.</value>
-      /// <remarks><block subset="none" type="note">Typically, the runtime performance is better if  <see cref="P:Xamarin.Forms.BindableObject.BindingContext" /> is set after all calls to <see cref="M:Xamarin.Forms.BindableObject.SetBinding(Xamarin.Forms.BindableProperty,Xamarin.Forms.BindingBase)" /> have been made.</block>
-      /// <para>The following example shows how to apply a BindingContext and a Binding to a Label (inherits from BindableObject):</para>
-      /// <example>
-      ///  <code lang="C#"><![CDATA[
-      ///var label = new Label ();
-      ///label.SetBinding (Label.TextProperty, "Name");
-      ///label.BindingContext = new {Name = "John Doe", Company = "Xamarin"};
-      ///Debug.WriteLine (label.Text); //prints "John Doe"
-      ///]]></code>
-      /// </example></remarks>
+      /// <value>
+      ///    An <see cref="T:System.Object" /> that contains the properties that will be targeted by the bound properties
+      ///    that belong to this <see cref="T:Xamarin.Forms.BindableObject" />. This is a bindable property.
+      /// </value>
+      /// <remarks>
+      ///    <block subset="none" type="note">
+      ///       Typically, the runtime performance is better if
+      ///       <see cref="P:Xamarin.Forms.BindableObject.BindingContext" /> is set after all calls to
+      ///       <see cref="M:Xamarin.Forms.BindableObject.SetBinding(Xamarin.Forms.BindableProperty,Xamarin.Forms.BindingBase)" />
+      ///       have been made.
+      ///    </block>
+      ///    <para>
+      ///       The following example shows how to apply a BindingContext and a Binding to a Label (inherits from
+      ///       BindableObject):
+      ///    </para>
+      ///    <example>
+      ///       <code lang="csharp lang-csharp"><![CDATA[
+      /// var label = new Label ();
+      /// label.SetBinding (Label.TextProperty, "Name");
+      /// label.BindingContext = new {Name = "John Doe", Company = "Xamarin"};
+      /// Debug.WriteLine (label.Text); //prints "John Doe"
+      /// ]]></code>
+      ///    </example>
+      /// </remarks>
       public new InterfaceT BindingContext
       {
          get => base.BindingContext as InterfaceT;
          set => base.BindingContext = value;
       }
 
+      /*
       /// <summary>
       /// Gets or sets the page event provider.
       /// </summary>
@@ -136,20 +134,18 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
             }
          }
       }
-
-      #endregion Public Properties
-
-      #region Protected Methods
+      */
 
       /// <summary>
-      /// Afters the content set.
+      ///    Afters the content set.
       /// </summary>
       /// <param name="layout">The layout.</param>
       protected virtual void AfterContentSet(RelativeLayout layout)
-      { }
+      {
+      }
 
       /// <summary>
-      /// Requests that the deriver create the physical view.
+      ///    Requests that the deriver create the physical view.
       /// </summary>
       /// <returns>View.</returns>
       protected virtual View ConstructView()
@@ -161,13 +157,10 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
       /// Called when [page lifecycle change].
       /// </summary>
       /// <param name="pageEvent">The page event.</param>
-      protected virtual void OnPageLifecycleChange(PageLifecycleEvents pageEvent)
-      { }
+      //protected virtual void OnPageLifecycleChange(PageLifecycleEventsEnum pageEvent)
+      //{ }
 
-      #endregion Protected Methods
-
-      #region Private Methods
-
+      /*
       /// <summary>
       /// Adds the page provider listeners.
       /// </summary>
@@ -209,7 +202,6 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
       {
          FormsMessengerUtils.Unsubscribe<PageLifecycleMessage>(this);
       }
-
-      #endregion Private Methods
+      */
    }
 }

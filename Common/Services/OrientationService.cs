@@ -1,5 +1,5 @@
 ﻿// *********************************************************************************
-// <copyright file=ShapeType.cs company="Marcus Technical Services, Inc.">
+// <copyright file=OrientationService.cs company="Marcus Technical Services, Inc.">
 //     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
@@ -24,57 +24,51 @@
 // SOFTWARE.
 // *********************************************************************************
 
-namespace Com.MarcusTS.SharedForms.Views.Controls
+namespace Com.MarcusTS.SharedForms.Common.Services
 {
+   using Com.MarcusTS.SharedForms.Common.Notifications;
+
    /// <summary>
-   ///    Represents pre-defined shape types
+   ///    Class OrientationService.
    /// </summary>
-   public enum ShapeType
+   public static class OrientationService
    {
       /// <summary>
-      ///    A 4-sides shape (square/rectangle) - can have rounded corners
+      ///    Gets or sets a value indicating whether this instance is landscape.
       /// </summary>
-      Box,
+      /// <value><c>true</c> if this instance is landscape; otherwise, <c>false</c>.</value>
+      public static bool IsLandscape { get; set; }
 
       /// <summary>
-      ///    A circle shape with a radius equals to the minimum value between height &amp; width
+      ///    Gets or sets the height of the screen.
       /// </summary>
-      Circle,
+      /// <value>The height of the screen.</value>
+      public static float ScreenHeight { get; set; }
 
       /// <summary>
-      ///    A star shape for which you can define the number of points and the radius ratio
+      ///    Gets or sets the width of the screen.
       /// </summary>
-      Star,
+      /// <value>The width of the screen.</value>
+      public static float ScreenWidth { get; set; }
 
       /// <summary>
-      ///    A triangle shape - the appearance depends on the height/width ratio
+      ///    Handles the device size changed.
       /// </summary>
-      Triangle,
+      /// <param name="sender">The sender.</param>
+      /// <param name="message">The message.</param>
+      public static void HandleDeviceSizeChanged
+      (
+         object                        sender,
+         LocalDeviceSizeChangedMessage message
+      )
+      {
+         // Need the initial orientation
+         ScreenWidth  = message.Payload.ScreenWidth;
+         ScreenHeight = message.Payload.ScreenHeight;
+         IsLandscape  = ScreenWidth > ScreenHeight;
 
-      /// <summary>
-      ///    An oval shape - the appearance depends on the height/width ratio
-      /// </summary>
-      Oval,
-
-      /// <summary>
-      ///    A diamond shape - 4-sides - the same you can find in a card deck - the appearance depends on the height/width ratio
-      /// </summary>
-      Diamond,
-
-      /// <summary>
-      ///    A heart shape - the appearance depends on the minimum value between height &amp; width
-      /// </summary>
-      Heart,
-
-      /// <summary>
-      ///    A progress circle shape acting like a progress bar with a radius equals to the minimum value between height &amp;
-      ///    width
-      /// </summary>
-      ProgressCircle,
-
-      /// <summary>
-      ///    A custom path shape defined by a list of points
-      /// </summary>
-      Path
+         // Notify the app classes about this change.
+         FormsMessengerUtils.Send(new BroadcastDeviceSizeChangedMessage(ScreenWidth, ScreenHeight));
+      }
    }
 }

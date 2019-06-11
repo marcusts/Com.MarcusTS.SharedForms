@@ -1,5 +1,5 @@
 ﻿// *********************************************************************************
-// <copyright file=ShapeType.cs company="Marcus Technical Services, Inc.">
+// <copyright file=ColorUtils.cs company="Marcus Technical Services, Inc.">
 //     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
@@ -24,57 +24,63 @@
 // SOFTWARE.
 // *********************************************************************************
 
-namespace Com.MarcusTS.SharedForms.Views.Controls
+namespace Com.MarcusTS.SharedForms.Common.Utils
 {
+   using Xamarin.Forms;
+
    /// <summary>
-   ///    Represents pre-defined shape types
+   ///    Class ColorUtils.
    /// </summary>
-   public enum ShapeType
+   public static class ColorUtils
    {
       /// <summary>
-      ///    A 4-sides shape (square/rectangle) - can have rounded corners
+      ///    The deep gray blue
       /// </summary>
-      Box,
+      public static readonly Color DEEP_GRAY_BLUE = Color.FromRgb(25, 25, 75);
 
       /// <summary>
-      ///    A circle shape with a radius equals to the minimum value between height &amp; width
+      ///    The deep gray green
       /// </summary>
-      Circle,
+      public static readonly Color DEEP_GRAY_GREEN = Color.FromRgb(25, 75, 25);
 
       /// <summary>
-      ///    A star shape for which you can define the number of points and the radius ratio
+      ///    The deep gray red
       /// </summary>
-      Star,
+      public static readonly Color DEEP_GRAY_RED = Color.FromRgb(75, 25, 25);
 
       /// <summary>
-      ///    A triangle shape - the appearance depends on the height/width ratio
+      ///    The header and toolbar color
       /// </summary>
-      Triangle,
+      public static readonly Color HEADER_AND_TOOLBAR_COLOR = Color.FromRgb(195, 225, 255);
 
       /// <summary>
-      ///    An oval shape - the appearance depends on the height/width ratio
+      ///    The header and toolbar color deep
       /// </summary>
-      Oval,
+      public static readonly Color HEADER_AND_TOOLBAR_COLOR_DEEP = Color.FromRgb(85, 100, 175);
 
       /// <summary>
-      ///    A diamond shape - 4-sides - the same you can find in a card deck - the appearance depends on the height/width ratio
+      ///    The header and toolbar color pale
       /// </summary>
-      Diamond,
+      public static readonly Color HEADER_AND_TOOLBAR_COLOR_PALE = Color.FromRgb(220, 245, 255);
 
       /// <summary>
-      ///    A heart shape - the appearance depends on the minimum value between height &amp; width
+      ///    The illegal entry color
       /// </summary>
-      Heart,
+      public static readonly Color ILLEGAL_ENTRY_COLOR = Color.FromRgba(255, 182, 193, 48);
 
       /// <summary>
-      ///    A progress circle shape acting like a progress bar with a radius equals to the minimum value between height &amp;
-      ///    width
+      ///    The main page background color
       /// </summary>
-      ProgressCircle,
+      public static readonly Color MAIN_PAGE_BACKGROUND_COLOR = Color.FromRgb(240, 240, 240);
 
       /// <summary>
-      ///    A custom path shape defined by a list of points
+      ///    The pale gray
       /// </summary>
-      Path
+      public static readonly Color PALE_GRAY = Color.FromRgb(240, 240, 240);
+
+      /// <summary>
+      ///    The side menu color
+      /// </summary>
+      public static readonly Color SIDE_MENU_COLOR = Color.FromRgba(40, 48, 56, 128);
    }
 }

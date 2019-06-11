@@ -1,11 +1,6 @@
 // *********************************************************************************
-// Assembly         : Com.MarcusTS.SharedForms
-// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
-// Created          : 12-23-2018
-// Last Modified On : 12-23-2018
-//
-// <copyright file="MainMenu.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2018 Marcus Technical Services, Inc.
+// <copyright file=MainMenu.cs company="Marcus Technical Services, Inc.">
+//     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
 // MIT License
@@ -31,88 +26,94 @@
 
 namespace Com.MarcusTS.SharedForms.Views.SubViews
 {
-   using Navigation;
-   using SharedUtils.Interfaces;
-   using Utils;
+   using Com.MarcusTS.SharedForms.Common.Interfaces;
+   using Com.MarcusTS.SharedForms.Common.Navigation;
+   using Com.MarcusTS.SharedForms.Common.Notifications;
+   using Com.MarcusTS.SharedForms.Common.Utils;
    using Xamarin.Forms;
 
    /// <summary>
-   /// Interface IMainMenu
+   ///    Interface IMainMenu
    /// </summary>
    public interface IMainMenu
    {
       /// <summary>
-      /// Gets a value indicating whether this instance is menu loaded.
+      ///    Gets a value indicating whether this instance is menu loaded.
       /// </summary>
       /// <value><c>true</c> if this instance is menu loaded; otherwise, <c>false</c>.</value>
       bool IsMenuLoaded { get; }
 
       /// <summary>
-      /// Gets the height of the menu.
+      ///    Gets the height of the menu.
       /// </summary>
       /// <value>The height of the menu.</value>
       double MenuHeight { get; }
    }
 
    /// <summary>
-   /// Class MainMenu.
-   /// Implements the <see cref="Xamarin.Forms.ContentView" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
+   ///    Class MainMenu.
+   ///    Implements the <see cref="Xamarin.Forms.ContentView" />
+   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.ContentView" />
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
    public class MainMenu : ContentView, IMainMenu
    {
       /// <summary>
-      /// The allow event tunneling
+      ///    The allow event tunneling
       /// </summary>
-      private const          bool      ALLOW_EVENT_TUNNELING      = false;
-      /// <summary>
-      /// The menu gross width
-      /// </summary>
-      public static readonly double    MENU_GROSS_WIDTH           = MENU_ITEM_WIDTH + 2 * MENU_OUTSIDE_SINGLE_MARGIN;
-      /// <summary>
-      /// The menu inside single margin
-      /// </summary>
-      public static readonly double    MENU_INSIDE_SINGLE_MARGIN  = MENU_OUTSIDE_SINGLE_MARGIN / 2;
-      /// <summary>
-      /// The menu item width
-      /// </summary>
-      public static readonly double    MENU_ITEM_WIDTH            = 120.0;
-      /// <summary>
-      /// The menu outside margin
-      /// </summary>
-      public static readonly Thickness MENU_OUTSIDE_MARGIN        = new Thickness(MENU_OUTSIDE_SINGLE_MARGIN);
-      /// <summary>
-      /// The menu outside single margin
-      /// </summary>
-      public static readonly double    MENU_OUTSIDE_SINGLE_MARGIN = 15.0;
+      private const bool ALLOW_EVENT_TUNNELING = false;
 
       /// <summary>
-      /// The main menu opacity
+      ///    The menu gross width
+      /// </summary>
+      public static readonly double MENU_GROSS_WIDTH = MENU_ITEM_WIDTH + 2 * MENU_OUTSIDE_SINGLE_MARGIN;
+
+      /// <summary>
+      ///    The menu inside single margin
+      /// </summary>
+      public static readonly double MENU_INSIDE_SINGLE_MARGIN = MENU_OUTSIDE_SINGLE_MARGIN / 2;
+
+      /// <summary>
+      ///    The menu item width
+      /// </summary>
+      public static readonly double MENU_ITEM_WIDTH = 120.0;
+
+      /// <summary>
+      ///    The menu outside margin
+      /// </summary>
+      public static readonly Thickness MENU_OUTSIDE_MARGIN = new Thickness(MENU_OUTSIDE_SINGLE_MARGIN);
+
+      /// <summary>
+      ///    The menu outside single margin
+      /// </summary>
+      public static readonly double MENU_OUTSIDE_SINGLE_MARGIN = 15.0;
+
+      /// <summary>
+      ///    The main menu opacity
       /// </summary>
       private static readonly double MAIN_MENU_OPACITY = 0.95;
 
       /// <summary>
-      /// The menu item height
+      ///    The menu item height
       /// </summary>
       private static readonly double MENU_ITEM_HEIGHT = 40.0;
 
       /// <summary>
-      /// The state machine
+      ///    The state machine
       /// </summary>
-      private readonly IStateMachineBase _stateMachine;
+      private readonly IStateMachine _stateMachine;
 
       /// <summary>
-      /// The is menu loaded
+      ///    The is menu loaded
       /// </summary>
       private bool _isMenuLoaded;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="MainMenu" /> class.
+      ///    Initializes a new instance of the <see cref="MainMenu" /> class.
       /// </summary>
       /// <param name="stateMachine">The state machine.</param>
-      public MainMenu(IStateMachineBase stateMachine)
+      public MainMenu(IStateMachine stateMachine)
       {
          _stateMachine = stateMachine;
 
@@ -131,7 +132,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       }
 
       /// <summary>
-      /// Gets a value indicating whether this instance is menu loaded.
+      ///    Gets a value indicating whether this instance is menu loaded.
       /// </summary>
       /// <value><c>true</c> if this instance is menu loaded; otherwise, <c>false</c>.</value>
       public bool IsMenuLoaded
@@ -146,13 +147,13 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       }
 
       /// <summary>
-      /// Gets the height of the menu.
+      ///    Gets the height of the menu.
       /// </summary>
       /// <value>The height of the menu.</value>
       public double MenuHeight { get; private set; }
 
       /// <summary>
-      /// Creates the menu item button.
+      ///    Creates the menu item button.
       /// </summary>
       /// <param name="menuData">The menu data.</param>
       /// <returns>Button.</returns>
@@ -169,20 +170,23 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
                InputTransparent  = ALLOW_EVENT_TUNNELING
             };
 
-         retButton.Clicked += (s,
-                               e) =>
-                              {
-                                 // Ask to close the menu as if the user tapped the hamburger icon.
-                                 FormsMessengerUtils.Send(new NavBarMenuTappedMessage());
+         retButton.Clicked +=
+            (
+               s,
+               e
+            ) =>
+            {
+               // Ask to close the menu as if the user tapped the hamburger icon.
+               FormsMessengerUtils.Send(new NavBarMenuTappedMessage());
 
-                                 _stateMachine.GoToAppState(menuData.AppState, false);
-                              };
+               _stateMachine.GoToAppState(menuData.AppState);
+            };
 
          return retButton;
       }
 
       /// <summary>
-      /// Loads the menu from state machine.
+      ///    Loads the menu from state machine.
       /// </summary>
       private void LoadMenuFromStateMachine()
       {
