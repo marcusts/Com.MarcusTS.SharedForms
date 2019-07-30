@@ -29,6 +29,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    using Com.MarcusTS.SharedUtils.Utils;
    using Plugin.Vibrate;
    using System;
+   using System.Collections.Generic;
+   using System.Collections.ObjectModel;
    using System.Linq;
    using System.Reflection;
    using System.Threading.Tasks;
@@ -151,6 +153,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
       }
 
+      public static void InsertAutoColumn(this Grid grid, int insertionLoc)
+      {
+         grid.ColumnDefinitions.Insert(insertionLoc, new ColumnDefinition { Width = GridLength.Auto });
+      }
+
       /// <summary>
       ///    Adds the automatic row.
       /// </summary>
@@ -216,6 +223,24 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(factor, GridUnitType.Star) });
       }
 
+      public static bool IsValid(this Rectangle bounds)
+      {
+         return bounds.Width > 0 && bounds.Height > 0;
+      }
+
+      public static bool IsNotValid(this Rectangle bounds)
+      {
+         return !bounds.IsValid();
+      }
+
+      public static bool IsBoundsRelatedPropertyChange
+      (
+         string         propName
+      )
+      {
+         return (propName.IsSameAs(WIDTH_PROPERTY_NAME) || propName.IsSameAs(HEIGHT_PROPERTY_NAME) || propName.IsSameAs(X_PROPERTY_NAME) || propName.IsSameAs(Y_PROPERTY_NAME));
+      }
+
       /// <summary>
       ///    Boundses the are valid and have changed.
       /// </summary>
@@ -230,7 +255,17 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          Rectangle      lastBounds
       )
       {
-         return (propName.IsSameAs(WIDTH_PROPERTY_NAME) || propName.IsSameAs(HEIGHT_PROPERTY_NAME) || propName.IsSameAs(X_PROPERTY_NAME) || propName.IsSameAs(Y_PROPERTY_NAME)) && bounds.Width > 0 && bounds.Height > 0 && bounds.IsDifferentThan(lastBounds);
+         return IsBoundsRelatedPropertyChange(propName) && bounds.IsValid() && bounds.IsDifferentThan(lastBounds);
+      }
+
+      public static bool HaveBecomeInvalid
+      (
+         this Rectangle bounds,
+         string         propName,
+         Rectangle      lastBounds
+      )
+      {
+         return IsBoundsRelatedPropertyChange(propName) && bounds.IsNotValid() && lastBounds.IsValid();
       }
 
       /// <summary>
@@ -352,7 +387,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          {
             HorizontalOptions = LayoutOptions.FillAndExpand,
             VerticalOptions   = LayoutOptions.FillAndExpand,
-            BackgroundColor   = Color.Transparent
+            BackgroundColor   = Color.Transparent,
+            ColumnSpacing = 0,
+            RowSpacing = 0
          };
       }
 
@@ -727,7 +764,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       ///    Gets the expanding scroll view.
       /// </summary>
       /// <returns>ScrollView.</returns>
-      internal static ScrollView GetExpandingScrollView()
+      public static ScrollView GetExpandingScrollView()
       {
          return new ScrollView
          {
@@ -737,5 +774,47 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             Orientation       = ScrollOrientation.Vertical
          };
       }
+
+      public static bool IsEmpty(this Size size)
+      {
+         return size.Width.IsLessThanOrEqualTo(0) && size.Height.IsLessThanOrEqualTo(0);
+      }
+
+      public static bool IsNotEmpty(this Size size)
+      {
+         return !size.IsEmpty();
+      }
+
+      public static bool IsSameAs(this Size size, Size otherSize)
+      {
+         return size.Width.IsSameAs(otherSize.Width) && size.Height.IsSameAs(otherSize.Height);
+      }
+
+      public static bool IsDifferentThan(this Size size, Size otherSize)
+      {
+         return !size.IsSameAs(otherSize);
+      }
+
+      public static bool IsEmpty(this Thickness Thickness)
+      {
+         return Thickness.Bottom.IsLessThanOrEqualTo(0) && Thickness.Left.IsLessThanOrEqualTo(0)&& Thickness.Right.IsLessThanOrEqualTo(0) && Thickness.Top.IsLessThanOrEqualTo(0);
+      }
+
+      public static bool IsNotEmpty(this Thickness Thickness)
+      {
+         return !Thickness.IsEmpty();
+      }
+
+      public static bool IsSameAs(this Thickness Thickness, Thickness otherThickness)
+      {
+         return Thickness.Bottom.IsSameAs(otherThickness.Bottom) && Thickness.Left.IsSameAs(otherThickness.Left) && Thickness.Right.IsSameAs(otherThickness.Right) && Thickness.Top.IsSameAs(otherThickness.Top);
+      }
+
+      public static bool IsDifferentThan(this Thickness Thickness, Thickness otherThickness)
+      {
+         return !Thickness.IsSameAs(otherThickness);
+      }
+
+      public static readonly Color DEFAULT_FONT_COLOR = Color.Black;
    }
 }

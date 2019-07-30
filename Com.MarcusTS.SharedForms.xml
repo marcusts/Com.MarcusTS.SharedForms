@@ -2403,10 +2403,10 @@
                Implements the <see cref="T:Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs" />
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs" />
             <seealso cref="T:Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs" />
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangedMessage.#ctor(System.String,System.Boolean)">
@@ -2445,10 +2445,10 @@
                Notifies the app that the device size has changed
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs" />
             <seealso cref="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs" />
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Notifications.BroadcastDeviceSizeChangedMessage.#ctor(System.Single,System.Single)">
@@ -2462,9 +2462,9 @@
             <summary>
                Class ConnectivityChangedMessage.
                Implements the
-               <see cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;System.Boolean&gt;" />
+               <see cref="T:System.Boolean" />
             </summary>
-            <seealso cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;System.Boolean&gt;" />
+            <seealso cref="T:System.Boolean" />
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs">
             <summary>
@@ -2498,20 +2498,20 @@
                Class FragileServiceFailureMessage.
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Services.IFragileService&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.Common.Services.IFragileService" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Services.IFragileService&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.Common.Services.IFragileService" />
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Notifications.FragileServiceSuccessMessage">
             <summary>
                Class FragileServiceSuccessMessage.
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Services.IFragileService&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.Common.Services.IFragileService" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Services.IFragileService&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.Common.Services.IFragileService" />
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload`1">
             <summary>
@@ -2536,10 +2536,10 @@
                Implements the <see cref="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs" />
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs" />
             <seealso cref="T:Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs" />
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Notifications.LocalDeviceSizeChangedMessage.#ctor(System.Single,System.Single)">
@@ -2555,10 +2555,10 @@
                Implements the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IViewModelBase&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IViewModelBase&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
             <seealso cref="T:Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Common.Notifications.MainPageBindingContextChangeRequestMessage.PreventNavStackPush">
@@ -2615,18 +2615,18 @@
                Class NotifyPageCanBeSavedChangedMessage.
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Notifications.ObjectDisappearingMessage">
             <summary>
                Class ObjectDisappearingMessage.
                Implements the <see cref="T:System.Object" />
-               Implements the <see cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;System.Object&gt;" />
+               Implements the <see cref="T:System.Object" />
             </summary>
-            <seealso cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;System.Object&gt;" />
+            <seealso cref="T:System.Object" />
             <seealso cref="T:System.Object" />
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Notifications.RefreshUIViewMessage">
@@ -2634,10 +2634,10 @@
                Class RefreshUIViewMessage.
                Implements the
                <see
-                  cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel&gt;" />
+                  cref="T:Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
             </summary>
             <seealso
-               cref="!:Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload&lt;Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel&gt;" />
+               cref="T:Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Notifications.NotificationUtils">
             <summary>
@@ -3715,10 +3715,17 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.ViewUtils.ToOffScreenPosition(Com.MarcusTS.SharedForms.Common.Utils.ViewUtils.StageToolbarPositions)">
             <summary>
-               Converts to offscreenposition.
+               Converts to off screen position.
             </summary>
             <param name="stageToolbarPosition">The stage toolbar position.</param>
             <returns>OffScreenPositions.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.ViewUtils.ToOffScreenPosition(Com.MarcusTS.SharedForms.Common.Utils.ViewUtils.SubStageFlowDirections)">
+            <summary>
+            
+            </summary>
+            <param name="flowDirection"></param>
+            <returns></returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.ViewUtils.ToOnScreenPosition(Com.MarcusTS.SharedForms.Common.Utils.ViewUtils.StageToolbarPositions)">
             <summary>
@@ -4438,515 +4445,337 @@
             <param name="removeIt">if set to <c>true</c> [remove it].</param>
             <returns>T.</returns>
         </member>
-        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.SelectionStyles">
-            <summary>
-               Enum SelectionStyles
-            </summary>
+        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonSelectionStyles">
+            <summary>Enum SelectionStyles</summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.SelectionStyles.NoSelection">
-            <summary>
-               The no selection
-            </summary>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonSelectionStyles.NoSelection">
+            <summary>The no selection</summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.SelectionStyles.SelectionButNoToggleAsFirstTwoStyles">
-            <summary>
-               The selection but no toggle as first two styles
-            </summary>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonSelectionStyles.SelectionButNoToggleAsFirstTwoStyles">
+            <summary>The selection but no toggle as first two styles</summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.SelectionStyles.ToggleSelectionAsFirstTwoStyles">
-            <summary>
-               Converts to ggleselectionasfirsttwostyles.
-            </summary>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles">
+            <summary>Converts toggleselectionasfirsttwostyles.</summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.SelectionStyles.ToggleSelectionThroughAllStyles">
-            <summary>
-               Converts to ggleselectionthroughallstyles.
-            </summary>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles">
+            <summary>Converts toggleselectionthroughallstyles.</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton">
             <summary>
-               Interface IImageLabelButton
-               Implements the <see cref="T:System.IDisposable" />
-               Implements the <see cref="T:System.ComponentModel.INotifyPropertyChanged" />
+               Interface IImageLabelButton Implements the <see cref="T:System.IDisposable" /> Implements the
+               <see
+                  cref="T:System.ComponentModel.INotifyPropertyChanged" />
             </summary>
             <seealso cref="T:System.IDisposable" />
             <seealso cref="T:System.ComponentModel.INotifyPropertyChanged" />
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.AnimateButton">
-            <summary>
-               Gets or sets a value indicating whether [animate button].
-            </summary>
+            <summary>Gets or sets a value indicating whether [animate button].</summary>
             <value><c>true</c> if [animate button]; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCommand">
-            <summary>
-               Gets or sets the button command.
-            </summary>
+            <summary>Gets or sets the button command.</summary>
             <value>The button command.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCommandBindingName">
-            <summary>
-               Gets or sets the name of the button command binding.
-            </summary>
+            <summary>Gets or sets the name of the button command binding.</summary>
             <value>The name of the button command binding.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCommandConverter">
-            <summary>
-               Gets or sets the button command converter.
-            </summary>
+            <summary>Gets or sets the button command converter.</summary>
             <value>The button command converter.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCommandConverterParameter">
-            <summary>
-               Gets or sets the button command converter parameter.
-            </summary>
+            <summary>Gets or sets the button command converter parameter.</summary>
             <value>The button command converter parameter.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCommandSource">
-            <summary>
-               Gets or sets the button command source.
-            </summary>
+            <summary>Gets or sets the button command source.</summary>
             <value>The button command source.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCommandStringFormat">
-            <summary>
-               Gets or sets the button command string format.
-            </summary>
+            <summary>Gets or sets the button command string format.</summary>
             <value>The button command string format.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCornerRadiusFactor">
-            <summary>
-               Gets or sets the button corner radius factor.
-            </summary>
+            <summary>Gets or sets the button corner radius factor.</summary>
             <value>The button corner radius factor.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonCornerRadiusFixed">
-            <summary>
-               Gets or sets the button corner radius fixed.
-            </summary>
+            <summary>Gets or sets the button corner radius fixed.</summary>
             <value>The button corner radius fixed.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonImage">
-            <summary>
-               Gets or sets the button image.
-            </summary>
+            <summary>Gets or sets the button image.</summary>
             <value>The button image.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonLabel">
-            <summary>
-               Gets or sets the button label.
-            </summary>
+            <summary>Gets or sets the button label.</summary>
             <value>The button label.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonState">
-            <summary>
-               Gets or sets the state of the button.
-            </summary>
+            <summary>Gets or sets the state of the button.</summary>
             <value>The state of the button.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.CurrentStyle">
-            <summary>
-               Gets or sets the current style.
-            </summary>
+            <summary>Gets or sets the current style.</summary>
             <value>The current style.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ImageHeight">
-            <summary>
-               Gets or sets the height of the image.
-            </summary>
+            <summary>Gets or sets the height of the image.</summary>
             <value>The height of the image.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ImageLabelButtonStyles">
-            <summary>
-               Gets the image label button styles.
-            </summary>
+            <summary>Gets the image label button styles.</summary>
             <value>The image label button styles.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ImagePos">
-            <summary>
-               Gets or sets the image position.
-            </summary>
+            <summary>Gets or sets the image position.</summary>
             <value>The image position.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ImageWidth">
-            <summary>
-               Gets or sets the width of the image.
-            </summary>
+            <summary>Gets or sets the width of the image.</summary>
             <value>The width of the image.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.IncludeHapticFeedback">
-            <summary>
-               Gets or sets a value indicating whether [include haptic feedback].
-            </summary>
+            <summary>Gets or sets a value indicating whether [include haptic feedback].</summary>
             <value><c>true</c> if [include haptic feedback]; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.IsInstantiating">
-            <summary>
-               Gets or sets a value indicating whether this instance is instantiating.
-            </summary>
+            <summary>Gets or sets a value indicating whether this instance is instantiating.</summary>
             <value><c>true</c> if this instance is instantiating; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.IsSelected">
-            <summary>
-               Gets a value indicating whether this instance is selected.
-            </summary>
+            <summary>Gets a value indicating whether this instance is selected.</summary>
             <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.LabelHeight">
-            <summary>
-               Gets or sets the height of the label.
-            </summary>
+            <summary>Gets or sets the height of the label.</summary>
             <value>The height of the label.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.LabelPos">
-            <summary>
-               Gets or sets the label position.
-            </summary>
+            <summary>Gets or sets the label position.</summary>
             <value>The label position.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.LabelWidth">
-            <summary>
-               Gets or sets the width of the label.
-            </summary>
+            <summary>Gets or sets the width of the label.</summary>
             <value>The width of the label.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.PseudoPadding">
-            <summary>
-               Gets or sets the pseudo padding.
-            </summary>
+            <summary>Gets or sets the pseudo padding.</summary>
             <value>The pseudo padding.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.SelectionGroup">
-            <summary>
-               Gets or sets the selection group.
-            </summary>
+            <summary>Gets or sets the selection group.</summary>
             <value>The selection group.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.SelectionStyle">
-            <summary>
-               Gets or sets the selection style.
-            </summary>
+            <summary>Gets or sets the selection style.</summary>
             <value>The selection style.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.UpdateButtonTextFromStyle">
-            <summary>
-               Gets a value indicating whether [update button text from style].
-            </summary>
+            <summary>Gets a value indicating whether [update button text from style].</summary>
             <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
         </member>
         <member name="E:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ButtonStateChanged">
-            <summary>
-               Occurs when [button state changed].
-            </summary>
+            <summary>Occurs when [button state changed].</summary>
         </member>
         <member name="E:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton.ImageLabelButtonPressed">
-            <summary>
-               Occurs when [image label button pressed].
-            </summary>
+            <summary>Occurs when [image label button pressed].</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase">
             <summary>
-               A button that can contain either an image and/or a label.
-               Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
-               Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+               A button that can contain either an image and/or a label. Implements the
+               <see
+                  cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
+               Implements the
+               <see
+                  cref="T:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
             </summary>
             <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
             <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.DEFAULT_BUTTON_RADIUS_FACTOR">
-            <summary>
-               The default button radius factor
-            </summary>
+            <summary>The default button radius factor</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.DEFAULT_PSEUDO_PADDING">
-            <summary>
-               The default pseudo padding
-            </summary>
+            <summary>The default pseudo padding</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.AnimateButtonProperty">
-            <summary>
-               The animate button property
-            </summary>
+            <summary>The animate button property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandBindingNameProperty">
-            <summary>
-               The button command binding name property
-            </summary>
+            <summary>The button command binding name property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandConverterParameterProperty">
-            <summary>
-               The button command converter parameter property
-            </summary>
+            <summary>The button command converter parameter property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandConverterProperty">
-            <summary>
-               The button command converter property
-            </summary>
+            <summary>The button command converter property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandProperty">
-            <summary>
-               The button command property
-            </summary>
+            <summary>The button command property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandStringFormatProperty">
-            <summary>
-               The button command string format property
-            </summary>
+            <summary>The button command string format property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonImageProperty">
-            <summary>
-               The button image property
-            </summary>
+            <summary>The button image property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonLabelProperty">
-            <summary>
-               The button label property
-            </summary>
+            <summary>The button label property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CornerRadiusFactorProperty">
-            <summary>
-               The corner radius factor property
-            </summary>
+            <summary>The corner radius factor property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CornerRadiusFixedProperty">
-            <summary>
-               The corner radius fixed property
-            </summary>
+            <summary>The corner radius fixed property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CurrentStyleProperty">
-            <summary>
-               The current style property
-            </summary>
+            <summary>The current style property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImageHeightProperty">
-            <summary>
-               The image height property
-            </summary>
+            <summary>The image height property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImagePosProperty">
-            <summary>
-               The image position property
-            </summary>
+            <summary>The image position property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImageWidthProperty">
-            <summary>
-               The image width property
-            </summary>
+            <summary>The image width property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.IncludeHapticFeedbackProperty">
-            <summary>
-               The include haptic feedback property
-            </summary>
+            <summary>The include haptic feedback property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.LabelPosProperty">
-            <summary>
-               The label position property
-            </summary>
+            <summary>The label position property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SelectionGroupProperty">
-            <summary>
-               The selection group property
-            </summary>
+            <summary>The selection group property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SelectionStyleProperty">
-            <summary>
-               The selection style property
-            </summary>
+            <summary>The selection style property</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._layout">
-            <summary>
-               The layout
-            </summary>
+            <summary>The layout</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._tapGesture">
-            <summary>
-               The tap gesture
-            </summary>
+            <summary>The tap gesture</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonCommand">
-            <summary>
-               The button command
-            </summary>
+            <summary>The button command</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonCommandBindingName">
-            <summary>
-               The button command binding name
-            </summary>
+            <summary>The button command binding name</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonCommandConverter">
-            <summary>
-               The button command converter
-            </summary>
+            <summary>The button command converter</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonCommandConverterParameter">
-            <summary>
-               The button command converter parameter
-            </summary>
+            <summary>The button command converter parameter</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonCommandSource">
-            <summary>
-               The button command source
-            </summary>
+            <summary>The button command source</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonImage">
-            <summary>
-               The button image
-            </summary>
+            <summary>The button image</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonLabel">
-            <summary>
-               The button label
-            </summary>
+            <summary>The button label</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonState">
-            <summary>
-               The button state
-            </summary>
+            <summary>The button state</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._buttonStateAssignedFromStyle">
-            <summary>
-               The button state assigned from style
-            </summary>
+            <summary>The button state assigned from style</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._cornerRadiusFactor">
-            <summary>
-               The corner radius factor
-            </summary>
+            <summary>The corner radius factor</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._cornerRadiusFixed">
-            <summary>
-               The corner radius fixed
-            </summary>
+            <summary>The corner radius fixed</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._currentStyle">
-            <summary>
-               The current style
-            </summary>
+            <summary>The current style</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._imageHeight">
-            <summary>
-               The image height
-            </summary>
+            <summary>The image height</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._imagePos">
-            <summary>
-               The image position
-            </summary>
+            <summary>The image position</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._imageWidth">
-            <summary>
-               The image width
-            </summary>
+            <summary>The image width</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._isInstantiating">
-            <summary>
-               The is instantiating
-            </summary>
+            <summary>The is instantiating</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._isReleasing">
-            <summary>
-               The is releasing
-            </summary>
+            <summary>The is releasing</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._labelHeight">
-            <summary>
-               The label height
-            </summary>
+            <summary>The label height</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._labelPos">
-            <summary>
-               The label position
-            </summary>
+            <summary>The label position</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._labelWidth">
-            <summary>
-               The label width
-            </summary>
+            <summary>The label width</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._lastBounds">
-            <summary>
-               The last bounds
-            </summary>
+            <summary>The last bounds</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._lastHeight">
-            <summary>
-               The last height
-            </summary>
+            <summary>The last height</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._lastImageFileName">
-            <summary>
-               The last image file name
-            </summary>
+            <summary>The last image file name</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._lastWidth">
-            <summary>
-               The last width
-            </summary>
+            <summary>The last width</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._pseudoPadding">
-            <summary>
-               The pseudo padding
-            </summary>
+            <summary>The pseudo padding</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._rearrangeContentEntered">
-            <summary>
-               The rearrange content entered
-            </summary>
+            <summary>The rearrange content entered</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._selectionGroup">
-            <summary>
-               The selection group
-            </summary>
+            <summary>The selection group</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._selectionStyle">
-            <summary>
-               The selection style
-            </summary>
+            <summary>The selection style</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase._tappedListenerEntered">
-            <summary>
-               The tapped listener entered
-            </summary>
+            <summary>The tapped listener entered</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.#ctor">
-            <summary>
-               Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" /> class.
-            </summary>
+            <summary>Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" /> class.</summary>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.IsDisabled">
-            <summary>
-               Gets a value indicating whether this instance is disabled.
-            </summary>
+            <summary>Gets a value indicating whether this instance is disabled.</summary>
             <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CurrentSizeBestGuess">
-            <summary>
-               Gets the current size best guess.
-            </summary>
+            <summary>Gets the current size best guess.</summary>
             <value>The current size best guess.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.Margin">
-            <summary>
-               Gets or sets the margin for the view.
-            </summary>
+            <summary>Gets or sets the margin for the view.</summary>
             <value>To be added.</value>
             <remarks>To be added.</remarks>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.Padding">
-            <summary>
-               Gets or sets the inner padding of the Layout.
-            </summary>
+            <summary>Gets or sets the inner padding of the Layout.</summary>
             <value>The Thickness values for the layout. The default value is a Thickness with all values set to 0.</value>
             <remarks>
                <para>
-                  The padding is the space between the bounds of a layout and the bounding region into which its children should be
-                  arranged into.
+                  The padding is the space between the bounds of a layout and the bounding region into which its children should
+                  be arranged into.
                </para>
-               <para>
-                  The following example shows setting the padding of a Layout to inset its children.
-               </para>
+               <para>The following example shows setting the padding of a Layout to inset its children.</para>
                <example>
-                  <code lang="csharp lang-csharp"><![CDATA[
+                  <code lang="csharp lang-csharp">
+            <![CDATA[
             var stackLayout = new StackLayout {
             Padding = new Thickness (10, 10, 10, 20),
             Children = {
@@ -4954,180 +4783,123 @@
             new Label {Text = "World"}
             }
             }
-            ]]></code>
+            ]]>
+            </code>
                </example>
             </remarks>
         </member>
         <member name="E:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonStateChanged">
-            <summary>
-               Occurs when [button state changed].
-            </summary>
+            <summary>Occurs when [button state changed].</summary>
         </member>
         <member name="E:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImageLabelButtonPressed">
-            <summary>
-               Occurs when [image label button pressed].
-            </summary>
+            <summary>Occurs when [image label button pressed].</summary>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.AnimateButton">
-            <summary>
-               Gets or sets a value indicating whether [animate button].
-            </summary>
+            <summary>Gets or sets a value indicating whether [animate button].</summary>
             <value><c>true</c> if [animate button]; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommand">
-            <summary>
-               Gets or sets the button command.
-            </summary>
+            <summary>Gets or sets the button command.</summary>
             <value>The button command.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandBindingName">
-            <summary>
-               Gets or sets the name of the button command binding.
-            </summary>
+            <summary>Gets or sets the name of the button command binding.</summary>
             <value>The name of the button command binding.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandConverter">
-            <summary>
-               Gets or sets the button command converter.
-            </summary>
+            <summary>Gets or sets the button command converter.</summary>
             <value>The button command converter.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandConverterParameter">
-            <summary>
-               Gets or sets the button command converter parameter.
-            </summary>
+            <summary>Gets or sets the button command converter parameter.</summary>
             <value>The button command converter parameter.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandSource">
-            <summary>
-               Gets or sets the button command source.
-            </summary>
+            <summary>Gets or sets the button command source.</summary>
             <value>The button command source.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCommandStringFormat">
-            <summary>
-               Gets or sets the button command string format.
-            </summary>
+            <summary>Gets or sets the button command string format.</summary>
             <value>The button command string format.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCornerRadiusFactor">
-            <summary>
-               Gets or sets the button corner radius factor.
-            </summary>
+            <summary>Gets or sets the button corner radius factor.</summary>
             <value>The button corner radius factor.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonCornerRadiusFixed">
-            <summary>
-               Gets or sets the button corner radius fixed.
-            </summary>
+            <summary>Gets or sets the button corner radius fixed.</summary>
             <value>The button corner radius fixed.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonImage">
-            <summary>
-               Gets or sets the button image.
-            </summary>
+            <summary>Gets or sets the button image.</summary>
             <value>The button image.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonLabel">
-            <summary>
-               Gets or sets the button label.
-            </summary>
+            <summary>Gets or sets the button label.</summary>
             <value>The button label.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ButtonState">
-            <summary>
-               Gets or sets the state of the button.
-            </summary>
+            <summary>Gets or sets the state of the button.</summary>
             <value>The state of the button.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CurrentStyle">
-            <summary>
-               Gets or sets the current style.
-            </summary>
+            <summary>Gets or sets the current style.</summary>
             <value>The current style.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImageHeight">
-            <summary>
-               Gets or sets the height of the image.
-            </summary>
+            <summary>Gets or sets the height of the image.</summary>
             <value>The height of the image.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImageLabelButtonStyles">
-            <summary>
-               Gets the image label button styles.
-            </summary>
+            <summary>Gets the image label button styles.</summary>
             <value>The image label button styles.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImagePos">
-            <summary>
-               Gets or sets the image position.
-            </summary>
+            <summary>Gets or sets the image position.</summary>
             <value>The image position.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ImageWidth">
-            <summary>
-               Gets or sets the width of the image.
-            </summary>
+            <summary>Gets or sets the width of the image.</summary>
             <value>The width of the image.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.IncludeHapticFeedback">
-            <summary>
-               Gets or sets a value indicating whether [include haptic feedback].
-            </summary>
+            <summary>Gets or sets a value indicating whether [include haptic feedback].</summary>
             <value><c>true</c> if [include haptic feedback]; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.IsInstantiating">
-            <summary>
-               Gets or sets a value indicating whether this instance is instantiating.
-            </summary>
+            <summary>Gets or sets a value indicating whether this instance is instantiating.</summary>
             <value><c>true</c> if this instance is instantiating; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.IsSelected">
-            <summary>
-               Gets a value indicating whether this instance is selected.
-            </summary>
+            <summary>Gets a value indicating whether this instance is selected.</summary>
             <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.LabelHeight">
-            <summary>
-               Gets or sets the height of the label.
-            </summary>
+            <summary>Gets or sets the height of the label.</summary>
             <value>The height of the label.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.LabelPos">
-            <summary>
-               Gets or sets the label position.
-            </summary>
+            <summary>Gets or sets the label position.</summary>
             <value>The label position.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.LabelWidth">
-            <summary>
-               Gets or sets the width of the label.
-            </summary>
+            <summary>Gets or sets the width of the label.</summary>
             <value>The width of the label.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.PseudoPadding">
-            <summary>
-               Gets or sets the pseudo padding.
-            </summary>
+            <summary>Gets or sets the pseudo padding.</summary>
             <value>The pseudo padding.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SelectionGroup">
-            <summary>
-               Gets or sets the selection group.
-            </summary>
+            <summary>Gets or sets the selection group.</summary>
             <value>The selection group.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SelectionStyle">
-            <summary>
-               Gets or sets the selection style.
-            </summary>
+            <summary>Gets or sets the selection style.</summary>
             <value>The selection style.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.UpdateButtonTextFromStyle">
-            <summary>
-               Gets a value indicating whether [update button text from style].
-            </summary>
+            <summary>Gets a value indicating whether [update button text from style].</summary>
             <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.Dispose">
@@ -5136,37 +4908,27 @@
             </summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.Finalize">
-            <summary>
-               Finalizes an instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" /> class.
-            </summary>
+            <summary>Finalizes an instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" /> class.</summary>
         </member>
         <member name="E:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.IAmSelectedStatic">
-            <summary>
-               Occurs when [i am selected static].
-            </summary>
+            <summary>Occurs when [i am selected static].</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CreateButtonStyle(Xamarin.Forms.Color,System.Nullable{System.Double},Xamarin.Forms.Color)">
-            <summary>
-               Creates the button style.
-            </summary>
+            <summary>Creates the button style.</summary>
             <param name="backColor">Color of the back.</param>
             <param name="borderWidth">Width of the border.</param>
             <param name="borderColor">Color of the border.</param>
             <returns>Style.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CreateLabelStyle(Xamarin.Forms.Color,System.Double,Xamarin.Forms.FontAttributes)">
-            <summary>
-               Creates the label style.
-            </summary>
+            <summary>Creates the label style.</summary>
             <param name="textColor">Color of the text.</param>
             <param name="fontSize">Size of the font.</param>
             <param name="fontAttributes">The font attributes.</param>
             <returns>Style.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CreateToggleImageLabelButtonBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase,``0,``0})">
-            <summary>
-               Creates the toggle image label button bindable property.
-            </summary>
+            <summary>Creates the toggle image label button bindable property.</summary>
             <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
             <param name="localPropName">Name of the local property.</param>
             <param name="defaultVal">The default value.</param>
@@ -5175,148 +4937,95 @@
             <returns>BindableProperty.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.Dispose(System.Boolean)">
-            <summary>
-               Releases unmanaged and - optionally - managed resources.
-            </summary>
+            <summary>Releases unmanaged and - optionally - managed resources.</summary>
             <param name="disposing">
-               <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
-               unmanaged resources.
+               <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
             </param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.AfterContentSet">
-            <summary>
-               Afters the content set.
-            </summary>
+            <summary>Afters the content set.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CallRecreateImageSafely">
-            <summary>
-               Calls the recreate image safely.
-            </summary>
+            <summary>Calls the recreate image safely.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.Deselect">
-            <summary>
-               Deselects this instance.
-            </summary>
+            <summary>Deselects this instance.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.HandleTapGestureTapped(System.Object,System.EventArgs)">
-            <summary>
-               Handles the tap gesture tapped.
-            </summary>
+            <summary>Handles the tap gesture tapped.</summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.OnButtonCommandCreated">
-            <summary>
-               Called when [button command created].
-            </summary>
+            <summary>Called when [button command created].</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.OnButtonStateChanged">
-            <summary>
-               Called when [button state changed].
-            </summary>
+            <summary>Called when [button state changed].</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SetAllStyles">
-            <summary>
-               Sets all styles.
-            </summary>
+            <summary>Sets all styles.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SetButtonStyle">
-            <summary>
-               Sets the button style.
-            </summary>
+            <summary>Sets the button style.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SetCurrentStyleByButtonText(System.String)">
-            <summary>
-               Sets the current style by button text.
-            </summary>
+            <summary>Sets the current style by button text.</summary>
             <param name="buttonText">The button text.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SetLabelStyle">
-            <summary>
-               Sets the label style.
-            </summary>
+            <summary>Sets the label style.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.StartUp">
-            <summary>
-               Starts up.
-            </summary>
+            <summary>Starts up.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.BroadcastIfSelected">
-            <summary>
-               Broadcasts if selected.
-            </summary>
+            <summary>Broadcasts if selected.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CallStartup">
-            <summary>
-               Calls the startup.
-            </summary>
+            <summary>Calls the startup.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.CurrentStyleIndexFound(System.Int32@)">
-            <summary>
-               Currents the style index found.
-            </summary>
+            <summary>Currents the style index found.</summary>
             <param name="styleIdx">Index of the style.</param>
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.HandleButtonCommandCanExecuteChanged(System.Object,System.EventArgs)">
-            <summary>
-               Handles the button command can execute changed.
-            </summary>
+            <summary>Handles the button command can execute changed.</summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.HandlePropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
-            <summary>
-               Handles the property changed.
-            </summary>
+            <summary>Handles the property changed.</summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.ComponentModel.PropertyChangedEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.HandleStaticSelectionChanges(Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton)">
-            <summary>
-               Handles the static selection changes.
-            </summary>
+            <summary>Handles the static selection changes.</summary>
             <param name="button">The button.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.RearrangeContent">
-            <summary>
-               Rearranges the content.
-            </summary>
+            <summary>Rearranges the content.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.RecreateImage">
-            <summary>
-               Recreates the image.
-            </summary>
+            <summary>Recreates the image.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ReleaseUnmanagedResources">
-            <summary>
-               Releases the unmanaged resources.
-            </summary>
+            <summary>Releases the unmanaged resources.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.RemoveButtonCommandEventListener">
-            <summary>
-               Removes the button command event listener.
-            </summary>
+            <summary>Removes the button command event listener.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SetCornerRadius">
-            <summary>
-               Sets the corner radius.
-            </summary>
+            <summary>Sets the corner radius.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.SetUpCompleteButtonCommandBinding">
-            <summary>
-               Sets up complete button command binding.
-            </summary>
+            <summary>Sets up complete button command binding.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.ToggleCurrentStyle">
-            <summary>
-               Converts to gglecurrentstyle.
-            </summary>
+            <summary>Converts toggle currentstyle.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.UpdateButtonText">
-            <summary>
-               Updates the button text.
-            </summary>
+            <summary>Updates the button text.</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButtonStyle">
             <summary>

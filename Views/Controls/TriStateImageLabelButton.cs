@@ -820,7 +820,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       private void ResetSelectionStyle()
       {
-         SelectionStyle = CanSelect ? ButtonToggleSelection ? SelectionStyles.ToggleSelectionAsFirstTwoStyles : SelectionStyles.SelectionButNoToggleAsFirstTwoStyles : SelectionStyles.NoSelection;
+         SelectionStyle = CanSelect ? ButtonToggleSelection ? ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles : ImageLabelButtonSelectionStyles.SelectionButNoToggleAsFirstTwoStyles : ImageLabelButtonSelectionStyles.NoSelection;
          CreateOrRefreshImageLabelButtonStyles(true);
       }
 

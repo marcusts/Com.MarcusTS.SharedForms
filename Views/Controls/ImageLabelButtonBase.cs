@@ -1,20 +1,22 @@
 ﻿// *********************************************************************************
-// <copyright file=ImageLabelButtonBase.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
+// <copyright
+//    file=ImageLabelButtonBase.cs
+//    company="Marcus Technical Services, Inc.">
+//    Copyright 2019 Marcus Technical Services, Inc.
 // </copyright>
-//
+// 
 // MIT License
-//
+// 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-//
+// 
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-//
+// 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,250 +24,179 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-// *********************************************************************************
+//  *********************************************************************************
 
 // #define USE_BACK_COLOR
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using Com.MarcusTS.SharedForms.Common.Utils;
-   using Com.MarcusTS.SharedUtils.Utils;
    using System;
    using System.Collections.Generic;
    using System.ComponentModel;
    using System.Linq;
+   using Common.Utils;
+   using SharedUtils.Utils;
    using Xamarin.Forms;
 
-   /// <summary>
-   ///    Enum SelectionStyles
-   /// </summary>
-   public enum SelectionStyles
+   /// <summary>Enum SelectionStyles</summary>
+   public enum ImageLabelButtonSelectionStyles
    {
-      /// <summary>
-      ///    The no selection
-      /// </summary>
+      /// <summary>The no selection</summary>
       NoSelection,
 
-      /// <summary>
-      ///    The selection but no toggle as first two styles
-      /// </summary>
+      /// <summary>The selection but no toggle as first two styles</summary>
       SelectionButNoToggleAsFirstTwoStyles,
 
-      /// <summary>
-      ///    Converts to ggleselectionasfirsttwostyles.
-      /// </summary>
+      /// <summary>Converts toggleselectionasfirsttwostyles.</summary>
       ToggleSelectionAsFirstTwoStyles,
 
-      /// <summary>
-      ///    Converts to ggleselectionthroughallstyles.
-      /// </summary>
+      /// <summary>Converts toggleselectionthroughallstyles.</summary>
       ToggleSelectionThroughAllStyles
    }
 
    /// <summary>
-   ///    Interface IImageLabelButton
-   ///    Implements the <see cref="System.IDisposable" />
-   ///    Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
+   ///    Interface IImageLabelButton Implements the <see cref="System.IDisposable" /> Implements the
+   ///    <see
+   ///       cref="System.ComponentModel.INotifyPropertyChanged" />
    /// </summary>
    /// <seealso cref="System.IDisposable" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IImageLabelButton : IDisposable, INotifyPropertyChanged
    {
-      /// <summary>
-      ///    Gets or sets a value indicating whether [animate button].
-      /// </summary>
+      /// <summary>Gets or sets a value indicating whether [animate button].</summary>
       /// <value><c>true</c> if [animate button]; otherwise, <c>false</c>.</value>
       bool AnimateButton { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button command.
-      /// </summary>
+      /// <summary>Gets or sets the button command.</summary>
       /// <value>The button command.</value>
       Command ButtonCommand { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the name of the button command binding.
-      /// </summary>
+      /// <summary>Gets or sets the name of the button command binding.</summary>
       /// <value>The name of the button command binding.</value>
       string ButtonCommandBindingName { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button command converter.
-      /// </summary>
+      /// <summary>Gets or sets the button command converter.</summary>
       /// <value>The button command converter.</value>
       IValueConverter ButtonCommandConverter { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button command converter parameter.
-      /// </summary>
+      /// <summary>Gets or sets the button command converter parameter.</summary>
       /// <value>The button command converter parameter.</value>
       object ButtonCommandConverterParameter { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button command source.
-      /// </summary>
+      /// <summary>Gets or sets the button command source.</summary>
       /// <value>The button command source.</value>
       object ButtonCommandSource { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button command string format.
-      /// </summary>
+      /// <summary>Gets or sets the button command string format.</summary>
       /// <value>The button command string format.</value>
       string ButtonCommandStringFormat { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button corner radius factor.
-      /// </summary>
+      /// <summary>Gets or sets the button corner radius factor.</summary>
       /// <value>The button corner radius factor.</value>
       double? ButtonCornerRadiusFactor { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button corner radius fixed.
-      /// </summary>
+      /// <summary>Gets or sets the button corner radius fixed.</summary>
       /// <value>The button corner radius fixed.</value>
       double? ButtonCornerRadiusFixed { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button image.
-      /// </summary>
+      /// <summary>Gets or sets the button image.</summary>
       /// <value>The button image.</value>
       Image ButtonImage { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button label.
-      /// </summary>
+      /// <summary>Gets or sets the button label.</summary>
       /// <value>The button label.</value>
       Label ButtonLabel { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the state of the button.
-      /// </summary>
+      /// <summary>Gets or sets the state of the button.</summary>
       /// <value>The state of the button.</value>
       string ButtonState { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the current style.
-      /// </summary>
+      /// <summary>Gets or sets the current style.</summary>
       /// <value>The current style.</value>
       ImageLabelButtonStyle CurrentStyle { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the height of the image.
-      /// </summary>
+      /// <summary>Gets or sets the height of the image.</summary>
       /// <value>The height of the image.</value>
       double ImageHeight { get; set; }
 
-      /// <summary>
-      ///    Gets the image label button styles.
-      /// </summary>
+      /// <summary>Gets the image label button styles.</summary>
       /// <value>The image label button styles.</value>
       IList<ImageLabelButtonStyle> ImageLabelButtonStyles { get; }
 
-      /// <summary>
-      ///    Gets or sets the image position.
-      /// </summary>
+      /// <summary>Gets or sets the image position.</summary>
       /// <value>The image position.</value>
       ViewUtils.OnScreenPositions ImagePos { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the width of the image.
-      /// </summary>
+      /// <summary>Gets or sets the width of the image.</summary>
       /// <value>The width of the image.</value>
       double ImageWidth { get; set; }
 
-      /// <summary>
-      ///    Gets or sets a value indicating whether [include haptic feedback].
-      /// </summary>
+      /// <summary>Gets or sets a value indicating whether [include haptic feedback].</summary>
       /// <value><c>true</c> if [include haptic feedback]; otherwise, <c>false</c>.</value>
       bool IncludeHapticFeedback { get; set; }
 
-      /// <summary>
-      ///    Gets or sets a value indicating whether this instance is instantiating.
-      /// </summary>
+      /// <summary>Gets or sets a value indicating whether this instance is instantiating.</summary>
       /// <value><c>true</c> if this instance is instantiating; otherwise, <c>false</c>.</value>
       bool IsInstantiating { get; set; }
 
-      /// <summary>
-      ///    Gets a value indicating whether this instance is selected.
-      /// </summary>
+      /// <summary>Gets a value indicating whether this instance is selected.</summary>
       /// <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
       bool IsSelected { get; }
 
-      /// <summary>
-      ///    Gets or sets the height of the label.
-      /// </summary>
+      /// <summary>Gets or sets the height of the label.</summary>
       /// <value>The height of the label.</value>
       double LabelHeight { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the label position.
-      /// </summary>
+      /// <summary>Gets or sets the label position.</summary>
       /// <value>The label position.</value>
       ViewUtils.OnScreenPositions LabelPos { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the width of the label.
-      /// </summary>
+      /// <summary>Gets or sets the width of the label.</summary>
       /// <value>The width of the label.</value>
       double LabelWidth { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the pseudo padding.
-      /// </summary>
+      /// <summary>Gets or sets the pseudo padding.</summary>
       /// <value>The pseudo padding.</value>
       Thickness PseudoPadding { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the selection group.
-      /// </summary>
+      /// <summary>Gets or sets the selection group.</summary>
       /// <value>The selection group.</value>
       int SelectionGroup { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the selection style.
-      /// </summary>
+      /// <summary>Gets or sets the selection style.</summary>
       /// <value>The selection style.</value>
-      SelectionStyles SelectionStyle { get; set; }
+      ImageLabelButtonSelectionStyles SelectionStyle { get; set; }
 
-      /// <summary>
-      ///    Gets a value indicating whether [update button text from style].
-      /// </summary>
+      /// <summary>Gets a value indicating whether [update button text from style].</summary>
       /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
       bool UpdateButtonTextFromStyle { get; }
 
-      /// <summary>
-      ///    Occurs when [button state changed].
-      /// </summary>
+      /// <summary>Occurs when [button state changed].</summary>
       event EventUtils.GenericDelegate<string> ButtonStateChanged;
 
-      /// <summary>
-      ///    Occurs when [image label button pressed].
-      /// </summary>
+      /// <summary>Occurs when [image label button pressed].</summary>
       event EventUtils.NoParamsDelegate ImageLabelButtonPressed;
    }
 
    /// <summary>
-   ///    A button that can contain either an image and/or a label.
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+   ///    A button that can contain either an image and/or a label. Implements the
+   ///    <see
+   ///       cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
+   ///    Implements the
+   ///    <see
+   ///       cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
    /// </summary>
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
    public abstract class ImageLabelButtonBase : ShapeView, IImageLabelButton
    {
-      /// <summary>
-      ///    The default button radius factor
-      /// </summary>
+      /// <summary>The default button radius factor</summary>
       public const float DEFAULT_BUTTON_RADIUS_FACTOR = 0.12f;
 
-      /// <summary>
-      ///    The default pseudo padding
-      /// </summary>
+      /// <summary>The default pseudo padding</summary>
       protected const float DEFAULT_PSEUDO_PADDING = 5;
 
-      /// <summary>
-      ///    The animate button property
-      /// </summary>
+      /// <summary>The animate button property</summary>
       public static readonly BindableProperty AnimateButtonProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -282,9 +213,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The button command binding name property
-      /// </summary>
+      /// <summary>The button command binding name property</summary>
       public static readonly BindableProperty ButtonCommandBindingNameProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -301,9 +230,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The button command converter parameter property
-      /// </summary>
+      /// <summary>The button command converter parameter property</summary>
       public static readonly BindableProperty ButtonCommandConverterParameterProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -320,9 +247,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The button command converter property
-      /// </summary>
+      /// <summary>The button command converter property</summary>
       public static readonly BindableProperty ButtonCommandConverterProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -339,9 +264,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The button command property
-      /// </summary>
+      /// <summary>The button command property</summary>
       public static readonly BindableProperty ButtonCommandProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -358,9 +281,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The button command string format property
-      /// </summary>
+      /// <summary>The button command string format property</summary>
       public static readonly BindableProperty ButtonCommandStringFormatProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -377,9 +298,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The button image property
-      /// </summary>
+      /// <summary>The button image property</summary>
       public static readonly BindableProperty ButtonImageProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -396,9 +315,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The button label property
-      /// </summary>
+      /// <summary>The button label property</summary>
       public static readonly BindableProperty ButtonLabelProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -415,9 +332,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The corner radius factor property
-      /// </summary>
+      /// <summary>The corner radius factor property</summary>
       public static readonly BindableProperty CornerRadiusFactorProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -434,9 +349,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The corner radius fixed property
-      /// </summary>
+      /// <summary>The corner radius fixed property</summary>
       public static readonly BindableProperty CornerRadiusFixedProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -453,9 +366,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The current style property
-      /// </summary>
+      /// <summary>The current style property</summary>
       public static readonly BindableProperty CurrentStyleProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -472,9 +383,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The image height property
-      /// </summary>
+      /// <summary>The image height property</summary>
       public static readonly BindableProperty ImageHeightProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -491,9 +400,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The image position property
-      /// </summary>
+      /// <summary>The image position property</summary>
       public static readonly BindableProperty ImagePosProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -510,9 +417,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The image width property
-      /// </summary>
+      /// <summary>The image width property</summary>
       public static readonly BindableProperty ImageWidthProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -529,9 +434,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The include haptic feedback property
-      /// </summary>
+      /// <summary>The include haptic feedback property</summary>
       public static readonly BindableProperty IncludeHapticFeedbackProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -548,9 +451,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The label position property
-      /// </summary>
+      /// <summary>The label position property</summary>
       public static readonly BindableProperty LabelPosProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -567,9 +468,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The selection group property
-      /// </summary>
+      /// <summary>The selection group property</summary>
       public static readonly BindableProperty SelectionGroupProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
@@ -586,14 +485,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The selection style property
-      /// </summary>
+      /// <summary>The selection style property</summary>
       public static readonly BindableProperty SelectionStyleProperty =
          CreateToggleImageLabelButtonBindableProperty
          (
             nameof(SelectionStyle),
-            default(SelectionStyles),
+            default(ImageLabelButtonSelectionStyles),
             BindingMode.OneWay,
             (
                viewButton,
@@ -605,164 +502,100 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
          );
 
-      /// <summary>
-      ///    The layout
-      /// </summary>
-      private readonly AbsoluteLayout _layout = new AbsoluteLayout { BackgroundColor = Color.Transparent };
+      /// <summary>The layout</summary>
+      private readonly AbsoluteLayout _layout = new AbsoluteLayout {BackgroundColor = Color.Transparent};
 
-      /// <summary>
-      ///    The tap gesture
-      /// </summary>
+      /// <summary>The tap gesture</summary>
       private readonly TapGestureRecognizer _tapGesture = new TapGestureRecognizer();
 
-      /// <summary>
-      ///    The button command
-      /// </summary>
+      /// <summary>The button command</summary>
       private Command _buttonCommand;
 
-      /// <summary>
-      ///    The button command binding name
-      /// </summary>
+      /// <summary>The button command binding name</summary>
       private string _buttonCommandBindingName;
 
-      /// <summary>
-      ///    The button command converter
-      /// </summary>
+      /// <summary>The button command converter</summary>
       private IValueConverter _buttonCommandConverter;
 
-      /// <summary>
-      ///    The button command converter parameter
-      /// </summary>
+      /// <summary>The button command converter parameter</summary>
       private object _buttonCommandConverterParameter;
 
-      /// <summary>
-      ///    The button command source
-      /// </summary>
+      /// <summary>The button command source</summary>
       private object _buttonCommandSource;
 
-      /// <summary>
-      ///    The button image
-      /// </summary>
+      /// <summary>The button image</summary>
       private Image _buttonImage;
 
-      /// <summary>
-      ///    The button label
-      /// </summary>
+      /// <summary>The button label</summary>
       private Label _buttonLabel;
 
-      /// <summary>
-      ///    The button state
-      /// </summary>
+      /// <summary>The button state</summary>
       private string _buttonState;
 
-      /// <summary>
-      ///    The button state assigned from style
-      /// </summary>
+      /// <summary>The button state assigned from style</summary>
       private bool _buttonStateAssignedFromStyle;
 
-      /// <summary>
-      ///    The corner radius factor
-      /// </summary>
+      /// <summary>The corner radius factor</summary>
       private double? _cornerRadiusFactor;
 
-      /// <summary>
-      ///    The corner radius fixed
-      /// </summary>
+      /// <summary>The corner radius fixed</summary>
       private double? _cornerRadiusFixed;
 
-      /// <summary>
-      ///    The current style
-      /// </summary>
+      /// <summary>The current style</summary>
       private ImageLabelButtonStyle _currentStyle;
 
-      /// <summary>
-      ///    The image height
-      /// </summary>
+      /// <summary>The image height</summary>
       private double _imageHeight;
 
-      /// <summary>
-      ///    The image position
-      /// </summary>
+      /// <summary>The image position</summary>
       private ViewUtils.OnScreenPositions _imagePos;
 
-      /// <summary>
-      ///    The image width
-      /// </summary>
+      /// <summary>The image width</summary>
       private double _imageWidth;
 
-      /// <summary>
-      ///    The is instantiating
-      /// </summary>
+      /// <summary>The is instantiating</summary>
       private volatile bool _isInstantiating;
 
-      /// <summary>
-      ///    The is releasing
-      /// </summary>
+      /// <summary>The is releasing</summary>
       private volatile bool _isReleasing;
 
-      /// <summary>
-      ///    The label height
-      /// </summary>
+      /// <summary>The label height</summary>
       private double _labelHeight;
 
-      /// <summary>
-      ///    The label position
-      /// </summary>
+      /// <summary>The label position</summary>
       private ViewUtils.OnScreenPositions _labelPos;
 
-      /// <summary>
-      ///    The label width
-      /// </summary>
+      /// <summary>The label width</summary>
       private double _labelWidth;
 
-      /// <summary>
-      ///    The last bounds
-      /// </summary>
+      /// <summary>The last bounds</summary>
       private Rectangle _lastBounds;
 
-      /// <summary>
-      ///    The last height
-      /// </summary>
+      /// <summary>The last height</summary>
       private double _lastHeight;
 
-      /// <summary>
-      ///    The last image file name
-      /// </summary>
+      /// <summary>The last image file name</summary>
       private string _lastImageFileName;
 
-      /// <summary>
-      ///    The last width
-      /// </summary>
+      /// <summary>The last width</summary>
       private double _lastWidth;
 
-      /// <summary>
-      ///    The pseudo padding
-      /// </summary>
+      /// <summary>The pseudo padding</summary>
       private Thickness _pseudoPadding = new Thickness(DEFAULT_PSEUDO_PADDING);
 
-      /// <summary>
-      ///    The rearrange content entered
-      /// </summary>
+      /// <summary>The rearrange content entered</summary>
       private volatile bool _rearrangeContentEntered;
 
-      /// <summary>
-      ///    The selection group
-      /// </summary>
+      /// <summary>The selection group</summary>
       private int _selectionGroup;
 
-      /// <summary>
-      ///    The selection style
-      /// </summary>
-      private SelectionStyles _selectionStyle;
+      /// <summary>The selection style</summary>
+      private ImageLabelButtonSelectionStyles _selectionStyle;
 
-      /// <summary>
-      ///    The tapped listener entered
-      /// </summary>
+      /// <summary>The tapped listener entered</summary>
       private volatile bool _tappedListenerEntered;
 
-      /// <summary>
-      ///    Initializes a new instance of the <see cref="ImageLabelButtonBase" /> class.
-      /// </summary>
+      /// <summary>Initializes a new instance of the <see cref="ImageLabelButtonBase" /> class.</summary>
       protected ImageLabelButtonBase()
       {
          CallStartup();
@@ -795,41 +628,34 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 #endif
       }
 
-      /// <summary>
-      ///    Gets a value indicating whether this instance is disabled.
-      /// </summary>
+      /// <summary>Gets a value indicating whether this instance is disabled.</summary>
       /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
       protected abstract bool IsDisabled { get; }
 
-      /// <summary>
-      ///    Gets the current size best guess.
-      /// </summary>
+      /// <summary>Gets the current size best guess.</summary>
       /// <value>The current size best guess.</value>
-      private Size CurrentSizeBestGuess => HeightRequest.IsNotEmpty() && WidthRequest.IsNotEmpty() ? new Size(WidthRequest, HeightRequest) : Bounds.Size;
+      private Size CurrentSizeBestGuess => HeightRequest.IsNotEmpty() && WidthRequest.IsNotEmpty()
+                                              ? new Size(WidthRequest, HeightRequest)
+                                              : Bounds.Size;
 
       // BUGS REQUIRE THIS
-      /// <summary>
-      ///    Gets or sets the margin for the view.
-      /// </summary>
+      /// <summary>Gets or sets the margin for the view.</summary>
       /// <value>To be added.</value>
       /// <remarks>To be added.</remarks>
       private new Thickness Margin { get; set; }
 
       // BUGS REQUIRE THIS
-      /// <summary>
-      ///    Gets or sets the inner padding of the Layout.
-      /// </summary>
+      /// <summary>Gets or sets the inner padding of the Layout.</summary>
       /// <value>The Thickness values for the layout. The default value is a Thickness with all values set to 0.</value>
       /// <remarks>
       ///    <para>
-      ///       The padding is the space between the bounds of a layout and the bounding region into which its children should be
-      ///       arranged into.
+      ///       The padding is the space between the bounds of a layout and the bounding region into which its children should
+      ///       be arranged into.
       ///    </para>
-      ///    <para>
-      ///       The following example shows setting the padding of a Layout to inset its children.
-      ///    </para>
+      ///    <para>The following example shows setting the padding of a Layout to inset its children.</para>
       ///    <example>
-      ///       <code lang="csharp lang-csharp"><![CDATA[
+      ///       <code lang="csharp lang-csharp">
+      /// <![CDATA[
       /// var stackLayout = new StackLayout {
       /// Padding = new Thickness (10, 10, 10, 20),
       /// Children = {
@@ -837,30 +663,23 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// new Label {Text = "World"}
       /// }
       /// }
-      /// ]]></code>
+      /// ]]>
+      /// </code>
       ///    </example>
       /// </remarks>
       private new Thickness Padding { get; set; }
 
-      /// <summary>
-      ///    Occurs when [button state changed].
-      /// </summary>
+      /// <summary>Occurs when [button state changed].</summary>
       public event EventUtils.GenericDelegate<string> ButtonStateChanged;
 
-      /// <summary>
-      ///    Occurs when [image label button pressed].
-      /// </summary>
+      /// <summary>Occurs when [image label button pressed].</summary>
       public event EventUtils.NoParamsDelegate ImageLabelButtonPressed;
 
-      /// <summary>
-      ///    Gets or sets a value indicating whether [animate button].
-      /// </summary>
+      /// <summary>Gets or sets a value indicating whether [animate button].</summary>
       /// <value><c>true</c> if [animate button]; otherwise, <c>false</c>.</value>
       public bool AnimateButton { get; set; } = true;
 
-      /// <summary>
-      ///    Gets or sets the button command.
-      /// </summary>
+      /// <summary>Gets or sets the button command.</summary>
       /// <value>The button command.</value>
       public Command ButtonCommand
       {
@@ -883,9 +702,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the name of the button command binding.
-      /// </summary>
+      /// <summary>Gets or sets the name of the button command binding.</summary>
       /// <value>The name of the button command binding.</value>
       public string ButtonCommandBindingName
       {
@@ -900,9 +717,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the button command converter.
-      /// </summary>
+      /// <summary>Gets or sets the button command converter.</summary>
       /// <value>The button command converter.</value>
       public IValueConverter ButtonCommandConverter
       {
@@ -914,9 +729,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the button command converter parameter.
-      /// </summary>
+      /// <summary>Gets or sets the button command converter parameter.</summary>
       /// <value>The button command converter parameter.</value>
       public object ButtonCommandConverterParameter
       {
@@ -928,9 +741,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the button command source.
-      /// </summary>
+      /// <summary>Gets or sets the button command source.</summary>
       /// <value>The button command source.</value>
       public object ButtonCommandSource
       {
@@ -942,15 +753,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the button command string format.
-      /// </summary>
+      /// <summary>Gets or sets the button command string format.</summary>
       /// <value>The button command string format.</value>
       public string ButtonCommandStringFormat { get; set; }
 
-      /// <summary>
-      ///    Gets or sets the button corner radius factor.
-      /// </summary>
+      /// <summary>Gets or sets the button corner radius factor.</summary>
       /// <value>The button corner radius factor.</value>
       public double? ButtonCornerRadiusFactor
       {
@@ -965,9 +772,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the button corner radius fixed.
-      /// </summary>
+      /// <summary>Gets or sets the button corner radius fixed.</summary>
       /// <value>The button corner radius fixed.</value>
       public double? ButtonCornerRadiusFixed
       {
@@ -982,9 +787,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the button image.
-      /// </summary>
+      /// <summary>Gets or sets the button image.</summary>
       /// <value>The button image.</value>
       public Image ButtonImage
       {
@@ -1010,9 +813,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the button label.
-      /// </summary>
+      /// <summary>Gets or sets the button label.</summary>
       /// <value>The button label.</value>
       public Label ButtonLabel
       {
@@ -1039,9 +840,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the state of the button.
-      /// </summary>
+      /// <summary>Gets or sets the state of the button.</summary>
       /// <value>The state of the button.</value>
       public string ButtonState
       {
@@ -1063,7 +862,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                // Change the style and let it change the button state.
                var newStyle = ImageLabelButtonStyles.FirstOrDefault(s => s.InternalButtonState.IsSameAs(value));
 
-               if (newStyle.IsNotAnEqualObjectTo(default(ImageLabelButtonStyle)))
+               if (newStyle.IsNotNullOrDefault())
                {
                   CurrentStyle = newStyle;
                }
@@ -1071,15 +870,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the current style.
-      /// </summary>
+      /// <summary>Gets or sets the current style.</summary>
       /// <value>The current style.</value>
       public ImageLabelButtonStyle CurrentStyle
       {
          get
          {
-            if (_currentStyle.IsAnEqualObjectTo(default(ImageLabelButtonStyle)))
+            if (_currentStyle.IsNullOrDefault())
             {
                if (ImageLabelButtonStyles.IsNotEmpty())
                {
@@ -1104,9 +901,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the height of the image.
-      /// </summary>
+      /// <summary>Gets or sets the height of the image.</summary>
       /// <value>The height of the image.</value>
       public double ImageHeight
       {
@@ -1121,15 +916,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets the image label button styles.
-      /// </summary>
+      /// <summary>Gets the image label button styles.</summary>
       /// <value>The image label button styles.</value>
       public abstract IList<ImageLabelButtonStyle> ImageLabelButtonStyles { get; }
 
-      /// <summary>
-      ///    Gets or sets the image position.
-      /// </summary>
+      /// <summary>Gets or sets the image position.</summary>
       /// <value>The image position.</value>
       public ViewUtils.OnScreenPositions ImagePos
       {
@@ -1144,9 +935,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the width of the image.
-      /// </summary>
+      /// <summary>Gets or sets the width of the image.</summary>
       /// <value>The width of the image.</value>
       public double ImageWidth
       {
@@ -1161,15 +950,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets a value indicating whether [include haptic feedback].
-      /// </summary>
+      /// <summary>Gets or sets a value indicating whether [include haptic feedback].</summary>
       /// <value><c>true</c> if [include haptic feedback]; otherwise, <c>false</c>.</value>
       public bool IncludeHapticFeedback { get; set; } = true;
 
-      /// <summary>
-      ///    Gets or sets a value indicating whether this instance is instantiating.
-      /// </summary>
+      /// <summary>Gets or sets a value indicating whether this instance is instantiating.</summary>
       /// <value><c>true</c> if this instance is instantiating; otherwise, <c>false</c>.</value>
       public bool IsInstantiating
       {
@@ -1181,15 +966,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets a value indicating whether this instance is selected.
-      /// </summary>
+      /// <summary>Gets a value indicating whether this instance is selected.</summary>
       /// <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
       public abstract bool IsSelected { get; }
 
-      /// <summary>
-      ///    Gets or sets the height of the label.
-      /// </summary>
+      /// <summary>Gets or sets the height of the label.</summary>
       /// <value>The height of the label.</value>
       public double LabelHeight
       {
@@ -1204,9 +985,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the label position.
-      /// </summary>
+      /// <summary>Gets or sets the label position.</summary>
       /// <value>The label position.</value>
       public ViewUtils.OnScreenPositions LabelPos
       {
@@ -1221,9 +1000,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the width of the label.
-      /// </summary>
+      /// <summary>Gets or sets the width of the label.</summary>
       /// <value>The width of the label.</value>
       public double LabelWidth
       {
@@ -1238,9 +1015,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the pseudo padding.
-      /// </summary>
+      /// <summary>Gets or sets the pseudo padding.</summary>
       /// <value>The pseudo padding.</value>
       public Thickness PseudoPadding
       {
@@ -1252,9 +1027,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the selection group.
-      /// </summary>
+      /// <summary>Gets or sets the selection group.</summary>
       /// <value>The selection group.</value>
       public int SelectionGroup
       {
@@ -1269,11 +1042,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets or sets the selection style.
-      /// </summary>
+      /// <summary>Gets or sets the selection style.</summary>
       /// <value>The selection style.</value>
-      public SelectionStyles SelectionStyle
+      public ImageLabelButtonSelectionStyles SelectionStyle
       {
          get => _selectionStyle;
          set
@@ -1283,9 +1054,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Gets a value indicating whether [update button text from style].
-      /// </summary>
+      /// <summary>Gets a value indicating whether [update button text from style].</summary>
       /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
       public abstract bool UpdateButtonTextFromStyle { get; }
 
@@ -1298,22 +1067,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          GC.SuppressFinalize(this);
       }
 
-      /// <summary>
-      ///    Finalizes an instance of the <see cref="ImageLabelButtonBase" /> class.
-      /// </summary>
+      /// <summary>Finalizes an instance of the <see cref="ImageLabelButtonBase" /> class.</summary>
       ~ImageLabelButtonBase()
       {
          ReleaseUnmanagedResources();
       }
 
-      /// <summary>
-      ///    Occurs when [i am selected static].
-      /// </summary>
+      /// <summary>Occurs when [i am selected static].</summary>
       protected static event EventUtils.GenericDelegate<IImageLabelButton> IAmSelectedStatic;
 
-      /// <summary>
-      ///    Creates the button style.
-      /// </summary>
+      /// <summary>Creates the button style.</summary>
       /// <param name="backColor">Color of the back.</param>
       /// <param name="borderWidth">Width of the border.</param>
       /// <param name="borderColor">Color of the border.</param>
@@ -1329,16 +1092,14 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             Setters =
             {
-               new Setter { Property = BorderColorProperty, Value = borderColor },
-               new Setter { Property = BorderWidthProperty, Value = borderWidth.GetValueOrDefault() },
-               new Setter { Property = ColorProperty, Value       = backColor }
+               new Setter {Property = BorderColorProperty, Value = borderColor},
+               new Setter {Property = BorderWidthProperty, Value = borderWidth.GetValueOrDefault()},
+               new Setter {Property = ColorProperty, Value       = backColor}
             }
          };
       }
 
-      /// <summary>
-      ///    Creates the label style.
-      /// </summary>
+      /// <summary>Creates the label style.</summary>
       /// <param name="textColor">Color of the text.</param>
       /// <param name="fontSize">Size of the font.</param>
       /// <param name="fontAttributes">The font attributes.</param>
@@ -1355,20 +1116,18 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             Setters =
             {
                // The text color is now the background color -- should be white
-               new Setter { Property = Label.TextColorProperty, Value = textColor },
+               new Setter {Property = Label.TextColorProperty, Value = textColor},
 
                // The label is always transparent
-               new Setter { Property = BackgroundColorProperty, Value = Color.Transparent },
+               new Setter {Property = BackgroundColorProperty, Value = Color.Transparent},
 
-               new Setter { Property = Label.FontAttributesProperty, Value = fontAttributes },
-               new Setter { Property = Label.FontSizeProperty, Value       = fontSize }
+               new Setter {Property = Label.FontAttributesProperty, Value = fontAttributes},
+               new Setter {Property = Label.FontSizeProperty, Value       = fontSize}
             }
          };
       }
 
-      /// <summary>
-      ///    Creates the toggle image label button bindable property.
-      /// </summary>
+      /// <summary>Creates the toggle image label button bindable property.</summary>
       /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
       /// <param name="localPropName">Name of the local property.</param>
       /// <param name="defaultVal">The default value.</param>
@@ -1386,12 +1145,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
       }
 
-      /// <summary>
-      ///    Releases unmanaged and - optionally - managed resources.
-      /// </summary>
+      /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
       /// <param name="disposing">
-      ///    <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
-      ///    unmanaged resources.
+      ///    <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
       /// </param>
       public void Dispose(bool disposing)
       {
@@ -1401,16 +1157,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Afters the content set.
-      /// </summary>
+      /// <summary>Afters the content set.</summary>
       protected virtual void AfterContentSet()
       {
       }
 
-      /// <summary>
-      ///    Calls the recreate image safely.
-      /// </summary>
+      /// <summary>Calls the recreate image safely.</summary>
       protected void CallRecreateImageSafely()
       {
          if (ThreadHelper.IsOnMainThread)
@@ -1423,14 +1175,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Deselects this instance.
-      /// </summary>
+      /// <summary>Deselects this instance.</summary>
       protected abstract void Deselect();
 
-      /// <summary>
-      ///    Handles the tap gesture tapped.
-      /// </summary>
+      /// <summary>Handles the tap gesture tapped.</summary>
       /// <param name="sender">The sender.</param>
       /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
       protected void HandleTapGestureTapped
@@ -1439,7 +1187,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          EventArgs e
       )
       {
-         if (_tappedListenerEntered || IsDisabled || ImageLabelButtonStyles.IsEmpty() || CurrentStyle.IsNullOrDefault() || CurrentStyle.InternalButtonState.IsEmpty())
+         if (_tappedListenerEntered         || IsDisabled || ImageLabelButtonStyles.IsEmpty() ||
+             CurrentStyle.IsNullOrDefault() || CurrentStyle.InternalButtonState.IsEmpty())
          {
             return;
          }
@@ -1450,8 +1199,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          ToggleCurrentStyle();
 
-         // If a command exists, fire it and reset our selected status to false; otherwise, leave the
-         // selected state as it is.
+         // If a command exists, fire it and reset our selected status to false; otherwise, leave the selected state as
+         // it is.
          if (ButtonCommand != null && CurrentStyle.FireCommand)
          {
             Device.BeginInvokeOnMainThread
@@ -1472,23 +1221,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Called when [button command created].
-      /// </summary>
+      /// <summary>Called when [button command created].</summary>
       protected virtual void OnButtonCommandCreated()
       {
       }
 
-      /// <summary>
-      ///    Called when [button state changed].
-      /// </summary>
+      /// <summary>Called when [button state changed].</summary>
       protected virtual void OnButtonStateChanged()
       {
       }
 
-      /// <summary>
-      ///    Sets all styles.
-      /// </summary>
+      /// <summary>Sets all styles.</summary>
       protected void SetAllStyles()
       {
          SetButtonStyle();
@@ -1496,9 +1239,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CallRecreateImageSafely();
       }
 
-      /// <summary>
-      ///    Sets the button style.
-      /// </summary>
+      /// <summary>Sets the button style.</summary>
       protected void SetButtonStyle()
       {
          if (!CurrentStyleIndexFound(out var styleIdx))
@@ -1521,9 +1262,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          this.ForceStyle(newStyle);
       }
 
-      /// <summary>
-      ///    Sets the current style by button text.
-      /// </summary>
+      /// <summary>Sets the current style by button text.</summary>
       /// <param name="buttonText">The button text.</param>
       protected void SetCurrentStyleByButtonText(string buttonText)
       {
@@ -1539,9 +1278,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Sets the label style.
-      /// </summary>
+      /// <summary>Sets the label style.</summary>
       protected void SetLabelStyle()
       {
          if (!CurrentStyleIndexFound(out var styleIdx) || ButtonLabel == null)
@@ -1562,9 +1299,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          ButtonLabel.InputTransparent = true;
       }
 
-      /// <summary>
-      ///    Starts up.
-      /// </summary>
+      /// <summary>Starts up.</summary>
       protected virtual void StartUp()
       {
          IsInstantiating = true;
@@ -1590,9 +1325,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          IsInstantiating = false;
       }
 
-      /// <summary>
-      ///    Broadcasts if selected.
-      /// </summary>
+      /// <summary>Broadcasts if selected.</summary>
       private void BroadcastIfSelected()
       {
          if (SelectionGroup > 0 && IsSelected)
@@ -1602,17 +1335,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Calls the startup.
-      /// </summary>
+      /// <summary>Calls the startup.</summary>
       private void CallStartup()
       {
          StartUp();
       }
 
-      /// <summary>
-      ///    Currents the style index found.
-      /// </summary>
+      /// <summary>Currents the style index found.</summary>
       /// <param name="styleIdx">Index of the style.</param>
       /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
       private bool CurrentStyleIndexFound(out int styleIdx)
@@ -1635,9 +1364,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          return true;
       }
 
-      /// <summary>
-      ///    Handles the button command can execute changed.
-      /// </summary>
+      /// <summary>Handles the button command can execute changed.</summary>
       /// <param name="sender">The sender.</param>
       /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
       private void HandleButtonCommandCanExecuteChanged
@@ -1650,14 +1377,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          IsEnabled = newCanExecute;
 
-         // The control is not issuing a property change when we manually set IsEnabled, so handling
-         //    that case here. Cannot listen to property changes generally in this case.
+         // The control is not issuing a property change when we manually set IsEnabled, so handling that case here.
+         // Cannot listen to property changes generally in this case.
          SetAllStyles();
       }
 
-      /// <summary>
-      ///    Handles the property changed.
-      /// </summary>
+      /// <summary>Handles the property changed.</summary>
       /// <param name="sender">The sender.</param>
       /// <param name="e">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
       private void HandlePropertyChanged
@@ -1666,29 +1391,28 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          PropertyChangedEventArgs e
       )
       {
-         if (!IsInstantiating && Bounds.Width > 0 && Bounds.Height > 0 && (Bounds.Width.IsDifferentThan(_lastBounds.Width) || Bounds.Height.IsDifferentThan(_lastBounds.Height)))
+         if (!IsInstantiating && Bounds.Width > 0 && Bounds.Height > 0 &&
+             (Bounds.Width.IsDifferentThan(_lastBounds.Width) || Bounds.Height.IsDifferentThan(_lastBounds.Height)))
          {
             RearrangeContent();
             _lastBounds = Bounds;
          }
       }
 
-      /// <summary>
-      ///    Handles the static selection changes.
-      /// </summary>
+      /// <summary>Handles the static selection changes.</summary>
       /// <param name="button">The button.</param>
       private void HandleStaticSelectionChanges(IImageLabelButton button)
       {
          // Do not recur onto our own broadcast; also only respond to the same selection group.
-         if (button.SelectionGroup == SelectionGroup && !ReferenceEquals(button, this) && (SelectionStyle == SelectionStyles.ToggleSelectionAsFirstTwoStyles || SelectionStyle == SelectionStyles.ToggleSelectionThroughAllStyles) && button.IsSelected)
+         if (button.SelectionGroup == SelectionGroup && !ReferenceEquals(button, this) &&
+             (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles ||
+              SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles) && button.IsSelected)
          {
             Deselect();
          }
       }
 
-      /// <summary>
-      ///    Rearranges the content.
-      /// </summary>
+      /// <summary>Rearranges the content.</summary>
       private void RearrangeContent()
       {
          if (_rearrangeContentEntered || _isReleasing)
@@ -1710,16 +1434,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             // Do the image first, as it might underlie the label
             if (ButtonImage != null && ImagePos != ViewUtils.OnScreenPositions.NONE)
             {
-               // Padding is ignored by Xamarin because we are using an animated approach, so it can only be enforced manually in the layout call below.
-               var imageOnScreenRect = ViewUtils.CreateOnScreenRect(sizeGuess, ImageWidth, ImageHeight, ImagePos, PseudoPadding);
+               // Padding is ignored by Xamarin because we are using an animated approach, so it can only be enforced
+               // manually in the layout call below.
+               var imageOnScreenRect =
+                  ViewUtils.CreateOnScreenRect(sizeGuess, ImageWidth, ImageHeight, ImagePos, PseudoPadding);
 
                AbsoluteLayout.SetLayoutBounds(ButtonImage, imageOnScreenRect);
             }
 
             if (ButtonLabel != null && LabelPos != ViewUtils.OnScreenPositions.NONE)
             {
-               // Padding is ignored by Xamarin because we are using an animated approach, so it can only be enforced manually in the layout call below.
-               var labelOnScreenRect = ViewUtils.CreateOnScreenRect(sizeGuess, LabelWidth, LabelHeight, LabelPos, PseudoPadding);
+               // Padding is ignored by Xamarin because we are using an animated approach, so it can only be enforced
+               // manually in the layout call below.
+               var labelOnScreenRect =
+                  ViewUtils.CreateOnScreenRect(sizeGuess, LabelWidth, LabelHeight, LabelPos, PseudoPadding);
 
                AbsoluteLayout.SetLayoutBounds(ButtonLabel, labelOnScreenRect);
             }
@@ -1734,9 +1462,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Recreates the image.
-      /// </summary>
+      /// <summary>Recreates the image.</summary>
       private void RecreateImage()
       {
          if (!CurrentStyleIndexFound(out var styleIdx))
@@ -1757,7 +1483,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
 
          ButtonImage =
-            FormsUtils.GetImage(imageFileName, ImageWidth, ImageHeight, getFromResources: CurrentStyle.GetImageFromResource, resourceClass: CurrentStyle.ImageResourceClassType);
+            FormsUtils.GetImage(imageFileName, ImageWidth, ImageHeight,
+                                getFromResources: CurrentStyle.GetImageFromResource,
+                                resourceClass: CurrentStyle.ImageResourceClassType);
 
          // The image always has a transparent background
          ButtonImage.BackgroundColor = Color.Transparent;
@@ -1769,9 +1497,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          RearrangeContent();
       }
 
-      /// <summary>
-      ///    Releases the unmanaged resources.
-      /// </summary>
+      /// <summary>Releases the unmanaged resources.</summary>
       private void ReleaseUnmanagedResources()
       {
          _isReleasing = true;
@@ -1784,9 +1510,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          RemoveButtonCommandEventListener();
       }
 
-      /// <summary>
-      ///    Removes the button command event listener.
-      /// </summary>
+      /// <summary>Removes the button command event listener.</summary>
       private void RemoveButtonCommandEventListener()
       {
          if (ButtonCommand != null)
@@ -1795,9 +1519,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Sets the corner radius.
-      /// </summary>
+      /// <summary>Sets the corner radius.</summary>
       private void SetCornerRadius()
       {
          if (ButtonCornerRadiusFactor.HasNoValue())
@@ -1819,9 +1541,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Sets up complete button command binding.
-      /// </summary>
+      /// <summary>Sets up complete button command binding.</summary>
       private void SetUpCompleteButtonCommandBinding()
       {
          if (ButtonCommandBindingName.IsEmpty())
@@ -1843,46 +1563,58 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>
-      ///    Converts to gglecurrentstyle.
-      /// </summary>
+      /// <summary>Converts toggle currentstyle.</summary>
       private void ToggleCurrentStyle()
       {
+         // Corner case: cannot manually deselect if selected and if the SelectionGroup is set
+         if (IsSelected && SelectionGroup > 0)
+         {
+            return;
+         }
+
          switch (SelectionStyle)
          {
-            case SelectionStyles.NoSelection:
+            case ImageLabelButtonSelectionStyles.NoSelection:
                break;
 
-            case SelectionStyles.ToggleSelectionAsFirstTwoStyles:
-            case SelectionStyles.SelectionButNoToggleAsFirstTwoStyles:
+            case ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles:
+            case ImageLabelButtonSelectionStyles.SelectionButNoToggleAsFirstTwoStyles:
+
                // Toggle between ButtonStates[0] and ButtonStates[1]
-               CurrentStyle = ImageLabelButtonStyles.Count >= 2 ? CurrentStyle.IsAnEqualObjectTo(ImageLabelButtonStyles[0]) ? ImageLabelButtonStyles[1] : ImageLabelButtonStyles[0] : ImageLabelButtonStyles.Any() ? ImageLabelButtonStyles[0] : default;
+               CurrentStyle = ImageLabelButtonStyles.Count >= 2
+                                 ?
+                                 CurrentStyle.IsAnEqualObjectTo(ImageLabelButtonStyles[0])
+                                    ?
+                                    ImageLabelButtonStyles[1]
+                                    : ImageLabelButtonStyles[0]
+                                 : ImageLabelButtonStyles.IsNotEmpty()
+                                    ? ImageLabelButtonStyles[0]
+                                    : default;
                break;
 
-            case SelectionStyles.ToggleSelectionThroughAllStyles:
-               // Find the current button state;
-               // Increment it;
-               // If beyond the end of the button states, go back to 0.
+            case ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles:
+
+               // Find the current button state; Increment it; If beyond the end of the button states, go back to 0.
                var buttonStateIdx = ImageLabelButtonStyles.IndexOf(CurrentStyle);
                if (buttonStateIdx < 0)
                {
-                  CurrentStyle = ImageLabelButtonStyles.Any() ? ImageLabelButtonStyles[0] : default;
+                  CurrentStyle = ImageLabelButtonStyles.IsNotEmpty() ? ImageLabelButtonStyles[0] : default;
                }
                else
                {
                   buttonStateIdx++;
 
                   // ReSharper disable once PossibleNullReferenceException
-                  CurrentStyle = ImageLabelButtonStyles.Count <= buttonStateIdx ? ImageLabelButtonStyles[0] : ImageLabelButtonStyles[buttonStateIdx];
+                  CurrentStyle = ImageLabelButtonStyles.Count <= buttonStateIdx
+                                    ? ImageLabelButtonStyles[0]
+                                    : ImageLabelButtonStyles[buttonStateIdx];
                }
 
                break;
          }
       }
 
-      /// <summary>
-      ///    Updates the button text.
-      /// </summary>
+      /// <summary>Updates the button text.</summary>
       private void UpdateButtonText()
       {
          if (!UpdateButtonTextFromStyle || ButtonLabel == null || CurrentStyle.IsNullOrDefault())

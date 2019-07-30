@@ -295,8 +295,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          double additionalTopAllowance = 0
       )
       {
-         var adjustedHeight = parentViewSize.Height / 2 - height / 2;
-         var adjustedWidth  = parentViewSize.Width  / 2 - width  / 2;
+         var adjustedHeight = forceLongSize ? 0 : parentViewSize.Height / 2 - height / 2;
+         var adjustedWidth  = forceLongSize ? 0 : parentViewSize.Width  / 2 - width  / 2;
 
          switch (position)
          {
@@ -582,7 +582,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      ///    Converts to offscreenposition.
+      ///    Converts to off screen position.
       /// </summary>
       /// <param name="stageToolbarPosition">The stage toolbar position.</param>
       /// <returns>OffScreenPositions.</returns>
@@ -597,6 +597,24 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             case StageToolbarPositions.TOP: return OffScreenPositions.TOP;
 
             case StageToolbarPositions.RIGHT: return OffScreenPositions.RIGHT;
+         }
+
+         return OffScreenPositions.NONE;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="flowDirection"></param>
+      /// <returns></returns>
+      public static OffScreenPositions ToOffScreenPosition(this SubStageFlowDirections flowDirection)
+      {
+         switch (flowDirection)
+         {
+            case SubStageFlowDirections.BOTTOM_TO_TOP: return OffScreenPositions.BOTTOM;
+            case SubStageFlowDirections.LEFT_TO_RIGHT:   return OffScreenPositions.LEFT;
+            case SubStageFlowDirections.TOP_TO_BOTTOM:    return OffScreenPositions.TOP;
+            case SubStageFlowDirections.RIGHT_TO_LEFT:  return OffScreenPositions.RIGHT;
          }
 
          return OffScreenPositions.NONE;

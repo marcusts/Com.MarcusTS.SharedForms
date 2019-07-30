@@ -26,6 +26,7 @@
 
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
+   using System;
    using Com.MarcusTS.SharedUtils.Utils;
    using Xamarin.Forms;
 
@@ -68,6 +69,35 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             mainRect.X.IsSameAs(otherRect.X)
           &&
             mainRect.Y.IsSameAs(otherRect.Y);
+      }
+
+      public static bool IsEmpty
+      (
+         this Rectangle mainRect
+      )
+      {
+         return mainRect.X.IsLessThanOrEqualTo(0)     &&
+                mainRect.Y.IsLessThanOrEqualTo(0)     &&
+                mainRect.Width.IsLessThanOrEqualTo(0) &&
+                mainRect.Height.IsLessThanOrEqualTo(0);
+      }
+
+      public static bool IsNotEmpty
+      (
+         this Rectangle mainRect
+      )
+      {
+         return !mainRect.IsEmpty();
+      }
+
+      public static double CheckAgainstZero(this double dbl)
+      {
+         return Math.Max(0, dbl);
+      }
+
+      public static Rectangle FixNegativeDimensions(this Rectangle rect)
+      {
+         return new Rectangle(CheckAgainstZero(rect.X), CheckAgainstZero(rect.Y), CheckAgainstZero(rect.Width), CheckAgainstZero(rect.Height));
       }
    }
 }

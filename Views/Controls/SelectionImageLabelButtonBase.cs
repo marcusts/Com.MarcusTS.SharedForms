@@ -129,7 +129,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       protected SelectionImageLabelButtonBase()
       {
          ImageResourceClassType = GetType();
-         SelectionStyle         = SelectionStyles.ToggleSelectionThroughAllStyles;
+         SelectionStyle         = ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles;
          ButtonLabel            = FormsUtils.GetSimpleLabel();
          LabelPos               = ViewUtils.OnScreenPositions.CENTER;
          ImagePos               = ViewUtils.OnScreenPositions.NONE;
