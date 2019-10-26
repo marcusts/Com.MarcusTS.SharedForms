@@ -6599,6 +6599,36 @@
             <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.SelectionImageLabelButtonBase" />
             <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton`1" />
         </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_BUTTON_BACK_COLOR">
+            <summary>
+            The default button back color
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_BUTTON_BORDER_COLOR">
+            <summary>
+            The default button border color
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_BUTTON_BORDER_WIDTH">
+            <summary>
+            The default button border width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_LABEL_FONT_ATTRIBUTES">
+            <summary>
+            The default label font attributes
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_LABEL_FONT_SIZE">
+            <summary>
+            The default label font size
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_LABEL_TEXT_COLOR">
+            <summary>
+            The default label text color
+            </summary>
+        </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_IMAGE_SUFFIX">
             <summary>
             The default image suffix
@@ -6637,36 +6667,6 @@
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.LabelTextColorProperty">
             <summary>
             The label text color property
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_BUTTON_BACK_COLOR">
-            <summary>
-            The default button back color
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_BUTTON_BORDER_COLOR">
-            <summary>
-            The default button border color
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_BUTTON_BORDER_WIDTH">
-            <summary>
-            The default button border width
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_LABEL_FONT_ATTRIBUTES">
-            <summary>
-            The default label font attributes
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_LABEL_FONT_SIZE">
-            <summary>
-            The default label font size
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_LABEL_TEXT_COLOR">
-            <summary>
-            The default label text color
             </summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1._isInitializing">
@@ -11544,29 +11544,29 @@
             The allow event tunneling
             </summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_GROSS_WIDTH">
-            <summary>
-            The menu gross width
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_INSIDE_SINGLE_MARGIN">
-            <summary>
-            The menu inside single margin
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_ITEM_WIDTH">
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.A_MENU_ITEM_WIDTH">
             <summary>
             The menu item width
             </summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_OUTSIDE_MARGIN">
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.D_MENU_OUTSIDE_SINGLE_MARGIN">
+            <summary>
+            The menu outside single margin
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.E_MENU_GROSS_WIDTH">
+            <summary>
+            The menu gross width
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.F_MENU_OUTSIDE_MARGIN">
             <summary>
             The menu outside margin
             </summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MENU_OUTSIDE_SINGLE_MARGIN">
+        <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.G_MENU_INSIDE_SINGLE_MARGIN">
             <summary>
-            The menu outside single margin
+            The menu inside single margin
             </summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.SubViews.MainMenu.MAIN_MENU_OPACITY">

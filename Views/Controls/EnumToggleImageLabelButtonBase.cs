@@ -96,6 +96,37 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       where EnumT : Enum
    {
       /// <summary>
+      /// The default button back color
+      /// </summary>
+      private static readonly Color DEFAULT_BUTTON_BACK_COLOR = Color.FromRgb(25, 25, 25);
+
+      /// <summary>
+      /// The default button border color
+      /// </summary>
+      private static readonly Color DEFAULT_BUTTON_BORDER_COLOR = Color.Transparent;
+
+      /// <summary>
+      /// The default button border width
+      /// </summary>
+      private static readonly float? DEFAULT_BUTTON_BORDER_WIDTH = 0;
+
+      /// <summary>
+      /// The default label font attributes
+      /// </summary>
+      private static readonly FontAttributes DEFAULT_LABEL_FONT_ATTRIBUTES = FontAttributes.Bold;
+
+      /// <summary>
+      /// The default label font size
+      /// </summary>
+      private static readonly double DEFAULT_LABEL_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+
+      /// <summary>
+      /// The default label text color
+      /// </summary>
+      private static readonly Color DEFAULT_LABEL_TEXT_COLOR = Color.White;
+
+
+      /// <summary>
       /// The default image suffix
       /// </summary>
       private const string DEFAULT_IMAGE_SUFFIX = ".png";
@@ -232,36 +263,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                viewButton.LabelTextColor = newVal;
             }
          );
-
-      /// <summary>
-      /// The default button back color
-      /// </summary>
-      private static readonly Color DEFAULT_BUTTON_BACK_COLOR = Color.FromRgb(25, 25, 25);
-
-      /// <summary>
-      /// The default button border color
-      /// </summary>
-      private static readonly Color DEFAULT_BUTTON_BORDER_COLOR = Color.Transparent;
-
-      /// <summary>
-      /// The default button border width
-      /// </summary>
-      private static readonly float? DEFAULT_BUTTON_BORDER_WIDTH = 0;
-
-      /// <summary>
-      /// The default label font attributes
-      /// </summary>
-      private static readonly FontAttributes DEFAULT_LABEL_FONT_ATTRIBUTES = FontAttributes.Bold;
-
-      /// <summary>
-      /// The default label font size
-      /// </summary>
-      private static readonly double DEFAULT_LABEL_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-
-      /// <summary>
-      /// The default label text color
-      /// </summary>
-      private static readonly Color DEFAULT_LABEL_TEXT_COLOR = Color.White;
 
       /// <summary>
       /// The is initializing

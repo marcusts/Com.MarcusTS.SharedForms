@@ -65,29 +65,29 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       private const bool ALLOW_EVENT_TUNNELING = false;
 
       /// <summary>
-      /// The menu gross width
-      /// </summary>
-      public static readonly double MENU_GROSS_WIDTH = MENU_ITEM_WIDTH + 2 * MENU_OUTSIDE_SINGLE_MARGIN;
-
-      /// <summary>
-      /// The menu inside single margin
-      /// </summary>
-      public static readonly double MENU_INSIDE_SINGLE_MARGIN = MENU_OUTSIDE_SINGLE_MARGIN / 2;
-
-      /// <summary>
       /// The menu item width
       /// </summary>
-      public static readonly double MENU_ITEM_WIDTH = 120.0;
-
-      /// <summary>
-      /// The menu outside margin
-      /// </summary>
-      public static readonly Thickness MENU_OUTSIDE_MARGIN = new Thickness(MENU_OUTSIDE_SINGLE_MARGIN);
+      public static readonly double A_MENU_ITEM_WIDTH = 120.0;
 
       /// <summary>
       /// The menu outside single margin
       /// </summary>
-      public static readonly double MENU_OUTSIDE_SINGLE_MARGIN = 15.0;
+      public static readonly double D_MENU_OUTSIDE_SINGLE_MARGIN = 15.0;
+
+      /// <summary>
+      /// The menu gross width
+      /// </summary>
+      public static readonly double E_MENU_GROSS_WIDTH = A_MENU_ITEM_WIDTH + 2 * D_MENU_OUTSIDE_SINGLE_MARGIN;
+
+      /// <summary>
+      /// The menu outside margin
+      /// </summary>
+      public static readonly Thickness F_MENU_OUTSIDE_MARGIN = new Thickness(D_MENU_OUTSIDE_SINGLE_MARGIN);
+
+      /// <summary>
+      /// The menu inside single margin
+      /// </summary>
+      public static readonly double G_MENU_INSIDE_SINGLE_MARGIN = D_MENU_OUTSIDE_SINGLE_MARGIN / 2;
 
       /// <summary>
       /// The main menu opacity
@@ -163,7 +163,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
             new Button
             {
                Text              = menuData.MenuTitle,
-               WidthRequest      = MENU_ITEM_WIDTH,
+               WidthRequest      = A_MENU_ITEM_WIDTH,
                HeightRequest     = MENU_ITEM_HEIGHT,
                HorizontalOptions = LayoutOptions.Center,
                VerticalOptions   = LayoutOptions.Center,
@@ -194,14 +194,14 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          var menuStack = FormsUtils.GetExpandingStackLayout();
          menuStack.VerticalOptions   = LayoutOptions.StartAndExpand;
          menuStack.HorizontalOptions = LayoutOptions.CenterAndExpand;
-         menuStack.Margin            = MENU_OUTSIDE_MARGIN;
-         menuStack.Spacing           = MENU_INSIDE_SINGLE_MARGIN;
+         menuStack.Margin            = F_MENU_OUTSIDE_MARGIN;
+         menuStack.Spacing           = G_MENU_INSIDE_SINGLE_MARGIN;
          menuStack.InputTransparent  = ALLOW_EVENT_TUNNELING;
 
-         var singleMenuItemHeight = MENU_ITEM_HEIGHT + MENU_INSIDE_SINGLE_MARGIN;
+         var singleMenuItemHeight = MENU_ITEM_HEIGHT + G_MENU_INSIDE_SINGLE_MARGIN;
 
          // Allow for the top and bottom margins, etc.
-         MenuHeight = 2 * MENU_OUTSIDE_SINGLE_MARGIN;
+         MenuHeight = 2 * D_MENU_OUTSIDE_SINGLE_MARGIN;
 
          foreach (var menuData in _stateMachine.MenuItems)
          {
@@ -210,7 +210,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          }
 
          HeightRequest = MenuHeight;
-         WidthRequest  = MENU_GROSS_WIDTH;
+         WidthRequest  = E_MENU_GROSS_WIDTH;
 
          var scroller = FormsUtils.GetExpandingScrollView();
          scroller.InputTransparent = ALLOW_EVENT_TUNNELING;

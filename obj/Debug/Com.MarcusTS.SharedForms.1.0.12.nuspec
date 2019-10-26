@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Com.MarcusTS.SharedForms</id>
-    <version>1.0.14</version>
+    <version>1.0.12</version>
     <authors>Stephen Marcus</authors>
     <owners>Stephen Marcus</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
