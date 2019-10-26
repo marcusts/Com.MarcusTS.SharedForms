@@ -1,36 +1,36 @@
-﻿// *********************************************************************************
-// <copyright file=StatefulViewModelBase.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+﻿#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, StatefulViewModelBase.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
-   using Com.MarcusTS.SharedForms.Common.Behaviors;
-   using Com.MarcusTS.SharedForms.Common.Interfaces;
-   using Com.MarcusTS.SharedForms.Common.Notifications;
-   using Com.MarcusTS.SharedForms.Common.Utils;
-   using Com.MarcusTS.SharedUtils.Utils;
+   using Common.Behaviors;
+   using Common.Interfaces;
+   using Common.Notifications;
+   using Common.Utils;
+   using SharedUtils.Utils;
    using System;
    using System.Collections.Generic;
    using System.ComponentModel;
@@ -42,9 +42,9 @@ namespace Com.MarcusTS.SharedForms.ViewModels
    using Xamarin.Forms;
 
    /// <summary>
-   ///    Interface IStatefulViewModel
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanPullToRefresh" />
+   /// Interface IStatefulViewModel
+   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanPullToRefresh" />
    /// </summary>
    /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
    /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanPullToRefresh" />
@@ -52,31 +52,29 @@ namespace Com.MarcusTS.SharedForms.ViewModels
    {
       // Reports if any of the managed properties has changed
       /// <summary>
-      ///    Gets a value indicating whether [any property value has changed].
+      /// Gets a value indicating whether [any property value has changed].
       /// </summary>
       /// <value><c>true</c> if [any property value has changed]; otherwise, <c>false</c>.</value>
       bool AnyPropertyValueHasChanged { get; }
 
       // A temporary bool to prevent us from accessing the "save" button during an actual save or refresh.
       /// <summary>
-      ///    Gets a value indicating whether this instance is refreshing.
+      /// Gets a value indicating whether this instance is refreshing.
       /// </summary>
       /// <value><c>true</c> if this instance is refreshing; otherwise, <c>false</c>.</value>
       bool IsRefreshing { get; }
 
       // Reports whether the page can be saved; usually this is the same as PageIsValid, but there are subtleties.
       /// <summary>
-      ///    Gets a value indicating whether [page can be saved].
+      /// Gets a value indicating whether [page can be saved].
       /// </summary>
-      /// <value>
-      ///    <c>null</c> if [page can be saved] contains no value, <c>true</c> if [page can be saved]; otherwise,
-      ///    <c>false</c>.
-      /// </value>
+      /// <value><c>null</c> if [page can be saved] contains no value, <c>true</c> if [page can be saved]; otherwise,
+      /// <c>false</c>.</value>
       bool? PageCanBeSaved { get; }
 
       // Reports if the page has been validated successfully.
       /// <summary>
-      ///    Gets a value indicating whether [page is valid].
+      /// Gets a value indicating whether [page is valid].
       /// </summary>
       /// <value><c>null</c> if [page is valid] contains no value, <c>true</c> if [page is valid]; otherwise, <c>false</c>.</value>
       bool? PageIsValid { get; }
@@ -84,7 +82,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       // If set true, the user can save even if they have not changed any properties.
       // This is only the case where there are no editable properties.
       /// <summary>
-      ///    Gets a value indicating whether [proceed without property changes].
+      /// Gets a value indicating whether [proceed without property changes].
       /// </summary>
       /// <value><c>true</c> if [proceed without property changes]; otherwise, <c>false</c>.</value>
       bool ProceedWithoutPropertyChanges { get; }
@@ -92,10 +90,10 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       // Adds the prescribed behaviors to the view model.
       // This makes them accessible and manageable by the view model.
       /// <summary>
-      ///    Adds the behaviors.
+      /// Adds the behaviors.
       /// </summary>
       /// <param name="behaviors">The behaviors.</param>
-      void AddBehaviors(params IBehaviorBase[] behaviors);
+      void AddBehaviors(params IEntryValidationBehavior[] behaviors);
 
       // This class is an "editable buffer" of properties.
       // This is why any deriver of StatefulViewModel always must state the generic type T,
@@ -105,19 +103,19 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       // This method is used at startup to assign the view model's properties to the values derived from the original source,
       // usually inside LocalSettings.
       /// <summary>
-      ///    Copies the original values to live values.
+      /// Copies the original values to live values.
       /// </summary>
       void CopyOriginalValuesToLiveValues();
 
       // Responds to validations.
       /// <summary>
-      ///    Handles the input validation changed.
+      /// Handles the input validation changed.
       /// </summary>
       void HandleInputValidationChanged();
 
       // Refreshes the validation state of all properties.
       /// <summary>
-      ///    Revalidates the behaviors.
+      /// Revalidates the behaviors.
       /// </summary>
       void RevalidateBehaviors();
 
@@ -127,14 +125,14 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       // We have lost the state of the view model vs. its original data.
       // This method restores it.
       /// <summary>
-      ///    Reverts to fail safe original values.
+      /// Reverts to fail safe original values.
       /// </summary>
       void RevertToFailSafeOriginalValues();
 
       // The opposite of the method above; this one copies from this class back to the original source.
       // It is used when saving after a user edit.
       /// <summary>
-      ///    Saves the live values back to original values.
+      /// Saves the live values back to original values.
       /// </summary>
       void SaveLiveValuesBackToOriginalValues();
 
@@ -143,14 +141,12 @@ namespace Com.MarcusTS.SharedForms.ViewModels
    }
 
    /// <summary>
-   ///    A view model specialized at inputting and saving values.
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.ViewModelBase" />
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
+   /// A view model specialized at inputting and saving values.
+   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.ViewModelBase" />
+   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
    /// </summary>
-   /// <typeparam name="InterfaceT">
-   ///    The type of interface storing the savable values -
-   ///    can be the entire original view model or a sub-set.
-   /// </typeparam>
+   /// <typeparam name="InterfaceT">The type of interface storing the savable values -
+   /// can be the entire original view model or a sub-set.</typeparam>
    /// <typeparam name="ClassT">The type of class to be instantiated to create saved values.</typeparam>
    /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.ViewModelBase" />
    /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
@@ -159,64 +155,64 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       where ClassT : InterfaceT, new()
    {
       /// <summary>
-      ///    The behaviors
+      /// The behaviors
       /// </summary>
-      private readonly IList<IBehaviorBase> _behaviors = new List<IBehaviorBase>();
+      private readonly IList<IEntryValidationBehavior> _behaviors = new List<IEntryValidationBehavior>();
 
       /// <summary>
-      ///    The cached property infos
+      /// The cached property infos
       /// </summary>
       protected readonly PropertyInfo[] _cachedPropInfos;
 
       /// <summary>
-      ///    Any property value has changed
+      /// Any property value has changed
       /// </summary>
       private bool _anyPropertyValueHasChanged;
 
       /// <summary>
-      ///    The is initialized
+      /// The is initialized
       /// </summary>
       private bool _isInitialized;
 
       /// <summary>
-      ///    The original values
+      /// The original values
       /// </summary>
       private InterfaceT _originalValues;
 
       /// <summary>
-      ///    The page can be saved
+      /// The page can be saved
       /// </summary>
       private bool? _pageCanBeSaved;
 
       /// <summary>
-      ///    The page is valid
+      /// The page is valid
       /// </summary>
       private bool? _pageIsValid;
 
       /// <summary>
-      ///    The revertable original values
+      /// The revertable original values
       /// </summary>
       private InterfaceT _revertableOriginalValues;
 
       /// <summary>
-      ///    The start up entered
+      /// The start up entered
       /// </summary>
       private bool _startUpEntered;
 
       /// <summary>
-      ///    The view model
+      /// The view model
       /// </summary>
       private INotifyPropertyChanged _viewModel;
 
       /// <summary>
-      ///    Initializes a new instance of the <see cref="StatefulViewModelBase{InterfaceT, ClassT}" /> class.
+      /// Initializes a new instance of the <see cref="StatefulViewModelBase{InterfaceT, ClassT}" /> class.
       /// </summary>
       protected StatefulViewModelBase()
       {
          // A bit clunky, but not sure what else to do -- if this fails, the class is being used improperly.
-         Debug.Assert(this is InterfaceT,
-                      "The stateful view model base ->" + GetType() + "must implement interface type ->" + typeof(InterfaceT) +
-                      "<-");
+         ErrorUtils.ConsiderArgumentError(!(this is InterfaceT),
+                                          "The stateful view model base ->" + GetType() +
+                                          "must implement interface type "  + typeof(InterfaceT));
 
          // Stash the set of reflected properties for use in this class.
          _cachedPropInfos = Extensions.GetAllPropInfos<InterfaceT>();
@@ -238,7 +234,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
                   RefreshDataCommand.ChangeCanExecute();
 
-                  await RefreshDataAndOverwriteExisting();
+                  await RefreshDataAndOverwriteExisting().WithoutChangingContext();
 
                   if (Device.RuntimePlatform.IsSameAs(Device.Android))
                   {
@@ -258,13 +254,13 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Gets the this as interface t.
+      /// Gets the this as interface t.
       /// </summary>
       /// <value>The this as interface t.</value>
       private InterfaceT ThisAsInterfaceT => this as InterfaceT;
 
       /// <summary>
-      ///    Gets a value indicating whether [any property value has changed].
+      /// Gets a value indicating whether [any property value has changed].
       /// </summary>
       /// <value><c>true</c> if [any property value has changed]; otherwise, <c>false</c>.</value>
       public bool AnyPropertyValueHasChanged
@@ -280,18 +276,16 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Gets a value indicating whether this instance is refreshing.
+      /// Gets a value indicating whether this instance is refreshing.
       /// </summary>
       /// <value><c>true</c> if this instance is refreshing; otherwise, <c>false</c>.</value>
       public bool IsRefreshing { get; private set; }
 
       /// <summary>
-      ///    Gets or sets a value indicating whether [page can be saved].
+      /// Gets or sets a value indicating whether [page can be saved].
       /// </summary>
-      /// <value>
-      ///    <c>null</c> if [page can be saved] contains no value, <c>true</c> if [page can be saved]; otherwise,
-      ///    <c>false</c>.
-      /// </value>
+      /// <value><c>null</c> if [page can be saved] contains no value, <c>true</c> if [page can be saved]; otherwise,
+      /// <c>false</c>.</value>
       public bool? PageCanBeSaved
       {
          get => _pageCanBeSaved;
@@ -301,12 +295,12 @@ namespace Com.MarcusTS.SharedForms.ViewModels
             // On reversion, we might not have a different value, but must still enforce this (especially raising the event).
             _pageCanBeSaved = value;
 
-            FormsMessengerUtils.Send(new NotifyPageCanBeSavedChangedMessage { Payload = this });
+            FormsMessengerUtils.Send(new NotifyPageCanBeSavedChangedMessage {Payload = this});
          }
       }
 
       /// <summary>
-      ///    Gets or sets a value indicating whether [page is valid].
+      /// Gets or sets a value indicating whether [page is valid].
       /// </summary>
       /// <value><c>null</c> if [page is valid] contains no value, <c>true</c> if [page is valid]; otherwise, <c>false</c>.</value>
       public bool? PageIsValid
@@ -321,29 +315,30 @@ namespace Com.MarcusTS.SharedForms.ViewModels
             _pageIsValid = value;
 
             ResetPageCanBeSaved();
+
             //}
          }
       }
 
       /// <summary>
-      ///    If true, we will allow the user to "save" even if no change has taken place.
-      ///    The default is false.
+      /// If true, we will allow the user to "save" even if no change has taken place.
+      /// The default is false.
       /// </summary>
       /// <value><c>true</c> if [proceed without property changes]; otherwise, <c>false</c>.</value>
       public bool ProceedWithoutPropertyChanges { get; protected set; }
 
       /// <summary>
-      ///    Gets the refresh data command.
+      /// Gets the refresh data command.
       /// </summary>
       /// <value>The refresh data command.</value>
       public Command RefreshDataCommand { get; }
 
       /// <summary>
-      ///    The deriver can add behaviors as properties, but *MUST* add them here so they
-      ///    will validate - !!!
+      /// The deriver can add behaviors as properties, but *MUST* add them here so they
+      /// will validate - !!!
       /// </summary>
       /// <param name="behaviors">The behaviors.</param>
-      public void AddBehaviors(params IBehaviorBase[] behaviors)
+      public void AddBehaviors(params IEntryValidationBehavior[] behaviors)
       {
          foreach (var behavior in behaviors)
          {
@@ -357,7 +352,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Copies the original values to live values.
+      /// Copies the original values to live values.
       /// </summary>
       public void CopyOriginalValuesToLiveValues()
       {
@@ -368,7 +363,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Handles the input validation changed.
+      /// Handles the input validation changed.
       /// </summary>
       public virtual void HandleInputValidationChanged()
       {
@@ -376,7 +371,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Revalidates the behaviors.
+      /// Revalidates the behaviors.
       /// </summary>
       public void RevalidateBehaviors()
       {
@@ -393,11 +388,11 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Copy the safe-safe original values back to the original values,
-      ///    then re-validate.  This is called when we have already destroyed the
-      ///    state of the original values at an attempt to save, but then failed to save.
-      ///    It restores the state of the UI based on differences between the "live" values
-      ///    and the *real* original values (before edit and save).
+      /// Copy the safe-safe original values back to the original values,
+      /// then re-validate.  This is called when we have already destroyed the
+      /// state of the original values at an attempt to save, but then failed to save.
+      /// It restores the state of the UI based on differences between the "live" values
+      /// and the *real* original values (before edit and save).
       /// </summary>
       public void RevertToFailSafeOriginalValues()
       {
@@ -413,7 +408,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Saves the live values back to original values.
+      /// Saves the live values back to original values.
       /// </summary>
       public void SaveLiveValuesBackToOriginalValues()
       {
@@ -424,7 +419,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    as the single property has changed.
+      /// as the single property has changed.
       /// </summary>
       /// <param name="propertyName">Name of the property.</param>
       /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
@@ -434,7 +429,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    REQUIRED at the deriving constructor !!!
+      /// REQUIRED at the deriving constructor !!!
       /// </summary>
       /// <param name="originalValues">The original values.</param>
       protected void InitializeOriginalValues(InterfaceT originalValues)
@@ -455,22 +450,22 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Called when [any property value has changed].
+      /// Called when [any property value has changed].
       /// </summary>
       protected virtual void OnAnyPropertyValueHasChanged()
       {
       }
 
       /// <summary>
-      ///    Raises the force refresh UI view.
+      /// Raises the force refresh UI view.
       /// </summary>
       protected void RaiseForceRefreshUIView()
       {
-         FormsMessengerUtils.Send(new RefreshUIViewMessage { Payload = this });
+         FormsMessengerUtils.Send(new RefreshUIViewMessage {Payload = this});
       }
 
       /// <summary>
-      ///    Refreshes the data.
+      /// Refreshes the data.
       /// </summary>
       /// <returns>Task.</returns>
       protected virtual Task RefreshData()
@@ -479,7 +474,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Refreshes the data and overwrite existing.
+      /// Refreshes the data and overwrite existing.
       /// </summary>
       /// <returns>Task.</returns>
       protected async Task RefreshDataAndOverwriteExisting()
@@ -494,7 +489,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Resets the page can be saved.
+      /// Resets the page can be saved.
       /// </summary>
       protected void ResetPageCanBeSaved()
       {
@@ -502,36 +497,36 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Resets any property value has changed.
+      /// Resets any property value has changed.
       /// </summary>
       private void ResetAnyPropertyValueHasChanged()
       {
          AnyPropertyValueHasChanged = _isInitialized &&
-            ThisAsInterfaceT.AnySettablePropertyHasChanged(_originalValues, string.Empty,
-                                                           _cachedPropInfos);
+                                      ThisAsInterfaceT.AnySettablePropertyHasChanged(_originalValues, string.Empty,
+                                                                                     _cachedPropInfos);
       }
 
       /// <summary>
-      ///    Sets up fody property changed listener.
+      /// Sets up fody property changed listener.
       /// </summary>
       /// <param name="propExpression">The property expression.</param>
       private void SetUpFodyPropertyChangedListener(Expression<Func<bool>> propExpression)
       {
          var member = propExpression.Body as MemberExpression;
 
-         Debug.Assert(member != null,
-                      $"SetUpFodyPropertyChangedListener: Expression '{propExpression}' must be a property.");
+         ErrorUtils.ConsiderArgumentError(member.IsNullOrDefault(),
+                                          $"SetUpFodyPropertyChangedListener: Expression '{propExpression}' must be a property.");
 
          var expression = member?.Expression as ConstantExpression;
 
-         Debug.Assert(expression != null,
-                      $"SetUpFodyPropertyChangedListener: Expression '{propExpression}' must be a constant expression");
+         ErrorUtils.ConsiderArgumentError(expression.IsNullOrDefault(),
+                                          $"SetUpFodyPropertyChangedListener: Expression '{propExpression}' must be a constant expression");
 
          // This is a sneaky way to refer to ourselves -- but only after Fody weaves us into the proper implementation .
          _viewModel = expression?.Value as INotifyPropertyChanged;
 
-         Debug.Assert(_viewModel != null,
-                      $"SetUpFodyPropertyChangedListener: Expression '{propExpression}'.Value must implement INotifyPropertyChanged");
+         ErrorUtils.ConsiderArgumentError(_viewModel.IsNullOrDefault(),
+                                          $"SetUpFodyPropertyChangedListener: Expression '{propExpression}'.Value must implement INotifyPropertyChanged");
 
          // On any property change, we re-check to see if
          if (_viewModel != null)
@@ -541,7 +536,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Starts up stateful view model.
+      /// Starts up stateful view model.
       /// </summary>
       private void StartUpStatefulViewModel()
       {
@@ -575,7 +570,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      ///    Views the model on property changed.
+      /// Views the model on property changed.
       /// </summary>
       /// <param name="sender">The sender.</param>
       /// <param name="propertyChangedEventArgs">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
@@ -587,16 +582,5 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       {
          ResetAnyPropertyValueHasChanged();
       }
-
-      //protected override void PageIsDisappearing(object sender, PageIsDisappearingMessage args)
-      //{
-      //   base.PageIsDisappearing(sender, args);
-
-      //   // Messenger.Unsubscribe<NewDataAvailableMessage<InterfaceT>>(this);
-      //   if (_viewModel != null)
-      //   {
-      //      _viewModel.PropertyChanged -= ViewModelOnPropertyChanged;
-      //   }
-      //}
    }
 }

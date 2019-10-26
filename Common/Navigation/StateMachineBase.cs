@@ -1,42 +1,41 @@
-﻿// *********************************************************************************
-// <copyright file=StateMachineBase.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+﻿#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, StateMachineBase.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Navigation
 {
-   using Com.MarcusTS.SharedForms.Common.Interfaces;
-   using Com.MarcusTS.SharedForms.Common.Notifications;
-   using Com.MarcusTS.SharedUtils.Utils;
+   using Interfaces;
+   using Notifications;
+   using SharedUtils.Utils;
    using System;
    using System.Linq;
-   using Xamarin.Forms;
    using Xamarin.Forms.Internals;
 
    /// <summary>
-   ///    Interface IStateMachineBase
-   ///    Implements the <see cref="System.IDisposable" />
+   /// Interface IStateMachineBase
+   /// Implements the <see cref="System.IDisposable" />
    /// </summary>
    /// <seealso cref="System.IDisposable" />
    public interface IStateMachine : IDisposable
@@ -45,14 +44,14 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       // string CurrentAppState { get; }
 
       /// <summary>
-      ///    Gets the menu items.
+      /// Gets the menu items.
       /// </summary>
       /// <value>The menu items.</value>
       IMenuNavigationState[] MenuItems { get; }
 
       // The normal way of changing states
       /// <summary>
-      ///    Goes the state of to application.
+      /// Goes the state of to application.
       /// </summary>
       /// <param name="newState">The new state.</param>
       /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
@@ -64,57 +63,57 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
 
       // Goes to the default landing page; for convenience only
       /// <summary>
-      ///    Goes to landing page.
+      /// Goes to landing page.
       /// </summary>
       /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
       void GoToLandingPage(bool preventStackPush = true);
 
       // Sets the startup state for the app on initial start (or restart).
       /// <summary>
-      ///    Goes the state of to start up.
+      /// Goes the state of to start up.
       /// </summary>
       void GoToStartUpState();
    }
 
    /// <summary>
-   ///    A controller to manage which views and view models are shown for a given state
-   ///    Implements the <see cref="IStateMachine" />
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Common.Navigation.IStateMachine" />
+   /// A controller to manage which views and view models are shown for a given state
+   /// Implements the <see cref="IStateMachine" />
+   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Navigation.IStateMachine" />
    /// </summary>
    /// <seealso cref="Com.MarcusTS.SharedForms.Common.Navigation.IStateMachine" />
    /// <seealso cref="IStateMachine" />
    public abstract class StateMachineBase : IStateMachine
    {
-      /// <summary>
-      ///    The last page
-      /// </summary>
-      private readonly Page _lastPage;
+      ///// <summary>
+      /////    The last page
+      ///// </summary>
+      //private readonly Page _lastPage;
 
       /// <summary>
-      ///    The last application state
+      /// The last application state
       /// </summary>
       private string _lastAppState;
 
       /// <summary>
-      ///    Gets the application states.
+      /// Gets the application states.
       /// </summary>
       /// <value>The application states.</value>
       public abstract string[] APP_STATES { get; }
 
       /// <summary>
-      ///    Gets the state of the application start up.
+      /// Gets the state of the application start up.
       /// </summary>
       /// <value>The state of the application start up.</value>
       public abstract string AppStartUpState { get; }
 
       /// <summary>
-      ///    Gets the menu items.
+      /// Gets the menu items.
       /// </summary>
       /// <value>The menu items.</value>
       public abstract IMenuNavigationState[] MenuItems { get; }
 
       /// <summary>
-      ///    Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+      /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
       /// </summary>
       public void Dispose()
       {
@@ -123,7 +122,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       }
 
       /// <summary>
-      ///    Goes the state of to application.
+      /// Goes the state of to application.
       /// </summary>
       /// <param name="newState">The new state.</param>
       /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
@@ -154,7 +153,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       }
 
       /// <summary>
-      ///    Goes to landing page.
+      /// Goes to landing page.
       /// </summary>
       /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
       public abstract void GoToLandingPage(bool preventStackPush = true);
@@ -162,7 +161,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       // public string CurrentAppState { get; private set; } Sets the startup state for the app on
       // initial start (or restart).
       /// <summary>
-      ///    Goes the state of to start up.
+      /// Goes the state of to start up.
       /// </summary>
       public void GoToStartUpState()
       {
@@ -172,7 +171,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       }
 
       /// <summary>
-      ///    Finalizes an instance of the <see cref="StateMachineBase" /> class.
+      /// Finalizes an instance of the <see cref="StateMachineBase" /> class.
       /// </summary>
       ~StateMachineBase()
       {
@@ -180,7 +179,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       }
 
       /// <summary>
-      ///    Gets the state of the menu order from application.
+      /// Gets the state of the menu order from application.
       /// </summary>
       /// <param name="appState">State of the application.</param>
       /// <returns>System.Int32.</returns>
@@ -190,14 +189,14 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       }
 
       /// <summary>
-      ///    Releases the unmanaged resources.
+      /// Releases the unmanaged resources.
       /// </summary>
       protected virtual void ReleaseUnmanagedResources()
       {
       }
 
       /// <summary>
-      ///    Responds to application state change.
+      /// Responds to application state change.
       /// </summary>
       /// <param name="newState">The new state.</param>
       /// <param name="menuData">The menu data.</param>
@@ -210,9 +209,9 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       );
 
       /// <summary>
-      ///    Class AppStartUpMessage.
-      ///    Implements the <see cref="NoPayloadMessage" />
-      ///    Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
+      /// Class AppStartUpMessage.
+      /// Implements the <see cref="NoPayloadMessage" />
+      /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
       /// </summary>
       /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
       /// <seealso cref="NoPayloadMessage" />

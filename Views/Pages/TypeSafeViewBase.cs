@@ -1,69 +1,67 @@
-﻿// *********************************************************************************
-// <copyright file=TypeSafeViewBase.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+﻿#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, TypeSafeViewBase.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Pages
 {
-   using Com.MarcusTS.SharedForms.Common.Interfaces;
-   using Com.MarcusTS.SharedForms.Common.Utils;
+   using Common.Interfaces;
+   using Common.Utils;
    using Xamarin.Forms;
 
    /// <summary>
-   ///    Interface ITypeSafeViewBase
+   /// Interface ITypeSafeViewBase
    /// </summary>
    public interface ITypeSafeViewBase
    {
    }
 
    /// <summary>
-   ///    A base class for content views that protects the type safety of the binding context.
-   ///    Implements the <see cref="Xamarin.Forms.ContentView" />
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
+   /// A base class for content views that protects the type safety of the binding context.
+   /// Implements the <see cref="Xamarin.Forms.ContentView" />
+   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
    /// </summary>
    /// <typeparam name="InterfaceT">The required interface for this view.</typeparam>
    /// <seealso cref="Xamarin.Forms.ContentView" />
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
-   /// <remarks>
-   ///    This code is similar to that at <see cref="TypeSafePageBase{InterfaceT}" /> except it manages a
-   ///    view rather than a page.
-   /// </remarks>
+   /// <remarks>This code is similar to that at <see cref="TypeSafePageBase{InterfaceT}" /> except it manages a
+   /// view rather than a page.</remarks>
    public abstract class TypeSafeViewBase<InterfaceT> : ContentView, ITypeSafeViewBase
       where InterfaceT : class
    {
       /// <summary>
-      ///    The content relative layout
+      /// The content relative layout
       /// </summary>
       private readonly RelativeLayout _contentRelativeLayout = FormsUtils.GetExpandingRelativeLayout();
 
-      /// <summary>
-      ///    The page event provider
-      /// </summary>
-      private readonly IProvidePageEvents _pageEventProvider;
+      ///// <summary>
+      /////    The page event provider
+      ///// </summary>
+      //private readonly IProvidePageEvents _pageEventProvider;
 
       /// <summary>
-      ///    Initializes a new instance of the <see cref="TypeSafeViewBase{InterfaceT}" /> class.
+      /// Initializes a new instance of the <see cref="TypeSafeViewBase{InterfaceT}" /> class.
       /// </summary>
       /// <param name="pageEventProvider">The page event provider.</param>
       protected TypeSafeViewBase(IProvidePageEvents pageEventProvider = null)
@@ -80,32 +78,20 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
       }
 
       /// <summary>
-      ///    T is normally an interface -- not a class -- but there is no such constraint available.
+      /// T is normally an interface -- not a class -- but there is no such constraint available.
       /// </summary>
-      /// <value>
-      ///    An <see cref="T:System.Object" /> that contains the properties that will be targeted by the bound properties
-      ///    that belong to this <see cref="T:Xamarin.Forms.BindableObject" />. This is a bindable property.
-      /// </value>
-      /// <remarks>
-      ///    <block subset="none" type="note">
-      ///       Typically, the runtime performance is better if
-      ///       <see cref="P:Xamarin.Forms.BindableObject.BindingContext" /> is set after all calls to
-      ///       <see cref="M:Xamarin.Forms.BindableObject.SetBinding(Xamarin.Forms.BindableProperty,Xamarin.Forms.BindingBase)" />
-      ///       have been made.
-      ///    </block>
-      ///    <para>
-      ///       The following example shows how to apply a BindingContext and a Binding to a Label (inherits from
-      ///       BindableObject):
-      ///    </para>
-      ///    <example>
-      ///       <code lang="csharp lang-csharp"><![CDATA[
+      /// <value>An <see cref="T:System.Object" /> that contains the properties that will be targeted by the bound properties
+      /// that belong to this <see cref="T:Xamarin.Forms.BindableObject" />. This is a bindable property.</value>
+      /// <remarks><block subset="none" type="note">Typically, the runtime performance is better if  <see cref="P:Xamarin.Forms.BindableObject.BindingContext" /> is set after all calls to <see cref="M:Xamarin.Forms.BindableObject.SetBinding(Xamarin.Forms.BindableProperty,Xamarin.Forms.BindingBase)" /> have been made.</block>
+      /// <para>The following example shows how to apply a BindingContext and a Binding to a Label (inherits from BindableObject):</para>
+      /// <example>
+      ///   <code lang="csharp lang-csharp"><![CDATA[
       /// var label = new Label ();
       /// label.SetBinding (Label.TextProperty, "Name");
       /// label.BindingContext = new {Name = "John Doe", Company = "Xamarin"};
       /// Debug.WriteLine (label.Text); //prints "John Doe"
       /// ]]></code>
-      ///    </example>
-      /// </remarks>
+      /// </example></remarks>
       public new InterfaceT BindingContext
       {
          get => base.BindingContext as InterfaceT;
@@ -137,7 +123,7 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
       */
 
       /// <summary>
-      ///    Afters the content set.
+      /// Afters the content set.
       /// </summary>
       /// <param name="layout">The layout.</param>
       protected virtual void AfterContentSet(RelativeLayout layout)
@@ -145,7 +131,7 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
       }
 
       /// <summary>
-      ///    Requests that the deriver create the physical view.
+      /// Requests that the deriver create the physical view.
       /// </summary>
       /// <returns>View.</returns>
       protected virtual View ConstructView()

@@ -1,116 +1,116 @@
-// *********************************************************************************
-// <copyright file=MainMenu.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, MainMenu.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.SubViews
 {
-   using Com.MarcusTS.SharedForms.Common.Interfaces;
-   using Com.MarcusTS.SharedForms.Common.Navigation;
-   using Com.MarcusTS.SharedForms.Common.Notifications;
-   using Com.MarcusTS.SharedForms.Common.Utils;
+   using Common.Interfaces;
+   using Common.Navigation;
+   using Common.Notifications;
+   using Common.Utils;
    using Xamarin.Forms;
 
    /// <summary>
-   ///    Interface IMainMenu
+   /// Interface IMainMenu
    /// </summary>
    public interface IMainMenu
    {
       /// <summary>
-      ///    Gets a value indicating whether this instance is menu loaded.
+      /// Gets a value indicating whether this instance is menu loaded.
       /// </summary>
       /// <value><c>true</c> if this instance is menu loaded; otherwise, <c>false</c>.</value>
       bool IsMenuLoaded { get; }
 
       /// <summary>
-      ///    Gets the height of the menu.
+      /// Gets the height of the menu.
       /// </summary>
       /// <value>The height of the menu.</value>
       double MenuHeight { get; }
    }
 
    /// <summary>
-   ///    Class MainMenu.
-   ///    Implements the <see cref="Xamarin.Forms.ContentView" />
-   ///    Implements the <see cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
+   /// Class MainMenu.
+   /// Implements the <see cref="Xamarin.Forms.ContentView" />
+   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.ContentView" />
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
    public class MainMenu : ContentView, IMainMenu
    {
       /// <summary>
-      ///    The allow event tunneling
+      /// The allow event tunneling
       /// </summary>
       private const bool ALLOW_EVENT_TUNNELING = false;
 
       /// <summary>
-      ///    The menu gross width
+      /// The menu gross width
       /// </summary>
       public static readonly double MENU_GROSS_WIDTH = MENU_ITEM_WIDTH + 2 * MENU_OUTSIDE_SINGLE_MARGIN;
 
       /// <summary>
-      ///    The menu inside single margin
+      /// The menu inside single margin
       /// </summary>
       public static readonly double MENU_INSIDE_SINGLE_MARGIN = MENU_OUTSIDE_SINGLE_MARGIN / 2;
 
       /// <summary>
-      ///    The menu item width
+      /// The menu item width
       /// </summary>
       public static readonly double MENU_ITEM_WIDTH = 120.0;
 
       /// <summary>
-      ///    The menu outside margin
+      /// The menu outside margin
       /// </summary>
       public static readonly Thickness MENU_OUTSIDE_MARGIN = new Thickness(MENU_OUTSIDE_SINGLE_MARGIN);
 
       /// <summary>
-      ///    The menu outside single margin
+      /// The menu outside single margin
       /// </summary>
       public static readonly double MENU_OUTSIDE_SINGLE_MARGIN = 15.0;
 
       /// <summary>
-      ///    The main menu opacity
+      /// The main menu opacity
       /// </summary>
       private static readonly double MAIN_MENU_OPACITY = 0.95;
 
       /// <summary>
-      ///    The menu item height
+      /// The menu item height
       /// </summary>
       private static readonly double MENU_ITEM_HEIGHT = 40.0;
 
       /// <summary>
-      ///    The state machine
+      /// The state machine
       /// </summary>
       private readonly IStateMachine _stateMachine;
 
       /// <summary>
-      ///    The is menu loaded
+      /// The is menu loaded
       /// </summary>
       private bool _isMenuLoaded;
 
       /// <summary>
-      ///    Initializes a new instance of the <see cref="MainMenu" /> class.
+      /// Initializes a new instance of the <see cref="MainMenu" /> class.
       /// </summary>
       /// <param name="stateMachine">The state machine.</param>
       public MainMenu(IStateMachine stateMachine)
@@ -132,7 +132,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       }
 
       /// <summary>
-      ///    Gets a value indicating whether this instance is menu loaded.
+      /// Gets a value indicating whether this instance is menu loaded.
       /// </summary>
       /// <value><c>true</c> if this instance is menu loaded; otherwise, <c>false</c>.</value>
       public bool IsMenuLoaded
@@ -147,13 +147,13 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       }
 
       /// <summary>
-      ///    Gets the height of the menu.
+      /// Gets the height of the menu.
       /// </summary>
       /// <value>The height of the menu.</value>
       public double MenuHeight { get; private set; }
 
       /// <summary>
-      ///    Creates the menu item button.
+      /// Creates the menu item button.
       /// </summary>
       /// <param name="menuData">The menu data.</param>
       /// <returns>Button.</returns>
@@ -186,7 +186,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       }
 
       /// <summary>
-      ///    Loads the menu from state machine.
+      /// Loads the menu from state machine.
       /// </summary>
       private void LoadMenuFromStateMachine()
       {

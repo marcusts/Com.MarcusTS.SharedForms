@@ -1,59 +1,75 @@
-// *********************************************************************************
-// <copyright file=DialogFactory.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, DialogFactory.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Notifications
 {
    using Acr.UserDialogs;
-   using Com.MarcusTS.SharedForms.Common.Utils;
-   using Com.MarcusTS.SharedUtils.Utils;
+   using SharedUtils.Utils;
    using System;
    using System.Threading.Tasks;
+   using Utils;
    using Xamarin.Forms;
 
+   /// <summary>
+   /// Class DialogFactory.
+   /// </summary>
    public static class DialogFactory
    {
+      /// <summary>
+      /// The toast dissolve seconds
+      /// </summary>
       private const int TOAST_DISSOLVE_SECONDS = 7;
+      /// <summary>
+      /// The wait forever
+      /// </summary>
       private const int WAIT_FOREVER           = 1000000000;
 
+      /// <summary>
+      /// The decision toast background color
+      /// </summary>
       private static readonly Color DECISION_TOAST_BACKGROUND_COLOR = Color.Black;
 
+      /// <summary>
+      /// The error toast background color
+      /// </summary>
       private static readonly Color ERROR_TOAST_BACKGROUND_COLOR = Color.Black;
 
       // All backgrounds are now black
+      /// <summary>
+      /// The information toast background color
+      /// </summary>
       private static readonly Color INFO_TOAST_BACKGROUND_COLOR = Color.Black;
 
       /// <summary>
-      ///    An important toast with an action that takes the user somewhere in response.
+      /// An important toast with an action that takes the user somewhere in response.
       /// </summary>
       /// <param name="toastStr">The toast message.</param>
-      /// <param name="useTimeout">
-      ///    Whether to remove the toast after a timeout.  Not normal for this scenario: defaults to
-      ///    *false*.
-      /// </param>
       /// <param name="action">The action to take once the user taps the toast.  *Required*.</param>
+      /// <param name="useTimeout">Whether to remove the toast after a timeout.  Not normal for this scenario: defaults to
+      /// *false*.</param>
       public static void ShowDecisionToast
       (
          string toastStr,
@@ -66,14 +82,12 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       }
 
       /// <summary>
-      ///    An error toast to notify the user that something went wrong.
+      /// An error toast to notify the user that something went wrong.
       /// </summary>
       /// <param name="toastStr">The toast message.</param>
       /// <param name="actionText">The button text</param>
-      /// <param name="useTimeout">
-      ///    Whether to remove the toast after a timeout.  Not normal for this scenario: defaults to
-      ///    *false*.
-      /// </param>
+      /// <param name="useTimeout">Whether to remove the toast after a timeout.  Not normal for this scenario: defaults to
+      /// *false*.</param>
       /// <param name="action">The action to take once the user taps the toast.  Optional.</param>
       public static void ShowErrorToast
       (
@@ -88,17 +102,13 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       }
 
       /// <summary>
-      ///    An error toast to notify the user that an error has occurred.
+      /// An error toast to notify the user that an error has occurred.
       /// </summary>
-      /// <param name="toastPrefix">
-      ///    The first part of the toast message.
-      ///    The second part will be added by this method (see below).
-      /// </param>
+      /// <param name="toastPrefix">The first part of the toast message.
+      /// The second part will be added by this method (see below).</param>
       /// <param name="ex">The exception.</param>
-      /// <param name="useTimeout">
-      ///    Whether to remove the toast after a timeout.  Not normal for this scenario: defaults to
-      ///    *false*.
-      /// </param>
+      /// <param name="useTimeout">Whether to remove the toast after a timeout.  Not normal for this scenario: defaults to
+      /// *false*.</param>
       /// <param name="action">The action to take once the user taps the toast.  Optional.</param>
       public static void ShowExceptionToast
       (
@@ -115,11 +125,11 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       }
 
       /// <summary>
-      ///    A passive toast in a benign color to indicate information only;
-      ///    does not normally trigger an action, but can.
+      /// A passive toast in a benign color to indicate information only;
+      /// does not normally trigger an action, but can.
       /// </summary>
       /// <param name="toastStr">The toast message.</param>
-      /// <param name="actionText"></param>
+      /// <param name="actionText">The action text.</param>
       /// <param name="useTimeout">Whether to remove the toast after a timeout.  Defaults to *true*.</param>
       /// <param name="action">The action to take if the user taps the toast.</param>
       public static void ShowInfoToast
@@ -135,16 +145,16 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       }
 
       /// <summary>
-      ///    Can call directly.
+      /// Can call directly.
       /// </summary>
-      /// <param name="toastStr"></param>
-      /// <param name="actionText"></param>
-      /// <param name="backgroundColor"></param>
-      /// <param name="messageTextColor"></param>
-      /// <param name="actionTextColor"></param>
-      /// <param name="useTimeout"></param>
-      /// <param name="toastDissolveSeconds"></param>
-      /// <param name="action"></param>
+      /// <param name="toastStr">The toast string.</param>
+      /// <param name="actionText">The action text.</param>
+      /// <param name="backgroundColor">Color of the background.</param>
+      /// <param name="messageTextColor">Color of the message text.</param>
+      /// <param name="actionTextColor">Color of the action text.</param>
+      /// <param name="useTimeout">if set to <c>true</c> [use timeout].</param>
+      /// <param name="toastDissolveSeconds">The toast dissolve seconds.</param>
+      /// <param name="action">The action.</param>
       public static void ShowToastInternal
       (
          string toastStr,
@@ -191,16 +201,27 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
             if (actionText.IsNotEmpty())
             {
                newAction.SetText(actionText);
-               newAction.SetTextColor(actionTextColor.IsAnEqualObjectTo(default(Color)) ? Color.White : actionTextColor);
+               newAction.SetTextColor(actionTextColor.IsAnEqualObjectTo(default(Color))
+                                         ? Color.White
+                                         : actionTextColor);
             }
 
             newConfig.SetAction(newAction);
          }
+
          // ELSE skip "SetAction"
 
          UserDialogs.Instance.Toast(newConfig);
       }
 
+      /// <summary>
+      /// Shows the yes no dialog.
+      /// </summary>
+      /// <param name="title">The title.</param>
+      /// <param name="message">The message.</param>
+      /// <param name="okText">The ok text.</param>
+      /// <param name="cancelText">The cancel text.</param>
+      /// <returns>Task&lt;System.Boolean&gt;.</returns>
       public static async Task<bool> ShowYesNoDialog
       (
          string title,

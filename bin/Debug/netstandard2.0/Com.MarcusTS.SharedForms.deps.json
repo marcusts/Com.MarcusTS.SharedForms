@@ -1,0 +1,261 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.0/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.0": {},
+    ".NETStandard,Version=v2.0/": {
+      "Com.MarcusTS.SharedForms/1.0.14": {
+        "dependencies": {
+          "Acr.UserDialogs": "7.0.27",
+          "Com.MarcusTS.SharedUtils": "1.0.12",
+          "Com.MarcusTS.SmartDI": "1.0.16",
+          "NETStandard.Library": "2.0.2",
+          "Plugin.Permissions": "3.0.0.12",
+          "PropertyChanged2.Fody": "2.6.0",
+          "Xam.Plugins.Settings": "3.1.1",
+          "Xam.Plugins.Vibrate": "4.0.0.5",
+          "Xamarin.Essentials": "1.3.0",
+          "Xamarin.Forms": "4.2.0.778463",
+          "Xamarin.Forms.PancakeView": "1.3.3"
+        },
+        "runtime": {
+          "Com.MarcusTS.SharedForms.dll": {}
+        }
+      },
+      "Acr.UserDialogs/7.0.27": {
+        "runtime": {
+          "lib/netstandard2.0/Acr.UserDialogs.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Com.MarcusTS.SharedUtils/1.0.12": {
+        "dependencies": {
+          "Xamarin.Forms": "4.2.0.778463"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {
+            "assemblyVersion": "1.0.12.0",
+            "fileVersion": "1.0.12.0"
+          }
+        }
+      },
+      "Com.MarcusTS.SmartDI/1.0.16": {
+        "dependencies": {
+          "Com.MarcusTS.SharedUtils": "1.0.12"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll": {
+            "assemblyVersion": "1.0.16.0",
+            "fileVersion": "1.0.16.0"
+          }
+        }
+      },
+      "Fody/3.3.5": {},
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "NETStandard.Library/2.0.2": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "Plugin.Permissions/3.0.0.12": {
+        "runtime": {
+          "lib/netstandard2.0/Plugin.Permissions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "PropertyChanged2.Fody/2.6.0": {
+        "dependencies": {
+          "Fody": "3.3.5",
+          "NETStandard.Library": "2.0.2"
+        },
+        "runtime": {
+          "lib/netstandard1.0/PropertyChanged2.dll": {
+            "assemblyVersion": "2.6.0.0",
+            "fileVersion": "2.6.0.0"
+          }
+        }
+      },
+      "System.Numerics.Vectors/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Numerics.Vectors.dll": {
+            "assemblyVersion": "4.1.4.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "Xam.Plugins.Settings/3.1.1": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.2"
+        },
+        "runtime": {
+          "lib/netstandard1.0/Plugin.Settings.Abstractions.dll": {
+            "assemblyVersion": "3.1.1.0",
+            "fileVersion": "3.1.1.0"
+          },
+          "lib/netstandard1.0/Plugin.Settings.dll": {
+            "assemblyVersion": "3.1.1.0",
+            "fileVersion": "3.1.1.0"
+          }
+        }
+      },
+      "Xam.Plugins.Vibrate/4.0.0.5": {
+        "runtime": {
+          "lib/netstandard2.0/Plugin.Vibrate.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Xamarin.Essentials/1.3.0": {
+        "dependencies": {
+          "System.Numerics.Vectors": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Xamarin.Essentials.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Xamarin.Forms/4.2.0.778463": {
+        "runtime": {
+          "lib/netstandard2.0/Xamarin.Forms.Core.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "4.2.0.102"
+          },
+          "lib/netstandard2.0/Xamarin.Forms.Platform.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "4.2.0.102"
+          },
+          "lib/netstandard2.0/Xamarin.Forms.Xaml.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "4.2.0.102"
+          }
+        }
+      },
+      "Xamarin.Forms.PancakeView/1.3.3": {
+        "dependencies": {
+          "Xamarin.Forms": "4.2.0.778463"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Xamarin.Forms.PancakeView.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Com.MarcusTS.SharedForms/1.0.14": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Acr.UserDialogs/7.0.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u+rbzB8Xh1nBj0jBOpgxMzyuycBrHY5y50aF4VMoE9oAosDiZtIgh0lpnGGn83KpnBDYRjm2kUP4CROv7wE9mw==",
+      "path": "acr.userdialogs/7.0.27",
+      "hashPath": "acr.userdialogs.7.0.27.nupkg.sha512"
+    },
+    "Com.MarcusTS.SharedUtils/1.0.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IMtmqk2myU4mBsnwgWW5NCCIjbQaWYn/2Xfps5kouLN2s7b6DT5wKtEFKRK5gUtigo42607y26or52EfWsU+Aw==",
+      "path": "com.marcusts.sharedutils/1.0.12",
+      "hashPath": "com.marcusts.sharedutils.1.0.12.nupkg.sha512"
+    },
+    "Com.MarcusTS.SmartDI/1.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lqmGGfyufae7eHKtY5c7kcGybgQbCmjyasZEenThvYS0hFwX5XTM6HdWzwtFBo47FuOX1BlIDtkfFjesBVEqCQ==",
+      "path": "com.marcusts.smartdi/1.0.16",
+      "hashPath": "com.marcusts.smartdi.1.0.16.nupkg.sha512"
+    },
+    "Fody/3.3.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SsDAvO5IODB/8Xdx1hUynvylW+8lWtHQupeH3yNv0MVO5rDzBfW+W5HqdkYpeNjqDTJRIY/+9zD1rW+zz8i7ig==",
+      "path": "fody/3.3.5",
+      "hashPath": "fody.3.3.5.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5hB7QTrTeMzV5xnTH4+zNBOGCD5/DcSVb3iPGgyta4Xje5AI2gJoeLnArlQCzxTbRVpx8YrjnjAmUhkxjbd2ZA==",
+      "path": "netstandard.library/2.0.2",
+      "hashPath": "netstandard.library.2.0.2.nupkg.sha512"
+    },
+    "Plugin.Permissions/3.0.0.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VrYqI/ufk3bH6gTP1JJlLByjhS0CHu3riKmdozhX9/qXA9hlvLolmcqKJdyAqpzmrVC74m3ZtirUBIrBxvT1Lw==",
+      "path": "plugin.permissions/3.0.0.12",
+      "hashPath": "plugin.permissions.3.0.0.12.nupkg.sha512"
+    },
+    "PropertyChanged2.Fody/2.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i6plhXn2rYn9IyKggjfJigoZ6WcVFN3ZlukKmDOEnpDvNlUviDjSXOn6DHCvXihSB91nk2a+X9XwIhtfOTktug==",
+      "path": "propertychanged2.fody/2.6.0",
+      "hashPath": "propertychanged2.fody.2.6.0.nupkg.sha512"
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
+      "path": "system.numerics.vectors/4.5.0",
+      "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
+    },
+    "Xam.Plugins.Settings/3.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EQEYQJ64ZLqui5GWkLMavgqitHxwUHZHryTzUD1021UBuz1XwDSjPL45W0K4pPXjz9oKbg7YpRXKPR1luPr/5Q==",
+      "path": "xam.plugins.settings/3.1.1",
+      "hashPath": "xam.plugins.settings.3.1.1.nupkg.sha512"
+    },
+    "Xam.Plugins.Vibrate/4.0.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N4VdnyKlSfGGhgLqtBWaBh8wEH0Vr0PJRZbIMenvc12410ZIrY8+bsz2NNN20iJdfo+hg4Wj/XnR/a/TKThTcw==",
+      "path": "xam.plugins.vibrate/4.0.0.5",
+      "hashPath": "xam.plugins.vibrate.4.0.0.5.nupkg.sha512"
+    },
+    "Xamarin.Essentials/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AI6NZ7ngolTQmUI2dnsP/t6xxwPNWXuOY1sfol2yNVPSw4RfI8+D/kjz5p7Yabl5vRtoFhI6sWDT40IK9VwlBg==",
+      "path": "xamarin.essentials/1.3.0",
+      "hashPath": "xamarin.essentials.1.3.0.nupkg.sha512"
+    },
+    "Xamarin.Forms/4.2.0.778463": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0dGuPOn9KrS65rmVgOrV5knDYHxWkWEm7c/CLp6AKSlvOpZ40+YrN+7oX5hHE6lpX+dizLCaOE/RvYS3ONy9/Q==",
+      "path": "xamarin.forms/4.2.0.778463",
+      "hashPath": "xamarin.forms.4.2.0.778463.nupkg.sha512"
+    },
+    "Xamarin.Forms.PancakeView/1.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bLLQXJkHhyHBk4LeokgrMua+DWAlLloVOCHR/Zon9QLXboTaPdlCy0ONAc0ASKPW8AycA3wvw4pw/fdmCIS7WA==",
+      "path": "xamarin.forms.pancakeview/1.3.3",
+      "hashPath": "xamarin.forms.pancakeview.1.3.3.nupkg.sha512"
+    }
+  }
+}

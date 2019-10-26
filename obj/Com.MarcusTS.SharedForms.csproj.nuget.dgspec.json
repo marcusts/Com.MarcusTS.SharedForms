@@ -1,0 +1,108 @@
+{
+  "format": 1,
+  "restore": {
+    "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {}
+  },
+  "projects": {
+    "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {
+      "version": "1.0.14",
+      "restore": {
+        "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
+        "projectName": "Com.MarcusTS.SharedForms",
+        "projectPath": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
+        "packagesPath": "C:\\Users\\steph\\.nuget\\packages\\",
+        "outputPath": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "M:\\MyDocs\\Dev\\NuGet.Config",
+          "C:\\Users\\steph\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Acr.UserDialogs": {
+              "target": "Package",
+              "version": "[7.0.27, )"
+            },
+            "Com.MarcusTS.SharedUtils": {
+              "target": "Package",
+              "version": "[1.0.12, )"
+            },
+            "Com.MarcusTS.SmartDI": {
+              "target": "Package",
+              "version": "[1.0.16, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.2, )",
+              "autoReferenced": true
+            },
+            "Plugin.Permissions": {
+              "target": "Package",
+              "version": "[3.0.0.12, )"
+            },
+            "PropertyChanged2.Fody": {
+              "target": "Package",
+              "version": "[2.6.0, )"
+            },
+            "Xam.Plugins.Settings": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Xam.Plugins.Vibrate": {
+              "target": "Package",
+              "version": "[4.0.0.5, )"
+            },
+            "Xamarin.Essentials": {
+              "target": "Package",
+              "version": "[1.3.0, )"
+            },
+            "Xamarin.Forms": {
+              "target": "Package",
+              "version": "[4.2.0.778463, )"
+            },
+            "Xamarin.Forms.PancakeView": {
+              "target": "Package",
+              "version": "[1.3.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

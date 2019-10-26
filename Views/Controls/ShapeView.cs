@@ -1,221 +1,98 @@
-﻿// *********************************************************************************
-// <copyright file=ShapeView.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+﻿#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, ShapeView.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using System.Collections.ObjectModel;
+   using Common.Utils;
+   using System;
    using Xamarin.Forms;
+   using Xamarin.Forms.PancakeView;
 
    /// <summary>
-   ///    This class allows you to draw different kind of shapes in your Xamarin.Forms PCL
-   ///    Implements the <see cref="Xamarin.Forms.ContentView" />
+   /// Class ShapeView.
+   /// Implements the <see cref="Xamarin.Forms.PancakeView.PancakeView" />
    /// </summary>
-   /// <seealso cref="Xamarin.Forms.ContentView" />
-   public class ShapeView : ContentView
+   /// <seealso cref="Xamarin.Forms.PancakeView.PancakeView" />
+   public class ShapeView : PancakeView
    {
       /// <summary>
-      ///    The border color property
-      /// </summary>
-      public static readonly BindableProperty BorderColorProperty =
-         BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(ShapeView), Color.Black);
-
-      /// <summary>
-      ///    The border width property
-      /// </summary>
-      public static readonly BindableProperty BorderWidthProperty =
-         BindableProperty.Create(nameof(BorderWidth), typeof(float), typeof(ShapeView), 0f);
-
-      /// <summary>
-      ///    The color property
+      /// The color property
       /// </summary>
       public static readonly BindableProperty ColorProperty =
-         BindableProperty.Create(nameof(Color), typeof(Color), typeof(ShapeView), Color.Default);
+         CreateValidatableViewBindableProperty
+         (
+            nameof(Color),
+            default(Color),
+            BindingMode.OneWay,
+            (view, oldVal, newVal) =>
+            {
+               view.Color                        = newVal;
+               view.BackgroundGradientStartColor = newVal;
+               view.BackgroundGradientEndColor   = newVal;
+            }
+         );
 
       /// <summary>
-      ///    The corner radius property
+      /// Initializes a new instance of the <see cref="ShapeView"/> class.
       /// </summary>
-      public static readonly BindableProperty CornerRadiusProperty =
-         BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(ShapeView), 0f);
-
-      /// <summary>
-      ///    The number of points property
-      /// </summary>
-      public static readonly BindableProperty NumberOfPointsProperty =
-         BindableProperty.Create(nameof(NumberOfPoints), typeof(int), typeof(ShapeView), 5);
-
-      /// <summary>
-      ///    The points property
-      /// </summary>
-      public static readonly BindableProperty PointsProperty =
-         BindableProperty.Create(nameof(Points), typeof(ObservableCollection<Point>), typeof(ShapeView));
-
-      /// <summary>
-      ///    The progress border color property
-      /// </summary>
-      public static readonly BindableProperty ProgressBorderColorProperty =
-         BindableProperty.Create(nameof(ProgressBorderColor), typeof(Color), typeof(ShapeView), Color.Black);
-
-      /// <summary>
-      ///    The progress border width property
-      /// </summary>
-      public static readonly BindableProperty ProgressBorderWidthProperty =
-         BindableProperty.Create(nameof(ProgressBorderWidth), typeof(float), typeof(ShapeView), 3f);
-
-      /// <summary>
-      ///    The progress property
-      /// </summary>
-      public static readonly BindableProperty ProgressProperty =
-         BindableProperty.Create(nameof(Progress), typeof(float), typeof(ShapeView), 0f);
-
-      /// <summary>
-      ///    The radius ratio property
-      /// </summary>
-      public static readonly BindableProperty RadiusRatioProperty =
-         BindableProperty.Create(nameof(RadiusRatio), typeof(float), typeof(ShapeView), 0.5f);
-
-      /// <summary>
-      ///    The shape type property
-      /// </summary>
-      public static readonly BindableProperty ShapeTypeProperty =
-         BindableProperty.Create(nameof(ShapeType), typeof(ShapeType), typeof(ShapeView), ShapeType.Box);
-
-      /// <summary>
-      ///    Gets or sets the border color (ignored if fully transparent or BorderColor &lt;= 0) - default value is Color.Black
-      /// </summary>
-      /// <value>The color of the border.</value>
-      public Color BorderColor
+      public ShapeView()
       {
-         get => (Color) GetValue(BorderColorProperty);
-         set => SetValue(BorderColorProperty, value);
+         Margin  = 0;
+         Padding = 0;
       }
 
       /// <summary>
-      ///    Gets or sets the border width (ignored if value is &lt; 0 or BorderColor is fully transparent) - default value is 0
-      /// </summary>
-      /// <value>The width of the border.</value>
-      public float BorderWidth
-      {
-         get => (float) GetValue(BorderWidthProperty);
-         set => SetValue(BorderWidthProperty, value);
-      }
-
-      /// <summary>
-      ///    Gets or sets the fill color - default value is Color.Default
+      /// Gets or sets the color.
       /// </summary>
       /// <value>The color.</value>
       public Color Color
       {
          get => (Color) GetValue(ColorProperty);
+
          set => SetValue(ColorProperty, value);
       }
 
       /// <summary>
-      ///    Gets or sets the corner radius - (ignored if &lt;=0) - default value is 0
+      /// Creates the validatable view bindable property.
       /// </summary>
-      /// <value>The corner radius.</value>
-      public float CornerRadius
+      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+      /// <param name="localPropName">Name of the local property.</param>
+      /// <param name="defaultVal">The default value.</param>
+      /// <param name="bindingMode">The binding mode.</param>
+      /// <param name="callbackAction">The callback action.</param>
+      /// <returns>BindableProperty.</returns>
+      public static BindableProperty CreateValidatableViewBindableProperty<PropertyTypeT>
+      (
+         string                                          localPropName,
+         PropertyTypeT                                   defaultVal     = default,
+         BindingMode                                     bindingMode    = BindingMode.OneWay,
+         Action<ShapeView, PropertyTypeT, PropertyTypeT> callbackAction = null
+      )
       {
-         get => (float) GetValue(CornerRadiusProperty);
-         set => SetValue(CornerRadiusProperty, value);
+         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
       }
-
-      /// <summary>
-      ///    Gets or sets the number of points of a star - only for Star shape - default value is 5
-      /// </summary>
-      /// <value>The number of points.</value>
-      public int NumberOfPoints
-      {
-         get => (int) GetValue(NumberOfPointsProperty);
-         set => SetValue(NumberOfPointsProperty, value);
-      }
-
-      /// <summary>
-      ///    Gets or sets the points describing the path - (ignored if null or empty) - only for Path shape - default value is
-      ///    null
-      /// </summary>
-      /// <value>The points.</value>
-      public ObservableCollection<Point> Points
-      {
-         get => (ObservableCollection<Point>) GetValue(PointsProperty);
-         set => SetValue(PointsProperty, value);
-      }
-
-      /// <summary>
-      ///    Gets or sets the progress value - range from 0 to 100 - only for CircleProgress shape - default value is 0
-      /// </summary>
-      /// <value>The progress.</value>
-      public float Progress
-      {
-         get => (float) GetValue(ProgressProperty);
-         set => SetValue(ProgressProperty, value);
-      }
-
-      /// <summary>
-      ///    Gets or sets the progress border color (ignored if fully transparent or ProgressBorderWidth &lt;= 0) - default value
-      ///    is Color.Black
-      /// </summary>
-      /// <value>The color of the progress border.</value>
-      public Color ProgressBorderColor
-      {
-         get => (Color) GetValue(ProgressBorderColorProperty);
-         set => SetValue(ProgressBorderColorProperty, value);
-      }
-
-      /// <summary>
-      ///    Gets or sets the progress border width - only for CircleProgress shape - default value is 3
-      /// </summary>
-      /// <value>The width of the progress border.</value>
-      public float ProgressBorderWidth
-      {
-         get => (float) GetValue(ProgressBorderWidthProperty);
-         set => SetValue(ProgressBorderWidthProperty, value);
-      }
-
-      /// <summary>
-      ///    Gets or sets the ratio between inner radius and outer radius (outer = inner * RadiusRatio) - only for Star shape -
-      ///    default value is 0.5
-      /// </summary>
-      /// <value>The radius ratio.</value>
-      public float RadiusRatio
-      {
-         get => (float) GetValue(RadiusRatioProperty);
-         set => SetValue(RadiusRatioProperty, value);
-      }
-
-      /// <summary>
-      ///    Gets or sets the shape type - default value is ShapeType.Box
-      /// </summary>
-      /// <value>The type of the shape.</value>
-      public ShapeType ShapeType
-      {
-         get => (ShapeType) GetValue(ShapeTypeProperty);
-         set => SetValue(ShapeTypeProperty, value);
-      }
-
-#pragma warning disable 1591
-#pragma warning restore 1591
    }
 }

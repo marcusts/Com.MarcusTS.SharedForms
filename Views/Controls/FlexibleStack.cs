@@ -1,51 +1,51 @@
-﻿// *********************************************************************************
-// <copyright file=FlexibleStack.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+﻿#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, FlexibleStack.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using Com.MarcusTS.SharedUtils.Utils;
+   using SharedUtils.Utils;
    using System;
    using System.Collections;
    using System.Collections.Generic;
 
    /// <summary>
-   ///    Class FlexibleStack.
-   ///    Implements the <see cref="System.Collections.Generic.IEnumerable{T}" />
+   /// Class FlexibleStack.
+   /// Implements the <see cref="System.Collections.Generic.IEnumerable{T}" />
    /// </summary>
    /// <typeparam name="T"></typeparam>
    /// <seealso cref="System.Collections.Generic.IEnumerable{T}" />
    public class FlexibleStack<T> : IEnumerable<T>
    {
       /// <summary>
-      ///    The items
+      /// The items
       /// </summary>
       private readonly IList<T> _items = new List<T>();
 
       /// <summary>
-      ///    Returns an enumerator that iterates through the collection.
+      /// Returns an enumerator that iterates through the collection.
       /// </summary>
       /// <returns>An enumerator that can be used to iterate through the collection.</returns>
       public IEnumerator<T> GetEnumerator()
@@ -54,19 +54,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      ///    Returns an enumerator that iterates through a collection.
+      /// Returns an enumerator that iterates through a collection.
       /// </summary>
-      /// <returns>
-      ///    An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate through the
-      ///    collection.
-      /// </returns>
+      /// <returns>An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate through the
+      /// collection.</returns>
       IEnumerator IEnumerable.GetEnumerator()
       {
          return GetEnumerator();
       }
 
       /// <summary>
-      ///    Clears this instance.
+      /// Clears this instance.
       /// </summary>
       public void Clear()
       {
@@ -74,7 +72,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      ///    Peeks this instance.
+      /// Peeks this instance.
       /// </summary>
       /// <returns>T.</returns>
       public T Peek()
@@ -83,7 +81,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      ///    Pops this instance.
+      /// Pops this instance.
       /// </summary>
       /// <returns>T.</returns>
       public T Pop()
@@ -92,7 +90,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      ///    Pushes the specified item.
+      /// Pushes the specified item.
       /// </summary>
       /// <param name="item">The item.</param>
       public void Push(T item)
@@ -101,7 +99,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      ///    Removes if present.
+      /// Removes if present.
       /// </summary>
       /// <param name="item">The item.</param>
       /// <param name="dupTest">The dup test.</param>
@@ -132,12 +130,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             {
                itemIdx++;
             }
-         }
-         while (itemIdx < _items.Count);
+         } while (itemIdx < _items.Count);
       }
 
       /// <summary>
-      ///    Pops the or peek.
+      /// Pops the or peek.
       /// </summary>
       /// <param name="removeIt">if set to <c>true</c> [remove it].</param>
       /// <returns>T.</returns>

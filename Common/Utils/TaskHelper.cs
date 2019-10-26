@@ -1,28 +1,28 @@
-﻿// *********************************************************************************
-// <copyright file=TaskHelper.cs company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
-// </copyright>
+﻿#region License
+
+// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
-// MIT License
+// This file, TaskHelper.cs, is a part of a program called AccountViewMobile.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// AccountViewMobile is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// Permission to use, copy, modify, and/or distribute this software
+// for any purpose with or without fee is hereby granted, provided
+// that the above copyright notice and this permission notice appear
+// in all copies.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// *********************************************************************************
+// AccountViewMobile is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// For the complete GNU General Public License,
+// see <http://www.gnu.org/licenses/>.
+
+#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
@@ -32,12 +32,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    using Xamarin.Forms;
 
    /// <summary>
-   ///    Class TaskHelper.
+   /// Class TaskHelper.
    /// </summary>
    public static class TaskHelper
    {
       /// <summary>
-      ///    Begins the invoke on main thread asynchronous.
+      /// Begins the invoke on main thread asynchronous.
       /// </summary>
       /// <typeparam name="T"></typeparam>
       /// <param name="a">a.</param>
@@ -47,23 +47,23 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          var tcs = new TaskCompletionSource<T>();
 
          Device.BeginInvokeOnMainThread(() =>
-         {
-            try
-            {
-               var result = a();
-               tcs.SetResult(result);
-            }
-            catch (Exception ex)
-            {
-               tcs.SetException(ex);
-            }
-         });
+                                        {
+                                           try
+                                           {
+                                              var result = a();
+                                              tcs.SetResult(result);
+                                           }
+                                           catch (Exception ex)
+                                           {
+                                              tcs.SetException(ex);
+                                           }
+                                        });
 
          return tcs.Task;
       }
 
       /// <summary>
-      ///    Begins the invoke on main thread asynchronous.
+      /// Begins the invoke on main thread asynchronous.
       /// </summary>
       /// <param name="a">a.</param>
       /// <returns>Task.</returns>
@@ -71,22 +71,22 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       {
          var tcs = new TaskCompletionSource<bool>();
          Device.BeginInvokeOnMainThread(() =>
-         {
-            try
-            {
-               a();
-               tcs.SetResult(true);
-            }
-            catch (Exception ex)
-            {
-               tcs.SetException(ex);
-            }
-         });
+                                        {
+                                           try
+                                           {
+                                              a();
+                                              tcs.SetResult(true);
+                                           }
+                                           catch (Exception ex)
+                                           {
+                                              tcs.SetException(ex);
+                                           }
+                                        });
          return tcs.Task;
       }
 
       /// <summary>
-      ///    Runs the parallel.
+      /// Runs the parallel.
       /// </summary>
       /// <param name="task">The task.</param>
       /// <param name="taskCallback">The task callback.</param>
