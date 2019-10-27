@@ -73,7 +73,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private readonly ICanBeValid _validator;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatableNumericEntry"/> class.
+      /// Initializes a new instance of the <see cref="ValidatableNumericEntry" /> class.
       /// </summary>
       /// <param name="borderViewHeight">Height of the border view.</param>
       /// <param name="bindingMode">The binding mode.</param>

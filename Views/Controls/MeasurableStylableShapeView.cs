@@ -370,7 +370,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private ISelectionStylingHelper _stylingHelper;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="MeasurableStylableShapeView"/> class.
+      /// Initializes a new instance of the <see cref="MeasurableStylableShapeView" /> class.
       /// </summary>
       public MeasurableStylableShapeView()
       {

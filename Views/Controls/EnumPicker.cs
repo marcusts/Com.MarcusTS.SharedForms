@@ -76,7 +76,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private readonly Type _enumType;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="EnumPicker"/> class.
+      /// Initializes a new instance of the <see cref="EnumPicker" /> class.
       /// </summary>
       /// <param name="enumType">Type of the enum.</param>
       /// <param name="currentEnumBindingPropertyName">Name of the current enum binding property.</param>
@@ -151,7 +151,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// Handles the selected index changed.
       /// </summary>
       /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+      /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
       private void HandleSelectedIndexChanged(object sender, EventArgs e)
       {
          if (SelectedIndex < 0 || SelectedItem == null)

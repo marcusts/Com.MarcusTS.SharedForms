@@ -234,9 +234,14 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// The button radius factor
+      /// The default corner radius factor
       /// </summary>
-      public const double BUTTON_RADIUS_FACTOR = 0.15f;
+      public static float DEFAULT_CORNER_RADIUS_FACTOR = 0.12f;
+
+      /// <summary>
+      /// The default corner radius fixed
+      /// </summary>
+      public static float DEFAULT_CORNER_RADIUS_FIXED = 6;
 
       // 0.85 works for denser copy
       /// <summary>
@@ -264,10 +269,6 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// The date time format
       /// </summary>
       public const string DATE_TIME_FORMAT          = "{0:M/d/yy - h:mm tt}";
-      /// <summary>
-      /// The default shape view radius
-      /// </summary>
-      public const float  DEFAULT_SHAPE_VIEW_RADIUS = 6;
 
       /// <summary>
       /// The default text size

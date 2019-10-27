@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Com.MarcusTS.SharedForms/1.0.14": {
+      "Com.MarcusTS.SharedForms/1.0.16": {
         "dependencies": {
           "Acr.UserDialogs": "7.0.27",
           "Com.MarcusTS.SharedUtils": "1.0.12",
@@ -154,7 +154,7 @@
     }
   },
   "libraries": {
-    "Com.MarcusTS.SharedForms/1.0.14": {
+    "Com.MarcusTS.SharedForms/1.0.16": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -257,11 +257,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    public abstract class ImageLabelButtonBase : ShapeView, IImageLabelButton
    {
       /// <summary>
-      /// The default button radius factor
-      /// </summary>
-      public const float DEFAULT_BUTTON_RADIUS_FACTOR = 0.12f;
-
-      /// <summary>
       /// The animate button property
       /// </summary>
       public static readonly BindableProperty AnimateButtonProperty =
@@ -1873,7 +1868,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
          else
          {
-            CornerRadius = Convert.ToSingle(FormsConst.DEFAULT_SHAPE_VIEW_RADIUS);
+            CornerRadius = Convert.ToSingle(FormsConst.DEFAULT_CORNER_RADIUS_FIXED);
          }
       }
 

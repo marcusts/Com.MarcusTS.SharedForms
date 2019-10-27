@@ -93,7 +93,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private EnumPicker _editableEnumPicker;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatableEnumPicker"/> class.
+      /// Initializes a new instance of the <see cref="ValidatableEnumPicker" /> class.
       /// </summary>
       /// <param name="enumType">Type of the enum.</param>
       /// <param name="borderViewHeight">Height of the border view.</param>

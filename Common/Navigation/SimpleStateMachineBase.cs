@@ -160,6 +160,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       /// <summary>
       /// Goes the state of to last application.
       /// </summary>
+      /// <returns>Task.</returns>
       public async Task GoToLastAppState()
       {
          await GoToAppState(_lastAppState, true).WithoutChangingContext();

@@ -330,7 +330,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    public class KeyboardToggledMessageArgs : IKeyboardToggledMessageArgs
    {
       /// <summary>
-      /// Initializes a new instance of the <see cref="KeyboardToggledMessageArgs"/> class.
+      /// Initializes a new instance of the <see cref="KeyboardToggledMessageArgs" /> class.
       /// </summary>
       /// <param name="isDisplayed">if set to <c>true</c> [is displayed].</param>
       /// <param name="keyboardHeight">Height of the keyboard.</param>

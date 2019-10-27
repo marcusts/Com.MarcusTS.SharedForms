@@ -320,7 +320,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          // LabelWidth               = 85;
          // LabelHeight              = 35;
-         ButtonCornerRadiusFactor = DEFAULT_BUTTON_RADIUS_FACTOR;
+         ButtonCornerRadiusFactor = FormsConst.DEFAULT_CORNER_RADIUS_FACTOR;
 
          _isInitializing = false;
 

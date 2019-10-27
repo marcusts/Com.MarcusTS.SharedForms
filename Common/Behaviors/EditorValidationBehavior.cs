@@ -94,7 +94,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       private string _lastAssignedText;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="EditorValidationBehavior"/> class.
+      /// Initializes a new instance of the <see cref="EditorValidationBehavior" /> class.
       /// </summary>
       /// <param name="onIsValidChangedAction">The on is valid changed action.</param>
       public EditorValidationBehavior(Action onIsValidChangedAction)
@@ -276,7 +276,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Handles the <see cref="E:Focused" /> event.
       /// </summary>
       /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="FocusEventArgs"/> instance containing the event data.</param>
+      /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnFocused
       (
          object         sender,
@@ -290,7 +290,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Handles the <see cref="E:TextChanged" /> event.
       /// </summary>
       /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
+      /// <param name="e">The <see cref="TextChangedEventArgs" /> instance containing the event data.</param>
       protected virtual void OnTextChanged
       (
          object               sender,
@@ -309,7 +309,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Handles the <see cref="E:Unfocused" /> event.
       /// </summary>
       /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="FocusEventArgs"/> instance containing the event data.</param>
+      /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnUnfocused
       (
          object         sender,

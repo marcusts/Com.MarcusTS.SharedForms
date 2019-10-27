@@ -81,7 +81,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private CustomCheckBox _editableCheckBox;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatableCheckBox"/> class.
+      /// Initializes a new instance of the <see cref="ValidatableCheckBox" /> class.
       /// </summary>
       /// <param name="borderViewHeight">Height of the border view.</param>
       /// <param name="bindingMode">The binding mode.</param>

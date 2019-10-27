@@ -160,10 +160,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       private const float BORDER_VIEW_BORDER_WIDTH = 1;
 
-      /// <summary>
-      /// The default border view radius
-      /// </summary>
-      private const float BORDER_VIEW_RADIUS = 3;
+      ///// <summary>
+      ///// The default border view radius
+      ///// </summary>
+      //private const float BORDER_VIEW_RADIUS = 3;
 
       /// <summary>
       /// The default grid single padding
@@ -476,7 +476,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private bool             _viewsCreated;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatableViewBase"/> class.
+      /// Initializes a new instance of the <see cref="ValidatableViewBase" /> class.
       /// </summary>
       /// <param name="bindableProperty">The bindable property.</param>
       /// <param name="borderViewHeight">Height of the border view.</param>
@@ -812,10 +812,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          BorderView.HorizontalOptions = LayoutOptions.FillAndExpand;
          BorderView.VerticalOptions   = LayoutOptions.CenterAndExpand;
 
-         BorderView.HeightRequest   = _borderViewHeight ?? BORDER_VIEW_HEIGHT;
+         var borderViewHeight = _borderViewHeight ?? BORDER_VIEW_HEIGHT;
+
+         BorderView.HeightRequest   = borderViewHeight;
          BorderView.BorderThickness = BORDER_VIEW_BORDER_WIDTH;
          BorderView.BorderColor     = DEFAULT_BORDER_VIEW_BORDER_COLOR;
-         BorderView.CornerRadius    = BORDER_VIEW_RADIUS;
+         BorderView.CornerRadius    = borderViewHeight * FormsConst.DEFAULT_CORNER_RADIUS_FACTOR;
 
          // Allow for the border view's height and the vertical padding
          var totalHeight = BorderView.HeightRequest + GRID_SINGLE_PADDING * 2;

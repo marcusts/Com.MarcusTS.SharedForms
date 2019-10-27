@@ -1998,7 +1998,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void SetDefaults(this ShapeView shapeView)
       {
          shapeView.Color             = Color.White;
-         shapeView.CornerRadius      = FormsConst.DEFAULT_SHAPE_VIEW_RADIUS;
+         shapeView.CornerRadius      = FormsConst.DEFAULT_CORNER_RADIUS_FIXED;
          shapeView.BackgroundColor   = Color.Transparent;
          shapeView.IsClippedToBounds = true;
          shapeView.HorizontalOptions = LayoutOptions.FillAndExpand;

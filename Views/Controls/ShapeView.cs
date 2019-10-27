@@ -56,7 +56,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          );
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ShapeView"/> class.
+      /// Initializes a new instance of the <see cref="ShapeView" /> class.
       /// </summary>
       public ShapeView()
       {

@@ -460,7 +460,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          string         imageFilePath            = "",
          float          buttonBorderWidth        = default,
          FontAttributes labelFontAttributes      = default,
-         float          cornerRadiusFactor       = DEFAULT_BUTTON_RADIUS_FACTOR,
+         double?        cornerRadiusFactor       = default,
          string         buttonCommandBindingName = "",
          bool           animateButton            = true,
          bool           includeHapticFeedback    = true

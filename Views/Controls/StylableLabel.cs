@@ -87,7 +87,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private ISelectionStylingHelper _selectionStyleHelper;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="StylableLabel"/> class.
+      /// Initializes a new instance of the <see cref="StylableLabel" /> class.
       /// </summary>
       /// <param name="selectionProvider">The selection provider.</param>
       public StylableLabel(ICanBeSelected selectionProvider)

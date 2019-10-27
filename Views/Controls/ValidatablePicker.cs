@@ -96,7 +96,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private string  _viewModelPropertyName;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatablePicker"/> class.
+      /// Initializes a new instance of the <see cref="ValidatablePicker" /> class.
       /// </summary>
       /// <param name="items">The items.</param>
       /// <param name="borderViewHeight">Height of the border view.</param>

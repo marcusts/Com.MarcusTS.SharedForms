@@ -53,7 +53,7 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
    public class CompleteCommand : Command, ICompleteCommand
    {
       /// <summary>
-      /// Initializes a new instance of the <see cref="CompleteCommand"/> class.
+      /// Initializes a new instance of the <see cref="CompleteCommand" /> class.
       /// </summary>
       /// <param name="execute">The execute.</param>
       public CompleteCommand(Action<object> execute) : base(execute)
@@ -61,7 +61,7 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
       }
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="CompleteCommand"/> class.
+      /// Initializes a new instance of the <see cref="CompleteCommand" /> class.
       /// </summary>
       /// <param name="execute">The execute.</param>
       public CompleteCommand(Action execute) : base(execute)
@@ -69,7 +69,7 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
       }
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="CompleteCommand"/> class.
+      /// Initializes a new instance of the <see cref="CompleteCommand" /> class.
       /// </summary>
       /// <param name="execute">The execute.</param>
       /// <param name="canExecute">The can execute.</param>
@@ -78,7 +78,7 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
       }
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="CompleteCommand"/> class.
+      /// Initializes a new instance of the <see cref="CompleteCommand" /> class.
       /// </summary>
       /// <param name="execute">The execute.</param>
       /// <param name="canExecute">The can execute.</param>

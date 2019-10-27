@@ -110,7 +110,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private DatePicker _editableDateTime;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatableDateTime"/> class.
+      /// Initializes a new instance of the <see cref="ValidatableDateTime" /> class.
       /// </summary>
       /// <param name="borderViewHeight">Height of the border view.</param>
       /// <param name="bindingMode">The binding mode.</param>

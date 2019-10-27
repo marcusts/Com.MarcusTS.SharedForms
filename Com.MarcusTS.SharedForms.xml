@@ -1508,7 +1508,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EditorValidationBehavior.#ctor(System.Action)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.EditorValidationBehavior"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.EditorValidationBehavior" /> class.
             </summary>
             <param name="onIsValidChangedAction">The on is valid changed action.</param>
         </member>
@@ -1612,21 +1612,21 @@
             Handles the <see cref="E:Focused" /> event.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EditorValidationBehavior.OnTextChanged(System.Object,Xamarin.Forms.TextChangedEventArgs)">
             <summary>
             Handles the <see cref="E:TextChanged" /> event.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.TextChangedEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.TextChangedEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EditorValidationBehavior.OnUnfocused(System.Object,Xamarin.Forms.FocusEventArgs)">
             <summary>
             Handles the <see cref="E:Unfocused" /> event.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EditorValidationBehavior.ValidateText(System.String,System.String)">
             <summary>
@@ -1836,7 +1836,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior.#ctor(System.Action)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" /> class.
             </summary>
             <param name="onIsValidChangedAction">The on is valid changed action.</param>
         </member>
@@ -1990,21 +1990,21 @@
             Handles the <see cref="E:Focused" /> event.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior.OnTextChanged(System.Object,Xamarin.Forms.TextChangedEventArgs)">
             <summary>
             Handles the <see cref="E:TextChanged" /> event.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.TextChangedEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.TextChangedEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior.OnUnfocused(System.Object,Xamarin.Forms.FocusEventArgs)">
             <summary>
             Handles the <see cref="E:Unfocused" /> event.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior.CreateMaskPositions">
             <summary>
@@ -2124,7 +2124,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.NumericEntryValidationBehavior.#ctor(System.Action)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.NumericEntryValidationBehavior"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.NumericEntryValidationBehavior" /> class.
             </summary>
             <param name="onIsValidChangedAction">The on is valid changed action.</param>
         </member>
@@ -2363,7 +2363,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.ViewValidationBehavior.#ctor(System.Func{Xamarin.Forms.View,System.Object},System.Action)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.ViewValidationBehavior"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Behaviors.ViewValidationBehavior" /> class.
             </summary>
             <param name="getValueFromViewFunc">The get value from view function.</param>
             <param name="onIsValidChangedAction">The on is valid changed action.</param>
@@ -2440,14 +2440,14 @@
             Handles the <see cref="E:Focused" /> event.
             </summary>
             <param name="o">The o.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.ViewValidationBehavior.OnUnfocused(System.Object,Xamarin.Forms.FocusEventArgs)">
             <summary>
             Handles the <see cref="E:Unfocused" /> event.
             </summary>
             <param name="o">The o.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.ViewValidationBehavior.IsANumberGreaterThanZero(System.Object)">
             <summary>
@@ -2479,26 +2479,26 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand.#ctor(System.Action{System.Object})">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand" /> class.
             </summary>
             <param name="execute">The execute.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand.#ctor(System.Action)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand" /> class.
             </summary>
             <param name="execute">The execute.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand.#ctor(System.Action{System.Object},System.Func{System.Object,System.Boolean})">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand" /> class.
             </summary>
             <param name="execute">The execute.</param>
             <param name="canExecute">The can execute.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand.#ctor(System.Action,System.Func{System.Boolean})">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Commands.CompleteCommand" /> class.
             </summary>
             <param name="execute">The execute.</param>
             <param name="canExecute">The can execute.</param>
@@ -3282,6 +3282,7 @@
             <summary>
             Goes the state of to last application.
             </summary>
+            <returns>Task.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Navigation.SimpleStateMachineBase.GoToStartUpState">
             <summary>
@@ -3756,7 +3757,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Notifications.KeyboardToggledMessageArgs.#ctor(System.Boolean,System.Double)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Notifications.KeyboardToggledMessageArgs"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Common.Notifications.KeyboardToggledMessageArgs" /> class.
             </summary>
             <param name="isDisplayed">if set to <c>true</c> [is displayed].</param>
             <param name="keyboardHeight">Height of the keyboard.</param>
@@ -4461,9 +4462,14 @@
             The justify
             </summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.BUTTON_RADIUS_FACTOR">
+        <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DEFAULT_CORNER_RADIUS_FACTOR">
             <summary>
-            The button radius factor
+            The default corner radius factor
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DEFAULT_CORNER_RADIUS_FIXED">
+            <summary>
+            The default corner radius fixed
             </summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.CHARACTERS_TO_FONT_SIZE_ESTIMATOR">
@@ -4494,11 +4500,6 @@
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DATE_TIME_FORMAT">
             <summary>
             The date time format
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DEFAULT_SHAPE_VIEW_RADIUS">
-            <summary>
-            The default shape view radius
             </summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DEFAULT_TEXT_SIZE">
@@ -6154,7 +6155,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.ViewModels.ValidationViewModelHelper.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.ValidationViewModelHelper"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.ViewModels.ValidationViewModelHelper" /> class.
             </summary>
         </member>
         <member name="E:Com.MarcusTS.SharedForms.ViewModels.ValidationViewModelHelper.PageIsValidChanged">
@@ -6505,7 +6506,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.EnumPicker.#ctor(System.Type,System.String,System.String,Xamarin.Forms.Behavior)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.EnumPicker"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.EnumPicker" /> class.
             </summary>
             <param name="enumType">Type of the enum.</param>
             <param name="currentEnumBindingPropertyName">Name of the current enum binding property.</param>
@@ -6534,7 +6535,7 @@
             Handles the selected index changed.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.EnumPicker.ResetSelectedIndex">
             <summary>
@@ -7098,11 +7099,6 @@
             </summary>
             <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
             <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.DEFAULT_BUTTON_RADIUS_FACTOR">
-            <summary>
-            The default button radius factor
-            </summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.AnimateButtonProperty">
             <summary>
@@ -8043,7 +8039,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.MeasurableStylableShapeView.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.MeasurableStylableShapeView"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.MeasurableStylableShapeView" /> class.
             </summary>
         </member>
         <member name="E:Com.MarcusTS.SharedForms.Views.Controls.MeasurableStylableShapeView.IsAlternateChanged">
@@ -8397,7 +8393,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.NumericSlider.#ctor(Xamarin.Forms.Color,System.String,System.String,System.Double,System.Double,System.String,Xamarin.Forms.FontAttributes,System.Double,Xamarin.Forms.Color,Xamarin.Forms.Color,System.String,System.Double,Xamarin.Forms.Color,Xamarin.Forms.FontAttributes,System.Double,Xamarin.Forms.Color,System.Nullable{System.Double},Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.String,System.String,System.Nullable{System.Double},System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.NumericSlider"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.NumericSlider" /> class.
             </summary>
             <param name="endColor">The end color.</param>
             <param name="endingRemarks">The ending remarks.</param>
@@ -8512,7 +8508,7 @@
             Handles the thumb movement.
             </summary>
             <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:Xamarin.Forms.PanUpdatedEventArgs"/> instance containing the event data.</param>
+            <param name="e">The <see cref="T:Xamarin.Forms.PanUpdatedEventArgs" /> instance containing the event data.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.NumericSlider.SetThumbPositionBasedOnCurrentValue">
             <summary>
@@ -8906,7 +8902,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" /> class.
             </summary>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.Color">
@@ -9134,7 +9130,7 @@
             </summary>
             <value>The color of the label text.</value>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.CreateSimpleImageLabelButton(System.String,Xamarin.Forms.Color,System.Double,System.Double,System.Double,System.Object,Xamarin.Forms.Color,Xamarin.Forms.Color,Xamarin.Forms.LayoutOptions,Xamarin.Forms.LayoutOptions,System.String,System.String,System.Single,Xamarin.Forms.FontAttributes,System.Single,System.String,System.Boolean,System.Boolean)">
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.CreateSimpleImageLabelButton(System.String,Xamarin.Forms.Color,System.Double,System.Double,System.Double,System.Object,Xamarin.Forms.Color,Xamarin.Forms.Color,Xamarin.Forms.LayoutOptions,Xamarin.Forms.LayoutOptions,System.String,System.String,System.Single,Xamarin.Forms.FontAttributes,System.Nullable{System.Double},System.String,System.Boolean,System.Boolean)">
             <summary>
             Creates the simple image label button.
             </summary>
@@ -9226,7 +9222,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.StylableLabel.#ctor(Com.MarcusTS.SharedForms.Views.Controls.ICanBeSelected)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.StylableLabel"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.StylableLabel" /> class.
             </summary>
             <param name="selectionProvider">The selection provider.</param>
         </member>
@@ -9909,7 +9905,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableCheckBox.#ctor(System.Nullable{System.Double},Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.String,System.String,System.Nullable{System.Double},System.Action,System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableCheckBox"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableCheckBox" /> class.
             </summary>
             <param name="borderViewHeight">Height of the border view.</param>
             <param name="bindingMode">The binding mode.</param>
@@ -10011,7 +10007,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableDateTime.#ctor(System.Nullable{System.Double},Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.Boolean,System.String,System.Nullable{System.Double},System.String,System.Nullable{System.Double},Xamarin.Forms.Keyboard,System.Action,System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableDateTime"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableDateTime" /> class.
             </summary>
             <param name="borderViewHeight">Height of the border view.</param>
             <param name="bindingMode">The binding mode.</param>
@@ -10151,7 +10147,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableEntry.#ctor(System.Nullable{System.Double},System.Boolean,Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.Nullable{System.Double},System.String,System.String,System.Nullable{System.Double},System.Boolean,Xamarin.Forms.Keyboard,System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableEntry"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableEntry" /> class.
             </summary>
             <param name="borderViewHeight">Height of the border view.</param>
             <param name="canUnmaskPassword">if set to <c>true</c> [can unmask password].</param>
@@ -10259,7 +10255,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableEnumPicker.#ctor(System.Type,System.Nullable{System.Double},Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.Boolean,System.String,System.Nullable{System.Double},System.String,System.Nullable{System.Double},System.Action,System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableEnumPicker"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableEnumPicker" /> class.
             </summary>
             <param name="enumType">Type of the enum.</param>
             <param name="borderViewHeight">Height of the border view.</param>
@@ -10333,7 +10329,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableNumericEntry.#ctor(System.Nullable{System.Double},Xamarin.Forms.BindingMode,System.Nullable{System.Double},System.String,System.String,System.Nullable{System.Double},Xamarin.Forms.Keyboard,System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Behaviors.INumericEntryValidationBehavior,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableNumericEntry"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableNumericEntry" /> class.
             </summary>
             <param name="borderViewHeight">Height of the border view.</param>
             <param name="bindingMode">The binding mode.</param>
@@ -10457,7 +10453,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatablePicker.#ctor(System.Collections.IList,System.Nullable{System.Double},Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.Boolean,System.String,System.Nullable{System.Double},System.String,System.Nullable{System.Double},System.Action,System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String,System.Boolean)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatablePicker"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatablePicker" /> class.
             </summary>
             <param name="items">The items.</param>
             <param name="borderViewHeight">Height of the border view.</param>
@@ -10628,7 +10624,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableSlider.#ctor(System.String,System.String,System.Nullable{Xamarin.Forms.Color},System.Double,System.Nullable{Xamarin.Forms.Color},System.Double,Xamarin.Forms.FontAttributes,System.Nullable{System.Double},System.Nullable{Xamarin.Forms.Color},System.Nullable{Xamarin.Forms.Color},System.String,System.Double,System.Nullable{Xamarin.Forms.Color},System.Nullable{System.Double},Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.String,System.String,System.Nullable{System.Double},System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableSlider"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableSlider" /> class.
             </summary>
             <param name="endingRemarks">The ending remarks.</param>
             <param name="fontFamily">The font family.</param>
@@ -10798,11 +10794,6 @@
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.BORDER_VIEW_BORDER_WIDTH">
             <summary>
             The default border view border width
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.BORDER_VIEW_RADIUS">
-            <summary>
-            The default border view radius
             </summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.GRID_SINGLE_PADDING">
@@ -11052,7 +11043,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.#ctor(Xamarin.Forms.BindableProperty,System.Nullable{System.Double},Xamarin.Forms.BindingMode,Xamarin.Forms.IValueConverter,System.Object,System.String,System.String,System.Nullable{System.Double},System.String,System.Nullable{System.Double},System.Boolean,System.Boolean,System.String,Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" /> class.
             </summary>
             <param name="bindableProperty">The bindable property.</param>
             <param name="borderViewHeight">Height of the border view.</param>
@@ -11337,11 +11328,6 @@
             The header height
             </summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.WebViewWithCloseButton.WEB_VIEW_CORNER_RADIUS">
-            <summary>
-            The web view corner radius
-            </summary>
-        </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.WebViewWithCloseButton.WEB_VIEW_PADDING">
             <summary>
             The web view padding
@@ -11384,7 +11370,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.WebViewWithCloseButton.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.WebViewWithCloseButton"/> class.
+            Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.WebViewWithCloseButton" /> class.
             </summary>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.WebViewWithCloseButton.CloseCommand">

@@ -131,7 +131,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private Grid           _sliderGrid;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatableSlider"/> class.
+      /// Initializes a new instance of the <see cref="ValidatableSlider" /> class.
       /// </summary>
       /// <param name="endingRemarks">The ending remarks.</param>
       /// <param name="fontFamily">The font family.</param>

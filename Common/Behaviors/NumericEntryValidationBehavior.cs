@@ -127,7 +127,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       private const string FAIL_TEXT = "Fail!^%$^%(&*)_()_)*((*^&";
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="NumericEntryValidationBehavior"/> class.
+      /// Initializes a new instance of the <see cref="NumericEntryValidationBehavior" /> class.
       /// </summary>
       /// <param name="onIsValidChangedAction">The on is valid changed action.</param>
       public NumericEntryValidationBehavior(Action onIsValidChangedAction) : base(onIsValidChangedAction)

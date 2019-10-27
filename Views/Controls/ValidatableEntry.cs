@@ -115,7 +115,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private Image _showHideImage;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidatableEntry"/> class.
+      /// Initializes a new instance of the <see cref="ValidatableEntry" /> class.
       /// </summary>
       /// <param name="borderViewHeight">Height of the border view.</param>
       /// <param name="canUnmaskPassword">if set to <c>true</c> [can unmask password].</param>

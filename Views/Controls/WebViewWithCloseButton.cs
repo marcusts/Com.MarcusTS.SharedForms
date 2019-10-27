@@ -84,14 +84,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// The header height
       /// </summary>
       private const double HEADER_HEIGHT             = 48;
-      /// <summary>
-      /// The web view corner radius
-      /// </summary>
-      private const float  WEB_VIEW_CORNER_RADIUS    = 6;
+
+      ///// <summary>
+      ///// The web view corner radius
+      ///// </summary>
+      //private const float  WEB_VIEW_CORNER_RADIUS    = 6;
+
       /// <summary>
       /// The web view padding
       /// </summary>
-      private const float  WEB_VIEW_PADDING          = WEB_VIEW_CORNER_RADIUS;
+      private static readonly double WEB_VIEW_PADDING          = 6.0.AdjustForOsAndDevice();
 
       /// <summary>
       /// The close command property
@@ -183,7 +185,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private string  _webUrl;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="WebViewWithCloseButton"/> class.
+      /// Initializes a new instance of the <see cref="WebViewWithCloseButton" /> class.
       /// </summary>
       public WebViewWithCloseButton()
       {
@@ -223,7 +225,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          Grid.SetRow(_webView, 1);
 
          BackgroundColor   = Color.Transparent;
-         CornerRadius      = WEB_VIEW_CORNER_RADIUS;
+         CornerRadius      = FormsConst.DEFAULT_CORNER_RADIUS_FIXED;
          IsClippedToBounds = true;
 
          Content = masterGrid;

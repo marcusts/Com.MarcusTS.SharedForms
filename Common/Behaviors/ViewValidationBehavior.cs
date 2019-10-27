@@ -92,7 +92,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       private View  _view;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ViewValidationBehavior"/> class.
+      /// Initializes a new instance of the <see cref="ViewValidationBehavior" /> class.
       /// </summary>
       /// <param name="getValueFromViewFunc">The get value from view function.</param>
       /// <param name="onIsValidChangedAction">The on is valid changed action.</param>
@@ -235,7 +235,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Handles the <see cref="E:Focused" /> event.
       /// </summary>
       /// <param name="o">The o.</param>
-      /// <param name="e">The <see cref="FocusEventArgs"/> instance containing the event data.</param>
+      /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnFocused
       (
          object         o,
@@ -249,7 +249,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Handles the <see cref="E:Unfocused" /> event.
       /// </summary>
       /// <param name="o">The o.</param>
-      /// <param name="e">The <see cref="FocusEventArgs"/> instance containing the event data.</param>
+      /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnUnfocused
       (
          object         o,

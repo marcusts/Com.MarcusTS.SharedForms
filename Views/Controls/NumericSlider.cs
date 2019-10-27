@@ -230,7 +230,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private volatile bool           _verifyLegalCurrentValueEntered;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="NumericSlider"/> class.
+      /// Initializes a new instance of the <see cref="NumericSlider" /> class.
       /// </summary>
       /// <param name="endColor">The end color.</param>
       /// <param name="endingRemarks">The ending remarks.</param>
@@ -610,7 +610,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// Handles the thumb movement.
       /// </summary>
       /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="PanUpdatedEventArgs"/> instance containing the event data.</param>
+      /// <param name="e">The <see cref="PanUpdatedEventArgs" /> instance containing the event data.</param>
       private void HandleThumbMovement(object sender, PanUpdatedEventArgs e)
       {
          switch (e.StatusType)

@@ -167,7 +167,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       private volatile bool _revalidateBehaviorsEntered;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="ValidationViewModelHelper"/> class.
+      /// Initializes a new instance of the <see cref="ValidationViewModelHelper" /> class.
       /// </summary>
       public ValidationViewModelHelper()
       {
