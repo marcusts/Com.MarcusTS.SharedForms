@@ -54,5 +54,8 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
       /// Revalidates this instance.
       /// </summary>
       void Revalidate();
+
+      // Set to null
+      void Neutralize();
    }
 }

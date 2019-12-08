@@ -475,6 +475,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       private bool             _viewsCreated;
 
+      private Style _lastBorderViewStyle;
+
       /// <summary>
       /// Initializes a new instance of the <see cref="ValidatableViewBase" /> class.
       /// </summary>
@@ -1013,6 +1015,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>Style.</returns>
       private Style CreateDefaultBorderViewStyle()
       {
+         // IMPORTANT: This will generally be over-written and used to save the existing border view style during validations.
          return FormsUtils.CreateShapeViewStyle();
       }
 
@@ -1022,7 +1025,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>Style.</returns>
       private Style CreateDefaultInvalidBorderViewStyle()
       {
-         return FormsUtils.CreateShapeViewStyle(borderColor: Color.Red, BorderThickness: 1);
+         return FormsUtils.CreateShapeViewStyle(borderColor: Color.Red, borderThickness: 1);
       }
 
       /// <summary>
@@ -1097,6 +1100,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="isValid">if set to <c>true</c> [is valid].</param>
       private void HandleIsValidChanged(bool? isValid)
       {
+         // Nothing to do when neutralized.
+         if (!isValid.HasValue)
+         {
+            return;
+         }
+
          // If the validator issues a validation eror, show that in place of the instructions (below the border view).
          if (_validator.IsNotNullOrDefault() && _validator.LastValidationError.IsNotEmpty() &&
              _showValidationErrorsAsInstructions)
@@ -1104,13 +1113,28 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             CurrentInstructions = _validator.LastValidationError;
          }
 
-         if (!isValid.HasValue || isValid.GetValueOrDefault())
+         if (isValid.GetValueOrDefault())
          {
-            BorderView.SetAndForceStyle(ValidBorderViewStyle);
+            if (_lastBorderViewStyle.IsNotNullOrDefault())
+            {
+               BorderView.SetAndForceStyle(_lastBorderViewStyle);
+               _lastBorderViewStyle = default;
+            }
+            else
+            {
+               BorderView.SetAndForceStyle(ValidBorderViewStyle);
+            }
+
             PlaceholderLabel?.SetAndForceStyle(ValidPlaceholderStyle);
          }
          else
          {
+
+            if (_lastBorderViewStyle.IsNullOrDefault())
+            {
+               _lastBorderViewStyle = FormsUtils.CreateShapeViewStyle(borderColor: BorderView.BorderColor, borderThickness: BorderView.BorderThickness);
+            }
+
             BorderView.SetAndForceStyle(InvalidBorderViewStyle);
             PlaceholderLabel?.SetAndForceStyle(InvalidPlaceholderStyle);
          }

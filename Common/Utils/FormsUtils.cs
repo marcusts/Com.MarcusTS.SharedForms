@@ -54,6 +54,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    using System.Reflection;
    using System.Text;
    using System.Threading.Tasks;
+   using Interfaces;
    using Views.Controls;
    using Xamarin.Essentials;
    using Xamarin.Forms;
@@ -278,32 +279,32 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
          Constraint GetHorizontallyCenteredConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Width - viewWidth) / 2);
+            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Width - viewWidth - view.Margin.HorizontalThickness) / 2);
          }
 
          Constraint GetVerticallyCenteredConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Height - viewHeight) / 2);
+            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Height - viewHeight - view.Margin.VerticalThickness) / 2);
          }
 
          Constraint GetBottomVerticalConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Height - viewHeight);
+            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Height - viewHeight - view.Margin.Bottom);
          }
 
          Constraint GetTopVerticalConstraint()
          {
-            return Constraint.Constant(0);
+            return Constraint.Constant(view.Margin.Top);
          }
 
          Constraint GetLeftHorizontalConstraint()
          {
-            return Constraint.Constant(0);
+            return Constraint.Constant(view.Margin.Left);
          }
 
          Constraint GetRightHorizontalConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Width - viewWidth);
+            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Width - viewWidth - view.Margin.Right);
          }
       }
 
@@ -832,11 +833,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="backColor">Color of the back.</param>
       /// <param name="cornerRadius">The corner radius.</param>
       /// <param name="borderColor">Color of the border.</param>
-      /// <param name="BorderThickness">The border thickness.</param>
+      /// <param name="borderThickness">The border thickness.</param>
       /// <returns>Style.</returns>
       public static Style CreateShapeViewStyle(
          Color?  backColor       = null, double? cornerRadius = null, Color? borderColor = null,
-         double? BorderThickness = null)
+         double? borderThickness = null)
       {
          var retStyle = new Style(typeof(ShapeView));
 
@@ -855,9 +856,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             retStyle.Setters.Add(new Setter {Property = PancakeView.BorderColorProperty, Value = borderColor});
          }
 
-         if (BorderThickness.HasValue)
+         if (borderThickness.HasValue)
          {
-            retStyle.Setters.Add(new Setter {Property = PancakeView.BorderThicknessProperty, Value = BorderThickness});
+            retStyle.Setters.Add(new Setter {Property = PancakeView.BorderThicknessProperty, Value = borderThickness});
          }
 
          return retStyle;
@@ -2219,5 +2220,53 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       //   {
       //   }
       //}
+
+      /// <summary>
+      /// Validators from view.
+      /// </summary>
+      /// <param name="view">The view.</param>
+      /// <returns>ICanBeValid.</returns>
+      public static ICanBeValid ValidatorFromView(View view)
+      {
+         return view.Behaviors?.FirstOrDefault(b => b is ICanBeValid) as ICanBeValid;
+      }
+
+      public static DateTime? ToNullableDateTime(this string str)
+      {
+         if (str.IsEmpty())
+         {
+            return default;
+         }
+
+         if (DateTime.TryParse(str, out var dateTime))
+         {
+            return dateTime;
+         }
+
+         return default;
+      }
+
+      public static void AddIfNotEmpty(this StringBuilder mainStrBuilder, string appendStr, string prefix = "")
+      {
+         if (appendStr.IsNotEmpty())
+         {
+            if (mainStrBuilder.ToString().IsNotEmpty())
+            {
+               mainStrBuilder.Append(prefix);
+            }
+
+            mainStrBuilder.Append(appendStr);
+         }
+      }
+
+      public static bool IsLessThan(this string mainStr, string compareStr)
+      {
+         return string.CompareOrdinal(mainStr, compareStr) < 0;
+      }
+
+      public static bool IsGreaterThan(this string mainStr, string compareStr)
+      {
+         return string.CompareOrdinal(mainStr, compareStr) > 0;
+      }
    }
 }

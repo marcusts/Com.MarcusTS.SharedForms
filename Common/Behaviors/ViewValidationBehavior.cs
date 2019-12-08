@@ -24,6 +24,8 @@
 
 #endregion
 
+#define HACK_IS_VALID
+
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using Interfaces;
@@ -138,31 +140,36 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <value><c>true</c> if this instance is numeric; otherwise, <c>false</c>.</value>
       public bool IsNumeric { get; set; }
 
-      /// <summary>
-      /// Returns true if ... is valid.
-      /// </summary>
-      /// <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
       public bool? IsValid
       {
          get => _isValid;
 
+#if !HACK_IS_VALID
          private set
          {
-            if (_view == null)
-            {
-               _isValid = Extensions.EmptyNullableBool;
-               return;
-            }
+            SetIsValid(value);
+         }
+#endif
 
-            if (_isValid.IsNotTheSame(value))
-            {
-               _isValid = value;
+      }
 
-               // Notify that a change has taken place
-               _onIsValidChangedAction?.Invoke();
+      private void SetIsValid(bool? isValid)
+      {
+         if (_view.IsNullOrDefault())
+         {
+            _isValid = Extensions.EmptyNullableBool;
+            return;
+         }
 
-               IsValidChanged?.Invoke(_isValid);
-            }
+         if (_isValid.IsNotTheSame(isValid))
+         {
+            _isValid = isValid;
+
+            // Fire first so related validators can gety up to date
+            IsValidChanged?.Invoke(_isValid);
+
+            // Notify that a change has taken place Fire last because this is usually the highest level validator
+            _onIsValidChangedAction?.Invoke();
          }
       }
 
@@ -179,13 +186,32 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       {
          if (_view.IsNullOrDefault() || Validator.IsNullOrDefault())
          {
+
+#if HACK_IS_VALID
+            SetIsValid(Extensions.EmptyNullableBool);
+#else
             IsValid = Extensions.EmptyNullableBool;
+#endif
             return;
          }
 
          var isValid = Validator.Invoke(this, _getValueFromViewFunc?.Invoke(_view));
 
+#if HACK_IS_VALID
+         SetIsValid(isValid);
+#else
          IsValid = isValid;
+#endif
+
+      }
+
+      public void Neutralize()
+      {
+#if HACK_IS_VALID
+         SetIsValid(default);
+#else
+         IsValid = default;
+#endif
       }
 
       /// <summary>
@@ -196,8 +222,15 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
       public static bool DefaultValidator(IViewValidationBehavior behavior, object o)
       {
-         return behavior.EmptyAllowed || !behavior.IsNumeric && o.IsNotNullOrDefault() ||
-                behavior.IsNumeric                           && IsANumberGreaterThanZero(o);
+         return
+            behavior.EmptyAllowed
+            ||
+            // Strings must validate using their own spcialized checker
+            (!behavior.IsNumeric && o is string oAsString && oAsString.IsNotEmpty())
+            ||
+            (!behavior.IsNumeric && !(o is string) && o.IsNotNullOrDefault())
+            ||
+            (behavior.IsNumeric && IsANumberGreaterThanZero(o));
       }
 
       /// <summary>

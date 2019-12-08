@@ -401,7 +401,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>
       /// The estimated keyboard height
       /// </summary>
-      public static readonly double ESTIMATED_KEYBOARD_HEIGHT  = 225.0.AdjustForOsAndDevice();
+      public static readonly double ESTIMATED_KEYBOARD_HEIGHT  = 250.0.AdjustForOsAndDevice();
 
       /// <summary>
       /// The major button height

@@ -24,6 +24,8 @@
 
 #endregion
 
+#define HACK_IS_VALID
+
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using Interfaces;
@@ -204,32 +206,35 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <value><c>true</c> if [do not force mask initially]; otherwise, <c>false</c>.</value>
       public bool DoNotForceMaskInitially { get; set; }
 
-      /// <summary>
-      /// Returns true if ... is valid.
-      /// </summary>
-      /// <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
       public bool? IsValid
       {
          get => _isValid;
 
+#if !HACK_IS_VALID
          private set
          {
-            if (_entry == null)
-            {
-               _isValid = Extensions.EmptyNullableBool;
-               return;
-            }
+            SetIsValid(value);
+         }
+#endif
+      }
 
-            if (_isValid.IsNotTheSame(value))
-            {
-               _isValid = value;
+      private void SetIsValid(bool? isValid)
+      {
+         if (_entry == null)
+         {
+            _isValid = Extensions.EmptyNullableBool;
+            return;
+         }
 
-               // Fire first so related validators can gety up to date
-               IsValidChanged?.Invoke(_isValid);
+         if (_isValid.IsNotTheSame(isValid))
+         {
+            _isValid = isValid;
 
-               // Notify that a change has taken place Fire last because this is usually the highest level validator
-               _onIsValidChangedAction?.Invoke();
-            }
+            // Fire first so related validators can gety up to date
+            IsValidChanged?.Invoke(_isValid);
+
+            // Notify that a change has taken place Fire last because this is usually the highest level validator
+            _onIsValidChangedAction?.Invoke();
          }
       }
 
@@ -318,12 +323,31 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       {
          if (_entry == null)
          {
+#if HACK_IS_VALID
+            SetIsValid(Extensions.EmptyNullableBool);
+#else
             IsValid = Extensions.EmptyNullableBool;
+#endif
             return;
          }
 
          var isValid = IsWholeEntryValid(this, _entry.Text);
+
+#if HACK_IS_VALID
+         SetIsValid(isValid);
+#else
          IsValid = isValid;
+#endif
+
+      }
+
+      public void Neutralize()
+      {
+#if HACK_IS_VALID
+         SetIsValid(default);
+#else
+         IsValid = default;
+#endif
       }
 
       /// <summary>

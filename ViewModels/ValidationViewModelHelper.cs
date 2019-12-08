@@ -232,6 +232,8 @@ namespace Com.MarcusTS.SharedForms.ViewModels
             {
                _pageIsValid = value;
                PageIsValidChanged?.Invoke(_pageIsValid);
+
+
             }
          }
       }
@@ -257,12 +259,16 @@ namespace Com.MarcusTS.SharedForms.ViewModels
          {
             if (!_behaviors.Contains(behavior))
             {
+               // Start at NULL
+               behavior.Neutralize();
+               behavior.Revalidate();
                behavior.IsValidChanged += b => { RevalidateBehaviors(); };
                _behaviors.Add(behavior);
             }
          }
 
-         RevalidateBehaviors();
+         PageIsValid = _behaviors.IsEmpty() || _behaviors.All(b => b.IsValid.IsTrue());
+         // RevalidateBehaviors();
       }
 
       /// <summary>
