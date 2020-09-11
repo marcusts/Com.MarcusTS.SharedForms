@@ -1857,12 +1857,6 @@
             </summary>
             <value><c>true</c> if [do not force mask initially]; otherwise, <c>false</c>.</value>
         </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior.IsValid">
-            <summary>
-            Returns true if ... is valid.
-            </summary>
-            <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
-        </member>
         <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior.LastValidationError">
             <summary>
             Gets or sets the last validation error.
@@ -2396,12 +2390,6 @@
             Gets or sets a value indicating whether this instance is numeric.
             </summary>
             <value><c>true</c> if this instance is numeric; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.ViewValidationBehavior.IsValid">
-            <summary>
-            Returns true if ... is valid.
-            </summary>
-            <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.ViewValidationBehavior.LastValidationError">
             <summary>
@@ -4975,7 +4963,7 @@
             <param name="backColor">Color of the back.</param>
             <param name="cornerRadius">The corner radius.</param>
             <param name="borderColor">Color of the border.</param>
-            <param name="BorderThickness">The border thickness.</param>
+            <param name="borderThickness">The border thickness.</param>
             <returns>Style.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.CreateTasks(System.Threading.Tasks.Task[])">
@@ -5483,6 +5471,13 @@
             <param name="forceLongSize">if set to <c>true</c> [force long size].</param>
             <param name="currentSize">Size of the current.</param>
             <returns>System.Double.</returns>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ValidatorFromView(Xamarin.Forms.View)">
+            <summary>
+            Validators from view.
+            </summary>
+            <param name="view">The view.</param>
+            <returns>ICanBeValid.</returns>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.TaskHelper">
             <summary>

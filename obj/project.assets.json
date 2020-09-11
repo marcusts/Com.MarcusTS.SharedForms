@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "Acr.UserDialogs/7.0.27": {
+      "Acr.UserDialogs/7.1.0.454": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Acr.UserDialogs.dll": {}
@@ -11,10 +11,10 @@
           "lib/netstandard2.0/Acr.UserDialogs.dll": {}
         }
       },
-      "Com.MarcusTS.SharedUtils/1.0.12": {
+      "Com.MarcusTS.SharedUtils/1.0.14": {
         "type": "package",
         "dependencies": {
-          "Xamarin.Forms": "4.2.0.778463"
+          "Xamarin.Forms": "4.0.0.425677"
         },
         "compile": {
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {}
@@ -23,10 +23,10 @@
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {}
         }
       },
-      "Com.MarcusTS.SmartDI/1.0.16": {
+      "Com.MarcusTS.SmartDI/1.0.17": {
         "type": "package",
         "dependencies": {
-          "Com.MarcusTS.SharedUtils": "1.0.12"
+          "Com.MarcusTS.SharedUtils": "1.0.13"
         },
         "compile": {
           "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll": {}
@@ -50,6 +50,15 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "Microsoft.NETCore.Targets/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "NETStandard.Library/2.0.2": {
         "type": "package",
         "dependencies": {
@@ -65,8 +74,11 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Plugin.Permissions/3.0.0.12": {
+      "Plugin.Permissions/6.0.1": {
         "type": "package",
+        "dependencies": {
+          "Xamarin.Essentials": "1.5.2"
+        },
         "compile": {
           "lib/netstandard2.0/Plugin.Permissions.dll": {}
         },
@@ -90,6 +102,18 @@
           "build/PropertyChanged2.Fody.props": {}
         }
       },
+      "System.ComponentModel/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.0/System.ComponentModel.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.ComponentModel.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
@@ -97,6 +121,16 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Numerics.Vectors.dll": {}
+        }
+      },
+      "System.Runtime/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
       "Xam.Plugins.Settings/3.1.1": {
@@ -122,7 +156,7 @@
           "lib/netstandard2.0/Plugin.Vibrate.dll": {}
         }
       },
-      "Xamarin.Essentials/1.3.0": {
+      "Xamarin.Essentials/1.5.3.2": {
         "type": "package",
         "dependencies": {
           "System.Numerics.Vectors": "4.5.0"
@@ -134,7 +168,7 @@
           "lib/netstandard2.0/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.2.0.778463": {
+      "Xamarin.Forms/4.0.0.709238": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Xamarin.Forms.Core.dll": {},
@@ -151,9 +185,10 @@
           "build/Xamarin.Forms.targets": {}
         }
       },
-      "Xamarin.Forms.PancakeView/1.3.3": {
+      "Xamarin.Forms.PancakeView/2.1.0.714": {
         "type": "package",
         "dependencies": {
+          "System.ComponentModel": "4.3.0",
           "Xamarin.Forms": "3.6.0.220655"
         },
         "compile": {
@@ -166,20 +201,19 @@
     }
   },
   "libraries": {
-    "Acr.UserDialogs/7.0.27": {
-      "sha512": "u+rbzB8Xh1nBj0jBOpgxMzyuycBrHY5y50aF4VMoE9oAosDiZtIgh0lpnGGn83KpnBDYRjm2kUP4CROv7wE9mw==",
+    "Acr.UserDialogs/7.1.0.454": {
+      "sha512": "A7NdvgpX1tE5tDj4gNQgrQOZ2xZF2PidNhuy5ydfM5rJdvN9CqjVxjoKEu3rDiMUs7ek/m+EiVkYVC5DVwfI0A==",
       "type": "package",
-      "path": "acr.userdialogs/7.0.27",
+      "path": "acr.userdialogs/7.1.0.454",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "acr.userdialogs.7.0.27.nupkg.sha512",
+        "acr.userdialogs.7.1.0.454.nupkg.sha512",
         "acr.userdialogs.nuspec",
-        "lib/monoandroid81/Acr.UserDialogs.dll",
-        "lib/monoandroid81/Acr.UserDialogs.pdb",
-        "lib/monoandroid81/Acr.UserDialogs.xml",
+        "lib/monoandroid10.0/Acr.UserDialogs.dll",
+        "lib/monoandroid10.0/Acr.UserDialogs.pdb",
+        "lib/monoandroid10.0/Acr.UserDialogs.xml",
         "lib/monoandroid90/Acr.UserDialogs.dll",
-        "lib/monoandroid90/Acr.UserDialogs.dll.mdb",
         "lib/monoandroid90/Acr.UserDialogs.pdb",
         "lib/monoandroid90/Acr.UserDialogs.xml",
         "lib/netstandard2.0/Acr.UserDialogs.dll",
@@ -190,41 +224,39 @@
         "lib/uap10.0.16299/Acr.UserDialogs.pri",
         "lib/uap10.0.16299/Acr.UserDialogs.xml",
         "lib/uap10.0.16299/Acr.UserDialogs/Acr.UserDialogs.xr.xml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/ActionSheetContentDialog.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/DatePickerControl.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/LoginContentDialog.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/ProgressContentDialog.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/TimePickerControl.xaml",
         "lib/xamarinios10/Acr.UserDialogs.dll",
         "lib/xamarinios10/Acr.UserDialogs.pdb",
         "lib/xamarinios10/Acr.UserDialogs.xml",
         "lib/xamarinmac20/Acr.UserDialogs.dll",
         "lib/xamarinmac20/Acr.UserDialogs.pdb",
         "lib/xamarinmac20/Acr.UserDialogs.xml",
+        "lib/xamarintvos10/Acr.UserDialogs.dll",
+        "lib/xamarintvos10/Acr.UserDialogs.pdb",
+        "lib/xamarintvos10/Acr.UserDialogs.xml",
         "readme.txt"
       ]
     },
-    "Com.MarcusTS.SharedUtils/1.0.12": {
-      "sha512": "IMtmqk2myU4mBsnwgWW5NCCIjbQaWYn/2Xfps5kouLN2s7b6DT5wKtEFKRK5gUtigo42607y26or52EfWsU+Aw==",
+    "Com.MarcusTS.SharedUtils/1.0.14": {
+      "sha512": "KPT2xSpGAN9qvbIA9p4u4UsBYzQ0V0KX6dtGUEo+QvWQuDxaIsbti+QoSWHbO+qCus7c3Q5DqBwN6RK0LtkM9g==",
       "type": "package",
-      "path": "com.marcusts.sharedutils/1.0.12",
+      "path": "com.marcusts.sharedutils/1.0.14",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.sharedutils.1.0.12.nupkg.sha512",
+        "com.marcusts.sharedutils.1.0.14.nupkg.sha512",
         "com.marcusts.sharedutils.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.xml"
       ]
     },
-    "Com.MarcusTS.SmartDI/1.0.16": {
-      "sha512": "lqmGGfyufae7eHKtY5c7kcGybgQbCmjyasZEenThvYS0hFwX5XTM6HdWzwtFBo47FuOX1BlIDtkfFjesBVEqCQ==",
+    "Com.MarcusTS.SmartDI/1.0.17": {
+      "sha512": "cax6jB17yEnZxGPEj21pntM9WYKvM8Mw6i/jacRearynI83Q66Be8G7ZMgHFXO0AeK3U9x/VYv84iza9w0HvAg==",
       "type": "package",
-      "path": "com.marcusts.smartdi/1.0.16",
+      "path": "com.marcusts.smartdi/1.0.17",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.smartdi.1.0.16.nupkg.sha512",
+        "com.marcusts.smartdi.1.0.17.nupkg.sha512",
         "com.marcusts.smartdi.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll",
         "lib/netstandard2.0/Com.MarcusTS.SmartDI.xml"
@@ -278,6 +310,21 @@
         "lib/netstandard1.0/_._",
         "microsoft.netcore.platforms.1.1.0.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
+        "runtime.json"
+      ]
+    },
+    "Microsoft.NETCore.Targets/1.1.0": {
+      "sha512": "aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
+      "type": "package",
+      "path": "microsoft.netcore.targets/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/netstandard1.0/_._",
+        "microsoft.netcore.targets.1.1.0.nupkg.sha512",
+        "microsoft.netcore.targets.nuspec",
         "runtime.json"
       ]
     },
@@ -410,25 +457,33 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Plugin.Permissions/3.0.0.12": {
-      "sha512": "VrYqI/ufk3bH6gTP1JJlLByjhS0CHu3riKmdozhX9/qXA9hlvLolmcqKJdyAqpzmrVC74m3ZtirUBIrBxvT1Lw==",
+    "Plugin.Permissions/6.0.1": {
+      "sha512": "na/0FNhyKmSicANWZMLSM0y/FW2AvLoawX3lsvBpELwP15sdJRyuBhRKk1OQjRoNrmTIewcON1tJFyydjMGWcA==",
       "type": "package",
-      "path": "plugin.permissions/3.0.0.12",
+      "path": "plugin.permissions/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/monoandroid71/Plugin.Permissions.dll",
-        "lib/monoandroid71/Plugin.Permissions.xml",
+        "lib/monoandroid10.0/Plugin.Permissions.dll",
+        "lib/monoandroid10.0/Plugin.Permissions.pdb",
+        "lib/monoandroid80/Plugin.Permissions.dll",
+        "lib/monoandroid80/Plugin.Permissions.pdb",
+        "lib/monoandroid81/Plugin.Permissions.dll",
+        "lib/monoandroid81/Plugin.Permissions.pdb",
+        "lib/monoandroid90/Plugin.Permissions.dll",
+        "lib/monoandroid90/Plugin.Permissions.pdb",
         "lib/netstandard1.0/Plugin.Permissions.dll",
-        "lib/netstandard1.0/Plugin.Permissions.xml",
+        "lib/netstandard1.0/Plugin.Permissions.pdb",
         "lib/netstandard2.0/Plugin.Permissions.dll",
-        "lib/netstandard2.0/Plugin.Permissions.xml",
-        "lib/uap10.0.10240/Plugin.Permissions.dll",
-        "lib/uap10.0.10240/Plugin.Permissions.pri",
-        "lib/uap10.0.10240/Plugin.Permissions.xml",
+        "lib/netstandard2.0/Plugin.Permissions.pdb",
+        "lib/uap10.0.16299/Plugin.Permissions.dll",
+        "lib/uap10.0.16299/Plugin.Permissions.pdb",
+        "lib/uap10.0.16299/Plugin.Permissions.pri",
         "lib/xamarinios10/Plugin.Permissions.dll",
-        "lib/xamarinios10/Plugin.Permissions.xml",
-        "plugin.permissions.3.0.0.12.nupkg.sha512",
+        "lib/xamarinios10/Plugin.Permissions.pdb",
+        "lib/xamarintvos10/Plugin.Permissions.dll",
+        "lib/xamarintvos10/Plugin.Permissions.pdb",
+        "plugin.permissions.6.0.1.nupkg.sha512",
         "plugin.permissions.nuspec",
         "readme.txt"
       ]
@@ -451,6 +506,65 @@
         "netstandardweaver/PropertyChanged2.Fody.pdb",
         "propertychanged2.fody.2.6.0.nupkg.sha512",
         "propertychanged2.fody.nuspec"
+      ]
+    },
+    "System.ComponentModel/4.3.0": {
+      "sha512": "VyGn1jGRZVfxnh8EdvDCi71v3bMXrsu8aYJOwoV7SNDLVhiEqwP86pPMyRGsDsxhXAm2b3o9OIqeETfN5qfezw==",
+      "type": "package",
+      "path": "system.componentmodel/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/System.ComponentModel.dll",
+        "lib/netstandard1.3/System.ComponentModel.dll",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcore50/System.ComponentModel.dll",
+        "ref/netcore50/System.ComponentModel.xml",
+        "ref/netcore50/de/System.ComponentModel.xml",
+        "ref/netcore50/es/System.ComponentModel.xml",
+        "ref/netcore50/fr/System.ComponentModel.xml",
+        "ref/netcore50/it/System.ComponentModel.xml",
+        "ref/netcore50/ja/System.ComponentModel.xml",
+        "ref/netcore50/ko/System.ComponentModel.xml",
+        "ref/netcore50/ru/System.ComponentModel.xml",
+        "ref/netcore50/zh-hans/System.ComponentModel.xml",
+        "ref/netcore50/zh-hant/System.ComponentModel.xml",
+        "ref/netstandard1.0/System.ComponentModel.dll",
+        "ref/netstandard1.0/System.ComponentModel.xml",
+        "ref/netstandard1.0/de/System.ComponentModel.xml",
+        "ref/netstandard1.0/es/System.ComponentModel.xml",
+        "ref/netstandard1.0/fr/System.ComponentModel.xml",
+        "ref/netstandard1.0/it/System.ComponentModel.xml",
+        "ref/netstandard1.0/ja/System.ComponentModel.xml",
+        "ref/netstandard1.0/ko/System.ComponentModel.xml",
+        "ref/netstandard1.0/ru/System.ComponentModel.xml",
+        "ref/netstandard1.0/zh-hans/System.ComponentModel.xml",
+        "ref/netstandard1.0/zh-hant/System.ComponentModel.xml",
+        "ref/portable-net45+win8+wp8+wpa81/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.componentmodel.4.3.0.nupkg.sha512",
+        "system.componentmodel.nuspec"
       ]
     },
     "System.Numerics.Vectors/4.5.0": {
@@ -498,6 +612,98 @@
         "system.numerics.vectors.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "System.Runtime/4.3.0": {
+      "sha512": "JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
+      "type": "package",
+      "path": "system.runtime/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/net462/System.Runtime.dll",
+        "lib/portable-net45+win8+wp80+wpa81/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/net462/System.Runtime.dll",
+        "ref/netcore50/System.Runtime.dll",
+        "ref/netcore50/System.Runtime.xml",
+        "ref/netcore50/de/System.Runtime.xml",
+        "ref/netcore50/es/System.Runtime.xml",
+        "ref/netcore50/fr/System.Runtime.xml",
+        "ref/netcore50/it/System.Runtime.xml",
+        "ref/netcore50/ja/System.Runtime.xml",
+        "ref/netcore50/ko/System.Runtime.xml",
+        "ref/netcore50/ru/System.Runtime.xml",
+        "ref/netcore50/zh-hans/System.Runtime.xml",
+        "ref/netcore50/zh-hant/System.Runtime.xml",
+        "ref/netstandard1.0/System.Runtime.dll",
+        "ref/netstandard1.0/System.Runtime.xml",
+        "ref/netstandard1.0/de/System.Runtime.xml",
+        "ref/netstandard1.0/es/System.Runtime.xml",
+        "ref/netstandard1.0/fr/System.Runtime.xml",
+        "ref/netstandard1.0/it/System.Runtime.xml",
+        "ref/netstandard1.0/ja/System.Runtime.xml",
+        "ref/netstandard1.0/ko/System.Runtime.xml",
+        "ref/netstandard1.0/ru/System.Runtime.xml",
+        "ref/netstandard1.0/zh-hans/System.Runtime.xml",
+        "ref/netstandard1.0/zh-hant/System.Runtime.xml",
+        "ref/netstandard1.2/System.Runtime.dll",
+        "ref/netstandard1.2/System.Runtime.xml",
+        "ref/netstandard1.2/de/System.Runtime.xml",
+        "ref/netstandard1.2/es/System.Runtime.xml",
+        "ref/netstandard1.2/fr/System.Runtime.xml",
+        "ref/netstandard1.2/it/System.Runtime.xml",
+        "ref/netstandard1.2/ja/System.Runtime.xml",
+        "ref/netstandard1.2/ko/System.Runtime.xml",
+        "ref/netstandard1.2/ru/System.Runtime.xml",
+        "ref/netstandard1.2/zh-hans/System.Runtime.xml",
+        "ref/netstandard1.2/zh-hant/System.Runtime.xml",
+        "ref/netstandard1.3/System.Runtime.dll",
+        "ref/netstandard1.3/System.Runtime.xml",
+        "ref/netstandard1.3/de/System.Runtime.xml",
+        "ref/netstandard1.3/es/System.Runtime.xml",
+        "ref/netstandard1.3/fr/System.Runtime.xml",
+        "ref/netstandard1.3/it/System.Runtime.xml",
+        "ref/netstandard1.3/ja/System.Runtime.xml",
+        "ref/netstandard1.3/ko/System.Runtime.xml",
+        "ref/netstandard1.3/ru/System.Runtime.xml",
+        "ref/netstandard1.3/zh-hans/System.Runtime.xml",
+        "ref/netstandard1.3/zh-hant/System.Runtime.xml",
+        "ref/netstandard1.5/System.Runtime.dll",
+        "ref/netstandard1.5/System.Runtime.xml",
+        "ref/netstandard1.5/de/System.Runtime.xml",
+        "ref/netstandard1.5/es/System.Runtime.xml",
+        "ref/netstandard1.5/fr/System.Runtime.xml",
+        "ref/netstandard1.5/it/System.Runtime.xml",
+        "ref/netstandard1.5/ja/System.Runtime.xml",
+        "ref/netstandard1.5/ko/System.Runtime.xml",
+        "ref/netstandard1.5/ru/System.Runtime.xml",
+        "ref/netstandard1.5/zh-hans/System.Runtime.xml",
+        "ref/netstandard1.5/zh-hant/System.Runtime.xml",
+        "ref/portable-net45+win8+wp80+wpa81/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.runtime.4.3.0.nupkg.sha512",
+        "system.runtime.nuspec"
       ]
     },
     "Xam.Plugins.Settings/3.1.1": {
@@ -593,22 +799,18 @@
         "xam.plugins.vibrate.nuspec"
       ]
     },
-    "Xamarin.Essentials/1.3.0": {
-      "sha512": "AI6NZ7ngolTQmUI2dnsP/t6xxwPNWXuOY1sfol2yNVPSw4RfI8+D/kjz5p7Yabl5vRtoFhI6sWDT40IK9VwlBg==",
+    "Xamarin.Essentials/1.5.3.2": {
+      "sha512": "BSLgDJUOPFRwTpQaftM+s4qb/MsTjrqXulEYDOcK6KF3i0Orf75zo3RwRfqnQ8WfpoEFxW/v0jgcPWCvOMgHxg==",
       "type": "package",
-      "path": "xamarin.essentials/1.3.0",
+      "path": "xamarin.essentials/1.5.3.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/monoandroid60/Xamarin.Essentials.dll",
-        "lib/monoandroid60/Xamarin.Essentials.pdb",
-        "lib/monoandroid60/Xamarin.Essentials.xml",
-        "lib/monoandroid70/Xamarin.Essentials.dll",
-        "lib/monoandroid70/Xamarin.Essentials.pdb",
-        "lib/monoandroid70/Xamarin.Essentials.xml",
-        "lib/monoandroid71/Xamarin.Essentials.dll",
-        "lib/monoandroid71/Xamarin.Essentials.pdb",
-        "lib/monoandroid71/Xamarin.Essentials.xml",
+        "LICENSE",
+        "icon.png",
+        "lib/monoandroid10.0/Xamarin.Essentials.dll",
+        "lib/monoandroid10.0/Xamarin.Essentials.pdb",
+        "lib/monoandroid10.0/Xamarin.Essentials.xml",
         "lib/monoandroid80/Xamarin.Essentials.dll",
         "lib/monoandroid80/Xamarin.Essentials.pdb",
         "lib/monoandroid80/Xamarin.Essentials.xml",
@@ -641,14 +843,14 @@
         "lib/xamarinwatchos10/Xamarin.Essentials.pdb",
         "lib/xamarinwatchos10/Xamarin.Essentials.xml",
         "readme.txt",
-        "xamarin.essentials.1.3.0.nupkg.sha512",
+        "xamarin.essentials.1.5.3.2.nupkg.sha512",
         "xamarin.essentials.nuspec"
       ]
     },
-    "Xamarin.Forms/4.2.0.778463": {
-      "sha512": "0dGuPOn9KrS65rmVgOrV5knDYHxWkWEm7c/CLp6AKSlvOpZ40+YrN+7oX5hHE6lpX+dizLCaOE/RvYS3ONy9/Q==",
+    "Xamarin.Forms/4.0.0.709238": {
+      "sha512": "eVGHM9hP1D9niDURUGvQ3bY8iWdMvsQlKLZIH3sHyZTAzf753UZCSLQowLTQf/OX7aU6SRArMVslw1Rqk7CpoQ==",
       "type": "package",
-      "path": "xamarin.forms/4.2.0.778463",
+      "path": "xamarin.forms/4.0.0.709238",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -752,7 +954,6 @@
         "lib/Xamarin.iOS10/Xamarin.Forms.Core.xml",
         "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll",
         "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll",
-        "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll.mdb",
         "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.pdb",
         "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll",
         "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.pdb",
@@ -869,13 +1070,12 @@
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.pdb",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.pri",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/AutoSuggestStyle.xbf",
-        "lib/uap10.0/Xamarin.Forms.Platform.UAP/CollectionView/ItemsViewStyles.xbf",
-        "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsCheckBoxStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsCommandBarStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsEmbeddedPageWrapper.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsFlyout.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsProgressBarStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsTextBoxStyle.xbf",
+        "lib/uap10.0/Xamarin.Forms.Platform.UAP/Items/ItemsViewStyles.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/MasterDetailControlStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/PageControlStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Properties/Xamarin.Forms.Platform.UAP.rd.xml",
@@ -888,51 +1088,51 @@
         "lib/uap10.0/Xamarin.Forms.Xaml.dll",
         "lib/uap10.0/Xamarin.Forms.Xaml.pdb",
         "lib/uap10.0/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.4.2.0.778463.nupkg.sha512",
+        "xamarin.forms.4.0.0.709238.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
-    "Xamarin.Forms.PancakeView/1.3.3": {
-      "sha512": "bLLQXJkHhyHBk4LeokgrMua+DWAlLloVOCHR/Zon9QLXboTaPdlCy0ONAc0ASKPW8AycA3wvw4pw/fdmCIS7WA==",
+    "Xamarin.Forms.PancakeView/2.1.0.714": {
+      "sha512": "a1TKL5EqeSGJaik+Dx2Dq0f3q/sED40UTiFtDmkZ7fVYE3CQdcPppaA4tf2bsZa4wnzes1J+myvtoXjdwmSmvQ==",
       "type": "package",
-      "path": "xamarin.forms.pancakeview/1.3.3",
+      "path": "xamarin.forms.pancakeview/2.1.0.714",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/monoandroid81/Xamarin.Forms.PancakeView.dll",
         "lib/monoandroid90/Xamarin.Forms.PancakeView.dll",
+        "lib/net461/Xamarin.Forms.PancakeView.dll",
         "lib/netstandard1.0/Xamarin.Forms.PancakeView.dll",
         "lib/netstandard2.0/Xamarin.Forms.PancakeView.dll",
+        "lib/tizen40/Xamarin.Forms.PancakeView.dll",
         "lib/uap10.0.16299/Xamarin.Forms.PancakeView.dll",
         "lib/uap10.0.16299/Xamarin.Forms.PancakeView.pri",
         "lib/xamarinios10/Xamarin.Forms.PancakeView.dll",
-        "xamarin.forms.pancakeview.1.3.3.nupkg.sha512",
+        "xamarin.forms.pancakeview.2.1.0.714.nupkg.sha512",
         "xamarin.forms.pancakeview.nuspec"
       ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "Acr.UserDialogs >= 7.0.27",
-      "Com.MarcusTS.SharedUtils >= 1.0.12",
-      "Com.MarcusTS.SmartDI >= 1.0.16",
+      "Acr.UserDialogs >= 7.1.0.454",
+      "Com.MarcusTS.SharedUtils >= 1.0.14",
+      "Com.MarcusTS.SmartDI >= 1.0.17",
       "NETStandard.Library >= 2.0.2",
-      "Plugin.Permissions >= 3.0.0.12",
+      "Plugin.Permissions >= 6.0.1",
       "PropertyChanged2.Fody >= 2.6.0",
       "Xam.Plugins.Settings >= 3.1.1",
       "Xam.Plugins.Vibrate >= 4.0.0.5",
-      "Xamarin.Essentials >= 1.3.0",
-      "Xamarin.Forms >= 4.2.0.778463",
-      "Xamarin.Forms.PancakeView >= 1.3.3"
+      "Xamarin.Essentials >= 1.5.3.2",
+      "Xamarin.Forms >= 4.0.0.709238",
+      "Xamarin.Forms.PancakeView >= 2.1.0.714"
     ]
   },
   "packageFolders": {
     "C:\\Users\\steph\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
-    "version": "1.0.16",
+    "version": "1.0.19",
     "restore": {
       "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
       "projectName": "Com.MarcusTS.SharedForms",
@@ -941,11 +1141,9 @@
       "outputPath": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "M:\\MyDocs\\Dev\\NuGet.Config",
         "C:\\Users\\steph\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -954,6 +1152,7 @@
         "netstandard2.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -972,15 +1171,15 @@
         "dependencies": {
           "Acr.UserDialogs": {
             "target": "Package",
-            "version": "[7.0.27, )"
+            "version": "[7.1.0.454, )"
           },
           "Com.MarcusTS.SharedUtils": {
             "target": "Package",
-            "version": "[1.0.12, )"
+            "version": "[1.0.14, )"
           },
           "Com.MarcusTS.SmartDI": {
             "target": "Package",
-            "version": "[1.0.16, )"
+            "version": "[1.0.17, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
@@ -990,7 +1189,7 @@
           },
           "Plugin.Permissions": {
             "target": "Package",
-            "version": "[3.0.0.12, )"
+            "version": "[6.0.1, )"
           },
           "PropertyChanged2.Fody": {
             "target": "Package",
@@ -1006,15 +1205,15 @@
           },
           "Xamarin.Essentials": {
             "target": "Package",
-            "version": "[1.3.0, )"
+            "version": "[1.5.3.2, )"
           },
           "Xamarin.Forms": {
             "target": "Package",
-            "version": "[4.2.0.778463, )"
+            "version": "[4.0.0.709238, )"
           },
           "Xamarin.Forms.PancakeView": {
             "target": "Package",
-            "version": "[1.3.3, )"
+            "version": "[2.1.0.714, )"
           }
         },
         "imports": [
@@ -1027,7 +1226,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

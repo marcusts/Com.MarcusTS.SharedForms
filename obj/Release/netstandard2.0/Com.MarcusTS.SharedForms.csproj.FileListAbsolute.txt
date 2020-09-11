@@ -7,6 +7,7 @@ M:\MyDocs\Dev\MtsShared\SharedForms\bin\Release\netstandard2.0\Com.MarcusTS.Shar
 M:\MyDocs\Dev\MtsShared\SharedForms\bin\Release\netstandard2.0\Com.MarcusTS.SharedForms.xml
 M:\MyDocs\Dev\MtsShared\SharedForms\obj\Release\netstandard2.0\Com.MarcusTS.SharedForms.AssemblyInfoInputs.cache
 M:\MyDocs\Dev\MtsShared\SharedForms\obj\Release\netstandard2.0\Com.MarcusTS.SharedForms.AssemblyInfo.cs
+M:\MyDocs\Dev\MtsShared\SharedForms\obj\Release\netstandard2.0\Com.MarcusTS.SharedForms.csproj.CoreCompileInputs.cache
 M:\MyDocs\Dev\MtsShared\SharedForms\obj\Release\netstandard2.0\XamlC.stamp
 M:\MyDocs\Dev\MtsShared\SharedForms\obj\Release\netstandard2.0\Com.MarcusTS.SharedForms.dll
 M:\MyDocs\Dev\MtsShared\SharedForms\obj\Release\netstandard2.0\Com.MarcusTS.SharedForms.pdb
