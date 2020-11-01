@@ -1,5 +1,3 @@
-#region License
-
 // Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, EmailEntryValidatorBehavior.cs, is a part of a program called AccountViewMobile.
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using SharedUtils.Utils;
@@ -31,9 +27,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
    /// <summary>
    /// Class EmailEntryValidatorBehavior. Implements the <see cref="EntryValidationBehavior" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
+   /// Implements the <see cref="EntryValidationBehavior" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
+   /// <seealso cref="EntryValidationBehavior" />
    /// <seealso cref="EntryValidationBehavior" />
    public class EmailEntryValidatorBehavior : EntryValidationBehavior
    {
@@ -68,9 +64,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <returns>System.String.</returns>
       protected override string IllegalCharFilter(
          IEntryValidationBehavior behavior,
-         string                   newText,
-         string                   originalText,
-         out bool                 isOutsideOfRange)
+         string newText,
+         string originalText,
+         out bool isOutsideOfRange)
       {
          return EmailIllegalCharFunc(
             behavior, base.IllegalCharFilter(behavior, newText, originalText, out isOutsideOfRange),
@@ -105,21 +101,21 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="isOutsideOfRange">if set to <c>true</c> [is outside of range].</param>
       /// <returns>System.String.</returns>
       private static string EmailIllegalCharFunc(IEntryValidationBehavior behaviorBase, string newText,
-                                                 out bool                 isOutsideOfRange)
+                                                 out bool isOutsideOfRange)
       {
          isOutsideOfRange = false;
 
          // Overall: too much complexity for easy management; will just focus on completely illegal characters, spaces,
          // etc. But as the user types, we have to allow partially accurate values so the user can complete their work.
-         var retStr      = string.Empty;
+         var retStr = string.Empty;
          var atSignFound = false;
 
          foreach (var c in newText)
          {
             if (!atSignFound && c == AT_SIGN)
             {
-               retStr      += c;
-               atSignFound =  true;
+               retStr += c;
+               atSignFound = true;
             }
             else if (c.ToString().IsNonNullRegexMatch(REG_EX_VALID_CHARS))
             {

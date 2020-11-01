@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.19</Version>
+    <Version>1.0.23</Version>
     <Authors>Stephen Marcus</Authors>
     <Company>Marcus Technical Services, Inc.</Company>
     <Product>Shared Forms Library</Product>
     <Description>Provides support for Xamarin.Forms projects.</Description>
-    <Copyright>Copyright @2019 Marcus Technical Services, Inc.</Copyright>
+    <Copyright>Copyright @2020 Marcus Technical Services, Inc.</Copyright>
     <PackageTags>xamarin-forms xamarin-forms-utilities xamarin-forms-components</PackageTags>
-    <AssemblyVersion>1.0.19.0</AssemblyVersion>
+    <AssemblyVersion>1.0.23.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <FileVersion>1.0.19.0</FileVersion>
+    <FileVersion>1.0.23.0</FileVersion>
     <PackageReleaseNotes>Downgraded Xamarin for general compatibility.</PackageReleaseNotes>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -30,11 +30,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Common\Images\checkbox_checked.png" />
-    <None Remove="Common\Images\checkbox_unchecked.png" />
-    <None Remove="Common\Images\close_button.png" />
-    <None Remove="Common\Images\hide_password.png" />
-    <None Remove="Common\Images\show_password.png" />
     <None Remove="FodyWeavers.xml" />
   </ItemGroup>
 
@@ -43,24 +38,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Common\Images\checkbox_checked.png" />
-    <EmbeddedResource Include="Common\Images\checkbox_unchecked.png" />
-    <EmbeddedResource Include="Common\Images\close_button.png" />
-    <EmbeddedResource Include="Common\Images\hide_password.png" />
-    <EmbeddedResource Include="Common\Images\show_password.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.454" />
-    <PackageReference Include="Com.MarcusTS.SharedUtils" Version="1.0.14" />
-    <PackageReference Include="Com.MarcusTS.SmartDI" Version="1.0.17" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.463" />
+    <PackageReference Include="Com.MarcusTS.SharedUtils" Version="1.0.16" />
+    <PackageReference Include="Com.MarcusTS.SmartDI" Version="1.0.19" />
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="PropertyChanged2.Fody" Version="2.6.0" />
+    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xam.Plugins.Vibrate" Version="4.0.0.5" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.709238" />
-    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.1.0.714" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
 
   <ItemGroup>

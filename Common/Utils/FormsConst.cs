@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, FormsConst.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
@@ -233,16 +229,6 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          JUSTIFY
       }
 
-      /// <summary>
-      /// The default corner radius factor
-      /// </summary>
-      public static float DEFAULT_CORNER_RADIUS_FACTOR = 0.12f;
-
-      /// <summary>
-      /// The default corner radius fixed
-      /// </summary>
-      public static float DEFAULT_CORNER_RADIUS_FIXED = 6;
-
       // 0.85 works for denser copy
       /// <summary>
       /// The characters to font size estimator
@@ -252,23 +238,27 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>
       /// The credit card text mask
       /// </summary>
-      public const string CREDIT_CARD_TEXT_MASK     = "XXXX-XXXX-XXXX-XXXX";
+      public const string CREDIT_CARD_TEXT_MASK = "XXXX-XXXX-XXXX-XXXX";
+
       /// <summary>
       /// The currency column width
       /// </summary>
-      public const double CURRENCY_COLUMN_WIDTH     = 65;
+      public const double CURRENCY_COLUMN_WIDTH = 65;
+
       /// <summary>
       /// The currency string format
       /// </summary>
-      public const string CURRENCY_STRING_FORMAT    = "{0:C}";
+      public const string CURRENCY_STRING_FORMAT = "{0:C}";
+
       /// <summary>
       /// The date column width
       /// </summary>
-      public const double DATE_COLUMN_WIDTH         = 65;
+      public const double DATE_COLUMN_WIDTH = 65;
+
       /// <summary>
       /// The date time format
       /// </summary>
-      public const string DATE_TIME_FORMAT          = "{0:M/d/yy - h:mm tt}";
+      public const string DATE_TIME_FORMAT = "{0:M/d/yy - h:mm tt}";
 
       /// <summary>
       /// The default text size
@@ -339,23 +329,27 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>
       /// The short date format
       /// </summary>
-      public const string SHORT_DATE_FORMAT        = "{0:M/d/yy}";
+      public const string SHORT_DATE_FORMAT = "{0:M/d/yy}";
+
       /// <summary>
       /// The simple date format
       /// </summary>
-      public const string SIMPLE_DATE_FORMAT       = "{0:M/d/yyyy}";
+      public const string SIMPLE_DATE_FORMAT = "{0:M/d/yyyy}";
+
       /// <summary>
       /// The space
       /// </summary>
-      public const string SPACE                    = " ";
+      public const string SPACE = " ";
+
       /// <summary>
       /// The space character
       /// </summary>
-      public const char   SPACE_CHAR               = ' ';
+      public const char SPACE_CHAR = ' ';
+
       /// <summary>
       /// The standard keyboard number
       /// </summary>
-      public const int    STANDARD_KEYBOARD_NUMBER = 0;
+      public const int STANDARD_KEYBOARD_NUMBER = 0;
 
       /// <summary>
       /// The true string
@@ -385,23 +379,27 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>
       /// The zero character
       /// </summary>
-      public const           char   ZERO_CHAR                  = '0';
+      public const char ZERO_CHAR = '0';
+
       /// <summary>
       /// The button bounce milliseconds
       /// </summary>
-      public static readonly uint   BUTTON_BOUNCE_MILLISECONDS = 75;
+      public static readonly uint BUTTON_BOUNCE_MILLISECONDS = 75;
+
       /// <summary>
       /// The default font color
       /// </summary>
-      public static readonly Color  DEFAULT_FONT_COLOR         = Color.Black;
+      public static readonly Color DEFAULT_FONT_COLOR = Color.Black;
+
       /// <summary>
       /// The editable view font size
       /// </summary>
-      public static readonly double EDITABLE_VIEW_FONT_SIZE    = Device.GetNamedSize(NamedSize.Small, typeof(View));
+      public static readonly double EDITABLE_VIEW_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(View));
+
       /// <summary>
       /// The estimated keyboard height
       /// </summary>
-      public static readonly double ESTIMATED_KEYBOARD_HEIGHT  = 250.0.AdjustForOsAndDevice();
+      public static readonly double ESTIMATED_KEYBOARD_HEIGHT = 250.0.AdjustForOsAndDevice();
 
       /// <summary>
       /// The major button height
@@ -427,15 +425,17 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>
       /// The standard keyboard
       /// </summary>
-      public static readonly Keyboard STANDARD_KEYBOARD      = Keyboard.Create(STANDARD_KEYBOARD_NUMBER);
+      public static readonly Keyboard STANDARD_KEYBOARD = Keyboard.Create(STANDARD_KEYBOARD_NUMBER);
+
       /// <summary>
       /// The android multiplier
       /// </summary>
-      public static          double   ANDROID_MULTIPLIER     = 1.0;
+      public static double ANDROID_MULTIPLIER = 1.0;
+
       /// <summary>
       /// The baseline screen height
       /// </summary>
-      public static          double   BASELINE_SCREEN_HEIGHT = 812;
+      public static double BASELINE_SCREEN_HEIGHT = 812;
 
       // The baseline for fonts, widths and heights of buttons etc., is an iPhone X: 375 pixels.
       //    All other phones will scale to ths based on their screen width.
@@ -443,6 +443,16 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// The baseline screen width
       /// </summary>
       public static double BASELINE_SCREEN_WIDTH = 375;
+
+      /// <summary>
+      /// The default corner radius factor
+      /// </summary>
+      public static float DEFAULT_CORNER_RADIUS_FACTOR = 0.12f;
+
+      /// <summary>
+      /// The default corner radius fixed
+      /// </summary>
+      public static float DEFAULT_CORNER_RADIUS_FIXED = 6;
 
       // The operating system is also a potential factor
       /// <summary>

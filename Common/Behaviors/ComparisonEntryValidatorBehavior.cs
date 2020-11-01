@@ -1,5 +1,3 @@
-#region License
-
 // Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ComparisonEntryValidatorBehavior.cs, is a part of a program called AccountViewMobile.
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using SharedUtils.Utils;
@@ -34,9 +30,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    /// <summary>
    /// Can pass in an illegal character filter. Also, to be valid, the two strings *must* match. Implements the
    /// <see cref="EntryValidationBehavior" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
+   /// Implements the <see cref="EntryValidationBehavior" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
+   /// <seealso cref="EntryValidationBehavior" />
    /// <seealso cref="EntryValidationBehavior" />
    public class ComparisonEntryValidatorBehavior : EntryValidationBehavior
    {
@@ -52,7 +48,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="illegalCharFilter">The illegal character filter.</param>
       public ComparisonEntryValidatorBehavior
       (
-         Action                                                 onIsValidChangedAction,
+         Action onIsValidChangedAction,
          Func<IEntryValidationBehavior, string, string, string> illegalCharFilter = null
       )
          : base(onIsValidChangedAction)
@@ -101,11 +97,11 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="propertyChangedEventArgs">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
       private void CompareEntryOnPropertyChanged
       (
-         object                   sender,
+         object sender,
          PropertyChangedEventArgs propertyChangedEventArgs
       )
       {
-         Revalidate();
+         RevalidateEditorText();
       }
 
       /// <summary>
@@ -117,7 +113,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       private bool ValidateCompareEntry
       (
          IEntryValidationBehavior behavior,
-         string                   str
+         string str
       )
       {
          return CompareEntry != null

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ViewValidationBehavior.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 #define HACK_IS_VALID
 
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
@@ -36,10 +32,10 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
    /// <summary>
    /// Interface IViewValidationBehavior
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid" />
+   /// Implements the <see cref="ICanBeValid" />
    /// Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid" />
+   /// <seealso cref="ICanBeValid" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IViewValidationBehavior : ICanBeValid, INotifyPropertyChanged
    {
@@ -61,37 +57,41 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    /// <summary>
    /// Class ViewValidationBehavior.
    /// Implements the <see cref="Xamarin.Forms.Behavior{Xamarin.Forms.View}" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.IViewValidationBehavior" />
+   /// Implements the <see cref="IViewValidationBehavior" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Behavior{Xamarin.Forms.View}" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.IViewValidationBehavior" />
+   /// <seealso cref="IViewValidationBehavior" />
    public class ViewValidationBehavior : Behavior<View>, IViewValidationBehavior
    {
       /// <summary>
       /// The get value from view function
       /// </summary>
       private readonly Func<View, object> _getValueFromViewFunc;
+
       /// <summary>
       /// The is numeric
       /// </summary>
-      private readonly bool               _isNumeric;
+      private readonly bool _isNumeric;
+
       /// <summary>
       /// The on is valid changed action
       /// </summary>
-      private readonly Action             _onIsValidChangedAction;
+      private readonly Action _onIsValidChangedAction;
 
       /// <summary>
       /// The empty allowed
       /// </summary>
-      private bool  _emptyAllowed;
+      private bool _emptyAllowed;
+
       /// <summary>
       /// The is valid
       /// </summary>
       private bool? _isValid = Extensions.EmptyNullableBool;
+
       /// <summary>
       /// The view
       /// </summary>
-      private View  _view;
+      private View _view;
 
       /// <summary>
       /// Initializes a new instance of the <see cref="ViewValidationBehavior" /> class.
@@ -100,20 +100,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="onIsValidChangedAction">The on is valid changed action.</param>
       public ViewValidationBehavior(Func<View, object> getValueFromViewFunc, Action onIsValidChangedAction)
       {
-         _getValueFromViewFunc   = getValueFromViewFunc;
+         _getValueFromViewFunc = getValueFromViewFunc;
          _onIsValidChangedAction = onIsValidChangedAction;
       }
-
-      /// <summary>
-      /// Gets a value indicating whether this instance is focused.
-      /// </summary>
-      /// <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
-      public bool                                        IsFocused { get; private set; }
-      /// <summary>
-      /// Gets or sets the validator.
-      /// </summary>
-      /// <value>The validator.</value>
-      protected virtual Func<IViewValidationBehavior, object, bool> Validator { get; set; } = DefaultValidator;
 
       /// <summary>
       /// Occurs when [is valid changed].
@@ -130,9 +119,15 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          set
          {
             _emptyAllowed = value;
-            Revalidate();
+            RevalidateEditorText();
          }
       }
+
+      /// <summary>
+      /// Gets a value indicating whether this instance is focused.
+      /// </summary>
+      /// <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
+      public bool IsFocused { get; private set; }
 
       /// <summary>
       /// Gets or sets a value indicating whether this instance is numeric.
@@ -150,69 +145,19 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
             SetIsValid(value);
          }
 #endif
-
-      }
-
-      private void SetIsValid(bool? isValid)
-      {
-         if (_view.IsNullOrDefault())
-         {
-            _isValid = Extensions.EmptyNullableBool;
-            return;
-         }
-
-         if (_isValid.IsNotTheSame(isValid))
-         {
-            _isValid = isValid;
-
-            // Fire first so related validators can gety up to date
-            IsValidChanged?.Invoke(_isValid);
-
-            // Notify that a change has taken place Fire last because this is usually the highest level validator
-            _onIsValidChangedAction?.Invoke();
-         }
       }
 
       /// <summary>
-      /// Gets or sets the last validation error.
+      ///    Gets or sets the last validation error.
       /// </summary>
       /// <value>The last validation error.</value>
       public string LastValidationError { get; set; }
 
       /// <summary>
-      /// Revalidates this instance.
+      /// Gets or sets the validator.
       /// </summary>
-      public void Revalidate()
-      {
-         if (_view.IsNullOrDefault() || Validator.IsNullOrDefault())
-         {
-
-#if HACK_IS_VALID
-            SetIsValid(Extensions.EmptyNullableBool);
-#else
-            IsValid = Extensions.EmptyNullableBool;
-#endif
-            return;
-         }
-
-         var isValid = Validator.Invoke(this, _getValueFromViewFunc?.Invoke(_view));
-
-#if HACK_IS_VALID
-         SetIsValid(isValid);
-#else
-         IsValid = isValid;
-#endif
-
-      }
-
-      public void Neutralize()
-      {
-#if HACK_IS_VALID
-         SetIsValid(default);
-#else
-         IsValid = default;
-#endif
-      }
+      /// <value>The validator.</value>
+      protected virtual Func<IViewValidationBehavior, object, bool> Validator { get; set; } = DefaultValidator;
 
       /// <summary>
       /// Defaults the validator.
@@ -233,20 +178,54 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
             (behavior.IsNumeric && IsANumberGreaterThanZero(o));
       }
 
+      public void Neutralize()
+      {
+#if HACK_IS_VALID
+         SetIsValid(default);
+#else
+         IsValid = default;
+#endif
+      }
+
+      /// <summary>
+      ///    Revalidates this instance.
+      /// </summary>
+      public void RevalidateEditorText()
+      {
+         if (_view.IsNullOrDefault() || Validator.IsNullOrDefault())
+         {
+#if HACK_IS_VALID
+            SetIsValid(Extensions.EmptyNullableBool);
+#else
+            IsValid = Extensions.EmptyNullableBool;
+#endif
+            return;
+         }
+
+         var isValid = Validator.Invoke(this, _getValueFromViewFunc?.Invoke(_view));
+
+#if HACK_IS_VALID
+         SetIsValid(isValid);
+#else
+         IsValid = isValid;
+#endif
+      }
+
+      /// <summary>
       /// <summary>
       /// Called when [attached to].
       /// </summary>
       /// <param name="view">The view.</param>
       protected override void OnAttachedTo(View view)
       {
-         view.Focused   += OnFocused;
+         view.Focused += OnFocused;
          view.Unfocused += OnUnfocused;
 
          base.OnAttachedTo(view);
 
          _view = view;
 
-         Revalidate();
+         RevalidateEditorText();
       }
 
       /// <summary>
@@ -256,7 +235,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <remarks>To be added.</remarks>
       protected override void OnDetachingFrom(View bindable)
       {
-         bindable.Focused   -= OnFocused;
+         bindable.Focused -= OnFocused;
          bindable.Unfocused -= OnUnfocused;
 
          base.OnDetachingFrom(bindable);
@@ -271,7 +250,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnFocused
       (
-         object         o,
+         object o,
          FocusEventArgs e
       )
       {
@@ -285,7 +264,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnUnfocused
       (
-         object         o,
+         object o,
          FocusEventArgs e
       )
       {
@@ -305,6 +284,26 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          }
 
          return false;
+      }
+
+      private void SetIsValid(bool? isValid)
+      {
+         if (_view.IsNullOrDefault())
+         {
+            _isValid = Extensions.EmptyNullableBool;
+            return;
+         }
+
+         if (_isValid.IsNotTheSame(isValid))
+         {
+            _isValid = isValid;
+
+            // Fire first so related validators can gety up to date
+            IsValidChanged?.Invoke(_isValid);
+
+            // Notify that a change has taken place Fire last because this is usually the highest level validator
+            _onIsValidChangedAction?.Invoke();
+         }
       }
    }
 }

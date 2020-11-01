@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, EntryValidationBehavior.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,14 +20,13 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 #define HACK_IS_VALID
+
+using Com.MarcusTS.SharedUtils.Utils;
 
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using Interfaces;
-   using SharedUtils.Utils;
    using System;
    using System.Collections.Generic;
    using System.ComponentModel;
@@ -46,10 +43,12 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Any text
       /// </summary>
       AnyText,
+
       /// <summary>
       /// The whole number
       /// </summary>
       WholeNumber,
+
       /// <summary>
       /// The decimal number
       /// </summary>
@@ -71,17 +70,20 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Gets or sets the mask.
       /// </summary>
       /// <value>The mask.</value>
-      string Mask           { get; set; }
+      string Mask { get; set; }
+
       /// <summary>
       /// Gets or sets the maximum length.
       /// </summary>
       /// <value>The maximum length.</value>
-      int MaxLength      { get; set; }
+      int MaxLength { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum length.
       /// </summary>
       /// <value>The minimum length.</value>
-      int MinLength      { get; set; }
+      int MinLength { get; set; }
+
       /// <summary>
       /// Gets or sets the type of the validation.
       /// </summary>
@@ -91,13 +93,13 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
    /// <summary>
    /// Interface IEntryValidationBehavior
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid" />
+   /// Implements the <see cref="ICanBeValid" />
    /// Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.ICommonValidationProps" />
+   /// Implements the <see cref="ICommonValidationProps" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid" />
+   /// <seealso cref="ICanBeValid" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.ICommonValidationProps" />
+   /// <seealso cref="ICommonValidationProps" />
    public interface IEntryValidationBehavior : ICanBeValid, INotifyPropertyChanged, ICommonValidationProps
    {
       /// <summary>
@@ -137,10 +139,10 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    /// <summary>
    /// Class EntryValidationBehavior.
    /// Implements the <see cref="Xamarin.Forms.Behavior{Xamarin.Forms.Entry}" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.IEntryValidationBehavior" />
+   /// Implements the <see cref="IEntryValidationBehavior" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Behavior{Xamarin.Forms.Entry}" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.IEntryValidationBehavior" />
+   /// <seealso cref="IEntryValidationBehavior" />
    public class EntryValidationBehavior : Behavior<Entry>, IEntryValidationBehavior
    {
       /// <summary>
@@ -152,15 +154,17 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// The on is valid changed action
       /// </summary>
       private readonly Action _onIsValidChangedAction;
+
       /// <summary>
       /// The entry
       /// </summary>
-      private Entry  _entry;
+      private Entry _entry;
 
       /// <summary>
       /// The ignore text changed
       /// </summary>
-      private bool  _ignoreTextChanged;
+      private bool _ignoreTextChanged;
+
       /// <summary>
       /// The is valid
       /// </summary>
@@ -170,6 +174,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// The last assigned text
       /// </summary>
       private string _lastAssignedText;
+
       /// <summary>
       /// The mask
       /// </summary>
@@ -190,12 +195,6 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       }
 
       /// <summary>
-      /// Gets a value indicating whether this instance is focused.
-      /// </summary>
-      /// <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
-      public bool IsFocused { get; private set; }
-
-      /// <summary>
       /// Occurs when [is valid changed].
       /// </summary>
       public event EventUtils.GenericDelegate<bool?> IsValidChanged;
@@ -205,6 +204,12 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// </summary>
       /// <value><c>true</c> if [do not force mask initially]; otherwise, <c>false</c>.</value>
       public bool DoNotForceMaskInitially { get; set; }
+
+      /// <summary>
+      /// Gets a value indicating whether this instance is focused.
+      /// </summary>
+      /// <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
+      public bool IsFocused { get; private set; }
 
       public bool? IsValid
       {
@@ -218,34 +223,14 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 #endif
       }
 
-      private void SetIsValid(bool? isValid)
-      {
-         if (_entry == null)
-         {
-            _isValid = Extensions.EmptyNullableBool;
-            return;
-         }
-
-         if (_isValid.IsNotTheSame(isValid))
-         {
-            _isValid = isValid;
-
-            // Fire first so related validators can gety up to date
-            IsValidChanged?.Invoke(_isValid);
-
-            // Notify that a change has taken place Fire last because this is usually the highest level validator
-            _onIsValidChangedAction?.Invoke();
-         }
-      }
-
       /// <summary>
-      /// Gets or sets the last validation error.
+      ///    Gets or sets the last validation error.
       /// </summary>
       /// <value>The last validation error.</value>
       public string LastValidationError { get; set; }
 
       /// <summary>
-      /// Gets or sets the mask.
+      ///    Gets or sets the mask.
       /// </summary>
       /// <value>The mask.</value>
       public string Mask
@@ -278,32 +263,63 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Gets or sets the maximum length.
       /// </summary>
       /// <value>The maximum length.</value>
-      public int             MaxLength      { get; set; }
+      public int MaxLength { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum length.
       /// </summary>
       /// <value>The minimum length.</value>
-      public int             MinLength      { get; set; }
+      public int MinLength { get; set; }
+
       /// <summary>
       /// Gets or sets the original text.
       /// </summary>
       /// <value>The original text.</value>
-      public string          OriginalText   { get; set; }
+      public string OriginalText { get; set; }
+
       /// <summary>
       /// Gets or sets a value indicating whether [text must change].
       /// </summary>
       /// <value><c>true</c> if [text must change]; otherwise, <c>false</c>.</value>
-      public bool            TextMustChange { get; set; }
+      public bool TextMustChange { get; set; }
+
       /// <summary>
       /// Gets the unmasked text.
       /// </summary>
       /// <value>The unmasked text.</value>
-      public string          UnmaskedText   { get; private set; }
+      public string UnmaskedText { get; private set; }
+
       /// <summary>
       /// Gets or sets the type of the validation.
       /// </summary>
       /// <value>The type of the validation.</value>
       public ValidationTypes ValidationType { get; set; }
+
+      /// <summary>
+      /// Minimums an maximum length validator.
+      /// </summary>
+      /// <param name="behavior">The behavior.</param>
+      /// <param name="currentText">The current text.</param>
+      /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+      public static bool MinAnMaxLengthValidator(IEntryValidationBehavior behavior, string currentText)
+      {
+         return
+            (behavior.MinLength == 0 || currentText.IsNotEmpty() && currentText.Length >= behavior.MinLength)
+          &&
+            (behavior.MaxLength == 0 || currentText.IsNotEmpty() && currentText.Length <= behavior.MaxLength);
+      }
+
+      /// <summary>
+      ///
+      /// </summary>
+      public void Neutralize()
+      {
+#if HACK_IS_VALID
+         SetIsValid(default);
+#else
+         IsValid = default;
+#endif
+      }
 
       /// <summary>
       /// Prepares the text for editing.
@@ -319,7 +335,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <summary>
       /// Revalidates this instance.
       /// </summary>
-      public void Revalidate()
+      public void RevalidateEditorText()
       {
          if (_entry == null)
          {
@@ -337,16 +353,6 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          SetIsValid(isValid);
 #else
          IsValid = isValid;
-#endif
-
-      }
-
-      public void Neutralize()
-      {
-#if HACK_IS_VALID
-         SetIsValid(default);
-#else
-         IsValid = default;
 #endif
       }
 
@@ -377,20 +383,6 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       }
 
       /// <summary>
-      /// Minimums an maximum length validator.
-      /// </summary>
-      /// <param name="behavior">The behavior.</param>
-      /// <param name="currentText">The current text.</param>
-      /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-      public static bool MinAnMaxLengthValidator(IEntryValidationBehavior behavior, string currentText)
-      {
-         return
-            (behavior.MinLength == 0 || currentText.IsNotEmpty() && currentText.Length >= behavior.MinLength)
-          &&
-            (behavior.MaxLength == 0 || currentText.IsNotEmpty() && currentText.Length <= behavior.MaxLength);
-      }
-
-      /// <summary>
       /// Formats the departing text.
       /// </summary>
       /// <param name="entryText">The entry text.</param>
@@ -410,9 +402,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <returns>System.String.</returns>
       protected virtual string IllegalCharFilter(
          IEntryValidationBehavior behavior,
-         string                   newText,
-         string                   originalText,
-         out bool                 isOutsideOfRange)
+         string newText,
+         string originalText,
+         out bool isOutsideOfRange)
       {
          isOutsideOfRange = false;
 
@@ -466,8 +458,8 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       protected override void OnAttachedTo(Entry entry)
       {
          entry.TextChanged += OnTextChanged;
-         entry.Focused     += OnFocused;
-         entry.Unfocused   += OnUnfocused;
+         entry.Focused += OnFocused;
+         entry.Unfocused += OnUnfocused;
 
          base.OnAttachedTo(entry);
 
@@ -480,19 +472,20 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
          // Might be redundant in some cases but must occur.
          SetUnmaskedText();
-         Revalidate();
+         RevalidateEditorText();
       }
 
       /// <summary>
-      /// Calls the <see cref="M:Xamarin.Forms.Behavior`1.OnDetachingFrom(`0)" /> method and then detaches from the superclass.
+      ///    Calls the <see cref="M:Xamarin.Forms.Behavior`1.OnDetachingFrom(`0)" /> method and then detaches from the
+      ///    superclass.
       /// </summary>
       /// <param name="bindable">The bindable object from which the behavior was detached.</param>
       /// <remarks>To be added.</remarks>
       protected override void OnDetachingFrom(Entry bindable)
       {
          bindable.TextChanged -= OnTextChanged;
-         bindable.Focused     -= OnFocused;
-         bindable.Unfocused   -= OnUnfocused;
+         bindable.Focused -= OnFocused;
+         bindable.Unfocused -= OnUnfocused;
 
          base.OnDetachingFrom(bindable);
 
@@ -506,7 +499,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnFocused
       (
-         object         sender,
+         object sender,
          FocusEventArgs e
       )
       {
@@ -515,7 +508,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          if (_entry.Text.IsDifferentThan(strippedText))
          {
             _ignoreTextChanged = true;
-            _entry.Text        = strippedText;
+            _entry.Text = strippedText;
             _ignoreTextChanged = false;
          }
 
@@ -529,7 +522,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="TextChangedEventArgs" /> instance containing the event data.</param>
       protected virtual void OnTextChanged
       (
-         object               sender,
+         object sender,
          TextChangedEventArgs e
       )
       {
@@ -548,12 +541,12 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnUnfocused
       (
-         object         sender,
+         object sender,
          FocusEventArgs e
       )
       {
          _ignoreTextChanged = true;
-         _entry.Text        = FormatDepartingText(_entry.Text);
+         _entry.Text = FormatDepartingText(_entry.Text);
          _ignoreTextChanged = false;
 
          IsFocused = false;
@@ -578,6 +571,26 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          }
 
          _maskPositions = dict;
+      }
+
+      private void SetIsValid(bool? isValid)
+      {
+         if (_entry == null)
+         {
+            _isValid = Extensions.EmptyNullableBool;
+            return;
+         }
+
+         if (_isValid.IsNotTheSame(isValid))
+         {
+            _isValid = isValid;
+
+            // Fire first so related validators can get up to date
+            IsValidChanged?.Invoke(_isValid);
+
+            // Notify that a change has taken place Fire last because this is usually the highest level validator
+            _onIsValidChangedAction?.Invoke();
+         }
       }
 
       /// <summary>
@@ -621,7 +634,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
             if (_entry.Text.IsDifferentThan(filteredText))
             {
                _ignoreTextChanged = true;
-               _entry.Text        = filteredText;
+               _entry.Text = filteredText;
                _ignoreTextChanged = false;
             }
 
@@ -678,12 +691,12 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
             if (_entry.Text.IsDifferentThan(preparedNewText))
             {
                _ignoreTextChanged = true;
-               _entry.Text        = preparedNewText;
+               _entry.Text = preparedNewText;
                _ignoreTextChanged = false;
             }
 
             SetUnmaskedText();
-            Revalidate();
+            RevalidateEditorText();
          }
 
          _lastAssignedText = preparedNewText;

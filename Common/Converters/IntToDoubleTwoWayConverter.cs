@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, IntToDoubleTwoWayConverter.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Converters
 {
@@ -57,7 +53,7 @@ namespace Com.MarcusTS.SharedForms.Common.Converters
       {
          if (value is int valueAsInt)
          {
-            return (double) valueAsInt;
+            return (double)valueAsInt;
          }
 
          return default;

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidatableEnumPicker.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // MIT License
 
@@ -52,9 +48,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IValidatableEnumPicker Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// Implements the <see cref="IValidatableView" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// <seealso cref="IValidatableView" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IValidatableEnumPicker : IValidatableView
    {
@@ -67,26 +63,29 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// A UI element that includes an EnumPicker surrounded by a border. Implements the <see cref="Xamarin.Forms.Grid" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableEnumPicker" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// Implements the <see cref="IValidatableEnumPicker" />
+   /// Implements the <see cref="ValidatableViewBase" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// <seealso cref="ValidatableViewBase" />
    /// <seealso cref="Xamarin.Forms.Grid" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableEnumPicker" />
+   /// <seealso cref="IValidatableEnumPicker" />
    public class ValidatableEnumPicker : ValidatableViewBase, IValidatableEnumPicker
    {
       /// <summary>
       /// The enum type
       /// </summary>
-      private readonly Type       _enumType;
+      private readonly Type _enumType;
+
       /// <summary>
       /// The font size
       /// </summary>
-      private readonly double?    _fontSize;
+      private readonly double? _fontSize;
+
       /// <summary>
       /// The view model property name
       /// </summary>
-      private readonly string     _viewModelPropertyName;
+      private readonly string _viewModelPropertyName;
+
       /// <summary>
       /// The editable enum picker
       /// </summary>
@@ -115,24 +114,24 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="viewModelPropertyName">Name of the view model property.</param>
       public ValidatableEnumPicker
       (
-         Type            enumType,
-         double?         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode     bindingMode                        = BindingMode.TwoWay,
-         IValueConverter converter                          = null,
-         object          converterParameter                 = null,
-         bool            emptyAllowed                       = false,
-         string          fontFamilyOverride                 = "",
-         double?         fontSize                           = null,
-         string          instructions                       = "",
-         double?         instructionsHeight                 = INSTRUCTIONS_HEIGHT,
-         Action          onIsValidChangedAction             = null,
-         string          placeholder                        = "",
-         double?         placeholderHeight                  = PLACEHOLDER_HEIGHT,
-         bool            showInstructionsOrValidations      = false,
-         bool            showValidationErrorsAsInstructions = true,
-         string          stringFormat                       = null,
-         ICanBeValid     validator                          = null,
-         string          viewModelPropertyName              = ""
+         Type enumType,
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         bool emptyAllowed = false,
+         string fontFamilyOverride = "",
+         double? fontSize = null,
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         Action onIsValidChangedAction = null,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         ICanBeValid validator = null,
+         string viewModelPropertyName = ""
       )
          : base
          (
@@ -166,10 +165,41 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          )
       {
          _viewModelPropertyName = viewModelPropertyName;
-         _fontSize              = fontSize;
-         _enumType              = enumType;
+         _fontSize = fontSize;
+         _enumType = enumType;
 
          CallCreateViews();
+      }
+
+      /// <summary>
+      /// Gets the editable enum picker.
+      /// </summary>
+      /// <value>The editable enum picker.</value>
+      public EnumPicker EditableEnumPicker
+      {
+         get
+         {
+            if (_editableEnumPicker.IsNullOrDefault() && _enumType.IsNotNullOrDefault())
+            {
+               _editableEnumPicker = new EnumPicker(_enumType, "", _viewModelPropertyName)
+               {
+                  FontSize = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE,
+                  BackgroundColor = Color.Transparent
+               };
+
+               _editableEnumPicker.PropertyChanged +=
+                  async (sender, args) =>
+                  {
+                     if (args.PropertyName.IsSameAs(Picker.SelectedItemProperty.PropertyName))
+                     {
+                        CallRevalidate();
+                        await ResetPlaceholderPosition().WithoutChangingContext();
+                     }
+                  };
+            }
+
+            return _editableEnumPicker;
+         }
       }
 
       /// <summary>
@@ -195,36 +225,5 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
       protected override bool UserHasEnteredValidContent => EditableEnumPicker.SelectedItem.IsNotNullOrDefault();
-
-      /// <summary>
-      /// Gets the editable enum picker.
-      /// </summary>
-      /// <value>The editable enum picker.</value>
-      public EnumPicker EditableEnumPicker
-      {
-         get
-         {
-            if (_editableEnumPicker.IsNullOrDefault() && _enumType.IsNotNullOrDefault())
-            {
-               _editableEnumPicker = new EnumPicker(_enumType, "", _viewModelPropertyName)
-               {
-                  FontSize        = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE,
-                  BackgroundColor = Color.Transparent
-               };
-
-               _editableEnumPicker.PropertyChanged +=
-                  async (sender, args) =>
-                  {
-                     if (args.PropertyName.IsSameAs(Picker.SelectedItemProperty.PropertyName))
-                     {
-                        CallRevalidate();
-                        await ResetPlaceholderPosition().WithoutChangingContext();
-                     }
-                  };
-            }
-
-            return _editableEnumPicker;
-         }
-      }
    }
 }

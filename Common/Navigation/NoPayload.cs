@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, NoPayload.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,9 +20,7 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
-namespace Com.MarcusTS.SharedUtils.Navigation
+namespace Com.MarcusTS.SharedForms.Common.Navigation
 {
    /// <summary>
    /// Interface INoPayload

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ReverseBoolConverter.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,15 +20,13 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Converters
 {
    /// <summary>
    /// Class ReverseBoolConverter.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Converters.OneWayConverter{System.Boolean, System.Boolean}" />
+   /// Implements the <see cref="OneWayConverter{FromT,ToT}.Boolean, System.Boolean}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Converters.OneWayConverter{System.Boolean, System.Boolean}" />
+   /// <seealso cref="OneWayConverter{FromT,ToT}.Boolean, System.Boolean}" />
    public class ReverseBoolConverter : OneWayConverter<bool, bool>
    {
       /// <summary>

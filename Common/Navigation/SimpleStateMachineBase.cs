@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, SimpleStateMachineBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Navigation
 {
@@ -65,8 +61,8 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       Task GoToAppState
       (
          string newState,
-         bool   forceState         = false,
-         bool   andRebuildToolbars = false
+         bool forceState = false,
+         bool andRebuildToolbars = false
       );
 
       /// <summary>
@@ -92,9 +88,9 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
 
    /// <summary>
    /// Class StateMachineBase. Implements the <see cref="ISimpleStateMachine" /> Implements the
-   /// <see cref="Com.MarcusTS.SharedForms.Common.Navigation.ISimpleStateMachine" />
+   /// <see cref="ISimpleStateMachine" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Navigation.ISimpleStateMachine" />
+   /// <seealso cref="ISimpleStateMachine" />
    /// <seealso cref="ISimpleStateMachine" />
    public abstract class SimpleStateMachineBase : ISimpleStateMachine
    {
@@ -122,6 +118,43 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       public abstract string StartUpState { get; }
 
       /// <summary>
+      /// Goes to a new state and then continues digging through nested states until the nested paths have been
+      /// exhausted.
+      /// </summary>
+      /// <param name="nestedPaths">The nested paths.</param>
+      /// <returns>Task.</returns>
+      public static async Task GoToAppStateWithAdditionalPaths(StateMachineSubPath[] nestedPaths)
+      {
+         if (nestedPaths.IsEmpty())
+         {
+            return;
+         }
+
+         // Go to the first path
+         await nestedPaths[0].StateMachine.GoToAppState(nestedPaths[0].AppState, true).WithoutChangingContext();
+
+         if (nestedPaths.Length == 1)
+         {
+            return;
+         }
+
+         var newlyNestedPaths = new List<StateMachineSubPath>();
+         for (var pathIdx = 1; pathIdx < nestedPaths.Length; pathIdx++)
+         {
+            newlyNestedPaths.Add(new StateMachineSubPath
+            {
+               StateMachine = nestedPaths[pathIdx].StateMachine,
+               AppState = nestedPaths[pathIdx].AppState
+            });
+         }
+
+         var newlyNestedPathArray = newlyNestedPaths.ToArray();
+
+         // Recur until finished
+         await GoToAppStateWithAdditionalPaths(newlyNestedPathArray).WithoutChangingContext();
+      }
+
+      /// <summary>
       /// Goes the state of to application.
       /// </summary>
       /// <param name="newState">The new state.</param>
@@ -131,8 +164,8 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       public async Task GoToAppState
       (
          string newState,
-         bool   forceState         = false,
-         bool   andRebuildToolbars = false
+         bool forceState = false,
+         bool andRebuildToolbars = false
       )
       {
          if (!forceState && _lastAppState.IsSameAs(newState))
@@ -172,44 +205,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       /// <returns>Task.</returns>
       public async Task GoToStartUpState()
       {
-         await GoToAppState(StartUpState).WithoutChangingContext();
-      }
-
-      /// <summary>
-      /// Goes to a new state and then continues digging through nested states until the nested paths have been
-      /// exhausted.
-      /// </summary>
-      /// <param name="nestedPaths">The nested paths.</param>
-      /// <returns>Task.</returns>
-      public static async Task GoToAppStateWithAdditionalPaths(StateMachineSubPath[] nestedPaths)
-      {
-         if (nestedPaths.IsEmpty())
-         {
-            return;
-         }
-
-         // Go to the first path
-         await nestedPaths[0].StateMachine.GoToAppState(nestedPaths[0].AppState, true).WithoutChangingContext();
-
-         if (nestedPaths.Length == 1)
-         {
-            return;
-         }
-
-         var newlyNestedPaths = new List<StateMachineSubPath>();
-         for (var pathIdx = 1; pathIdx < nestedPaths.Length; pathIdx++)
-         {
-            newlyNestedPaths.Add(new StateMachineSubPath
-            {
-               StateMachine = nestedPaths[pathIdx].StateMachine,
-               AppState     = nestedPaths[pathIdx].AppState
-            });
-         }
-
-         var newlyNestedPathArray = newlyNestedPaths.ToArray();
-
-         // Recur until finished
-         await GoToAppStateWithAdditionalPaths(newlyNestedPathArray).WithoutChangingContext();
+         await GoToAppState(StartUpState, true).WithoutChangingContext();
       }
 
       /// <summary>

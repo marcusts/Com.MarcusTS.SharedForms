@@ -1,37 +1,48 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// *********************************************************************************
+// Assembly         : Com.MarcusTS.SharedForms
+// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
+// Created          : 12-23-2018
+// Last Modified On : 12-23-2018
 //
-// This file, StateMachineBase.cs, is a part of a program called AccountViewMobile.
+// <copyright file="StateMachineBase.cs" company="Marcus Technical Services, Inc.">
+//     Copyright @2018 Marcus Technical Services, Inc.
+// </copyright>
 //
-// AccountViewMobile is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// MIT License
 //
-// Permission to use, copy, modify, and/or distribute this software
-// for any purpose with or without fee is hereby granted, provided
-// that the above copyright notice and this permission notice appear
-// in all copies.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-// AccountViewMobile is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
-// For the complete GNU General Public License,
-// see <http://www.gnu.org/licenses/>.
-
-#endregion
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
 
 namespace Com.MarcusTS.SharedForms.Common.Navigation
 {
-   using Interfaces;
-   using Notifications;
+   using Common.Notifications;
+   using SharedUtils.Interfaces;
    using SharedUtils.Utils;
    using System;
    using System.Linq;
+   using Utils;
+   using ViewModels;
+   using Views.Pages;
+   using Xamarin.Forms;
    using Xamarin.Forms.Internals;
+   using AppStateChangedMessage = Utils.AppStateChangedMessage;
+   using NoPayloadMessage = Utils.NoPayloadMessage;
 
    /// <summary>
    /// Interface IStateMachineBase
@@ -55,11 +66,8 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       /// </summary>
       /// <param name="newState">The new state.</param>
       /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
-      void GoToAppState
-      (
-         string newState,
-         bool   preventStackPush = false
-      );
+      void GoToAppState(string newState,
+                        bool preventStackPush = false);
 
       // Goes to the default landing page; for convenience only
       /// <summary>
@@ -78,21 +86,19 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
    /// <summary>
    /// A controller to manage which views and view models are shown for a given state
    /// Implements the <see cref="IStateMachine" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Navigation.IStateMachine" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Navigation.IStateMachine" />
    /// <seealso cref="IStateMachine" />
-   public abstract class StateMachineBase : IStateMachine
+   public abstract class StateMachine : IStateMachine
    {
-      ///// <summary>
-      /////    The last page
-      ///// </summary>
-      //private readonly Page _lastPage;
-
       /// <summary>
       /// The last application state
       /// </summary>
       private string _lastAppState;
+
+      /// <summary>
+      /// The last page
+      /// </summary>
+      private Page _lastPage;
 
       /// <summary>
       /// Gets the application states.
@@ -126,11 +132,8 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       /// </summary>
       /// <param name="newState">The new state.</param>
       /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
-      public void GoToAppState
-      (
-         string newState,
-         bool   preventStackPush
-      )
+      public void GoToAppState(string newState,
+                               bool preventStackPush)
       {
          if (_lastAppState.IsSameAs(newState))
          {
@@ -171,92 +174,16 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       }
 
       /// <summary>
-      /// Finalizes an instance of the <see cref="StateMachineBase" /> class.
-      /// </summary>
-      ~StateMachineBase()
-      {
-         ReleaseUnmanagedResources();
-      }
-
-      /// <summary>
-      /// Gets the state of the menu order from application.
-      /// </summary>
-      /// <param name="appState">State of the application.</param>
-      /// <returns>System.Int32.</returns>
-      protected int GetMenuOrderFromAppState(string appState)
-      {
-         return APP_STATES.IndexOf(appState);
-      }
-
-      /// <summary>
-      /// Releases the unmanaged resources.
-      /// </summary>
-      protected virtual void ReleaseUnmanagedResources()
-      {
-      }
-
-      /// <summary>
-      /// Responds to application state change.
-      /// </summary>
-      /// <param name="newState">The new state.</param>
-      /// <param name="menuData">The menu data.</param>
-      /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
-      protected abstract void RespondToAppStateChange
-      (
-         string               newState,
-         IMenuNavigationState menuData,
-         bool                 preventStackPush
-      );
-
-      /// <summary>
-      /// Class AppStartUpMessage.
-      /// Implements the <see cref="NoPayloadMessage" />
-      /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
-      /// </summary>
-      /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
-      /// <seealso cref="NoPayloadMessage" />
-      public class AppStartUpMessage : NoPayloadMessage
-      {
-      }
-
-      /*
-      /// <summary>
-      /// Seeks the page event provider.
-      /// </summary>
-      /// <param name="viewModelCreator">The view model creator.</param>
-      /// <param name="page">The page.</param>
-      /// <returns>IViewModelBase.</returns>
-      private static IViewModelBase SeekPageEventProvider(Func<IViewModelBase> viewModelCreator,
-                                                          Page                 page)
-      {
-         var viewModel = viewModelCreator?.Invoke();
-
-         if (viewModel != null)
-         {
-            // Corner case: hard to pass along the page as page event provider when the page is
-            // created in an expression, so assigning it here.
-            if (viewModel is IReceivePageEvents viewModelAsPageEventsReceiver &&
-                page is IProvidePageEvents pageAsPageEventsProvider)
-            {
-               viewModelAsPageEventsReceiver.PageEventProvider = pageAsPageEventsProvider;
-            }
-         }
-
-         return viewModel;
-      }
-      */
-      /*
-      /// <summary>
       /// Checks the against last page.
       /// </summary>
       /// <param name="pageType">Type of the page.</param>
       /// <param name="pageCreator">The page creator.</param>
       /// <param name="viewModelCreator">The view model creator.</param>
       /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
-      protected void CheckAgainstLastPage(Type                 pageType,
-                                          Func<Page>           pageCreator,
+      protected void CheckAgainstLastPage(Type pageType,
+                                          Func<Page> pageCreator,
                                           Func<IViewModelBase> viewModelCreator,
-                                          bool                 preventStackPush)
+                                          bool preventStackPush)
       {
          // If the same page, keep it
          if (_lastPage != null && _lastPage.GetType() == pageType)
@@ -267,7 +194,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
                (
                 new MainPageBindingContextChangeRequestMessage
                 {
-                   Payload             = viewModelCreator?.Invoke(),
+                   Payload = viewModelCreator?.Invoke(),
                    PreventNavStackPush = preventStackPush
                 }
                );
@@ -293,14 +220,80 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
             page.BindingContext = viewModel;
 
             FormsMessengerUtils.Send(new MainPageChangeRequestMessage
-                                     {
-                                        Payload             = page,
-                                        PreventNavStackPush = preventStackPush
-                                     });
+            {
+               Payload = page,
+               PreventNavStackPush = preventStackPush
+            });
 
             _lastPage = page;
          }
       }
-      */
+
+      /// <summary>
+      /// Gets the state of the menu order from application.
+      /// </summary>
+      /// <param name="appState">State of the application.</param>
+      /// <returns>System.Int32.</returns>
+      protected int GetMenuOrderFromAppState(string appState)
+      {
+         return APP_STATES.IndexOf(appState);
+      }
+
+      /// <summary>
+      /// Releases the unmanaged resources.
+      /// </summary>
+      protected virtual void ReleaseUnmanagedResources()
+      { }
+
+      /// <summary>
+      /// Responds to application state change.
+      /// </summary>
+      /// <param name="newState">The new state.</param>
+      /// <param name="menuData">The menu data.</param>
+      /// <param name="preventStackPush">if set to <c>true</c> [prevent stack push].</param>
+      protected abstract void RespondToAppStateChange(string newState,
+                                                      IMenuNavigationState menuData,
+                                                      bool preventStackPush);
+
+      /// <summary>
+      /// Seeks the page event provider.
+      /// </summary>
+      /// <param name="viewModelCreator">The view model creator.</param>
+      /// <param name="page">The page.</param>
+      /// <returns>IViewModelBase.</returns>
+      private static IViewModelBase SeekPageEventProvider(Func<IViewModelBase> viewModelCreator,
+                                                          Page page)
+      {
+         var viewModel = viewModelCreator?.Invoke();
+
+         if (viewModel != null)
+         {
+            // Corner case: hard to pass along the page as page event provider when the page is
+            // created in an expression, so assigning it here.
+            if (viewModel is IReceivePageEvents viewModelAsPageEventsReceiver &&
+                page is IProvidePageEvents pageAsPageEventsProvider)
+            {
+               viewModelAsPageEventsReceiver.PageEventProvider = pageAsPageEventsProvider;
+            }
+         }
+
+         return viewModel;
+      }
+
+      /// <summary>
+      /// Finalizes an instance of the <see cref="StateMachine" /> class.
+      /// </summary>
+      ~StateMachine()
+      {
+         ReleaseUnmanagedResources();
+      }
+
+      /// <summary>
+      /// Class AppStartUpMessage.
+      /// Implements the <see cref="NoPayloadMessage" />
+      /// </summary>
+      /// <seealso cref="NoPayloadMessage" />
+      public class AppStartUpMessage : NoPayloadMessage
+      { }
    }
 }

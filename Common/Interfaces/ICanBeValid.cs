@@ -1,5 +1,3 @@
-#region License
-
 // Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ICanBeValid.cs, is a part of a program called AccountViewMobile.
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
    using SharedUtils.Utils;
@@ -33,6 +29,11 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
    /// </summary>
    public interface ICanBeValid
    {
+      /// <summary>
+      /// Occurs when [is valid changed].
+      /// </summary>
+      event EventUtils.GenericDelegate<bool?> IsValidChanged;
+
       /// <summary>
       /// Returns true if ... is valid.
       /// </summary>
@@ -45,17 +46,15 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
       /// <value>The last validation error.</value>
       string LastValidationError { get; set; }
 
+      // Set to null
       /// <summary>
-      /// Occurs when [is valid changed].
+      ///
       /// </summary>
-      event EventUtils.GenericDelegate<bool?> IsValidChanged;
+      void Neutralize();
 
       /// <summary>
       /// Revalidates this instance.
       /// </summary>
-      void Revalidate();
-
-      // Set to null
-      void Neutralize();
+      void RevalidateEditorText();
    }
 }

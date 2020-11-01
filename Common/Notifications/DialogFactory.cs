@@ -1,5 +1,3 @@
-#region License
-
 // Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, DialogFactory.cs, is a part of a program called AccountViewMobile.
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Notifications
 {
    using Acr.UserDialogs;
@@ -42,10 +38,11 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       /// The toast dissolve seconds
       /// </summary>
       private const int TOAST_DISSOLVE_SECONDS = 7;
+
       /// <summary>
       /// The wait forever
       /// </summary>
-      private const int WAIT_FOREVER           = 1000000000;
+      private const int WAIT_FOREVER = 1000000000;
 
       /// <summary>
       /// The decision toast background color
@@ -74,7 +71,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       (
          string toastStr,
          Action action,
-         bool   useTimeout = false
+         bool useTimeout = false
       )
       {
          ShowToastInternal(toastStr, useTimeout: useTimeout, backgroundColor: DECISION_TOAST_BACKGROUND_COLOR,
@@ -93,8 +90,8 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       (
          string toastStr,
          string actionText = "OK",
-         bool   useTimeout = false,
-         Action action     = null
+         bool useTimeout = false,
+         Action action = null
       )
       {
          ShowToastInternal(toastStr, actionText, useTimeout: useTimeout, backgroundColor: ERROR_TOAST_BACKGROUND_COLOR,
@@ -112,10 +109,10 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       /// <param name="action">The action to take once the user taps the toast.  Optional.</param>
       public static void ShowExceptionToast
       (
-         string    toastPrefix,
+         string toastPrefix,
          Exception ex,
-         bool      useTimeout = false,
-         Action    action     = null
+         bool useTimeout = false,
+         Action action = null
       )
       {
          // Add the error details to the toast prefix.
@@ -136,8 +133,8 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       (
          string toastStr,
          string actionText = "OK",
-         bool   useTimeout = true,
-         Action action     = null
+         bool useTimeout = true,
+         Action action = null
       )
       {
          ShowToastInternal(toastStr, actionText, useTimeout: useTimeout, backgroundColor: INFO_TOAST_BACKGROUND_COLOR,
@@ -158,13 +155,13 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       public static void ShowToastInternal
       (
          string toastStr,
-         string actionText           = "OK",
-         Color  backgroundColor      = default,
-         Color  messageTextColor     = default,
-         Color  actionTextColor      = default,
-         bool   useTimeout           = true,
-         int    toastDissolveSeconds = TOAST_DISSOLVE_SECONDS,
-         Action action               = null
+         string actionText = "OK",
+         Color backgroundColor = default,
+         Color messageTextColor = default,
+         Color actionTextColor = default,
+         bool useTimeout = true,
+         int toastDissolveSeconds = TOAST_DISSOLVE_SECONDS,
+         Action action = null
       )
       {
          if (toastStr.IsEmpty())
@@ -226,7 +223,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       (
          string title,
          string message,
-         string okText     = "Yes",
+         string okText = "Yes",
          string cancelText = "No"
       )
       {

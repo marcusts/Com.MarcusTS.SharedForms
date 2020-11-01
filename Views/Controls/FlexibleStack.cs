@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, FlexibleStack.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -45,30 +41,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private readonly IList<T> _items = new List<T>();
 
       /// <summary>
+      /// Clears this instance.
+      /// </summary>
+      public void Clear()
+      {
+         _items.Clear();
+      }
+
+      /// <summary>
       /// Returns an enumerator that iterates through the collection.
       /// </summary>
       /// <returns>An enumerator that can be used to iterate through the collection.</returns>
       public IEnumerator<T> GetEnumerator()
       {
          return _items.GetEnumerator();
-      }
-
-      /// <summary>
-      /// Returns an enumerator that iterates through a collection.
-      /// </summary>
-      /// <returns>An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate through the
-      /// collection.</returns>
-      IEnumerator IEnumerable.GetEnumerator()
-      {
-         return GetEnumerator();
-      }
-
-      /// <summary>
-      /// Clears this instance.
-      /// </summary>
-      public void Clear()
-      {
-         _items.Clear();
       }
 
       /// <summary>
@@ -105,7 +91,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="dupTest">The dup test.</param>
       public void RemoveIfPresent
       (
-         T            item,
+         T item,
          Predicate<T> dupTest
       )
       {
@@ -131,6 +117,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                itemIdx++;
             }
          } while (itemIdx < _items.Count);
+      }
+
+      /// <summary>
+      /// Returns an enumerator that iterates through a collection.
+      /// </summary>
+      /// <returns>An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate through the
+      /// collection.</returns>
+      IEnumerator IEnumerable.GetEnumerator()
+      {
+         return GetEnumerator();
       }
 
       /// <summary>

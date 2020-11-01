@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, SelectionStylingHelper.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using Common.Utils;
@@ -37,17 +33,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// </summary>
    public interface ICanAlternate
    {
+      /// <summary>
+      /// Occurs when [is alternate changed].
+      /// </summary>
+      event EventUtils.GenericDelegate<ICanAlternate> IsAlternateChanged;
+
       // Set internally only
       /// <summary>
       /// Gets or sets a value indicating whether this instance is an alternate.
       /// </summary>
       /// <value><c>true</c> if this instance is an alternate; otherwise, <c>false</c>.</value>
       bool IsAnAlternate { get; set; }
-
-      /// <summary>
-      /// Occurs when [is alternate changed].
-      /// </summary>
-      event EventUtils.GenericDelegate<ICanAlternate> IsAlternateChanged;
    }
 
    /// <summary>
@@ -55,6 +51,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// </summary>
    public interface ICanBeSelected
    {
+      /// <summary>
+      /// Occurs when [is selected changed].
+      /// </summary>
+      event EventUtils.GenericDelegate<ICanBeSelected> IsSelectedChanged;
+
       /// <summary>
       /// Gets or sets a value indicating whether this instance is selected.
       /// </summary>
@@ -66,11 +67,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value><c>true</c> if this instance is trying to be selected; otherwise, <c>false</c>.</value>
       bool IsTryingToBeSelected { get; set; }
-
-      /// <summary>
-      /// Occurs when [is selected changed].
-      /// </summary>
-      event EventUtils.GenericDelegate<ICanBeSelected> IsSelectedChanged;
 
       /// <summary>
       /// Afters the selection change.
@@ -88,11 +84,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface ICanOverrideSelectionAndAlternation
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ICanBeSelected" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ICanAlternate" />
+   /// Implements the <see cref="ICanBeSelected" />
+   /// Implements the <see cref="ICanAlternate" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ICanBeSelected" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ICanAlternate" />
+   /// <seealso cref="ICanBeSelected" />
+   /// <seealso cref="ICanAlternate" />
    public interface ICanOverrideSelectionAndAlternation : ICanBeSelected, ICanAlternate
    {
       /// <summary>
@@ -175,9 +171,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Class SelectionStylingHelper.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ISelectionStylingHelper" />
+   /// Implements the <see cref="ISelectionStylingHelper" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ISelectionStylingHelper" />
+   /// <seealso cref="ISelectionStylingHelper" />
    public class SelectionStylingHelper : ISelectionStylingHelper
    {
       /// <summary>
@@ -240,35 +236,42 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>
       /// The alternate deselected style
       /// </summary>
-      private Style                               _alternateDeselectedStyle;
+      private Style _alternateDeselectedStyle;
+
       /// <summary>
       /// The alternate provider
       /// </summary>
-      private ICanAlternate                       _alternateProvider;
+      private ICanAlternate _alternateProvider;
+
       /// <summary>
       /// The deselected style
       /// </summary>
-      private Style                               _deselectedStyle;
+      private Style _deselectedStyle;
+
       /// <summary>
       /// The host view
       /// </summary>
-      private View                                _hostView;
+      private View _hostView;
+
       /// <summary>
       /// The override provider
       /// </summary>
       private ICanOverrideSelectionAndAlternation _overrideProvider;
+
       /// <summary>
       /// The selected style
       /// </summary>
-      private Style                               _selectedStyle;
+      private Style _selectedStyle;
+
       /// <summary>
       /// The selection provider
       /// </summary>
-      private ICanBeSelected                      _selectionProvider;
+      private ICanBeSelected _selectionProvider;
+
       /// <summary>
       /// The styling host
       /// </summary>
-      private IHaveSelectionStylingHelper         _stylingHost;
+      private IHaveSelectionStylingHelper _stylingHost;
 
       /// <summary>
       /// Gets or sets the alternate deselected style.
@@ -310,6 +313,28 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             _selectedStyle = value;
             AssignCurrentStyle();
          }
+      }
+
+      /// <summary>
+      /// Creates the selection styling helper property.
+      /// </summary>
+      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+      /// <param name="localPropName">Name of the local property.</param>
+      /// <param name="defaultVal">The default value.</param>
+      /// <param name="bindingMode">The binding mode.</param>
+      /// <param name="callbackAction">The callback action.</param>
+      /// <returns>BindableProperty.</returns>
+      public static BindableProperty CreateSelectionStylingHelperProperty<PropertyTypeT>
+      (
+         string localPropName,
+         PropertyTypeT defaultVal =
+            default,
+         BindingMode bindingMode =
+            BindingMode.OneWay,
+         Action<SelectionStylingHelper, PropertyTypeT, PropertyTypeT> callbackAction = null
+      )
+      {
+         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
       }
 
       /// <summary>
@@ -372,28 +397,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Creates the selection styling helper property.
-      /// </summary>
-      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
-      /// <param name="localPropName">Name of the local property.</param>
-      /// <param name="defaultVal">The default value.</param>
-      /// <param name="bindingMode">The binding mode.</param>
-      /// <param name="callbackAction">The callback action.</param>
-      /// <returns>BindableProperty.</returns>
-      public static BindableProperty CreateSelectionStylingHelperProperty<PropertyTypeT>
-      (
-         string localPropName,
-         PropertyTypeT defaultVal =
-            default,
-         BindingMode bindingMode =
-            BindingMode.OneWay,
-         Action<SelectionStylingHelper, PropertyTypeT, PropertyTypeT> callbackAction = null
-      )
-      {
-         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
-      }
-
-      /// <summary>
       /// Assigns the current style.
       /// </summary>
       private void AssignCurrentStyle()
@@ -408,7 +411,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             _hostView.Style = SelectedStyle;
          }
          else if (_alternateProvider.IsNotNullOrDefault() && AlternateDeselectedStyle.IsNotNullOrDefault() ||
-                  _overrideProvider.IsNotNullOrDefault()  && _overrideProvider.IsAnAlternate)
+                  _overrideProvider.IsNotNullOrDefault() && _overrideProvider.IsAnAlternate)
          {
             _hostView.Style = AlternateDeselectedStyle;
          }

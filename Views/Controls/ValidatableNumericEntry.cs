@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidatableNumericEntry.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // MIT License
 
@@ -51,20 +47,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IValidatableNumericEntry
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableEntry" />
+   /// Implements the <see cref="IValidatableEntry" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableEntry" />
+   /// <seealso cref="IValidatableEntry" />
    public interface IValidatableNumericEntry : IValidatableEntry
    {
    }
 
    /// <summary>
    /// Class ValidatableNumericEntry.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableEntry" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableNumericEntry" />
+   /// Implements the <see cref="ValidatableEntry" />
+   /// Implements the <see cref="IValidatableNumericEntry" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableEntry" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableNumericEntry" />
+   /// <seealso cref="ValidatableEntry" />
+   /// <seealso cref="IValidatableNumericEntry" />
    public class ValidatableNumericEntry : ValidatableEntry, IValidatableNumericEntry
    {
       /// <summary>
@@ -91,20 +87,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="viewModelPropertyName">Name of the view model property.</param>
       public ValidatableNumericEntry
       (
-         double?                         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode                     bindingMode                        = BindingMode.TwoWay,
-         double?                         entryFontSize                      = null,
-         string                          fontFamilyOverride                 = "",
-         string                          instructions                       = "",
-         double?                         instructionsHeight                 = INSTRUCTIONS_HEIGHT,
-         Keyboard                        keyboard                           = null,
-         string                          placeholder                        = "",
-         double?                         placeholderHeight                  = PLACEHOLDER_HEIGHT,
-         bool                            showInstructionsOrValidations      = false,
-         bool                            showValidationErrorsAsInstructions = true,
-         string                          stringFormat                       = null,
-         INumericEntryValidationBehavior validator                          = null,
-         string                          viewModelPropertyName              = ""
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         double? entryFontSize = null,
+         string fontFamilyOverride = "",
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         Keyboard keyboard = null,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         INumericEntryValidationBehavior validator = null,
+         string viewModelPropertyName = ""
       )
          : base
          (

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, DateTimeToPlainEnglishConverter.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Converters
 {
    using SharedUtils.Utils;
@@ -31,19 +27,20 @@ namespace Com.MarcusTS.SharedForms.Common.Converters
 
    /// <summary>
    /// Class DateTimeToPlainEnglishConverter.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Converters.OneWayConverter{System.DateTime?, System.String}" />
+   /// Implements the <see cref="string" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Converters.OneWayConverter{System.DateTime?, System.String}" />
+   /// <seealso cref="string" />
    public class DateTimeToPlainEnglishConverter : OneWayConverter<DateTime?, string>
    {
-      /// <summary>
-      /// The ago
-      /// </summary>
-      private const          string                          AGO      = " ago";
       /// <summary>
       /// The instance
       /// </summary>
       public static readonly DateTimeToPlainEnglishConverter INSTANCE = new DateTimeToPlainEnglishConverter();
+
+      /// <summary>
+      /// The ago
+      /// </summary>
+      private const string AGO = " ago";
 
       /// <summary>
       /// Converts the specified value.
@@ -64,8 +61,8 @@ namespace Com.MarcusTS.SharedForms.Common.Converters
          if (timePassed.Days > 0)
          {
             var yearsRaw = timePassed.Days / 365.25;
-            var years    = Math.Floor(yearsRaw).ToRoundedInt();
-            var months   = Math.Floor(yearsRaw * 12).ToRoundedInt();
+            var years = Math.Floor(yearsRaw).ToRoundedInt();
+            var months = Math.Floor(yearsRaw * 12).ToRoundedInt();
 
             if (years > 0)
             {

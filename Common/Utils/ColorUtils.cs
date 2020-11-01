@@ -1,85 +1,87 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// *********************************************************************************
+// Copyright @2020 Marcus Technical Services, Inc.
+// <copyright
+// file=ColorUtils.cs
+// company="Marcus Technical Services, Inc.">
+// </copyright>
 //
-// This file, ColorUtils.cs, is a part of a program called AccountViewMobile.
+// MIT License
 //
-// AccountViewMobile is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-// Permission to use, copy, modify, and/or distribute this software
-// for any purpose with or without fee is hereby granted, provided
-// that the above copyright notice and this permission notice appear
-// in all copies.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
-// AccountViewMobile is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// For the complete GNU General Public License,
-// see <http://www.gnu.org/licenses/>.
-
-#endregion
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
 
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
    using Xamarin.Forms;
 
    /// <summary>
-   /// Class ColorUtils.
+   ///    Class ColorUtils.
    /// </summary>
    public static class ColorUtils
    {
       /// <summary>
-      /// The deep gray blue
+      ///    The deep gray blue
       /// </summary>
       public static readonly Color DEEP_GRAY_BLUE = Color.FromRgb(25, 25, 75);
 
       /// <summary>
-      /// The deep gray green
+      ///    The deep gray green
       /// </summary>
       public static readonly Color DEEP_GRAY_GREEN = Color.FromRgb(25, 75, 25);
 
       /// <summary>
-      /// The deep gray red
+      ///    The deep gray red
       /// </summary>
       public static readonly Color DEEP_GRAY_RED = Color.FromRgb(75, 25, 25);
 
       /// <summary>
-      /// The header and toolbar color
+      ///    The header and toolbar color
       /// </summary>
       public static readonly Color HEADER_AND_TOOLBAR_COLOR = Color.FromRgb(195, 225, 255);
 
       /// <summary>
-      /// The header and toolbar color deep
+      ///    The header and toolbar color deep
       /// </summary>
       public static readonly Color HEADER_AND_TOOLBAR_COLOR_DEEP = Color.FromRgb(85, 100, 175);
 
       /// <summary>
-      /// The header and toolbar color pale
+      ///    The header and toolbar color pale
       /// </summary>
       public static readonly Color HEADER_AND_TOOLBAR_COLOR_PALE = Color.FromRgb(220, 245, 255);
 
       /// <summary>
-      /// The illegal entry color
+      ///    The illegal entry color
       /// </summary>
       public static readonly Color ILLEGAL_ENTRY_COLOR = Color.FromRgba(255, 182, 193, 48);
 
       /// <summary>
-      /// The main page background color
+      ///    The main page background color
       /// </summary>
       public static readonly Color MAIN_PAGE_BACKGROUND_COLOR = Color.FromRgb(240, 240, 240);
 
       /// <summary>
-      /// The pale gray
+      ///    The pale gray
       /// </summary>
       public static readonly Color PALE_GRAY = Color.FromRgb(240, 240, 240);
 
       /// <summary>
-      /// The side menu color
+      ///    The side menu color
       /// </summary>
       public static readonly Color SIDE_MENU_COLOR = Color.FromRgba(40, 48, 56, 128);
    }

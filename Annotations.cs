@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, Annotations.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 #pragma warning disable 1591
 
 // ReSharper disable UnusedMember.Global
@@ -33,7 +29,7 @@
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace Com.MarcusTS.SharedForms.Annotations
+namespace Com.MarcusTS.SharedForms.Common.Annotations
 {
    using System;
 
@@ -168,10 +164,10 @@ namespace Com.MarcusTS.SharedForms.Annotations
       public AspChildControlTypeAttribute
       (
          [NotNull] string tagName,
-         [NotNull] Type   controlType
+         [NotNull] Type controlType
       )
       {
-         TagName     = tagName;
+         TagName = tagName;
          ControlType = controlType;
       }
 
@@ -753,9 +749,9 @@ namespace Com.MarcusTS.SharedForms.Annotations
    /// </example>
    /// <seealso cref="System.Attribute" />
    [AttributeUsage(
-      AttributeTargets.Method   | AttributeTargets.Parameter | AttributeTargets.Property |
-      AttributeTargets.Delegate | AttributeTargets.Field     | AttributeTargets.Event    |
-      AttributeTargets.Class    | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+      AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+      AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
+      AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
    public sealed class CanBeNullAttribute : Attribute
    {
    }
@@ -890,10 +886,10 @@ namespace Com.MarcusTS.SharedForms.Annotations
       public ContractAnnotationAttribute
       (
          [NotNull] string contract,
-         bool             forceFullStates
+         bool forceFullStates
       )
       {
-         Contract        = contract;
+         Contract = contract;
          ForceFullStates = forceFullStates;
       }
 
@@ -1006,7 +1002,7 @@ namespace Com.MarcusTS.SharedForms.Annotations
    /// </summary>
    /// <seealso cref="System.Attribute" />
    [AttributeUsage(
-      AttributeTargets.Method   | AttributeTargets.Parameter | AttributeTargets.Property |
+      AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
       AttributeTargets.Delegate | AttributeTargets.Field)]
    public sealed class ItemCanBeNullAttribute : Attribute
    {
@@ -1019,7 +1015,7 @@ namespace Com.MarcusTS.SharedForms.Annotations
    /// </summary>
    /// <seealso cref="System.Attribute" />
    [AttributeUsage(
-      AttributeTargets.Method   | AttributeTargets.Parameter | AttributeTargets.Property |
+      AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
       AttributeTargets.Delegate | AttributeTargets.Field)]
    public sealed class ItemNotNullAttribute : Attribute
    {
@@ -1175,12 +1171,12 @@ namespace Com.MarcusTS.SharedForms.Annotations
       /// <param name="targetFlags">The target flags.</param>
       public MeansImplicitUseAttribute
       (
-         ImplicitUseKindFlags   useKindFlags,
+         ImplicitUseKindFlags useKindFlags,
          ImplicitUseTargetFlags targetFlags
       )
       {
          UseKindFlags = useKindFlags;
-         TargetFlags  = targetFlags;
+         TargetFlags = targetFlags;
       }
 
       /// <summary>
@@ -1314,9 +1310,9 @@ namespace Com.MarcusTS.SharedForms.Annotations
    /// </example>
    /// <seealso cref="System.Attribute" />
    [AttributeUsage(
-      AttributeTargets.Method   | AttributeTargets.Parameter | AttributeTargets.Property |
-      AttributeTargets.Delegate | AttributeTargets.Field     | AttributeTargets.Event    |
-      AttributeTargets.Class    | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+      AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+      AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
+      AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
    public sealed class NotNullAttribute : Attribute
    {
    }
@@ -1341,7 +1337,7 @@ namespace Com.MarcusTS.SharedForms.Annotations
       /// Initializes a new instance of the <see cref="PathReferenceAttribute" /> class.
       /// </summary>
       /// <param name="basePath">The base path.</param>
-      public PathReferenceAttribute([NotNull] [PathReference] string basePath)
+      public PathReferenceAttribute([NotNull][PathReference] string basePath)
       {
          BasePath = basePath;
       }
@@ -1373,8 +1369,8 @@ namespace Com.MarcusTS.SharedForms.Annotations
    /// </code>
    /// </example>
    [AttributeUsage(
-      AttributeTargets.Field | AttributeTargets.Property  | AttributeTargets.Parameter | AttributeTargets.Method |
-      AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct    |
+      AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Method |
+      AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct |
       AttributeTargets.GenericParameter)]
    public sealed class ProvidesContextAttribute : Attribute
    {
@@ -1511,7 +1507,7 @@ namespace Com.MarcusTS.SharedForms.Annotations
          [NotNull] string fieldName
       )
       {
-         Type      = type;
+         Type = type;
          FieldName = fieldName;
       }
 
@@ -1565,7 +1561,7 @@ namespace Com.MarcusTS.SharedForms.Annotations
       public RazorPageBaseTypeAttribute
       (
          [NotNull] string baseType,
-         string           pageName
+         string pageName
       )
       {
          BaseType = baseType;
@@ -1683,7 +1679,7 @@ namespace Com.MarcusTS.SharedForms.Annotations
    /// <seealso cref="System.Attribute" />
    [AttributeUsage(
       AttributeTargets.Constructor | AttributeTargets.Method |
-      AttributeTargets.Property    | AttributeTargets.Delegate)]
+      AttributeTargets.Property | AttributeTargets.Delegate)]
    public sealed class StringFormatMethodAttribute : Attribute
    {
       /// <summary>
@@ -1757,12 +1753,12 @@ namespace Com.MarcusTS.SharedForms.Annotations
       /// <param name="targetFlags">The target flags.</param>
       public UsedImplicitlyAttribute
       (
-         ImplicitUseKindFlags   useKindFlags,
+         ImplicitUseKindFlags useKindFlags,
          ImplicitUseTargetFlags targetFlags
       )
       {
          UseKindFlags = useKindFlags;
-         TargetFlags  = targetFlags;
+         TargetFlags = targetFlags;
       }
 
       /// <summary>

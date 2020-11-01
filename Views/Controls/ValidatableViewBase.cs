@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidatableViewBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,26 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
-
-// MIT License
-
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
-// Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// ***********************************************************************
-
-// #define USE_BACK_COLOR
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -134,10 +112,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// A UI element that includes an Entry surrounded by a border. Implements the <see cref="Xamarin.Forms.Grid" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// Implements the <see cref="IValidatableView" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Grid" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// <seealso cref="IValidatableView" />
    public abstract class ValidatableViewBase : Grid, IValidatableView
    {
       /// <summary>
@@ -154,41 +132,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// The default placeholder height
       /// </summary>
       public const double PLACEHOLDER_HEIGHT = 12;
-
-      /// <summary>
-      /// The default border view border width
-      /// </summary>
-      private const float BORDER_VIEW_BORDER_WIDTH = 1;
-
-      ///// <summary>
-      ///// The default border view radius
-      ///// </summary>
-      //private const float BORDER_VIEW_RADIUS = 3;
-
-      /// <summary>
-      /// The default grid single padding
-      /// </summary>
-      private const double GRID_SINGLE_PADDING = 6;
-
-      /// <summary>
-      /// The placeholder inset
-      /// </summary>
-      private const double PLACEHOLDER_INSET = 8;
-
-      /// <summary>
-      /// The placeholder label side margin
-      /// </summary>
-      private const double PLACEHOLDER_LABEL_SIDE_MARGIN = 6;
-
-      /// <summary>
-      /// The default shape view single padding
-      /// </summary>
-      private const double SHAPE_VIEW_SINGLE_PADDING = 6;
-
-      /// <summary>
-      /// The vertical slop
-      /// </summary>
-      private const double VERTICAL_SLOP = 4;
 
       /// <summary>
       /// The invalid border view style property
@@ -310,6 +253,41 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       protected static readonly Thickness DEFAULT_BORDER_VIEW_PADDING = new Thickness(8, 0, 4, 0);
 
       /// <summary>
+      /// The default border view border width
+      /// </summary>
+      private const float BORDER_VIEW_BORDER_WIDTH = 1;
+
+      ///// <summary>
+      ///// The default border view radius
+      ///// </summary>
+      //private const float BORDER_VIEW_RADIUS = 3;
+
+      /// <summary>
+      /// The default grid single padding
+      /// </summary>
+      private const double GRID_SINGLE_PADDING = 6;
+
+      /// <summary>
+      /// The placeholder inset
+      /// </summary>
+      private const double PLACEHOLDER_INSET = 8;
+
+      /// <summary>
+      /// The placeholder label side margin
+      /// </summary>
+      private const double PLACEHOLDER_LABEL_SIDE_MARGIN = 6;
+
+      /// <summary>
+      /// The default shape view single padding
+      /// </summary>
+      private const double SHAPE_VIEW_SINGLE_PADDING = 6;
+
+      /// <summary>
+      /// The vertical slop
+      /// </summary>
+      private const double VERTICAL_SLOP = 4;
+
+      /// <summary>
       /// The default border view border color
       /// </summary>
       private static readonly Color DEFAULT_BORDER_VIEW_BORDER_COLOR = Color.Black;
@@ -369,113 +347,139 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>
       /// The valid text color
       /// </summary>
-      private static readonly Color            VALID_TEXT_COLOR = Color.Black;
+      private static readonly Color VALID_TEXT_COLOR = Color.Black;
+
       /// <summary>
       /// The bindable property
       /// </summary>
-      private readonly        BindableProperty _bindableProperty;
+      private readonly BindableProperty _bindableProperty;
+
       /// <summary>
       /// The binding mode
       /// </summary>
-      private readonly        BindingMode      _bindingMode;
+      private readonly BindingMode _bindingMode;
+
       /// <summary>
       /// The border view height
       /// </summary>
-      private readonly        double?          _borderViewHeight;
+      private readonly double? _borderViewHeight;
+
       /// <summary>
       /// The converter
       /// </summary>
-      private readonly        IValueConverter  _converter;
+      private readonly IValueConverter _converter;
+
       /// <summary>
       /// The converter parameter
       /// </summary>
-      private readonly        object           _converterParameter;
+      private readonly object _converterParameter;
+
       /// <summary>
       /// The instructions
       /// </summary>
-      private readonly        string           _instructions;
+      private readonly string _instructions;
+
       /// <summary>
       /// The instructions height
       /// </summary>
-      private readonly        double?          _instructionsHeight;
+      private readonly double? _instructionsHeight;
+
       /// <summary>
       /// The placeholder
       /// </summary>
-      private readonly        string           _placeholder;
+      private readonly string _placeholder;
+
       /// <summary>
       /// The placeholder height
       /// </summary>
-      private readonly        double           _placeholderHeight;
+      private readonly double _placeholderHeight;
+
       /// <summary>
       /// The show instructions or validations
       /// </summary>
-      private readonly        bool             _showInstructionsOrValidations;
+      private readonly bool _showInstructionsOrValidations;
+
       /// <summary>
       /// The show validation errors as instructions
       /// </summary>
-      private readonly        bool             _showValidationErrorsAsInstructions;
+      private readonly bool _showValidationErrorsAsInstructions;
+
       /// <summary>
       /// The string format
       /// </summary>
-      private readonly        string           _stringFormat;
+      private readonly string _stringFormat;
+
       /// <summary>
       /// The validator
       /// </summary>
-      private readonly        ICanBeValid      _validator;
+      private readonly ICanBeValid _validator;
+
       /// <summary>
       /// The view model property name
       /// </summary>
-      private readonly        string           _viewModelPropertyName;
+      private readonly string _viewModelPropertyName;
+
       /// <summary>
       /// The canvas
       /// </summary>
-      private AbsoluteLayout   _canvas;
+      private AbsoluteLayout _canvas;
+
       /// <summary>
       /// The invalid border view style
       /// </summary>
-      private Style            _invalidBorderViewStyle;
+      private Style _invalidBorderViewStyle;
+
       /// <summary>
       /// The invalid instructions style
       /// </summary>
-      private Style            _invalidInstructionsStyle;
+      private Style _invalidInstructionsStyle;
+
       /// <summary>
       /// The invalid placeholder style
       /// </summary>
-      private Style            _invalidPlaceholderStyle;
+      private Style _invalidPlaceholderStyle;
+
       /// <summary>
       /// The last border view bounds
       /// </summary>
-      private Rectangle        _lastBorderViewBounds;
+      private Rectangle _lastBorderViewBounds;
+
+      private Style _lastBorderViewStyle;
+
       /// <summary>
       /// The last editable view container bounds
       /// </summary>
-      private Rectangle        _lastEditableViewContainerBounds;
+      private Rectangle _lastEditableViewContainerBounds;
+
       /// <summary>
       /// The placeholder grid
       /// </summary>
-      private Grid             _placeholderGrid;
+      private Grid _placeholderGrid;
+
       /// <summary>
       /// The placeholder label has been shown
       /// </summary>
-      private bool             _placeholderLabelHasBeenShown;
+      private bool _placeholderLabelHasBeenShown;
+
       /// <summary>
       /// The valid border view style
       /// </summary>
-      private Style            _validBorderViewStyle;
+      private Style _validBorderViewStyle;
+
       /// <summary>
       /// The valid instructions style
       /// </summary>
-      private Style            _validInstructionsStyle;
+      private Style _validInstructionsStyle;
+
       /// <summary>
       /// The valid placeholder style
       /// </summary>
-      private Style            _validPlaceholderStyle;
+      private Style _validPlaceholderStyle;
+
       /// <summary>
       /// The views created
       /// </summary>
-      private bool             _viewsCreated;
-
-      private Style _lastBorderViewStyle;
+      private bool _viewsCreated;
 
       /// <summary>
       /// Initializes a new instance of the <see cref="ValidatableViewBase" /> class.
@@ -497,87 +501,44 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="viewModelPropertyName">Name of the view model property.</param>
       protected ValidatableViewBase
       (
-         BindableProperty bindableProperty                   = null,
-         double?          borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode      bindingMode                        = BindingMode.TwoWay,
-         IValueConverter  converter                          = null,
-         object           converterParameter                 = null,
-         string           fontFamilyOverride                 = "",
-         string           instructions                       = "",
-         double?          instructionsHeight                 = INSTRUCTIONS_HEIGHT,
-         string           placeholder                        = "",
-         double?          placeholderHeight                  = PLACEHOLDER_HEIGHT,
-         bool             showInstructionsOrValidations      = false,
-         bool             showValidationErrorsAsInstructions = true,
-         string           stringFormat                       = null,
-         ICanBeValid      validator                          = null,
-         string           viewModelPropertyName              = ""
+         BindableProperty bindableProperty = null,
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         string fontFamilyOverride = "",
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         ICanBeValid validator = null,
+         string viewModelPropertyName = ""
       )
       {
-         FontFamilyOverride                  = fontFamilyOverride;
-         _bindableProperty                   = bindableProperty;
-         _bindingMode                        = bindingMode;
-         _borderViewHeight                   = borderViewHeight;
-         _converter                          = converter;
-         _converterParameter                 = converterParameter;
-         _instructions                       = instructions;
-         _instructionsHeight                 = instructionsHeight;
-         _placeholder                        = placeholder;
-         _placeholderHeight                  = placeholderHeight.GetValueOrDefault();
-         _showInstructionsOrValidations      = showInstructionsOrValidations;
+         FontFamilyOverride = fontFamilyOverride;
+         _bindableProperty = bindableProperty;
+         _bindingMode = bindingMode;
+         _borderViewHeight = borderViewHeight;
+         _converter = converter;
+         _converterParameter = converterParameter;
+         _instructions = instructions;
+         _instructionsHeight = instructionsHeight;
+         _placeholder = placeholder;
+         _placeholderHeight = placeholderHeight.GetValueOrDefault();
+         _showInstructionsOrValidations = showInstructionsOrValidations;
          _showValidationErrorsAsInstructions = showValidationErrorsAsInstructions;
-         _stringFormat                       = stringFormat;
-         _validator                          = validator;
-         _viewModelPropertyName              = viewModelPropertyName;
-         HorizontalOptions                   = LayoutOptions.FillAndExpand;
-         VerticalOptions                     = LayoutOptions.FillAndExpand;
-         BackgroundColor                     = Color.Transparent;
-         ColumnSpacing                       = 0;
-         RowSpacing                          = 0;
-
-         //if (_stringFormat.IsNotEmpty() && _validator is IHaveStringFormat validatorAsHavingStringFormat)
-         //{
-         //   validatorAsHavingStringFormat.StringFormat = _stringFormat;
-         //}
-
-         // CallCreateViews();
-
-         BindingContextChanged += async (sender, args) =>
-                                  {
-                                     EditableView.BindingContext = BindingContext;
-                                     await ResetPlaceholderPosition().WithoutChangingContext();
-                                  };
+         _stringFormat = stringFormat;
+         _validator = validator;
+         _viewModelPropertyName = viewModelPropertyName;
+         HorizontalOptions = LayoutOptions.FillAndExpand;
+         VerticalOptions = LayoutOptions.FillAndExpand;
+         BackgroundColor = Color.Transparent;
+         ColumnSpacing = 0;
+         RowSpacing = 0;
       }
-
-      /// <summary>
-      /// Gets a value indicating whether [derived view is focused].
-      /// </summary>
-      /// <value><c>true</c> if [derived view is focused]; otherwise, <c>false</c>.</value>
-      protected abstract bool DerivedViewIsFocused { get; }
-
-      /// <summary>
-      /// Gets the editable view.
-      /// </summary>
-      /// <value>The editable view.</value>
-      protected abstract View EditableView { get; }
-
-      /// <summary>
-      /// Gets the editable view container.
-      /// </summary>
-      /// <value>The editable view container.</value>
-      protected abstract View EditableViewContainer { get; }
-
-      /// <summary>
-      /// The font family override
-      /// </summary>
-      /// <value>The font family override.</value>
-      protected string FontFamilyOverride { get; }
-
-      /// <summary>
-      /// Gets a value indicating whether [user has entered valid content].
-      /// </summary>
-      /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
-      protected abstract bool UserHasEnteredValidContent { get; }
 
       /// <summary>
       /// Gets the border view.
@@ -689,34 +650,34 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Calls the revalidate.
+      /// Gets a value indicating whether [derived view is focused].
       /// </summary>
-      public void CallRevalidate()
-      {
-         _validator?.Revalidate();
-      }
+      /// <value><c>true</c> if [derived view is focused]; otherwise, <c>false</c>.</value>
+      protected abstract bool DerivedViewIsFocused { get; }
 
       /// <summary>
-      /// Sets the tab indexes.
+      /// Gets the editable view.
       /// </summary>
-      /// <param name="incomingTabIndex">Index of the incoming tab.</param>
-      /// <returns>System.Int32.</returns>
-      public virtual int SetTabIndexes(int incomingTabIndex)
-      {
-         BorderView.IsTabStop = false;
-         BorderView.TabIndex  = incomingTabIndex++;
+      /// <value>The editable view.</value>
+      protected abstract View EditableView { get; }
 
-         if (EditableViewContainer.IsNotAnEqualReferenceTo(EditableView))
-         {
-            EditableViewContainer.IsTabStop = false;
-            EditableViewContainer.TabIndex  = incomingTabIndex++;
-         }
+      /// <summary>
+      /// Gets the editable view container.
+      /// </summary>
+      /// <value>The editable view container.</value>
+      protected abstract View EditableViewContainer { get; }
 
-         EditableView.IsTabStop = true;
-         EditableView.TabIndex  = incomingTabIndex++;
+      /// <summary>
+      /// The font family override
+      /// </summary>
+      /// <value>The font family override.</value>
+      protected string FontFamilyOverride { get; }
 
-         return incomingTabIndex;
-      }
+      /// <summary>
+      /// Gets a value indicating whether [user has entered valid content].
+      /// </summary>
+      /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
+      protected abstract bool UserHasEnteredValidContent { get; }
 
       /// <summary>
       /// Creates the validatable entry bindable property.
@@ -729,13 +690,43 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateValidatableViewBindableProperty<PropertyTypeT>
       (
-         string                                                    localPropName,
-         PropertyTypeT                                             defaultVal     = default,
-         BindingMode                                               bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<ValidatableViewBase, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+      }
+
+      /// <summary>
+      /// Calls the revalidate.
+      /// </summary>
+      public void CallRevalidate()
+      {
+         _validator?.RevalidateEditorText();
+      }
+
+      /// <summary>
+      /// Sets the tab indexes.
+      /// </summary>
+      /// <param name="incomingTabIndex">Index of the incoming tab.</param>
+      /// <returns>System.Int32.</returns>
+      public virtual int SetTabIndexes(int incomingTabIndex)
+      {
+         BorderView.IsTabStop = false;
+         BorderView.TabIndex = incomingTabIndex++;
+
+         if (EditableViewContainer.IsNotAnEqualReferenceTo(EditableView))
+         {
+            EditableViewContainer.IsTabStop = false;
+            EditableViewContainer.TabIndex = incomingTabIndex++;
+         }
+
+         EditableView.IsTabStop = true;
+         EditableView.TabIndex = incomingTabIndex++;
+
+         return incomingTabIndex;
       }
 
       /// <summary>
@@ -810,22 +801,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          // WARNING: BorderView must be created before the EditableViewContainer is referenced.
 
-         BorderView                   = FormsUtils.GetShapeView();
+         BorderView = FormsUtils.GetShapeView();
          BorderView.HorizontalOptions = LayoutOptions.FillAndExpand;
-         BorderView.VerticalOptions   = LayoutOptions.CenterAndExpand;
+         BorderView.VerticalOptions = LayoutOptions.CenterAndExpand;
 
          var borderViewHeight = _borderViewHeight ?? BORDER_VIEW_HEIGHT;
 
-         BorderView.HeightRequest   = borderViewHeight;
-         BorderView.BorderThickness = BORDER_VIEW_BORDER_WIDTH;
-         BorderView.BorderColor     = DEFAULT_BORDER_VIEW_BORDER_COLOR;
-         BorderView.CornerRadius    = borderViewHeight * FormsConst.DEFAULT_CORNER_RADIUS_FACTOR;
+         BorderView.HeightRequest = borderViewHeight;
+         BorderView.CornerRadius = borderViewHeight * FormsConst.DEFAULT_CORNER_RADIUS_FACTOR;
+         BorderView.Border = FormsUtils.CreateShapeViewBorder(DEFAULT_BORDER_VIEW_BORDER_COLOR, BORDER_VIEW_BORDER_WIDTH);
 
          // Allow for the border view's height and the vertical padding
          var totalHeight = BorderView.HeightRequest + GRID_SINGLE_PADDING * 2;
 
          BorderView.Content = EditableViewContainer;
-         BorderView.Margin  = new Thickness(0, 5, 0, 0);
+         BorderView.Margin = new Thickness(0, 5, 0, 0);
 
          BorderView.PropertyChanged +=
             async (sender, args) =>
@@ -842,13 +832,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          Children.Add(BorderView);
          SetRow(BorderView, 0);
 
-         if (_showInstructionsOrValidations && _instructions.IsNotEmpty())
+         // Instructions might not shw up until run-time
+         if (_showInstructionsOrValidations) // && _instructions.IsNotEmpty())
          {
             InstructionsLabel =
-               FormsUtils.GetSimpleLabel(_instructions, fontFamilyOverride: FontFamilyOverride);
+               FormsUtils.GetSimpleLabel(_instructions, fontFamilyOverride: FontFamilyOverride, textColor: Color.Red,
+                                         fontAttributes: FontAttributes.Italic | FontAttributes.Bold,
+                                         fontSize: NamedSize.Micro.AdjustForOsAndDevice());
             InstructionsLabel.HorizontalOptions = LayoutOptions.FillAndExpand;
-            InstructionsLabel.VerticalOptions   = LayoutOptions.Center;
-            InstructionsLabel.HeightRequest     = _instructionsHeight ?? INSTRUCTIONS_HEIGHT;
+            InstructionsLabel.VerticalOptions = LayoutOptions.Start;
+            InstructionsLabel.HeightRequest = _instructionsHeight ?? INSTRUCTIONS_HEIGHT;
 
             var smallMargin = GRID_SINGLE_PADDING / 2;
 
@@ -861,7 +854,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             Children.Add(InstructionsLabel);
             SetRow(InstructionsLabel, 1);
 
-            // The current instructions always show in thislabel; to change the content, change the property.
+            // The current instructions always show in this label; to change the content, change the property.
             InstructionsLabel.SetUpBinding(Label.TextProperty, nameof(CurrentInstructions), source: this);
          }
 
@@ -869,12 +862,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             PlaceholderLabel = FormsUtils.GetSimpleLabel(_placeholder, fontFamilyOverride: FontFamilyOverride);
 
+#if FADE_PLACEHOLDER
             // Hide initially
             PlaceholderLabel.Opacity       = FormsConst.NOT_VISIBLE_OPACITY;
-            PlaceholderLabel.HeightRequest = _placeholderHeight;
-            PlaceholderLabel.Text          = _placeholder;
+#endif
 
-            _placeholderGrid                 = FormsUtils.GetExpandingGrid();
+            PlaceholderLabel.HeightRequest = _placeholderHeight;
+            PlaceholderLabel.Text = _placeholder;
+
+            _placeholderGrid = FormsUtils.GetExpandingGrid();
             _placeholderGrid.BackgroundColor = DEFAULT_PLACEHOLDER_BACK_COLOR;
             PlaceholderLabel.BackgroundColor = DEFAULT_PLACEHOLDER_BACK_COLOR;
             _placeholderGrid.AddFixedColumn(PLACEHOLDER_LABEL_SIDE_MARGIN);
@@ -901,7 +897,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
             // SetRowSpan(_canvas, 2);
 
-            EditableView.Focused   += ReportGlobalFocusAndRaisePlaceholder;
+            EditableView.Focused += ReportGlobalFocusAndRaisePlaceholder;
             EditableView.Unfocused += ConsiderLoweringPlaceholder;
          }
 
@@ -927,17 +923,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             }
 
             _validator.IsValidChanged += HandleIsValidChanged;
-            _validator.Revalidate();
+            _validator.RevalidateEditorText();
          }
 
          HeightRequest = totalHeight;
 
-         _invalidBorderViewStyle   = CreateDefaultInvalidBorderViewStyle();
+         _invalidBorderViewStyle = CreateDefaultInvalidBorderViewStyle();
          _invalidInstructionsStyle = CreateDefaultInvalidInstructionsStyle();
-         _invalidPlaceholderStyle  = CreateDefaultInvalidPlaceholderStyle();
-         _validPlaceholderStyle    = CreateDefaultValidPlaceholderStyle();
-         _validBorderViewStyle     = CreateDefaultBorderViewStyle();
-         _validInstructionsStyle   = CreateDefaultValidInstructionsStyle();
+         _invalidPlaceholderStyle = CreateDefaultInvalidPlaceholderStyle();
+         _validPlaceholderStyle = CreateDefaultValidPlaceholderStyle();
+         _validBorderViewStyle = CreateDefaultBorderViewStyle();
+         _validInstructionsStyle = CreateDefaultValidInstructionsStyle();
 
          EditableViewContainer.PropertyChanged +=
             async (sender, args) =>
@@ -951,6 +947,14 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             };
       }
 
+      protected override async void OnBindingContextChanged()
+      {
+         base.OnBindingContextChanged();
+
+         EditableView.BindingContext = BindingContext;
+         await ResetPlaceholderPosition().WithoutChangingContext();
+      }
+
       /// <summary>
       /// Raises the placeholder.
       /// </summary>
@@ -959,7 +963,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <remarks>TODO Cannot avoid async void -- event handler.</remarks>
       protected async void ReportGlobalFocusAndRaisePlaceholder(object sender, FocusEventArgs e)
       {
-         FormsMessengerUtils.Send(new ViewIsBeingEditedMessage {Payload = true});
+         FormsMessengerUtils.Send(new ViewIsBeingEditedMessage { Payload = true });
 
          await ResetPlaceholderPosition().WithoutChangingContext();
       }
@@ -971,12 +975,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          // Make sure we have a valid placeholder
          if (PlaceholderLabel.IsNullOrDefault() || PlaceholderLabel.Text.IsEmpty() || EditableView.IsNullOrDefault() ||
-             BorderView.IsNullOrDefault()       || _placeholderGrid.IsNullOrDefault())
+             BorderView.IsNullOrDefault() || _placeholderGrid.IsNullOrDefault())
          {
             return;
          }
 
-         var    targetX = PLACEHOLDER_INSET;
+         var targetX = PLACEHOLDER_INSET;
          double targetY;
 
          // See if the entry has focus or not
@@ -995,7 +999,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          if (!_placeholderLabelHasBeenShown)
          {
+#if FADE_PLACEHOLDER
             PlaceholderLabel.FadeIn();
+#endif
             _placeholderLabelHasBeenShown = true;
          }
       }
@@ -1107,8 +1113,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
 
          // If the validator issues a validation eror, show that in place of the instructions (below the border view).
-         if (_validator.IsNotNullOrDefault() && _validator.LastValidationError.IsNotEmpty() &&
-             _showValidationErrorsAsInstructions)
+         if (_validator.IsNotNullOrDefault() && _showValidationErrorsAsInstructions)
          {
             CurrentInstructions = _validator.LastValidationError;
          }
@@ -1129,10 +1134,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
          else
          {
-
             if (_lastBorderViewStyle.IsNullOrDefault())
             {
-               _lastBorderViewStyle = FormsUtils.CreateShapeViewStyle(borderColor: BorderView.BorderColor, borderThickness: BorderView.BorderThickness);
+               _lastBorderViewStyle = FormsUtils.CreateShapeViewStyle(borderColor: BorderView?.Border?.Color, borderThickness: BorderView?.Border?.Thickness);
             }
 
             BorderView.SetAndForceStyle(InvalidBorderViewStyle);

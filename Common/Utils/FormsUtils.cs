@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, FormsUtils.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // MIT License
 
@@ -45,6 +41,7 @@
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
    using Annotations;
+   using Interfaces;
    using Services;
    using SharedUtils.Utils;
    using System;
@@ -54,7 +51,6 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    using System.Reflection;
    using System.Text;
    using System.Threading.Tasks;
-   using Interfaces;
    using Views.Controls;
    using Xamarin.Essentials;
    using Xamarin.Forms;
@@ -66,6 +62,36 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    public static class FormsUtils
    {
       /// <summary>
+      /// The false string
+      /// </summary>
+      public const string FALSE_STR = "false";
+
+      /// <summary>
+      /// The true string
+      /// </summary>
+      public const string TRUE_STR = "true";
+
+      /// <summary>
+      /// The button radius factor
+      /// </summary>
+      internal const double BUTTON_RADIUS_FACTOR = 0.15f;
+
+      /// <summary>
+      /// The default text size
+      /// </summary>
+      internal const float DEFAULT_TEXT_SIZE = 20;
+
+      /// <summary>
+      /// The major button height
+      /// </summary>
+      internal static readonly double MAJOR_BUTTON_HEIGHT = 45.0;
+
+      /// <summary>
+      /// The major button width
+      /// </summary>
+      internal static readonly double MAJOR_BUTTON_WIDTH = 120.0;
+
+      /// <summary>
       /// Adds the and set rows and columns.
       /// </summary>
       /// <param name="grid">The grid.</param>
@@ -75,8 +101,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="rowSpan">The row span.</param>
       /// <param name="colSpan">The col span.</param>
       public static void AddAndSetRowsAndColumns(this Grid grid, View view, int? row = default,
-                                                 int?      column  = default,
-                                                 int?      rowSpan = default, int? colSpan = default)
+                                                 int? column = default,
+                                                 int? rowSpan = default, int? colSpan = default)
       {
          grid.Children.Add(view);
 
@@ -111,8 +137,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static async Task AddAnimationAndHapticFeedback
       (
          this View view,
-         bool      animate = true,
-         bool      vibrate = true
+         bool animate = true,
+         bool vibrate = true
       )
       {
          if (animate)
@@ -135,7 +161,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="grid">The grid.</param>
       public static void AddAutoColumn(this Grid grid)
       {
-         grid.ColumnDefinitions.Add(new ColumnDefinition {Width = GridLength.Auto});
+         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
       }
 
       /// <summary>
@@ -144,7 +170,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="grid">The grid.</param>
       public static void AddAutoRow(this Grid grid)
       {
-         grid.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
+         grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
       }
 
       /// <summary>
@@ -155,10 +181,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void AddFixedColumn
       (
          this Grid grid,
-         double    width
+         double width
       )
       {
-         grid.ColumnDefinitions.Add(new ColumnDefinition {Width = width});
+         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = width });
       }
 
       /// <summary>
@@ -169,10 +195,23 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void AddFixedRow
       (
          this Grid grid,
-         double    height
+         double height
       )
       {
-         grid.RowDefinitions.Add(new RowDefinition {Height = height});
+         grid.RowDefinitions.Add(new RowDefinition { Height = height });
+      }
+
+      public static void AddIfNotEmpty(this StringBuilder mainStrBuilder, string appendStr, string prefix = "")
+      {
+         if (appendStr.IsNotEmpty())
+         {
+            if (mainStrBuilder.ToString().IsNotEmpty())
+            {
+               mainStrBuilder.Append(prefix);
+            }
+
+            mainStrBuilder.Append(appendStr);
+         }
       }
 
       /// <summary>
@@ -183,10 +222,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="position">The position.</param>
       /// <param name="viewWidth">Width of the view.</param>
       /// <param name="viewHeight">Height of the view.</param>
-      public static void AddOverlayBasedOnPosition(this RelativeLayout          layout,
-                                                   View                         view,
+      public static void AddOverlayBasedOnPosition(this RelativeLayout layout,
+                                                   View view,
                                                    FormsConst.OnScreenPositions position,
-                                                   double                       viewWidth, double viewHeight)
+                                                   double viewWidth, double viewHeight)
       {
          if (position == FormsConst.OnScreenPositions.NONE)
          {
@@ -330,10 +369,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void AddStarColumn
       (
          this Grid grid,
-         double    factor = 1
+         double factor = 1
       )
       {
-         grid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(factor, GridUnitType.Star)});
+         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(factor, GridUnitType.Star) });
       }
 
       /// <summary>
@@ -344,10 +383,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void AddStarRow
       (
          this Grid grid,
-         double    factor = 1
+         double factor = 1
       )
       {
-         grid.RowDefinitions.Add(new RowDefinition {Height = new GridLength(factor, GridUnitType.Star)});
+         grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(factor, GridUnitType.Star) });
       }
 
       /// <summary>
@@ -379,10 +418,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="fadeMilliseconds">The fade milliseconds.</param>
       /// <param name="easing">The easing.</param>
       public static void AnimateHeightChange(
-         this View          view,
-         double             nextHeight,
-         uint               fadeMilliseconds = 250,
-         [CanBeNull] Easing easing           = null)
+         this View view,
+         double nextHeight,
+         uint fadeMilliseconds = 250,
+         [CanBeNull] Easing easing = null)
       {
          // Nothing to do
          if (view.Height.IsSameAs(nextHeight))
@@ -404,10 +443,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="fadeMilliseconds">The fade milliseconds.</param>
       /// <param name="easing">The easing.</param>
       public static void AnimateWidthChange(
-         this View          view,
-         double             nextWidth,
-         uint               fadeMilliseconds = 250,
-         [CanBeNull] Easing easing           = null)
+         this View view,
+         double nextWidth,
+         uint fadeMilliseconds = 250,
+         [CanBeNull] Easing easing = null)
       {
          // Nothing to do
          if (view.Width.IsSameAs(nextWidth))
@@ -431,8 +470,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool AreValidAndHaveChanged
       (
          this Rectangle bounds,
-         string         propName,
-         Rectangle      lastBounds
+         string propName,
+         Rectangle lastBounds
       )
       {
          return propName.IsBoundsRelatedPropertyChange() && bounds.IsValid() && bounds.IsDifferentThan(lastBounds);
@@ -500,35 +539,35 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="fontAttributes">The font attributes.</param>
       /// <returns>Style.</returns>
       public static Style CreateEntryStyle(
-         [CanBeNull] string fontFamily     = "", double? fontSize = null, Color? backColor = null,
-         Color?             textColor      = null,
-         FontAttributes?    fontAttributes = null)
+         [CanBeNull] string fontFamily = "", double? fontSize = null, Color? backColor = null,
+         Color? textColor = null,
+         FontAttributes? fontAttributes = null)
       {
          var retStyle = new Style(typeof(Entry));
 
          if (fontFamily.IsNotEmpty())
          {
-            retStyle.Setters.Add(new Setter {Property = Entry.FontFamilyProperty, Value = fontFamily});
+            retStyle.Setters.Add(new Setter { Property = Entry.FontFamilyProperty, Value = fontFamily });
          }
 
          if (fontSize.HasValue)
          {
-            retStyle.Setters.Add(new Setter {Property = Entry.FontSizeProperty, Value = fontSize});
+            retStyle.Setters.Add(new Setter { Property = Entry.FontSizeProperty, Value = fontSize });
          }
 
          if (backColor != null)
          {
-            retStyle.Setters.Add(new Setter {Property = VisualElement.BackgroundColorProperty, Value = backColor});
+            retStyle.Setters.Add(new Setter { Property = VisualElement.BackgroundColorProperty, Value = backColor });
          }
 
          if (textColor != null)
          {
-            retStyle.Setters.Add(new Setter {Property = Entry.TextColorProperty, Value = textColor});
+            retStyle.Setters.Add(new Setter { Property = Entry.TextColorProperty, Value = textColor });
          }
 
          if (fontAttributes != null)
          {
-            retStyle.Setters.Add(new Setter {Property = Entry.FontAttributesProperty, Value = fontAttributes});
+            retStyle.Setters.Add(new Setter { Property = Entry.FontAttributesProperty, Value = fontAttributes });
          }
 
          return retStyle;
@@ -544,35 +583,35 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="fontAttributes">The font attributes.</param>
       /// <returns>Style.</returns>
       public static Style CreateLabelStyle(
-         [CanBeNull] string fontFamily     = "", double? fontSize = null, Color? backColor = null,
-         Color?             textColor      = null,
-         FontAttributes?    fontAttributes = null)
+         [CanBeNull] string fontFamily = "", double? fontSize = null, Color? backColor = null,
+         Color? textColor = null,
+         FontAttributes? fontAttributes = null)
       {
          var retStyle = new Style(typeof(Label));
 
          if (fontFamily.IsNotEmpty())
          {
-            retStyle.Setters.Add(new Setter {Property = Label.FontFamilyProperty, Value = fontFamily});
+            retStyle.Setters.Add(new Setter { Property = Label.FontFamilyProperty, Value = fontFamily });
          }
 
          if (fontSize.HasValue)
          {
-            retStyle.Setters.Add(new Setter {Property = Label.FontSizeProperty, Value = fontSize});
+            retStyle.Setters.Add(new Setter { Property = Label.FontSizeProperty, Value = fontSize });
          }
 
          if (backColor != null)
          {
-            retStyle.Setters.Add(new Setter {Property = VisualElement.BackgroundColorProperty, Value = backColor});
+            retStyle.Setters.Add(new Setter { Property = VisualElement.BackgroundColorProperty, Value = backColor });
          }
 
          if (textColor != null)
          {
-            retStyle.Setters.Add(new Setter {Property = Label.TextColorProperty, Value = textColor});
+            retStyle.Setters.Add(new Setter { Property = Label.TextColorProperty, Value = textColor });
          }
 
          if (fontAttributes != null)
          {
-            retStyle.Setters.Add(new Setter {Property = Label.FontAttributesProperty, Value = fontAttributes});
+            retStyle.Setters.Add(new Setter { Property = Label.FontAttributesProperty, Value = fontAttributes });
          }
 
          return retStyle;
@@ -590,18 +629,18 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns>Rectangle.</returns>
       public static Rectangle CreateOffScreenRect
       (
-         Size                          parentViewSize,
-         double                        width,
-         double                        height,
+         Size parentViewSize,
+         double width,
+         double height,
          FormsConst.OffScreenPositions position,
-         bool                          forceLongSize = false,
+         bool forceLongSize = false,
 
          // Allows space for a header above a toolbar.
          double additionalTopAllowance = 0
       )
       {
          var adjustedHeight = forceLongSize ? 0 : parentViewSize.Height / 2 - height / 2;
-         var adjustedWidth  = forceLongSize ? 0 : parentViewSize.Width  / 2 - width  / 2;
+         var adjustedWidth = forceLongSize ? 0 : parentViewSize.Width / 2 - width / 2;
 
          switch (position)
          {
@@ -617,7 +656,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             case FormsConst.OffScreenPositions.RIGHT:
                height = GetForcedHeight(height, forceLongSize, parentViewSize);
                return new Rectangle(parentViewSize.Width + 1, adjustedHeight + additionalTopAllowance, width,
-                                    height               - additionalTopAllowance);
+                                    height - additionalTopAllowance);
 
             case FormsConst.OffScreenPositions.BOTTOM:
                width = GetForcedWidth(width, forceLongSize, parentViewSize);
@@ -638,8 +677,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns>Rectangle.</returns>
       public static Rectangle CreateOffScreenRectWithForcedSide
       (
-         Size                          parentViewSize,
-         double                        widthHeight,
+         Size parentViewSize,
+         double widthHeight,
          FormsConst.OffScreenPositions position,
 
          // Allows space for a header
@@ -671,12 +710,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns>Rectangle.</returns>
       public static Rectangle CreateOnScreenRect
       (
-         Size                         parentViewSize,
-         double                       width,
-         double                       height,
+         Size parentViewSize,
+         double width,
+         double height,
          FormsConst.OnScreenPositions position,
-         Thickness                    parentViewPadding = default,
-         bool                         forceLongSize     = false,
+         Thickness parentViewPadding = default,
+         bool forceLongSize = false,
 
          // Allows space for a header
          double additionalTopAllowance = 0
@@ -684,9 +723,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       {
          ErrorUtils.ConsiderArgumentError
          (
-            forceLongSize                                         &&
-            position != FormsConst.OnScreenPositions.LEFT_CENTER  &&
-            position != FormsConst.OnScreenPositions.TOP_CENTER   &&
+            forceLongSize &&
+            position != FormsConst.OnScreenPositions.LEFT_CENTER &&
+            position != FormsConst.OnScreenPositions.TOP_CENTER &&
             position != FormsConst.OnScreenPositions.RIGHT_CENTER &&
             position != FormsConst.OnScreenPositions.BOTTOM_CENTER,
             nameof(CreateOnScreenRect) + ": illegal position when requesting 'forceLongSize' ->" + position + "<-"
@@ -716,14 +755,14 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             height, parentViewSize.Height - parentViewPadding.Top - parentViewPadding.Bottom - additionalTopAllowance);
 
          // Set up the adjusted X & Y positions
-         var paddingAdjustedLeftXPos   = parentViewPadding.Left;
-         var paddingAdjustedRightXPos  = parentViewSize.Width - width   - parentViewPadding.Right;
-         var paddingAdjustedTopYPos    = parentViewPadding.Top          + additionalTopAllowance;
+         var paddingAdjustedLeftXPos = parentViewPadding.Left;
+         var paddingAdjustedRightXPos = parentViewSize.Width - width - parentViewPadding.Right;
+         var paddingAdjustedTopYPos = parentViewPadding.Top + additionalTopAllowance;
          var paddingAdjustedBottomYPos = parentViewSize.Height - height - parentViewPadding.Bottom;
 
          // Ignores padding, as it splits the difference in order to center
          var horizontalCenterX = (parentViewSize.Width - width) / 2;
-         var verticalCenterY   = additionalTopAllowance + (parentViewSize.Height - height - additionalTopAllowance) / 2;
+         var verticalCenterY = additionalTopAllowance + (parentViewSize.Height - height - additionalTopAllowance) / 2;
 
          double newLeftX;
          double newTopY;
@@ -732,47 +771,47 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          {
             case FormsConst.OnScreenPositions.LEFT_CENTER:
                newLeftX = paddingAdjustedLeftXPos;
-               newTopY  = verticalCenterY;
+               newTopY = verticalCenterY;
                break;
 
             case FormsConst.OnScreenPositions.TOP_LEFT:
                newLeftX = paddingAdjustedLeftXPos;
-               newTopY  = paddingAdjustedTopYPos;
+               newTopY = paddingAdjustedTopYPos;
                break;
 
             case FormsConst.OnScreenPositions.TOP_CENTER:
                newLeftX = horizontalCenterX;
-               newTopY  = paddingAdjustedTopYPos;
+               newTopY = paddingAdjustedTopYPos;
                break;
 
             case FormsConst.OnScreenPositions.TOP_RIGHT:
                newLeftX = paddingAdjustedRightXPos;
-               newTopY  = paddingAdjustedTopYPos;
+               newTopY = paddingAdjustedTopYPos;
                break;
 
             case FormsConst.OnScreenPositions.RIGHT_CENTER:
                newLeftX = paddingAdjustedRightXPos;
-               newTopY  = verticalCenterY;
+               newTopY = verticalCenterY;
                break;
 
             case FormsConst.OnScreenPositions.BOTTOM_LEFT:
                newLeftX = paddingAdjustedLeftXPos;
-               newTopY  = paddingAdjustedBottomYPos;
+               newTopY = paddingAdjustedBottomYPos;
                break;
 
             case FormsConst.OnScreenPositions.BOTTOM_CENTER:
                newLeftX = horizontalCenterX;
-               newTopY  = paddingAdjustedBottomYPos;
+               newTopY = paddingAdjustedBottomYPos;
                break;
 
             case FormsConst.OnScreenPositions.BOTTOM_RIGHT:
                newLeftX = paddingAdjustedRightXPos;
-               newTopY  = paddingAdjustedBottomYPos;
+               newTopY = paddingAdjustedBottomYPos;
                break;
 
             case FormsConst.OnScreenPositions.CENTER:
                newLeftX = horizontalCenterX;
-               newTopY  = verticalCenterY;
+               newTopY = verticalCenterY;
                break;
 
             default:
@@ -794,10 +833,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns>Rectangle.</returns>
       public static Rectangle CreateOnScreenRectWithForcedSide
       (
-         Size                         parentViewSize,
-         double                       widthHeight,
+         Size parentViewSize,
+         double widthHeight,
          FormsConst.OnScreenPositions position,
-         Thickness                    parentViewPadding = default,
+         Thickness parentViewPadding = default,
 
          // Allows space for a header
          double additionalTopAllowance = 0
@@ -817,14 +856,40 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void CreateRelativeOverlay
       (
          this RelativeLayout layout,
-         View                viewToAdd,
-         Thickness           padding = default
+         View viewToAdd,
+         Thickness padding = default
       )
       {
          layout.Children.Add(
             viewToAdd, Constraint.Constant(padding.Left), Constraint.Constant(padding.Top),
             Constraint.RelativeToParent(parent => parent.Width - padding.Left - padding.Right),
             Constraint.RelativeToParent(parent => parent.Height - padding.Top - padding.Bottom));
+      }
+
+      /// <summary>
+      /// Creates the relative overlay.
+      /// </summary>
+      /// <param name="layout">The layout.</param>
+      /// <param name="viewToAdd">The view to add.</param>
+      public static void CreateRelativeOverlay(this RelativeLayout layout,
+                                               View viewToAdd)
+      {
+         layout.Children.Add(
+                             viewToAdd, Constraint.Constant(0), Constraint.Constant(0),
+                             Constraint.RelativeToParent(parent => parent.Width),
+                             Constraint.RelativeToParent(parent => parent.Height));
+      }
+
+      public static Border CreateShapeViewBorder(
+                    Color? borderColor = null,
+              double? borderThickness = null
+          )
+      {
+         return new Border
+         {
+            Color = borderColor.GetValueOrDefault(),
+            Thickness = ((double)borderThickness.GetValueOrDefault()).ToRoundedInt()
+         };
       }
 
       /// <summary>
@@ -836,31 +901,13 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="borderThickness">The border thickness.</param>
       /// <returns>Style.</returns>
       public static Style CreateShapeViewStyle(
-         Color?  backColor       = null, double? cornerRadius = null, Color? borderColor = null,
+         Color? backColor = null,
+         double? cornerRadius = null,
+         Color? borderColor = null,
          double? borderThickness = null)
       {
          var retStyle = new Style(typeof(ShapeView));
-
-         if (backColor != null)
-         {
-            retStyle.Setters.Add(new Setter {Property = ShapeView.ColorProperty, Value = backColor});
-         }
-
-         if (cornerRadius.HasValue)
-         {
-            retStyle.Setters.Add(new Setter {Property = PancakeView.CornerRadiusProperty, Value = cornerRadius});
-         }
-
-         if (borderColor != null)
-         {
-            retStyle.Setters.Add(new Setter {Property = PancakeView.BorderColorProperty, Value = borderColor});
-         }
-
-         if (borderThickness.HasValue)
-         {
-            retStyle.Setters.Add(new Setter {Property = PancakeView.BorderThicknessProperty, Value = borderThickness});
-         }
-
+         retStyle.SetShapeViewStyle(backColor, cornerRadius, borderColor, borderThickness);
          return retStyle;
       }
 
@@ -890,7 +937,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
       public static bool EnumTryParse<EnumT>
       (
-         string    input,
+         string input,
          out EnumT theEnum
       )
       {
@@ -898,7 +945,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          {
             if (enumName.IsSameAs(input))
             {
-               theEnum = (EnumT) Enum.Parse(typeof(EnumT), input, true);
+               theEnum = (EnumT)Enum.Parse(typeof(EnumT), input, true);
                return true;
             }
          }
@@ -924,9 +971,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             return 0;
          }
 
-         var length      = label.Text.Count();
+         var length = label.Text.Count();
          var totalLength = length * label.FontSize * FormsConst.CHARACTERS_TO_FONT_SIZE_ESTIMATOR;
-         var totalLines  = totalLength             / width;
+         var totalLines = totalLength / width;
 
          return totalLines * label.FontSize; // * (Math.Max(label.LineHeight, label.FontSize));
       }
@@ -944,7 +991,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             return "";
          }
 
-         var strBuilder  = new StringBuilder();
+         var strBuilder = new StringBuilder();
          var lastCharIdx = str.Length - 1;
 
          for (var charIdx = 0; charIdx < str.Length; charIdx++)
@@ -977,10 +1024,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="easing">The easing.</param>
       /// <param name="maxOpacity">The maximum opacity.</param>
       public static void FadeIn(
-         this View          view,
-         uint               fadeMilliseconds = 250,
-         [CanBeNull] Easing easing           = null,
-         double             maxOpacity       = FormsConst.VISIBLE_OPACITY)
+         this View view,
+         uint fadeMilliseconds = 250,
+         [CanBeNull] Easing easing = null,
+         double maxOpacity = FormsConst.VISIBLE_OPACITY)
       {
          // Nothing to do
          if (view.Opacity.IsSameAs(maxOpacity))
@@ -1002,9 +1049,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="easing">The easing.</param>
       /// <returns>Task.</returns>
       public static void FadeOut(
-         this View          view,
-         uint               fadeMilliseconds = 250,
-         [CanBeNull] Easing easing           = null)
+         this View view,
+         uint fadeMilliseconds = 250,
+         [CanBeNull] Easing easing = null)
       {
          // Nothing to do
          if (view.Opacity.IsSameAs(FormsConst.NOT_VISIBLE_OPACITY))
@@ -1037,8 +1084,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static Rectangle ForceAspect(this Rectangle rect, double aspect)
       {
          var currentAspect = rect.Width / rect.Height;
-         var newWidth      = rect.Width;
-         var newHeight     = rect.Height;
+         var newWidth = rect.Width;
+         var newHeight = rect.Height;
 
          if (currentAspect.IsSameAs(aspect))
          {
@@ -1057,7 +1104,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
 
          var heightDiff = Math.Max(0, rect.Height - newHeight);
-         var widthDiff  = Math.Max(0, rect.Width  - newWidth);
+         var widthDiff = Math.Max(0, rect.Width - newWidth);
 
          return new Rectangle(rect.X + widthDiff / 2, rect.Y + heightDiff / 2, newWidth, newHeight);
       }
@@ -1070,7 +1117,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void ForceStyle
       (
          this View view,
-         Style     style
+         Style style
       )
       {
          if (style == null || style.Setters.IsEmpty())
@@ -1090,8 +1137,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
             if (viewProperty.IsNullOrDefault())
             {
-               Debug.WriteLine(nameof(ForceStyle)                             +
-                               ": could not find the property name ->"        +
+               Debug.WriteLine(nameof(ForceStyle) +
+                               ": could not find the property name ->" +
                                style.Setters[setterIdx].Property.PropertyName + "<- on view");
                continue;
             }
@@ -1101,13 +1148,13 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             // ReSharper disable once PossibleNullReferenceException
             if (viewProperty.PropertyType != targetPropertyType)
             {
-               Debug.WriteLine(nameof(ForceStyle)                                    +
-                               ": view property ->"                                  +
-                               style.Setters[setterIdx].Property.PropertyName        +
-                               "<- shows as type ->"                                 +
-                               viewProperty.PropertyType                             +
+               Debug.WriteLine(nameof(ForceStyle) +
+                               ": view property ->" +
+                               style.Setters[setterIdx].Property.PropertyName +
+                               "<- shows as type ->" +
+                               viewProperty.PropertyType +
                                "<- which does not match the setter property type ->" +
-                               targetPropertyType                                    + "<-");
+                               targetPropertyType + "<-");
                continue;
             }
 
@@ -1126,8 +1173,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return new AbsoluteLayout
          {
             HorizontalOptions = LayoutOptions.FillAndExpand,
-            VerticalOptions   = LayoutOptions.FillAndExpand,
-            BackgroundColor   = Color.Transparent
+            VerticalOptions = LayoutOptions.FillAndExpand,
+            BackgroundColor = Color.Transparent
          };
       }
 
@@ -1140,12 +1187,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return new Grid
          {
             HorizontalOptions = LayoutOptions.FillAndExpand,
-            VerticalOptions   = LayoutOptions.FillAndExpand,
-            BackgroundColor   = Color.Transparent,
-            ColumnSpacing     = 0,
-            RowSpacing        = 0,
-            Margin            = 0,
-            Padding           = 0,
+            VerticalOptions = LayoutOptions.FillAndExpand,
+            BackgroundColor = Color.Transparent,
+            ColumnSpacing = 0,
+            RowSpacing = 0,
+            Margin = 0,
+            Padding = 0,
             IsClippedToBounds = true
          };
       }
@@ -1159,23 +1206,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return new RelativeLayout
          {
             HorizontalOptions = LayoutOptions.FillAndExpand,
-            VerticalOptions   = LayoutOptions.FillAndExpand,
-            BackgroundColor   = Color.Transparent
-         };
-      }
-
-      /// <summary>
-      /// Gets the expanding scroll view.
-      /// </summary>
-      /// <returns>ScrollView.</returns>
-      public static ScrollView GetExpandingScrollView()
-      {
-         return new ScrollView
-         {
-            VerticalOptions   = LayoutOptions.FillAndExpand,
-            HorizontalOptions = LayoutOptions.FillAndExpand,
-            BackgroundColor   = Color.Transparent,
-            Orientation       = ScrollOrientation.Vertical
+            VerticalOptions = LayoutOptions.FillAndExpand,
+            BackgroundColor = Color.Transparent
          };
       }
 
@@ -1187,10 +1219,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       {
          return new StackLayout
          {
-            VerticalOptions   = LayoutOptions.StartAndExpand,
+            VerticalOptions = LayoutOptions.StartAndExpand,
             HorizontalOptions = LayoutOptions.FillAndExpand,
-            BackgroundColor   = Color.Transparent,
-            Orientation       = StackOrientation.Vertical
+            BackgroundColor = Color.Transparent,
+            Orientation = StackOrientation.Vertical
          };
       }
 
@@ -1207,18 +1239,18 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static Image GetImage
       (
          string filePath,
-         double width            = 0,
-         double height           = 0,
-         Aspect aspect           = Aspect.AspectFit,
-         bool   getFromResources = false,
-         Type   resourceClass    = null
+         double width = 0,
+         double height = 0,
+         Aspect aspect = Aspect.AspectFit,
+         bool getFromResources = false,
+         Type resourceClass = null
       )
       {
          var retImage =
             new Image
             {
-               Aspect            = aspect,
-               VerticalOptions   = LayoutOptions.Center,
+               Aspect = aspect,
+               VerticalOptions = LayoutOptions.Center,
                HorizontalOptions = LayoutOptions.Center
             };
 
@@ -1324,19 +1356,19 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns>Label.</returns>
       public static Label GetSimpleLabel
       (
-         string         labelText                = default,
-         Color          textColor                = default,
-         TextAlignment  textAlignment            = TextAlignment.Center,
-         NamedSize      fontNamedSize            = NamedSize.Medium,
-         double         fontSize                 = 0.0,
-         FontAttributes fontAttributes           = FontAttributes.None,
-         double         width                    = 0,
-         double         height                   = 0,
-         string         labelBindingPropertyName = default,
-         object         labelBindingSource       = null,
-         string         stringFormat             = "",
-         LineBreakMode  breakMode                = LineBreakMode.WordWrap,
-         string         fontFamilyOverride       = ""
+         string labelText = default,
+         Color textColor = default,
+         TextAlignment textAlignment = TextAlignment.Center,
+         NamedSize fontNamedSize = NamedSize.Medium,
+         double fontSize = 0.0,
+         FontAttributes fontAttributes = FontAttributes.None,
+         double width = 0,
+         double height = 0,
+         string labelBindingPropertyName = default,
+         object labelBindingSource = null,
+         string stringFormat = "",
+         LineBreakMode breakMode = LineBreakMode.WordWrap,
+         string fontFamilyOverride = ""
       )
       {
          if (textColor.IsUnsetOrDefault())
@@ -1347,13 +1379,13 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          var retLabel =
             new Label
             {
-               Text                    = labelText,
-               TextColor               = textColor,
+               Text = labelText,
+               TextColor = textColor,
                HorizontalTextAlignment = textAlignment,
-               VerticalTextAlignment   = TextAlignment.Center,
-               HorizontalOptions       = HorizontalOptionsFromTextAlignment(textAlignment),
-               VerticalOptions         = LayoutOptions.CenterAndExpand,
-               BackgroundColor         = Color.Transparent,
+               VerticalTextAlignment = TextAlignment.Center,
+               HorizontalOptions = HorizontalOptionsFromTextAlignment(textAlignment),
+               VerticalOptions = LayoutOptions.CenterAndExpand,
+               BackgroundColor = Color.Transparent,
 
                FontAttributes = fontAttributes,
                FontSize =
@@ -1417,10 +1449,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       {
          return new BoxView
          {
-            HeightRequest     = height,
-            BackgroundColor   = Color.Transparent,
+            HeightRequest = height,
+            BackgroundColor = Color.Transparent,
             HorizontalOptions = LayoutOptions.FillAndExpand,
-            VerticalOptions   = LayoutOptions.FillAndExpand
+            VerticalOptions = LayoutOptions.FillAndExpand
          };
       }
 
@@ -1443,8 +1475,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool HaveBecomeInvalid
       (
          this Rectangle bounds,
-         string         propName,
-         Rectangle      lastBounds
+         string propName,
+         Rectangle lastBounds
       )
       {
          return propName.IsBoundsRelatedPropertyChange() && bounds.IsNotValid() && lastBounds.IsValid();
@@ -1460,8 +1492,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool HaveBecomeInvalidOrChangedWithoutPermission
       (
          this Rectangle bounds,
-         string         propName,
-         Rectangle      lastBounds
+         string propName,
+         Rectangle lastBounds
       )
       {
          return propName.IsBoundsRelatedPropertyChange() && lastBounds.IsValid() &&
@@ -1506,7 +1538,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="insertionLoc">The insertion loc.</param>
       public static void InsertAutoColumn(this Grid grid, int insertionLoc)
       {
-         grid.ColumnDefinitions.Insert(insertionLoc, new ColumnDefinition {Width = GridLength.Auto});
+         grid.ColumnDefinitions.Insert(insertionLoc, new ColumnDefinition { Width = GridLength.Auto });
       }
 
       /// <summary>
@@ -1519,7 +1551,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          this string propName
       )
       {
-         return propName.IsSameAs(FormsConst.WIDTH_PROPERTY_NAME)  ||
+         return propName.IsSameAs(FormsConst.WIDTH_PROPERTY_NAME) ||
                 propName.IsSameAs(FormsConst.HEIGHT_PROPERTY_NAME) || propName.IsSameAs(FormsConst.X_PROPERTY_NAME) ||
                 propName.IsSameAs(FormsConst.Y_PROPERTY_NAME);
       }
@@ -1533,7 +1565,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool IsDifferentThan
       (
          this Color color,
-         Color      secondColor
+         Color secondColor
       )
       {
          return color.IsNotAnEqualObjectTo(secondColor);
@@ -1553,12 +1585,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>
       /// Determines whether [is different than] [the specified other thickness].
       /// </summary>
-      /// <param name="Thickness">The thickness.</param>
+      /// <param name="thickness">The thickness.</param>
       /// <param name="otherThickness">The other thickness.</param>
       /// <returns><c>true</c> if [is different than] [the specified other thickness]; otherwise, <c>false</c>.</returns>
-      public static bool IsDifferentThan(this Thickness Thickness, Thickness otherThickness)
+      public static bool IsDifferentThan(this Thickness thickness, Thickness otherThickness)
       {
-         return !Thickness.IsSameAs(otherThickness);
+         return !thickness.IsSameAs(otherThickness);
       }
 
       /// <summary>
@@ -1567,11 +1599,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="mainRect">The main rect.</param>
       /// <param name="otherRect">The other rect.</param>
       /// <returns><c>true</c> if [is different than] [the specified other rect]; otherwise, <c>false</c>.</returns>
-      public static bool IsDifferentThan
-      (
-         this Rectangle mainRect,
-         Rectangle      otherRect
-      )
+      public static bool IsDifferentThan(this Rectangle mainRect,
+         Rectangle otherRect)
       {
          return !mainRect.IsSameAs(otherRect);
       }
@@ -1594,7 +1623,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool IsEmpty(this Thickness Thickness)
       {
          return Thickness.Bottom.IsLessThanOrEqualTo(0) && Thickness.Left.IsLessThanOrEqualTo(0) &&
-                Thickness.Right.IsLessThanOrEqualTo(0)  && Thickness.Top.IsLessThanOrEqualTo(0);
+                Thickness.Right.IsLessThanOrEqualTo(0) && Thickness.Top.IsLessThanOrEqualTo(0);
       }
 
       /// <summary>
@@ -1607,10 +1636,15 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          this Rectangle mainRect
       )
       {
-         return mainRect.X.IsLessThanOrEqualTo(0)     &&
-                mainRect.Y.IsLessThanOrEqualTo(0)     &&
+         return mainRect.X.IsLessThanOrEqualTo(0) &&
+                mainRect.Y.IsLessThanOrEqualTo(0) &&
                 mainRect.Width.IsLessThanOrEqualTo(0) &&
                 mainRect.Height.IsLessThanOrEqualTo(0);
+      }
+
+      public static bool IsGreaterThan(this string mainStr, string compareStr)
+      {
+         return string.CompareOrdinal(mainStr, compareStr) > 0;
       }
 
       /// <summary>
@@ -1620,6 +1654,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool IsIos()
       {
          return Device.RuntimePlatform.IsSameAs(Device.iOS);
+      }
+
+      public static bool IsLessThan(this string mainStr, string compareStr)
+      {
+         return string.CompareOrdinal(mainStr, compareStr) < 0;
       }
 
       /// <summary>
@@ -1699,7 +1738,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool IsSameAs(this Thickness Thickness, Thickness otherThickness)
       {
          return Thickness.Bottom.IsSameAs(otherThickness.Bottom) && Thickness.Left.IsSameAs(otherThickness.Left) &&
-                Thickness.Right.IsSameAs(otherThickness.Right)   && Thickness.Top.IsSameAs(otherThickness.Top);
+                Thickness.Right.IsSameAs(otherThickness.Right) && Thickness.Top.IsSameAs(otherThickness.Top);
       }
 
       /// <summary>
@@ -1711,7 +1750,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static bool IsSameAs
       (
          this Rectangle mainRect,
-         Rectangle      otherRect
+         Rectangle otherRect
       )
       {
          return mainRect.Width.IsSameAs(otherRect.Width)
@@ -1763,17 +1802,6 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return !color.IsUnsetOrDefault();
       }
 
-      //public static double LabelNamedFontSizeForDevice(NamedSize tabletSize, NamedSize phoneSize)
-      //{
-      //   if (Device.Idiom == TargetIdiom.Phone)
-      //   {
-      //      return Device.GetNamedSize(phoneSize, typeof(Label));
-      //   }
-
-      //   // ELSE
-      //   return Device.GetNamedSize(tabletSize, typeof(Label));
-      //}
-
       /// <summary>
       /// Merges the style.
       /// </summary>
@@ -1784,7 +1812,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static Style MergeStyle<T>
       (
          this Style mainStyle,
-         Style      newStyle
+         Style newStyle
       )
       {
          if (newStyle == null || newStyle.Setters.IsEmpty())
@@ -1832,6 +1860,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return mainStyle;
       }
 
+      //   // ELSE
+      //   return Device.GetNamedSize(tabletSize, typeof(Label));
+      //}
       /// <summary>
       /// Presentables the date.
       /// </summary>
@@ -1842,6 +1873,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return $"{dt:MMM d, yyyy}";
       }
 
+      //public static double LabelNamedFontSizeForDevice(NamedSize tabletSize, NamedSize phoneSize)
+      //{
+      //   if (Device.Idiom == TargetIdiom.Phone)
+      //   {
+      //      return Device.GetNamedSize(phoneSize, typeof(Label));
+      //   }
       /// <summary>
       /// Presentables the dollar amount.
       /// </summary>
@@ -1870,10 +1907,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="fadeMilliseconds">The fade milliseconds.</param>
       /// <param name="easing">The easing.</param>
       public static async Task ReplaceLayoutTo(
-         this View          view,
-         Rectangle          nextBounds,
-         uint               fadeMilliseconds = 250,
-         [CanBeNull] Easing easing           = null)
+         this View view,
+         Rectangle nextBounds,
+         uint fadeMilliseconds = 250,
+         [CanBeNull] Easing easing = null)
       {
          // Nothing to do
          if (view.Bounds.IsSameAs(nextBounds))
@@ -1998,12 +2035,35 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="shapeView">The shape view.</param>
       public static void SetDefaults(this ShapeView shapeView)
       {
-         shapeView.Color             = Color.White;
-         shapeView.CornerRadius      = FormsConst.DEFAULT_CORNER_RADIUS_FIXED;
-         shapeView.BackgroundColor   = Color.Transparent;
+         shapeView.BackgroundColor = Color.Transparent;
+         shapeView.Color = Color.White;
+         shapeView.CornerRadius = FormsConst.DEFAULT_CORNER_RADIUS_FIXED;
          shapeView.IsClippedToBounds = true;
          shapeView.HorizontalOptions = LayoutOptions.FillAndExpand;
-         shapeView.VerticalOptions   = LayoutOptions.FillAndExpand;
+         shapeView.VerticalOptions = LayoutOptions.FillAndExpand;
+      }
+
+      public static void SetShapeViewStyle(
+                                                                                                                                                                                                                                                                                                                                                                                       this Style retStyle,
+         Color? backColor = null,
+         double? cornerRadius = null,
+         Color? borderColor = null,
+         double? borderThickness = null)
+      {
+         if (backColor.HasValue)
+         {
+            retStyle.Setters.Add(new Setter { Property = ShapeView.ColorProperty, Value = backColor });
+         }
+
+         if (cornerRadius.HasValue)
+         {
+            retStyle.Setters.Add(new Setter { Property = PancakeView.CornerRadiusProperty, Value = cornerRadius });
+         }
+
+         if (borderColor.HasValue && borderThickness.HasValue)
+         {
+            retStyle.Setters.Add(new Setter { Property = PancakeView.BorderProperty, Value = CreateShapeViewBorder(borderColor, borderThickness) });
+         }
       }
 
       /// <summary>
@@ -2027,6 +2087,21 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          if (EnumTryParse(enumAsString, out EnumT foundEnum))
          {
             return foundEnum;
+         }
+
+         return default;
+      }
+
+      public static DateTime? ToNullableDateTime(this string str)
+      {
+         if (str.IsEmpty())
+         {
+            return default;
+         }
+
+         if (DateTime.TryParse(str, out var dateTime))
+         {
+            return dateTime;
          }
 
          return default;
@@ -2122,6 +2197,16 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
+      /// Validators from view.
+      /// </summary>
+      /// <param name="view">The view.</param>
+      /// <returns>ICanBeValid.</returns>
+      public static ICanBeValid ValidatorFromView(View view)
+      {
+         return view.Behaviors?.FirstOrDefault(b => b is ICanBeValid) as ICanBeValid;
+      }
+
+      /// <summary>
       /// Widthes the width of from percent of screen.
       /// </summary>
       /// <param name="percentDesired">The percent desired.</param>
@@ -2155,6 +2240,25 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return await task.ConfigureAwait(false);
       }
 
+      //   if (decimalPos >= 0)
+      //   {
+      //   }
+      //}
+      /// <summary>
+      /// Gets the expanding scroll view.
+      /// </summary>
+      /// <returns>ScrollView.</returns>
+      internal static ScrollView GetExpandingScrollView()
+      {
+         return new ScrollView
+         {
+            VerticalOptions = LayoutOptions.FillAndExpand,
+            HorizontalOptions = LayoutOptions.FillAndExpand,
+            BackgroundColor = Color.Transparent,
+            Orientation = ScrollOrientation.Vertical
+         };
+      }
+
       /// <summary>
       /// Gets the height of the forced.
       /// </summary>
@@ -2165,8 +2269,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       private static double GetForcedHeight
       (
          double height,
-         bool   forceLongSize,
-         Size   currentSize
+         bool forceLongSize,
+         Size currentSize
       )
       {
          height = forceLongSize ? currentSize.Height : height;
@@ -2183,90 +2287,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       private static double GetForcedWidth
       (
          double width,
-         bool   forceLongSize,
-         Size   currentSize
+         bool forceLongSize,
+         Size currentSize
       )
       {
          width = forceLongSize ? currentSize.Width : width;
          return width;
-      }
-
-      //public static string StripLeadingZeroes(this string str)
-      //{
-      //   if (str.IsEmpty())
-      //   {
-      //      return str;
-      //   }
-
-      //   var newStartIdx = 0;
-
-      //   for (var charIdx = 0; charIdx < str.Length; charIdx++)
-      //   {
-      //      if (str[charIdx] != ZERO_CHAR)
-      //      {
-      //         newStartIdx = charIdx;
-      //         break;
-      //      }
-      //   }
-
-      //   return str.Substring(newStartIdx);
-      //}
-
-      //public static string StripTrailingNumbers(this string str, int maxDecimalChars)
-      //{
-      //   var decimalPos = str.PositionOfDecimal();
-
-      //   if (decimalPos >= 0)
-      //   {
-      //   }
-      //}
-
-      /// <summary>
-      /// Validators from view.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      /// <returns>ICanBeValid.</returns>
-      public static ICanBeValid ValidatorFromView(View view)
-      {
-         return view.Behaviors?.FirstOrDefault(b => b is ICanBeValid) as ICanBeValid;
-      }
-
-      public static DateTime? ToNullableDateTime(this string str)
-      {
-         if (str.IsEmpty())
-         {
-            return default;
-         }
-
-         if (DateTime.TryParse(str, out var dateTime))
-         {
-            return dateTime;
-         }
-
-         return default;
-      }
-
-      public static void AddIfNotEmpty(this StringBuilder mainStrBuilder, string appendStr, string prefix = "")
-      {
-         if (appendStr.IsNotEmpty())
-         {
-            if (mainStrBuilder.ToString().IsNotEmpty())
-            {
-               mainStrBuilder.Append(prefix);
-            }
-
-            mainStrBuilder.Append(appendStr);
-         }
-      }
-
-      public static bool IsLessThan(this string mainStr, string compareStr)
-      {
-         return string.CompareOrdinal(mainStr, compareStr) < 0;
-      }
-
-      public static bool IsGreaterThan(this string mainStr, string compareStr)
-      {
-         return string.CompareOrdinal(mainStr, compareStr) > 0;
       }
    }
 }

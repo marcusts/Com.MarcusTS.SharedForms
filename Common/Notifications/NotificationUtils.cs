@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, NotificationUtils.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Notifications
 {
@@ -61,24 +57,5 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       )
       {
       }
-
-      //public static void GoToMainMenuPage<T>()
-      //   where T : Page
-      //{
-      //   // If already on the desired page, we are done.
-      //   var mainPage = Application.Current.MainPage as MasterDetailPage;
-
-      //   // If we are on the target page, then we are done.
-      //   if ((mainPage?.Detail as CustomNavigationPage)?.CurrentPage is T)
-      //   {
-      //      return;
-      //   }
-
-      //   // Must construct and open a new target page
-      //   var targetPage = Activator.CreateInstance<T>();
-      //   var customNavContainer = new CustomNavigationPage(targetPage);
-      //   ((MasterDetailPage) Application.Current.MainPage).Detail = customNavContainer;
-      //   ((MasterDetailPage) Application.Current.MainPage).IsPresented = false;
-      //}
    }
 }

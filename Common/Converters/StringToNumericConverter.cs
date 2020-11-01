@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, StringToNumericConverter.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 #define FORCE_NULLABLE_DOUBLE
 
@@ -46,16 +42,18 @@ namespace Com.MarcusTS.SharedForms.Common.Converters
       /// </summary>
       /// <value>The convert back function.</value>
       public Func<string, object> ConvertBackFunc { get; set; }
+
       /// <summary>
       /// Gets or sets the string format.
       /// </summary>
       /// <value>The string format.</value>
-      public string               StringFormat    { get; set; }
+      public string StringFormat { get; set; }
+
       /// <summary>
       /// Gets or sets the type of the validation.
       /// </summary>
       /// <value>The type of the validation.</value>
-      public ValidationTypes      ValidationType  { get; set; }
+      public ValidationTypes ValidationType { get; set; }
 
       // From numeric to string (for editing)
       /// <summary>

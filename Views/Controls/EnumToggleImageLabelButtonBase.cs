@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, EnumToggleImageLabelButtonBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -85,52 +81,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Class EnumToggleImageLabelButtonBase.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.SelectionImageLabelButtonBase" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{EnumT}" />
+   /// Implements the <see cref="SelectionImageLabelButtonBase" />
+   /// Implements the <see cref="IEnumToggleImageLabelButton{EnumT}" />
    /// </summary>
    /// <typeparam name="EnumT">The type of the enum t.</typeparam>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.SelectionImageLabelButtonBase" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{EnumT}" />
+   /// <seealso cref="SelectionImageLabelButtonBase" />
+   /// <seealso cref="IEnumToggleImageLabelButton{EnumT}" />
    public class EnumToggleImageLabelButtonBase<EnumT> : SelectionImageLabelButtonBase,
                                                         IEnumToggleImageLabelButton<EnumT>
       where EnumT : Enum
    {
-      /// <summary>
-      /// The default button back color
-      /// </summary>
-      private static readonly Color DEFAULT_BUTTON_BACK_COLOR = Color.FromRgb(25, 25, 25);
-
-      /// <summary>
-      /// The default button border color
-      /// </summary>
-      private static readonly Color DEFAULT_BUTTON_BORDER_COLOR = Color.Transparent;
-
-      /// <summary>
-      /// The default button border width
-      /// </summary>
-      private static readonly float? DEFAULT_BUTTON_BORDER_WIDTH = 0;
-
-      /// <summary>
-      /// The default label font attributes
-      /// </summary>
-      private static readonly FontAttributes DEFAULT_LABEL_FONT_ATTRIBUTES = FontAttributes.Bold;
-
-      /// <summary>
-      /// The default label font size
-      /// </summary>
-      private static readonly double DEFAULT_LABEL_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-
-      /// <summary>
-      /// The default label text color
-      /// </summary>
-      private static readonly Color DEFAULT_LABEL_TEXT_COLOR = Color.White;
-
-
-      /// <summary>
-      /// The default image suffix
-      /// </summary>
-      private const string DEFAULT_IMAGE_SUFFIX = ".png";
-
       /// <summary>
       /// The button back color property
       /// </summary>
@@ -265,6 +225,41 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          );
 
       /// <summary>
+      /// The default image suffix
+      /// </summary>
+      private const string DEFAULT_IMAGE_SUFFIX = ".png";
+
+      /// <summary>
+      /// The default button back color
+      /// </summary>
+      private static readonly Color DEFAULT_BUTTON_BACK_COLOR = Color.FromRgb(25, 25, 25);
+
+      /// <summary>
+      /// The default button border color
+      /// </summary>
+      private static readonly Color DEFAULT_BUTTON_BORDER_COLOR = Color.Transparent;
+
+      /// <summary>
+      /// The default button border width
+      /// </summary>
+      private static readonly float? DEFAULT_BUTTON_BORDER_WIDTH = 0;
+
+      /// <summary>
+      /// The default label font attributes
+      /// </summary>
+      private static readonly FontAttributes DEFAULT_LABEL_FONT_ATTRIBUTES = FontAttributes.Bold;
+
+      /// <summary>
+      /// The default label font size
+      /// </summary>
+      private static readonly double DEFAULT_LABEL_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+
+      /// <summary>
+      /// The default label text color
+      /// </summary>
+      private static readonly Color DEFAULT_LABEL_TEXT_COLOR = Color.White;
+
+      /// <summary>
       /// The is initializing
       /// </summary>
       private readonly bool _isInitializing;
@@ -311,12 +306,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          _isInitializing = true;
 
-         ButtonBackColor     = DEFAULT_BUTTON_BACK_COLOR;
-         ButtonBorderColor   = DEFAULT_BUTTON_BORDER_COLOR;
-         ButtonBorderWidth   = DEFAULT_BUTTON_BORDER_WIDTH;
+         ButtonBackColor = DEFAULT_BUTTON_BACK_COLOR;
+         ButtonBorderColor = DEFAULT_BUTTON_BORDER_COLOR;
+         ButtonBorderWidth = DEFAULT_BUTTON_BORDER_WIDTH;
          LabelFontAttributes = DEFAULT_LABEL_FONT_ATTRIBUTES;
-         LabelFontSize       = DEFAULT_LABEL_FONT_SIZE;
-         LabelTextColor      = DEFAULT_LABEL_TEXT_COLOR;
+         LabelFontSize = DEFAULT_LABEL_FONT_SIZE;
+         LabelTextColor = DEFAULT_LABEL_TEXT_COLOR;
 
          // LabelWidth               = 85;
          // LabelHeight              = 35;
@@ -326,19 +321,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          RefreshImageLabelButtonStyles();
       }
-
-      /// <summary>
-      /// Gets the image label button styles.
-      /// </summary>
-      /// <value>The image label button styles.</value>
-      public override IList<ImageLabelButtonStyle> ImageLabelButtonStyles =>
-         _imageLabelButtonStyles ?? (_imageLabelButtonStyles = CreateImageLabelButtonStyles());
-
-      /// <summary>
-      /// Required by this case; each style has its own text.
-      /// </summary>
-      /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
-      public override bool UpdateButtonTextFromStyle => true;
 
       /// <summary>
       /// Gets or sets the color of the button back.
@@ -397,10 +379,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The current selection.</value>
       public EnumT CurrentSelection
       {
-         get => (EnumT) GetValue(CurrentSelectionProperty);
+         get => (EnumT)GetValue(CurrentSelectionProperty);
 
          set => SetValue(CurrentSelectionProperty, value);
       }
+
+      /// <summary>
+      /// Gets the image label button styles.
+      /// </summary>
+      /// <value>The image label button styles.</value>
+      public override IList<ImageLabelButtonStyle> ImageLabelButtonStyles =>
+         _imageLabelButtonStyles ?? (_imageLabelButtonStyles = CreateImageLabelButtonStyles());
 
       /// <summary>
       /// Gets or sets the label font attributes.
@@ -454,6 +443,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
+      /// Required by this case; each style has its own text.
+      /// </summary>
+      /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
+      public override bool UpdateButtonTextFromStyle => true;
+
+      /// <summary>
       /// Enums the toggle image label button base bindable property.
       /// </summary>
       /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
@@ -464,7 +459,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty EnumToggleImageLabelButtonBaseBindableProperty<PropertyTypeT>
       (
-         string        localPropName,
+         string localPropName,
          PropertyTypeT defaultVal = default,
          BindingMode bindingMode =
             BindingMode.OneWay,
@@ -492,7 +487,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>Style.</returns>
       protected virtual Style CreateButtonStyle
       (
-         EnumT  enumVal,
+         EnumT enumVal,
          string enumString
       )
       {
@@ -507,7 +502,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>System.String.</returns>
       protected virtual string CreateImageFilePath
       (
-         EnumT  enumVal,
+         EnumT enumVal,
          string enumString
       )
       {
@@ -522,7 +517,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>System.String.</returns>
       protected virtual string CreateLabelButtonText
       (
-         EnumT  enumVal,
+         EnumT enumVal,
          string enumString
       )
       {
@@ -537,7 +532,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>Style.</returns>
       protected virtual Style CreateLabelStyle
       (
-         EnumT  enumVal,
+         EnumT enumVal,
          string enumString
       )
       {
@@ -551,8 +546,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private IList<ImageLabelButtonStyle> CreateImageLabelButtonStyles()
       {
          var newImageLabelButtonStyles = new List<ImageLabelButtonStyle>();
-         var enumStrings               = Enum.GetNames(typeof(EnumT));
-         var enumValues                = Enum.GetValues(typeof(EnumT));
+         var enumStrings = Enum.GetNames(typeof(EnumT));
+         var enumValues = Enum.GetValues(typeof(EnumT));
 
          var idx = 0;
          foreach (var enumVal in enumValues.OfType<EnumT>())
@@ -563,13 +558,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             (
                new ImageLabelButtonStyle
                {
-                  ButtonStyle            = CreateButtonStyle(enumVal, enumStr),
-                  ButtonText             = CreateLabelButtonText(enumVal, enumStr).ToUpper(),
-                  GetImageFromResource   = GetImageFromResource,
-                  ImageFilePath          = CreateImageFilePath(enumVal, enumStr),
+                  ButtonStyle = CreateButtonStyle(enumVal, enumStr),
+                  ButtonText = CreateLabelButtonText(enumVal, enumStr).ToUpper(),
+                  GetImageFromResource = GetImageFromResource,
+                  ImageFilePath = CreateImageFilePath(enumVal, enumStr),
                   ImageResourceClassType = ImageResourceClassType,
-                  InternalButtonState    = enumStr,
-                  LabelStyle             = CreateLabelStyle(enumVal, enumStr)
+                  InternalButtonState = enumStr,
+                  LabelStyle = CreateLabelStyle(enumVal, enumStr)
                }
             );
 

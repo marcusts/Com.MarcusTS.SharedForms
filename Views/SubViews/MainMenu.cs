@@ -1,5 +1,3 @@
-#region License
-
 // Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, MainMenu.cs, is a part of a program called AccountViewMobile.
@@ -22,12 +20,11 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
+using Com.MarcusTS.SharedForms.Common.Navigation;
+using Com.MarcusTS.SharedUtils.Interfaces;
 
 namespace Com.MarcusTS.SharedForms.Views.SubViews
 {
-   using Common.Interfaces;
-   using Common.Navigation;
    using Common.Notifications;
    using Common.Utils;
    using Xamarin.Forms;
@@ -53,17 +50,12 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
    /// <summary>
    /// Class MainMenu.
    /// Implements the <see cref="Xamarin.Forms.ContentView" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
+   /// Implements the <see cref="IMainMenu" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.ContentView" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.SubViews.IMainMenu" />
+   /// <seealso cref="IMainMenu" />
    public class MainMenu : ContentView, IMainMenu
    {
-      /// <summary>
-      /// The allow event tunneling
-      /// </summary>
-      private const bool ALLOW_EVENT_TUNNELING = false;
-
       /// <summary>
       /// The menu item width
       /// </summary>
@@ -88,6 +80,11 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       /// The menu inside single margin
       /// </summary>
       public static readonly double G_MENU_INSIDE_SINGLE_MARGIN = D_MENU_OUTSIDE_SINGLE_MARGIN / 2;
+
+      /// <summary>
+      /// The allow event tunneling
+      /// </summary>
+      private const bool ALLOW_EVENT_TUNNELING = false;
 
       /// <summary>
       /// The main menu opacity
@@ -120,11 +117,11 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          // Not really used
          BindingContext = this;
 
-         VerticalOptions   = LayoutOptions.StartAndExpand;
+         VerticalOptions = LayoutOptions.StartAndExpand;
          HorizontalOptions = LayoutOptions.CenterAndExpand;
 
          BackgroundColor = ColorUtils.HEADER_AND_TOOLBAR_COLOR;
-         Opacity         = MAIN_MENU_OPACITY;
+         Opacity = MAIN_MENU_OPACITY;
 
          InputTransparent = ALLOW_EVENT_TUNNELING;
 
@@ -162,12 +159,12 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          var retButton =
             new Button
             {
-               Text              = menuData.MenuTitle,
-               WidthRequest      = A_MENU_ITEM_WIDTH,
-               HeightRequest     = MENU_ITEM_HEIGHT,
+               Text = menuData.MenuTitle,
+               WidthRequest = A_MENU_ITEM_WIDTH,
+               HeightRequest = MENU_ITEM_HEIGHT,
                HorizontalOptions = LayoutOptions.Center,
-               VerticalOptions   = LayoutOptions.Center,
-               InputTransparent  = ALLOW_EVENT_TUNNELING
+               VerticalOptions = LayoutOptions.Center,
+               InputTransparent = ALLOW_EVENT_TUNNELING
             };
 
          retButton.Clicked +=
@@ -192,11 +189,11 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       {
          // A grid to handle the entire menu
          var menuStack = FormsUtils.GetExpandingStackLayout();
-         menuStack.VerticalOptions   = LayoutOptions.StartAndExpand;
+         menuStack.VerticalOptions = LayoutOptions.StartAndExpand;
          menuStack.HorizontalOptions = LayoutOptions.CenterAndExpand;
-         menuStack.Margin            = F_MENU_OUTSIDE_MARGIN;
-         menuStack.Spacing           = G_MENU_INSIDE_SINGLE_MARGIN;
-         menuStack.InputTransparent  = ALLOW_EVENT_TUNNELING;
+         menuStack.Margin = F_MENU_OUTSIDE_MARGIN;
+         menuStack.Spacing = G_MENU_INSIDE_SINGLE_MARGIN;
+         menuStack.InputTransparent = ALLOW_EVENT_TUNNELING;
 
          var singleMenuItemHeight = MENU_ITEM_HEIGHT + G_MENU_INSIDE_SINGLE_MARGIN;
 
@@ -210,11 +207,11 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          }
 
          HeightRequest = MenuHeight;
-         WidthRequest  = E_MENU_GROSS_WIDTH;
+         WidthRequest = E_MENU_GROSS_WIDTH;
 
          var scroller = FormsUtils.GetExpandingScrollView();
          scroller.InputTransparent = ALLOW_EVENT_TUNNELING;
-         scroller.Content          = menuStack;
+         scroller.Content = menuStack;
 
          Content = scroller;
 

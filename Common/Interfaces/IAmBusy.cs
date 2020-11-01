@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, IAmBusy.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
    using SharedUtils.Utils;
@@ -33,6 +29,11 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
    /// </summary>
    public interface IAmBusy
    {
+      /// <summary>
+      /// Occurs when [is busy changed].
+      /// </summary>
+      event EventUtils.GenericDelegate<IAmBusy> IsBusyChanged;
+
       /// <summary>
       /// Gets a value indicating whether is busy.
       /// </summary>
@@ -44,10 +45,5 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
       /// </summary>
       /// <value>The is busy message.</value>
       string IsBusyMessage { get; }
-
-      /// <summary>
-      /// Occurs when [is busy changed].
-      /// </summary>
-      event EventUtils.GenericDelegate<IAmBusy> IsBusyChanged;
    }
 }

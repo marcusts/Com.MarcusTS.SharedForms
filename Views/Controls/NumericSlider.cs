@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, NumericSlider.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // MIT License
 
@@ -59,9 +55,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface INumericSlider
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// Implements the <see cref="IValidatableView" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// <seealso cref="IValidatableView" />
    public interface INumericSlider : IValidatableView
    {
       /// <summary>
@@ -69,49 +65,25 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value>The current value.</value>
       double CurrentValue { get; set; }
+
       /// <summary>
       /// Gets the thumb.
       /// </summary>
       /// <value>The thumb.</value>
-      ShapeView Thumb        { get; }
+      ShapeView Thumb { get; }
    }
 
    /// <summary>
    /// Class NumericSlider.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.INumericSlider" />
+   /// Implements the <see cref="ValidatableViewBase" />
+   /// Implements the <see cref="INumericSlider" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.INumericSlider" />
+   /// <seealso cref="ValidatableViewBase" />
+   /// <seealso cref="INumericSlider" />
    /// <remarks>This class is not described as validatable because it performs its own self-validation.
    /// It is also never out-of-range.</remarks>
    public class NumericSlider : ValidatableViewBase, INumericSlider
    {
-      /// <summary>
-      /// The margin side
-      /// </summary>
-      private const double MARGIN_SIDE            = 5;
-      /// <summary>
-      /// The minimum possible width
-      /// </summary>
-      private const double MINIMUM_POSSIBLE_WIDTH = 200;
-      /// <summary>
-      /// The remarks height
-      /// </summary>
-      private const double REMARKS_HEIGHT         = 20;
-      /// <summary>
-      /// The slider height
-      /// </summary>
-      private const double SLIDER_HEIGHT          = 10;
-      /// <summary>
-      /// The thumb height
-      /// </summary>
-      private const double THUMB_HEIGHT           = 30;
-      /// <summary>
-      /// The thumb width
-      /// </summary>
-      private const double THUMB_WIDTH            = 45;
-
       /// <summary>
       /// The current value property
       /// </summary>
@@ -125,109 +97,164 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          );
 
       /// <summary>
+      /// The margin side
+      /// </summary>
+      private const double MARGIN_SIDE = 5;
+
+      /// <summary>
+      /// The minimum possible width
+      /// </summary>
+      private const double MINIMUM_POSSIBLE_WIDTH = 200;
+
+      /// <summary>
+      /// The remarks height
+      /// </summary>
+      private const double REMARKS_HEIGHT = 20;
+
+      /// <summary>
+      /// The slider height
+      /// </summary>
+      private const double SLIDER_HEIGHT = 10;
+
+      /// <summary>
+      /// The thumb height
+      /// </summary>
+      private const double THUMB_HEIGHT = 30;
+
+      /// <summary>
+      /// The thumb width
+      /// </summary>
+      private const double THUMB_WIDTH = 45;
+
+      /// <summary>
       /// The end color
       /// </summary>
-      private readonly Color          _endColor;
+      private readonly Color _endColor;
+
       /// <summary>
       /// The ending remarks
       /// </summary>
-      private readonly string         _endingRemarks;
+      private readonly string _endingRemarks;
+
       /// <summary>
       /// The font family
       /// </summary>
-      private readonly string         _fontFamily;
+      private readonly string _fontFamily;
+
       /// <summary>
       /// The maximum value
       /// </summary>
-      private readonly double         _maxValue;
+      private readonly double _maxValue;
+
       /// <summary>
       /// The minimum value
       /// </summary>
-      private readonly double         _minValue;
+      private readonly double _minValue;
+
       /// <summary>
       /// The number format
       /// </summary>
-      private readonly string         _numberFormat;
+      private readonly string _numberFormat;
+
       /// <summary>
       /// The remarks font attributes
       /// </summary>
       private readonly FontAttributes _remarksFontAttributes;
+
       /// <summary>
       /// The remarks font size
       /// </summary>
-      private readonly double         _remarksFontSize;
+      private readonly double _remarksFontSize;
+
       /// <summary>
       /// The remarks text color
       /// </summary>
-      private readonly Color          _remarksTextColor;
+      private readonly Color _remarksTextColor;
+
       /// <summary>
       /// The start color
       /// </summary>
-      private readonly Color          _startColor;
+      private readonly Color _startColor;
+
       /// <summary>
       /// The starting remarks
       /// </summary>
-      private readonly string         _startingRemarks;
+      private readonly string _startingRemarks;
+
       /// <summary>
       /// The step
       /// </summary>
-      private readonly double         _step;
+      private readonly double _step;
+
       /// <summary>
       /// The thumb color
       /// </summary>
-      private readonly Color          _thumbColor;
+      private readonly Color _thumbColor;
+
       /// <summary>
       /// The thumb font attributes
       /// </summary>
       private readonly FontAttributes _thumbFontAttributes;
+
       /// <summary>
       /// The thumb font size
       /// </summary>
-      private readonly double         _thumbFontSize;
+      private readonly double _thumbFontSize;
+
       /// <summary>
       /// The thumb text color
       /// </summary>
-      private readonly Color          _thumbTextColor;
+      private readonly Color _thumbTextColor;
+
       /// <summary>
       /// The go to next step entered
       /// </summary>
-      private volatile bool           _goToNextStepEntered;
+      private volatile bool _goToNextStepEntered;
+
       /// <summary>
       /// The handle thumb movement entered
       /// </summary>
-      private volatile bool           _handleThumbMovementEntered;
+      private volatile bool _handleThumbMovementEntered;
+
       /// <summary>
       /// The last thumb position
       /// </summary>
-      private double         _lastThumbPosition;
+      private double _lastThumbPosition;
+
       /// <summary>
       /// The last value
       /// </summary>
-      private double         _lastVal;
+      private double _lastVal;
+
       /// <summary>
       /// The last width change
       /// </summary>
-      private DateTime       _lastWidthChange;
+      private DateTime _lastWidthChange;
+
       /// <summary>
       /// The slider
       /// </summary>
-      private PancakeView    _slider;
+      private PancakeView _slider;
+
       /// <summary>
       /// The slider grid
       /// </summary>
-      private ResizableGrid  _sliderGrid;
+      private ResizableGrid _sliderGrid;
+
       /// <summary>
       /// The thumb canvas
       /// </summary>
       private AbsoluteLayout _thumbCanvas;
+
       /// <summary>
       /// The thumb x
       /// </summary>
-      private double         _thumbX;
+      private double _thumbX;
+
       /// <summary>
       /// The verify legal current value entered
       /// </summary>
-      private volatile bool           _verifyLegalCurrentValueEntered;
+      private volatile bool _verifyLegalCurrentValueEntered;
 
       /// <summary>
       /// Initializes a new instance of the <see cref="NumericSlider" /> class.
@@ -264,36 +291,36 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="viewModelPropertyName">Name of the view model property.</param>
       public NumericSlider
       (
-         Color           endColor,
-         string          endingRemarks,
-         string          fontFamily,
-         double          maxValue,
-         double          minValue,
-         string          numberFormat,
-         FontAttributes  remarksFontAttributes,
-         double          remarksFontSize,
-         Color           remarksTextColor,
-         Color           startColor,
-         string          startingRemarks,
-         double          step,
-         Color           thumbColor,
-         FontAttributes  thumbFontAttributes,
-         double          thumbFontSize,
-         Color           thumbTextColor,
-         double?         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode     bindingMode                        = BindingMode.TwoWay,
-         IValueConverter converter                          = null,
-         object          converterParameter                 = null,
-         string          fontFamilyOverride                 = "",
-         string          instructions                       = "",
-         double?         instructionsHeight                 = INSTRUCTIONS_HEIGHT,
-         string          placeholder                        = "",
-         double?         placeholderHeight                  = PLACEHOLDER_HEIGHT,
-         bool            showInstructionsOrValidations      = false,
-         bool            showValidationErrorsAsInstructions = true,
-         string          stringFormat                       = null,
-         ICanBeValid     validator                          = null,
-         string          viewModelPropertyName              = ""
+         Color endColor,
+         string endingRemarks,
+         string fontFamily,
+         double maxValue,
+         double minValue,
+         string numberFormat,
+         FontAttributes remarksFontAttributes,
+         double remarksFontSize,
+         Color remarksTextColor,
+         Color startColor,
+         string startingRemarks,
+         double step,
+         Color thumbColor,
+         FontAttributes thumbFontAttributes,
+         double thumbFontSize,
+         Color thumbTextColor,
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         string fontFamilyOverride = "",
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         ICanBeValid validator = null,
+         string viewModelPropertyName = ""
       )
          : base
          (
@@ -314,22 +341,22 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             viewModelPropertyName
          )
       {
-         _endColor              = endColor;
-         _endingRemarks         = endingRemarks;
-         _fontFamily            = fontFamily;
-         _maxValue              = maxValue;
-         _minValue              = minValue;
-         _numberFormat          = numberFormat;
+         _endColor = endColor;
+         _endingRemarks = endingRemarks;
+         _fontFamily = fontFamily;
+         _maxValue = maxValue;
+         _minValue = minValue;
+         _numberFormat = numberFormat;
          _remarksFontAttributes = remarksFontAttributes;
-         _remarksFontSize       = remarksFontSize;
-         _remarksTextColor      = remarksTextColor;
-         _startColor            = startColor;
-         _startingRemarks       = startingRemarks;
-         _step                  = step;
-         _thumbColor            = thumbColor;
-         _thumbFontAttributes   = thumbFontAttributes;
-         _thumbFontSize         = thumbFontSize;
-         _thumbTextColor        = thumbTextColor;
+         _remarksFontSize = remarksFontSize;
+         _remarksTextColor = remarksTextColor;
+         _startColor = startColor;
+         _startingRemarks = startingRemarks;
+         _step = step;
+         _thumbColor = thumbColor;
+         _thumbFontAttributes = thumbFontAttributes;
+         _thumbFontSize = thumbFontSize;
+         _thumbTextColor = thumbTextColor;
 
          //Padding = SLIDER_PADDING;
 
@@ -338,6 +365,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                                           ": The minimum values must be less than the maximum value");
 
          CallCreateViews();
+      }
+
+      /// <summary>
+      /// Gets or sets the current value.
+      /// </summary>
+      /// <value>The current value.</value>
+      public double CurrentValue
+      {
+         get => (double)GetValue(CurrentValueProperty);
+         set => SetValue(CurrentValueProperty, value);
       }
 
       /// <summary>
@@ -352,10 +389,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             {
                _sliderGrid = new ResizableGrid
                {
-                  BackgroundColor   = Color.Transparent,
-                  VerticalOptions   = LayoutOptions.CenterAndExpand,
+                  BackgroundColor = Color.Transparent,
+                  VerticalOptions = LayoutOptions.CenterAndExpand,
                   HorizontalOptions = LayoutOptions.FillAndExpand,
-                  InputTransparent  = false
+                  InputTransparent = false
                };
 
                _sliderGrid.GestureRecognizers.Clear();
@@ -372,15 +409,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
                _slider = new PancakeView
                {
-                  BackgroundGradientStartColor = _startColor,
-                  BackgroundGradientEndColor   = _endColor,
-                  BackgroundGradientAngle      = 270,
-                  CornerRadius                 = 3,
-                  Sides                        = 4,
-                  HeightRequest                = SLIDER_HEIGHT,
-                  VerticalOptions              = LayoutOptions.Center,
-                  HorizontalOptions            = LayoutOptions.FillAndExpand,
-                  InputTransparent             = false
+                  // LOST THIS WHEN PANCAKE VIEW 2.0 CAME OUT
+                  //BackgroundGradientStartColor = _startColor,
+                  //BackgroundGradientEndColor   = _endColor,
+                  //BackgroundGradientAngle      = 270,
+                  CornerRadius = 3,
+                  Sides = 4,
+                  HeightRequest = SLIDER_HEIGHT,
+                  VerticalOptions = LayoutOptions.Center,
+                  HorizontalOptions = LayoutOptions.FillAndExpand,
+                  InputTransparent = false
                };
 
                _slider.GestureRecognizers.Clear();
@@ -415,13 +453,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                panGesture.PanUpdated += HandleThumbMovement;
                Thumb.GestureRecognizers.Add(panGesture);
 
-               _thumbCanvas                  = FormsUtils.GetExpandingAbsoluteLayout();
+               _thumbCanvas = FormsUtils.GetExpandingAbsoluteLayout();
                _thumbCanvas.InputTransparent = false;
                _thumbCanvas.GestureRecognizers.Clear();
                _thumbCanvas.GestureRecognizers.Add(new TapGestureRecognizer());
                _thumbCanvas.Children.Add(Thumb);
 
-               _sliderGrid.AddAndSetRowsAndColumns(_slider,      1, 1, colSpan: 2);
+               _sliderGrid.AddAndSetRowsAndColumns(_slider, 1, 1, colSpan: 2);
                _sliderGrid.AddAndSetRowsAndColumns(_thumbCanvas, 1, 1, colSpan: 2);
 
                var startingRemarksLabel =
@@ -439,7 +477,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   );
 
                startingRemarksLabel.VerticalTextAlignment = TextAlignment.Start;
-               startingRemarksLabel.VerticalOptions       = LayoutOptions.Start;
+               startingRemarksLabel.VerticalOptions = LayoutOptions.Start;
                _sliderGrid.AddAndSetRowsAndColumns(startingRemarksLabel, 2, 1);
 
                var endingRemarksLabel =
@@ -457,7 +495,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   );
 
                endingRemarksLabel.VerticalTextAlignment = TextAlignment.Start;
-               endingRemarksLabel.VerticalOptions       = LayoutOptions.Start;
+               endingRemarksLabel.VerticalOptions = LayoutOptions.Start;
                _sliderGrid.AddAndSetRowsAndColumns(endingRemarksLabel, 2, 2);
             }
 
@@ -471,12 +509,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                         Debug.WriteLine("Slider grid width is now ->" + val + "<-");
 
                         // var canvasRect = new Rectangle(0, 0, val, CANVAS_HEIGHT);
-                        _slider.WidthRequest = val                                     -
+                        _slider.WidthRequest = val -
                                                _sliderGrid.Padding.HorizontalThickness -
                                                _slider.Margin.HorizontalThickness;
 
                         // await _slider.LayoutTo()
-                        _thumbCanvas.WidthRequest = val                                     -
+                        _thumbCanvas.WidthRequest = val -
                                                     _sliderGrid.Padding.HorizontalThickness -
                                                     _thumbCanvas.Margin.HorizontalThickness;
                         _lastVal = val;
@@ -489,6 +527,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             return _sliderGrid;
          }
       }
+
+      /// <summary>
+      /// Gets the thumb.
+      /// </summary>
+      /// <value>The thumb.</value>
+      public ShapeView Thumb { get; private set; }
 
       /// <summary>
       /// Gets a value indicating whether [derived view is focused].
@@ -513,13 +557,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// Gets a value indicating whether [user has entered valid content].
       /// </summary>
       /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
-      protected override bool   UserHasEnteredValidContent => true;
+      protected override bool UserHasEnteredValidContent => true;
 
       /// <summary>
       /// Gets a step range.
       /// </summary>
       /// <value>a step range.</value>
-      private double A_StepRange                => _maxValue - _minValue + _step;
+      private double A_StepRange => _maxValue - _minValue + _step;
 
       /// <summary>
       /// Gets the b net range without thumb.
@@ -534,22 +578,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private double C_EachStepAsPixels => B_NetRangeWithoutThumb / A_StepRange;
 
       /// <summary>
-      /// Gets or sets the current value.
-      /// </summary>
-      /// <value>The current value.</value>
-      public double CurrentValue
-      {
-         get => (double) GetValue(CurrentValueProperty);
-         set => SetValue(CurrentValueProperty, value);
-      }
-
-      /// <summary>
-      /// Gets the thumb.
-      /// </summary>
-      /// <value>The thumb.</value>
-      public ShapeView Thumb { get; private set; }
-
-      /// <summary>
       /// Validatables the numeric slider bindable property.
       /// </summary>
       /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
@@ -560,9 +588,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty ValidatableNumericSliderBindableProperty<PropertyTypeT>
       (
-         string                                              localPropName,
-         PropertyTypeT                                       defaultVal     = default,
-         BindingMode                                         bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<NumericSlider, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {
@@ -587,17 +615,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             return;
          }
 
-         var nextPercent   = proposedTranslationX / B_NetRangeWithoutThumb;
-         var nextRoughStep = nextPercent          * A_StepRange;
+         var nextPercent = proposedTranslationX / B_NetRangeWithoutThumb;
+         var nextRoughStep = nextPercent * A_StepRange;
          var truncatedStep = Math.Truncate(nextRoughStep);
-         var partialStep   = nextRoughStep - truncatedStep;
+         var partialStep = nextRoughStep - truncatedStep;
 
          var increasing = partialStep.IsGreaterThan(0);
 
          var nextStep =
             increasing
                ? Math.Min(_maxValue, truncatedStep + _step)
-               : Math.Max(_step, truncatedStep     - _step);
+               : Math.Max(_step, truncatedStep - _step);
 
          VerifyAndSetCurrentValue(nextStep);
 

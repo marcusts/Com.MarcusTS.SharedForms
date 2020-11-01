@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, EnumPicker.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -49,10 +45,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <summary>
    /// Class EnumPicker.
    /// Implements the <see cref="Xamarin.Forms.Picker" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumPicker" />
+   /// Implements the <see cref="IEnumPicker" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Picker" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumPicker" />
+   /// <seealso cref="IEnumPicker" />
    public class EnumPicker : Picker, IEnumPicker
    {
       /// <summary>
@@ -83,9 +79,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="currentEnumStrBindingPropertyName">Name of the current enum string binding property.</param>
       /// <param name="validator">The validator.</param>
       public EnumPicker(
-         Type     enumType,
-         string   currentEnumBindingPropertyName,
-         string   currentEnumStrBindingPropertyName,
+         Type enumType,
+         string currentEnumBindingPropertyName,
+         string currentEnumStrBindingPropertyName,
          Behavior validator = null)
       {
          // ErrorUtils.ConsiderArgumentError(enumType.IsEnum, nameof(EnumPicker) + ": Must supply an enum type.");
@@ -138,9 +134,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateEnumPickerBindableProperty<PropertyTypeT>
       (
-         string                                           localPropName,
-         PropertyTypeT                                    defaultVal     = default,
-         BindingMode                                      bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<EnumPicker, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {
@@ -166,7 +162,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          if (viewValidator.IsNotNullOrDefault())
          {
             // ReSharper disable once PossibleNullReferenceException
-            viewValidator.Revalidate();
+            viewValidator.RevalidateEditorText();
          }
       }
 

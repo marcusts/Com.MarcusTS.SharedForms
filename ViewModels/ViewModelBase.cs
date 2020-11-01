@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ViewModelBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,11 +20,9 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
-   using Annotations;
+   using Common.Annotations;
    using Common.Interfaces;
    using SharedUtils.Utils;
    using System.ComponentModel;
@@ -34,10 +30,10 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// Interface IViewModelBase
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.IAmBusy" />
+   /// Implements the <see cref="IAmBusy" />
    /// Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.IAmBusy" />
+   /// <seealso cref="IAmBusy" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IViewModelBase : IAmBusy, INotifyPropertyChanged
    {
@@ -45,9 +41,9 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// The base class for all view models
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+   /// Implements the <see cref="IViewModelBase" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
+   /// <seealso cref="IViewModelBase" />
    public abstract class ViewModelBase : IViewModelBase
    {
       /// <summary>

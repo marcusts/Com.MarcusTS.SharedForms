@@ -1,5 +1,3 @@
-#region License
-
 // Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, StatefulViewModelCommand.cs, is a part of a program called AccountViewMobile.
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Commands
 {
    using Notifications;
@@ -34,20 +30,20 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
    /// <summary>
    /// This command remains in state whenever there are property changes for a page.
    /// It is also well-behaved on changes to OnNotifyPageCanBeSavedChanged.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Commands.IViewModelCommand" />
+   /// Implements the <see cref="IViewModelCommand" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Commands.IViewModelCommand" />
+   /// <seealso cref="IViewModelCommand" />
    public interface IStatefulViewModelCommand : IViewModelCommand
    {
    }
 
    /// <summary>
    /// Class StatefulViewModelCommand.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Commands.ViewModelCommand" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Commands.IStatefulViewModelCommand" />
+   /// Implements the <see cref="ViewModelCommand" />
+   /// Implements the <see cref="IStatefulViewModelCommand" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Commands.ViewModelCommand" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Commands.IStatefulViewModelCommand" />
+   /// <seealso cref="ViewModelCommand" />
+   /// <seealso cref="IStatefulViewModelCommand" />
    public class StatefulViewModelCommand : ViewModelCommand, IStatefulViewModelCommand
    {
       /// <summary>
@@ -65,8 +61,8 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
       /// <param name="canExecute">The can execute.</param>
       public StatefulViewModelCommand
       (
-         Action                        action,
-         IStatefulViewModel            viewModel,
+         Action action,
+         IStatefulViewModel viewModel,
          Predicate<IStatefulViewModel> canExecute = null
       )
          : base
@@ -108,7 +104,7 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
       /// <param name="args">The arguments.</param>
       private void OnNotifyPageCanBeSavedChanged
       (
-         object                             sender,
+         object sender,
          NotifyPageCanBeSavedChangedMessage args
       )
       {

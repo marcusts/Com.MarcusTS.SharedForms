@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidatablePicker.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,29 +20,8 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
-// MIT License
-
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
-// Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// ***********************************************************************
-
-// #define USE_BACK_COLOR
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using Common.Behaviors;
    using Common.Converters;
    using Common.Interfaces;
    using Common.Utils;
@@ -55,9 +32,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IValidatablePicker Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// Implements the <see cref="IValidatableView" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// <seealso cref="IValidatableView" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IValidatablePicker : IValidatableView
    {
@@ -70,30 +47,33 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// A UI element that includes an Picker surrounded by a border. Implements the <see cref="Xamarin.Forms.Grid" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatablePicker" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// Implements the <see cref="IValidatablePicker" />
+   /// Implements the <see cref="ValidatableViewBase" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// <seealso cref="ValidatableViewBase" />
    /// <seealso cref="Xamarin.Forms.Grid" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatablePicker" />
+   /// <seealso cref="IValidatablePicker" />
    public class ValidatablePicker : ValidatableViewBase, IValidatablePicker
    {
       /// <summary>
       /// The font size
       /// </summary>
       private readonly double? _fontSize;
+
       /// <summary>
       /// The items
       /// </summary>
-      private readonly IList   _items;
+      private readonly IList _items;
+
       /// <summary>
       /// The editable picker
       /// </summary>
-      private Picker  _editablePicker;
+      private Picker _editablePicker;
+
       /// <summary>
       /// The view model property name
       /// </summary>
-      private string  _viewModelPropertyName;
+      private string _viewModelPropertyName;
 
       /// <summary>
       /// Initializes a new instance of the <see cref="ValidatablePicker" /> class.
@@ -120,28 +100,28 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="isNumeric">if set to <c>true</c> [is numeric].</param>
       public ValidatablePicker
       (
-         IList           items,
-         double?         borderViewHeight       = BORDER_VIEW_HEIGHT,
-         BindingMode     bindingMode            = BindingMode.TwoWay,
-         IValueConverter converter              = null,
-         object          converterParameter     = null,
-         bool            emptyAllowed           = false,
-         string          fontFamilyOverride     = "",
-         double?         fontSize               = null,
-         string          instructions           = "",
-         double?         instructionsHeight     = INSTRUCTIONS_HEIGHT,
-         Action          onIsValidChangedAction = null,
-         string          placeholder            = "",
-         double?         placeholderHeight      = PLACEHOLDER_HEIGHT,
+         IList items,
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         bool emptyAllowed = false,
+         string fontFamilyOverride = "",
+         double? fontSize = null,
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         Action onIsValidChangedAction = null,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
 
          // For returning strings as numeric
-         bool        returnAsNumeric                    = false,
-         bool        showInstructionsOrValidations      = false,
-         bool        showValidationErrorsAsInstructions = true,
-         string      stringFormat                       = null,
-         ICanBeValid validator                          = null,
-         string      viewModelPropertyName              = "",
-         bool        isNumeric                          = false
+         bool returnAsNumeric = false,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         ICanBeValid validator = null,
+         string viewModelPropertyName = "",
+         bool isNumeric = false
       )
          : base
          (
@@ -150,7 +130,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             bindingMode,
             returnAsNumeric
                ? new StringToNumericConverter
-                  {ConvertBackFunc = ValidatableNumericEntry.NumericConverterFromNumericType(validator)}
+               { ConvertBackFunc = ValidatableNumericEntry.NumericConverterFromNumericType(validator) }
                : converter,
             returnAsNumeric ? null : converterParameter,
             fontFamilyOverride,
@@ -162,21 +142,26 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             showValidationErrorsAsInstructions,
             stringFormat,
             validator
-          ??
-            new ViewValidationBehavior
-               (
-                  view => view is IValidatablePicker viewAsValidatablePicker
-                             ? viewAsValidatablePicker.EditablePicker.SelectedItem
-                             : default,
-                  onIsValidChangedAction
-               )
-               {EmptyAllowed = emptyAllowed, IsNumeric = isNumeric},
-            viewModelPropertyName
+
+         //,
+
+         //  validator
+         //??
+         //  new ViewValidationBehavior
+         //     (
+         //        view => view is IValidatablePicker viewAsValidatablePicker
+         //                   ? viewAsValidatablePicker.EditablePicker.SelectedItem
+         //                   : default,
+         //        onIsValidChangedAction
+         //     )
+         //     {EmptyAllowed = emptyAllowed, IsNumeric = isNumeric},
+
+         // viewModelPropertyName
          )
       {
-         BackgroundColor        = Color.Transparent;
-         _fontSize              = fontSize;
-         _items                 = items;
+         BackgroundColor = Color.Transparent;
+         _fontSize = fontSize;
+         _items = items;
          _viewModelPropertyName = viewModelPropertyName;
 
          if (EditablePicker.IsNotNullOrDefault())
@@ -185,6 +170,58 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
 
          CallCreateViews();
+      }
+
+      /// <summary>
+      /// Gets the editable picker.
+      /// </summary>
+      /// <value>The editable picker.</value>
+      public Picker EditablePicker
+      {
+         get
+         {
+            if (_editablePicker.IsNullOrDefault())
+            {
+               _editablePicker = new Picker
+               {
+                  FontSize = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE,
+                  ItemsSource = _items
+               };
+
+#if USE_BACK_COLOR
+               BackgroundColor = Color.PaleGreen;
+#else
+               _editablePicker.BackgroundColor = Color.Transparent;
+#endif
+
+               //_editablePicker.SelectedIndexChanged +=
+               //   async (sender, args) =>
+               //   {
+               //      // CallRevalidate();
+
+               //      // IOS conversation editor -- destroys the editor
+               //      // await ResetPlaceholderPosition().WithoutChangingContext();
+               //   };
+
+               /*
+               _editablePicker.PropertyChanged +=
+                  async (sender, args) =>
+                  {
+                     if (args.PropertyName.IsSameAs(Picker.SelectedItemProperty.PropertyName))
+                     {
+                        // BUG - IOS crashing here
+                        Device.BeginInvokeOnMainThread(async () =>
+                                                       {
+                                                          CallRevalidate();
+                                                          await ResetPlaceholderPosition().WithoutChangingContext();
+                                                       });
+                     }
+                  };
+               */
+            }
+
+            return _editablePicker;
+         }
       }
 
       /// <summary>
@@ -210,42 +247,5 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
       protected override bool UserHasEnteredValidContent => EditablePicker.SelectedItem.IsNotNullOrDefault();
-
-      /// <summary>
-      /// Gets the editable picker.
-      /// </summary>
-      /// <value>The editable picker.</value>
-      public Picker EditablePicker
-      {
-         get
-         {
-            if (_editablePicker.IsNullOrDefault())
-            {
-               _editablePicker = new Picker
-               {
-                  FontSize    = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE,
-                  ItemsSource = _items
-               };
-
-#if USE_BACK_COLOR
-               BackgroundColor = Color.PaleGreen;
-#else
-               _editablePicker.BackgroundColor = Color.Transparent;
-#endif
-
-               _editablePicker.PropertyChanged +=
-                  async (sender, args) =>
-                  {
-                     if (args.PropertyName.IsSameAs(Picker.SelectedItemProperty.PropertyName))
-                     {
-                        CallRevalidate();
-                        await ResetPlaceholderPosition().WithoutChangingContext();
-                     }
-                  };
-            }
-
-            return _editablePicker;
-         }
-      }
    }
 }

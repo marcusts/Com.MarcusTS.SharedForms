@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ThreadSafeAccessor.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -48,11 +44,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Class ThreadSafeAccessor.
-   /// Implements the <see cref="SharedForms.Views.Controls.IThreadSafeAccessor" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IThreadSafeAccessor" />
+   /// Implements the <see cref="IThreadSafeAccessor" />
+   /// Implements the <see cref="IThreadSafeAccessor" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IThreadSafeAccessor" />
-   /// <seealso cref="SharedForms.Views.Controls.IThreadSafeAccessor" />
+   /// <seealso cref="IThreadSafeAccessor" />
+   /// <seealso cref="IThreadSafeAccessor" />
    public class ThreadSafeAccessor : IThreadSafeAccessor
    {
       /// <summary>

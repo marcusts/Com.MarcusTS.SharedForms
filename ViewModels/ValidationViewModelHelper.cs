@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidationViewModelHelper.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 #define FORCE_REVALIDATION
 
@@ -47,52 +43,57 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// Interface IValidationViewModelHelper
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IBindableViewModel" />
+   /// Implements the <see cref="IBindableViewModel" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IBindableViewModel" />
+   /// <seealso cref="IBindableViewModel" />
    public interface IValidationViewModelHelper : IBindableViewModel
    {
-      /// <summary>
-      /// Gets a value indicating whether [any property value has changed].
-      /// </summary>
-      /// <value><c>true</c> if [any property value has changed]; otherwise, <c>false</c>.</value>
-      bool AnyPropertyValueHasChanged            { get; }
-      /// <summary>
-      /// Gets or sets a value indicating whether [multiple sub helpers must all validate true].
-      /// </summary>
-      /// <value><c>true</c> if [multiple sub helpers must all validate true]; otherwise, <c>false</c>.</value>
-      bool MultipleSubHelpersMustAllValidateTrue { get; set; }
-      /// <summary>
-      /// Gets or sets a value indicating whether [page is never valid].
-      /// </summary>
-      /// <value><c>true</c> if [page is never valid]; otherwise, <c>false</c>.</value>
-      bool PageIsNeverValid                      { get; set; }
-      /// <summary>
-      /// Gets a value indicating whether [page is valid].
-      /// </summary>
-      /// <value><c>true</c> if [page is valid]; otherwise, <c>false</c>.</value>
-      bool PageIsValid                           { get; }
-      /// <summary>
-      /// Gets a value indicating whether [proceed without property changes].
-      /// </summary>
-      /// <value><c>true</c> if [proceed without property changes]; otherwise, <c>false</c>.</value>
-      bool ProceedWithoutPropertyChanges         { get; }
-      /// <summary>
-      /// Gets or sets a value indicating whether [validates true when empty].
-      /// </summary>
-      /// <value><c>true</c> if [validates true when empty]; otherwise, <c>false</c>.</value>
-      bool ValidatesTrueWhenEmpty                { get; set; }
-
       /// <summary>
       /// Occurs when [page is valid changed].
       /// </summary>
       event EventUtils.GenericDelegate<bool> PageIsValidChanged;
 
       /// <summary>
+      /// Gets a value indicating whether [any property value has changed].
+      /// </summary>
+      /// <value><c>true</c> if [any property value has changed]; otherwise, <c>false</c>.</value>
+      bool AnyPropertyValueHasChanged { get; }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether [multiple sub helpers must all validate true].
+      /// </summary>
+      /// <value><c>true</c> if [multiple sub helpers must all validate true]; otherwise, <c>false</c>.</value>
+      bool MultipleSubHelpersMustAllValidateTrue { get; set; }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether [page is never valid].
+      /// </summary>
+      /// <value><c>true</c> if [page is never valid]; otherwise, <c>false</c>.</value>
+      bool PageIsNeverValid { get; set; }
+
+      /// <summary>
+      /// Gets a value indicating whether [page is valid].
+      /// </summary>
+      /// <value><c>true</c> if [page is valid]; otherwise, <c>false</c>.</value>
+      bool PageIsValid { get; }
+
+      /// <summary>
+      /// Gets a value indicating whether [proceed without property changes].
+      /// </summary>
+      /// <value><c>true</c> if [proceed without property changes]; otherwise, <c>false</c>.</value>
+      bool ProceedWithoutPropertyChanges { get; }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether [validates true when empty].
+      /// </summary>
+      /// <value><c>true</c> if [validates true when empty]; otherwise, <c>false</c>.</value>
+      bool ValidatesTrueWhenEmpty { get; set; }
+
+      /// <summary>
       /// Adds the behaviors.
       /// </summary>
       /// <param name="behaviors">The behaviors.</param>
-      void AddBehaviors(ICanBeValid[]                              behaviors);
+      void AddBehaviors(ICanBeValid[] behaviors);
 
       /// <summary>
       /// Adds the sub view model helpers.
@@ -104,7 +105,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// Gets the behaviors.
       /// </summary>
       /// <returns>ICanBeValid[].</returns>
-      ICanBeValid[]                          GetBehaviors();
+      ICanBeValid[] GetBehaviors();
 
       /// <summary>
       /// Kills the behaviors.
@@ -121,7 +122,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// Revalidates the behaviors.
       /// </summary>
       /// <param name="forceAll">if set to <c>true</c> [force all].</param>
-      void RevalidateBehaviors(bool                                   forceAll);
+      void RevalidateBehaviors(bool forceAll);
 
       /// <summary>
       /// Revalidates the behaviors.
@@ -131,11 +132,11 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// Class ValidationViewModelHelper.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.BindableViewModel" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IValidationViewModelHelper" />
+   /// Implements the <see cref="BindableViewModel" />
+   /// Implements the <see cref="IValidationViewModelHelper" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.BindableViewModel" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IValidationViewModelHelper" />
+   /// <seealso cref="BindableViewModel" />
+   /// <seealso cref="IValidationViewModelHelper" />
    public class ValidationViewModelHelper : BindableViewModel, IValidationViewModelHelper
    {
       /// <summary>
@@ -153,14 +154,17 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// Any property value has changed
       /// </summary>
       private volatile bool _anyPropertyValueHasChanged;
+
       /// <summary>
       /// The page is never valid
       /// </summary>
       private volatile bool _pageIsNeverValid;
+
       /// <summary>
       /// The page is valid
       /// </summary>
       private volatile bool _pageIsValid;
+
       /// <summary>
       /// The revalidate behaviors entered
       /// </summary>
@@ -172,7 +176,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       public ValidationViewModelHelper()
       {
          AnyPropertyValueHasChanged = false;
-         PageIsValid                = ValidatesTrueWhenEmpty;
+         PageIsValid = ValidatesTrueWhenEmpty;
       }
 
       /// <summary>
@@ -231,9 +235,8 @@ namespace Com.MarcusTS.SharedForms.ViewModels
             if (_pageIsValid != value && !PageIsNeverValid)
             {
                _pageIsValid = value;
+               OnPropertyChanged();
                PageIsValidChanged?.Invoke(_pageIsValid);
-
-
             }
          }
       }
@@ -243,11 +246,12 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// </summary>
       /// <value><c>true</c> if [proceed without property changes]; otherwise, <c>false</c>.</value>
       public bool ProceedWithoutPropertyChanges { get; protected set; }
+
       /// <summary>
       /// Gets or sets a value indicating whether [validates true when empty].
       /// </summary>
       /// <value><c>true</c> if [validates true when empty]; otherwise, <c>false</c>.</value>
-      public bool ValidatesTrueWhenEmpty        { get; set; }
+      public bool ValidatesTrueWhenEmpty { get; set; }
 
       /// <summary>
       /// Adds the behaviors.
@@ -261,14 +265,13 @@ namespace Com.MarcusTS.SharedForms.ViewModels
             {
                // Start at NULL
                behavior.Neutralize();
-               behavior.Revalidate();
+               behavior.RevalidateEditorText();
                behavior.IsValidChanged += b => { RevalidateBehaviors(); };
                _behaviors.Add(behavior);
             }
          }
 
-         PageIsValid = _behaviors.IsEmpty() || _behaviors.All(b => b.IsValid.IsTrue());
-         // RevalidateBehaviors();
+         SetPageIsValid();
       }
 
       /// <summary>
@@ -348,12 +351,12 @@ namespace Com.MarcusTS.SharedForms.ViewModels
                {
                   foreach (var behavior in _behaviors)
                   {
-                     behavior.Revalidate();
+                     behavior.RevalidateEditorText();
                   }
                }
             }
 
-            PageIsValid = _behaviors.IsEmpty() || _behaviors.All(b => b.IsValid.IsTrue());
+            SetPageIsValid();
          }
 
          _revalidateBehaviorsEntered = false;
@@ -378,6 +381,25 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// </summary>
       protected virtual void OnAnyPropertyValueHasChanged()
       {
+      }
+
+      private void SetPageIsValid()
+      {
+         var allBehaviorsAreValid = true;
+
+         if (_behaviors.IsNotAnEmptyList())
+         {
+            foreach (var behavior in _behaviors)
+            {
+               if (behavior.IsValid.HasValue && !behavior.IsValid.GetValueOrDefault())
+               {
+                  allBehaviorsAreValid = false;
+                  break;
+               }
+            }
+         }
+
+         PageIsValid = allBehaviorsAreValid;
       }
    }
 }

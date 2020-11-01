@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, StylableLabel.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using Common.Utils;
@@ -33,13 +29,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IStylableLabel
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionStylingHelper" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionProvider" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionAndAlternationProvider" />
+   /// Implements the <see cref="IHaveSelectionStylingHelper" />
+   /// Implements the <see cref="IHaveSelectionProvider" />
+   /// Implements the <see cref="IHaveSelectionAndAlternationProvider" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionStylingHelper" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionProvider" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionAndAlternationProvider" />
+   /// <seealso cref="IHaveSelectionStylingHelper" />
+   /// <seealso cref="IHaveSelectionProvider" />
+   /// <seealso cref="IHaveSelectionAndAlternationProvider" />
    public interface IStylableLabel : IHaveSelectionStylingHelper, IHaveSelectionProvider,
                                      IHaveSelectionAndAlternationProvider
    {
@@ -48,10 +44,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <summary>
    /// Class StylableLabel.
    /// Implements the <see cref="Xamarin.Forms.Label" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IStylableLabel" />
+   /// Implements the <see cref="IStylableLabel" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Label" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IStylableLabel" />
+   /// <seealso cref="IStylableLabel" />
    public class StylableLabel : Label, IStylableLabel
    {
       /// <summary>
@@ -76,11 +72,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>
       /// The am an alternate overridden
       /// </summary>
-      private bool                    _amAnAlternateOverridden;
+      private bool _amAnAlternateOverridden;
+
       /// <summary>
       /// The is selected overridden
       /// </summary>
-      private bool                    _isSelectedOverridden;
+      private bool _isSelectedOverridden;
+
       /// <summary>
       /// The selection style helper
       /// </summary>
@@ -94,6 +92,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          SelectionProvider = selectionProvider;
       }
+
+      /// <summary>
+      /// Occurs when [i am an alternate overridden changed].
+      /// </summary>
+      public event EventUtils.GenericDelegate<bool> IAmAnAlternateOverriddenChanged;
+
+      /// <summary>
+      /// Occurs when [is selected overridden changed].
+      /// </summary>
+      public event EventUtils.GenericDelegate<bool> IsSelectedOverriddenChanged;
 
       /// <summary>
       /// Gets the default alternate deselected stylable label style.
@@ -172,23 +180,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Afters the style applied.
-      /// </summary>
-      public virtual void AfterStyleApplied()
-      {
-      }
-
-      /// <summary>
-      /// Occurs when [i am an alternate overridden changed].
-      /// </summary>
-      public event EventUtils.GenericDelegate<bool> IAmAnAlternateOverriddenChanged;
-
-      /// <summary>
-      /// Occurs when [is selected overridden changed].
-      /// </summary>
-      public event EventUtils.GenericDelegate<bool> IsSelectedOverriddenChanged;
-
-      /// <summary>
       /// Creates the stylable label property.
       /// </summary>
       /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
@@ -225,15 +216,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>Style.</returns>
       public static Style CreateStylableLabelStyle
       (
-         Color?         textColor      = default,
-         Color?         backColor      = default,
-         TextAlignment  textAlignment  = TextAlignment.Center,
-         NamedSize?     fontNamedSize  = default,
-         double         fontSize       = 0.0,
+         Color? textColor = default,
+         Color? backColor = default,
+         TextAlignment textAlignment = TextAlignment.Center,
+         NamedSize? fontNamedSize = default,
+         double fontSize = 0.0,
          FontAttributes fontAttributes = FontAttributes.None,
-         double         width          = 0,
-         double         height         = 0,
-         LineBreakMode  breakMode      = LineBreakMode.WordWrap
+         double width = 0,
+         double height = 0,
+         LineBreakMode breakMode = LineBreakMode.WordWrap
       )
       {
          var retStyle = new Style(typeof(StylableLabel));
@@ -304,6 +295,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
 
          return retStyle;
+      }
+
+      /// <summary>
+      /// Afters the style applied.
+      /// </summary>
+      public virtual void AfterStyleApplied()
+      {
       }
    }
 }

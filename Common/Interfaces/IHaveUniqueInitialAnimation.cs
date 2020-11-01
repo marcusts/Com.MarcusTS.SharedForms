@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, IHaveUniqueInitialAnimation.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
    /// <summary>
@@ -37,6 +33,6 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
       /// The exception would be if the entire stage orientation were to change.  That would reset this Boolean.
       /// </summary>
       /// <value><c>true</c> if this instance has animated in once; otherwise, <c>false</c>.</value>
-      bool HasAnimatedInOnce { get; }
+      bool HasAnimatedInOnce { get; set; }
    }
 }

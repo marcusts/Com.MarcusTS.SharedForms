@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, WebViewWithCloseButton.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using Common.Images;
@@ -41,60 +37,36 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// Gets or sets the close command.
       /// </summary>
       /// <value>The close command.</value>
-      Command CloseCommand    { get; set; }
+      Command CloseCommand { get; set; }
+
       /// <summary>
       /// Gets or sets the color of the theme.
       /// </summary>
       /// <value>The color of the theme.</value>
-      Color ThemeColor      { get; set; }
+      Color ThemeColor { get; set; }
+
       /// <summary>
       /// Gets or sets the theme font family.
       /// </summary>
       /// <value>The theme font family.</value>
       string ThemeFontFamily { get; set; }
+
       /// <summary>
       /// Gets or sets the web URL.
       /// </summary>
       /// <value>The web URL.</value>
-      string WebUrl          { get; set; }
+      string WebUrl { get; set; }
    }
 
    /// <summary>
    /// Class WebViewWithCloseButton.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IWebViewWithCloseButton" />
+   /// Implements the <see cref="ShapeView" />
+   /// Implements the <see cref="IWebViewWithCloseButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IWebViewWithCloseButton" />
+   /// <seealso cref="ShapeView" />
+   /// <seealso cref="IWebViewWithCloseButton" />
    public class WebViewWithCloseButton : ShapeView, IWebViewWithCloseButton
    {
-      /// <summary>
-      /// The close button image path
-      /// </summary>
-      private const string CLOSE_BUTTON_IMAGE_PATH   = SharedImageUtils.IMAGE_PRE_PATH + "close_button.png";
-      /// <summary>
-      /// The close button margin
-      /// </summary>
-      private const double CLOSE_BUTTON_MARGIN       = 4;
-      /// <summary>
-      /// The close button width height
-      /// </summary>
-      private const double CLOSE_BUTTON_WIDTH_HEIGHT = HEADER_HEIGHT - 2 * CLOSE_BUTTON_MARGIN;
-      /// <summary>
-      /// The header height
-      /// </summary>
-      private const double HEADER_HEIGHT             = 48;
-
-      ///// <summary>
-      ///// The web view corner radius
-      ///// </summary>
-      //private const float  WEB_VIEW_CORNER_RADIUS    = 6;
-
-      /// <summary>
-      /// The web view padding
-      /// </summary>
-      private static readonly double WEB_VIEW_PADDING          = 6.0.AdjustForOsAndDevice();
-
       /// <summary>
       /// The close command property
       /// </summary>
@@ -172,17 +144,49 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          );
 
       /// <summary>
+      /// The close button image path
+      /// </summary>
+      private const string CLOSE_BUTTON_IMAGE_PATH = SharedImageUtils.IMAGE_PRE_PATH + "close_button.png";
+
+      /// <summary>
+      /// The close button margin
+      /// </summary>
+      private const double CLOSE_BUTTON_MARGIN = 4;
+
+      /// <summary>
+      /// The close button width height
+      /// </summary>
+      private const double CLOSE_BUTTON_WIDTH_HEIGHT = HEADER_HEIGHT - 2 * CLOSE_BUTTON_MARGIN;
+
+      /// <summary>
+      /// The header height
+      /// </summary>
+      private const double HEADER_HEIGHT = 48;
+
+      ///// <summary>
+      ///// The web view corner radius
+      ///// </summary>
+      //private const float  WEB_VIEW_CORNER_RADIUS    = 6;
+
+      /// <summary>
+      /// The web view padding
+      /// </summary>
+      private static readonly double WEB_VIEW_PADDING = 6.0.AdjustForOsAndDevice();
+
+      /// <summary>
       /// The web view
       /// </summary>
       private readonly WebView _webView;
+
       /// <summary>
       /// The theme color
       /// </summary>
-      private Color   _themeColor = Color.Black;
+      private Color _themeColor = Color.Black;
+
       /// <summary>
       /// The web URL
       /// </summary>
-      private string  _webUrl;
+      private string _webUrl;
 
       /// <summary>
       /// Initializes a new instance of the <see cref="WebViewWithCloseButton" /> class.
@@ -212,20 +216,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                               };
          closeButtonImage.GestureRecognizers.Add(tapGesture);
          closeButtonImage.HorizontalOptions = LayoutOptions.Center;
-         closeButtonImage.VerticalOptions   = LayoutOptions.Center;
+         closeButtonImage.VerticalOptions = LayoutOptions.Center;
          headerGrid.Children.Add(closeButtonImage);
          Grid.SetColumn(closeButtonImage, 1);
 
          masterGrid.Children.Add(headerGrid);
          Grid.SetRow(headerGrid, 0);
 
-         _webView = new WebView {BackgroundColor = Color.Transparent, Margin = WEB_VIEW_PADDING};
+         _webView = new WebView { BackgroundColor = Color.Transparent, Margin = WEB_VIEW_PADDING };
 
          masterGrid.Children.Add(_webView);
          Grid.SetRow(_webView, 1);
 
-         BackgroundColor   = Color.Transparent;
-         CornerRadius      = FormsConst.DEFAULT_CORNER_RADIUS_FIXED;
+         BackgroundColor = Color.Transparent;
+         CornerRadius = FormsConst.DEFAULT_CORNER_RADIUS_FIXED;
          IsClippedToBounds = true;
 
          Content = masterGrid;
@@ -276,7 +280,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                return;
             }
 
-            _webView.Source = new UrlWebViewSource {Url = _webUrl};
+            _webView.Source = new UrlWebViewSource { Url = _webUrl };
          }
       }
 

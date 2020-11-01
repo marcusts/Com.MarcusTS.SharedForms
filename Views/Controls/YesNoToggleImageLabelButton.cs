@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, YesNoToggleImageLabelButton.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    /// <summary>
@@ -35,6 +31,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// The no
       /// </summary>
       No,
+
       /// <summary>
       /// The yes
       /// </summary>
@@ -43,18 +40,18 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IYesNoToggleImageLabelButton
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{Com.MarcusTS.SharedForms.Views.Controls.YesNo}" />
+   /// Implements the <see cref="IEnumToggleImageLabelButton{EnumT}.MarcusTS.SharedForms.Views.Controls.YesNo}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{Com.MarcusTS.SharedForms.Views.Controls.YesNo}" />
+   /// <seealso cref="IEnumToggleImageLabelButton{EnumT}.MarcusTS.SharedForms.Views.Controls.YesNo}" />
    public interface IYesNoToggleImageLabelButton : IEnumToggleImageLabelButton<YesNo>
    {
    }
 
    /// <summary>
    /// Class YesNoToggleImageLabelButton.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase{Com.MarcusTS.SharedForms.Views.Controls.YesNo}" />
+   /// Implements the <see cref="EnumToggleImageLabelButtonBase{EnumT}.MarcusTS.SharedForms.Views.Controls.YesNo}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase{Com.MarcusTS.SharedForms.Views.Controls.YesNo}" />
+   /// <seealso cref="EnumToggleImageLabelButtonBase{EnumT}.MarcusTS.SharedForms.Views.Controls.YesNo}" />
    public class YesNoToggleImageLabelButton : EnumToggleImageLabelButtonBase<YesNo>
    {
    }

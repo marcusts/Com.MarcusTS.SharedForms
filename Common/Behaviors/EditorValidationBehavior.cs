@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, EditorValidationBehavior.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using Interfaces;
@@ -34,10 +30,10 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
    /// <summary>
    /// Interface IEditorValidationBehavior
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid" />
+   /// Implements the <see cref="ICanBeValid" />
    /// Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid" />
+   /// <seealso cref="ICanBeValid" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IEditorValidationBehavior : ICanBeValid, INotifyPropertyChanged
    {
@@ -45,17 +41,20 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Gets or sets the maximum length.
       /// </summary>
       /// <value>The maximum length.</value>
-      int MaxLength      { get; set; }
+      int MaxLength { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum length.
       /// </summary>
       /// <value>The minimum length.</value>
-      int MinLength      { get; set; }
+      int MinLength { get; set; }
+
       /// <summary>
       /// Gets or sets the original text.
       /// </summary>
       /// <value>The original text.</value>
-      string OriginalText   { get; set; }
+      string OriginalText { get; set; }
+
       /// <summary>
       /// Gets or sets a value indicating whether [text must change].
       /// </summary>
@@ -66,28 +65,32 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    /// <summary>
    /// Class EditorValidationBehavior.
    /// Implements the <see cref="Xamarin.Forms.Behavior{Xamarin.Forms.Editor}" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.IEditorValidationBehavior" />
+   /// Implements the <see cref="IEditorValidationBehavior" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Behavior{Xamarin.Forms.Editor}" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.IEditorValidationBehavior" />
+   /// <seealso cref="IEditorValidationBehavior" />
    public class EditorValidationBehavior : Behavior<Editor>, IEditorValidationBehavior
    {
       /// <summary>
       /// The on is valid changed action
       /// </summary>
       private readonly Action _onIsValidChangedAction;
+
       /// <summary>
       /// The editor
       /// </summary>
       private Editor _editor;
+
       /// <summary>
       /// The ignore text changed
       /// </summary>
-      private bool   _ignoreTextChanged;
+      private bool _ignoreTextChanged;
+
       /// <summary>
       /// The is valid
       /// </summary>
-      private bool?  _isValid = Extensions.EmptyNullableBool;
+      private bool? _isValid = Extensions.EmptyNullableBool;
+
       /// <summary>
       /// The last assigned text
       /// </summary>
@@ -103,20 +106,21 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       }
 
       /// <summary>
+      /// Occurs when [is valid changed].
+      /// </summary>
+      public event EventUtils.GenericDelegate<bool?> IsValidChanged;
+
+      /// <summary>
       /// Gets or sets a value indicating whether [do not force mask initially].
       /// </summary>
       /// <value><c>true</c> if [do not force mask initially]; otherwise, <c>false</c>.</value>
       public bool DoNotForceMaskInitially { get; set; }
+
       /// <summary>
       /// Gets a value indicating whether this instance is focused.
       /// </summary>
       /// <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
-      public bool IsFocused               { get; private set; }
-
-      /// <summary>
-      /// Occurs when [is valid changed].
-      /// </summary>
-      public event EventUtils.GenericDelegate<bool?> IsValidChanged;
+      public bool IsEditorFocused { get; private set; }
 
       /// <summary>
       /// Returns true if ... is valid.
@@ -128,7 +132,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
          private set
          {
-            if (_editor == null)
+            if (!OverrideFocusEvents && _editor.IsNullOrDefault())
             {
                _isValid = Extensions.EmptyNullableBool;
                return;
@@ -158,6 +162,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// </summary>
       /// <value>The maximum length.</value>
       public int MaxLength { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum length.
       /// </summary>
@@ -170,31 +175,13 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <value>The original text.</value>
       public string OriginalText { get; set; }
 
+      public bool OverrideFocusEvents { get; set; }
+
       /// <summary>
       /// Gets or sets a value indicating whether [text must change].
       /// </summary>
       /// <value><c>true</c> if [text must change]; otherwise, <c>false</c>.</value>
       public bool TextMustChange { get; set; }
-
-      /// <summary>
-      /// Revalidates this instance.
-      /// </summary>
-      public void Revalidate()
-      {
-         if (_editor == null)
-         {
-            IsValid = Extensions.EmptyNullableBool;
-            return;
-         }
-
-         var isValid = IsEditTextValid(this, _editor.Text);
-         IsValid = isValid;
-      }
-
-      public void Neutralize()
-      {
-         IsValid = default;
-      }
 
       /// <summary>
       /// Minimums an maximum length validator.
@@ -208,6 +195,41 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
             (behavior.MinLength == 0 || currentText.IsNotEmpty() && currentText.Length >= behavior.MinLength)
           &&
             (behavior.MaxLength == 0 || currentText.IsNotEmpty() && currentText.Length <= behavior.MaxLength);
+      }
+
+      public void AttachManually(Editor editor, bool ignoreFocusEvents = false)
+      {
+         OverrideFocusEvents = ignoreFocusEvents;
+      }
+
+      public void ForceTextChangedManually(string newText)
+      {
+         OnTextChanged(this, new TextChangedEventArgs(_lastAssignedText, newText));
+      }
+
+      /// <summary>
+      ///
+      /// </summary>
+      public void Neutralize()
+      {
+         IsValid = default;
+      }
+
+      public void RevalidateDirectText(string text)
+      {
+         var isValid = IsEditTextValid(this, text);
+         IsValid = isValid;
+      }
+
+      public void RevalidateEditorText()
+      {
+         if (_editor.IsNullOrDefault())
+         {
+            IsValid = Extensions.EmptyNullableBool;
+            return;
+         }
+
+         RevalidateDirectText(_editor.Text);
       }
 
       /// <summary>
@@ -226,7 +248,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          // Check against the original text, if any
          if (TextMustChange)
          {
-            return _editor.Text.IsDifferentThan(OriginalText);
+            return currentText.IsDifferentThan(OriginalText);
          }
 
          // DEFAULT
@@ -251,14 +273,18 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       protected override void OnAttachedTo(Editor editor)
       {
          editor.TextChanged += OnTextChanged;
-         editor.Focused     += OnFocused;
-         editor.Unfocused   += OnUnfocused;
+
+         if (!OverrideFocusEvents)
+         {
+            editor.Focused += OnFocused;
+            editor.Unfocused += OnUnfocused;
+         }
 
          base.OnAttachedTo(editor);
 
          _editor = editor;
 
-         Revalidate();
+         RevalidateEditorText();
       }
 
       /// <summary>
@@ -269,8 +295,12 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       protected override void OnDetachingFrom(Editor bindable)
       {
          bindable.TextChanged -= OnTextChanged;
-         bindable.Focused     -= OnFocused;
-         bindable.Unfocused   -= OnUnfocused;
+
+         if (!OverrideFocusEvents)
+         {
+            bindable.Focused -= OnFocused;
+            bindable.Unfocused -= OnUnfocused;
+         }
 
          base.OnDetachingFrom(bindable);
 
@@ -284,11 +314,11 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnFocused
       (
-         object         sender,
+         object sender,
          FocusEventArgs e
       )
       {
-         IsFocused = true;
+         IsEditorFocused = true;
       }
 
       /// <summary>
@@ -298,7 +328,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="TextChangedEventArgs" /> instance containing the event data.</param>
       protected virtual void OnTextChanged
       (
-         object               sender,
+         object sender,
          TextChangedEventArgs e
       )
       {
@@ -317,21 +347,21 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnUnfocused
       (
-         object         sender,
+         object sender,
          FocusEventArgs e
       )
       {
-         IsFocused = false;
+         IsEditorFocused = false;
       }
 
       /// <summary>
-      /// Validates the text.
+      ///    Validates the text.
       /// </summary>
       /// <param name="newText">The new text.</param>
       /// <param name="oldText">The old text.</param>
       private void ValidateText(string newText, string oldText)
       {
-         if (_editor.IsNullOrDefault() || !_editor.IsFocused || newText.IsSameAs(_lastAssignedText))
+         if ((!OverrideFocusEvents && !IsEditorFocused) || newText.IsSameAs(_lastAssignedText))
          {
             return;
          }
@@ -346,14 +376,14 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          {
             _lastAssignedText = newText;
 
-            if (_editor.Text.IsDifferentThan(newText))
+            if (_editor.IsNotNullOrDefault() && _editor.Text.IsDifferentThan(newText))
             {
                _ignoreTextChanged = true;
-               _editor.Text       = newText;
+               _editor.Text = newText;
                _ignoreTextChanged = false;
             }
 
-            Revalidate();
+            RevalidateDirectText(newText);
          }
 
          _lastAssignedText = newText;

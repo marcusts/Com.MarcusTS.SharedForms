@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, IManageCurrentStageSize.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
    using System.Threading.Tasks;
@@ -31,20 +27,20 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
 
    /// <summary>
    /// Interface IManageCurrentStageSize
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.IReceiveParentStageSizeChanges" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.IProvideChildStageBounds" />
+   /// Implements the <see cref="IReceiveParentStageSizeChanges" />
+   /// Implements the <see cref="IProvideChildStageBounds" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.IReceiveParentStageSizeChanges" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.IProvideChildStageBounds" />
+   /// <seealso cref="IReceiveParentStageSizeChanges" />
+   /// <seealso cref="IProvideChildStageBounds" />
    public interface IManageCurrentStageSize : IReceiveParentStageSizeChanges, IProvideChildStageBounds
    {
    }
 
    /// <summary>
    /// Interface IProvideChildStageBounds
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.IProvideParentSizeOrOrientationChangeEvents" />
+   /// Implements the <see cref="IProvideParentSizeOrOrientationChangeEvents" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.IProvideParentSizeOrOrientationChangeEvents" />
+   /// <seealso cref="IProvideParentSizeOrOrientationChangeEvents" />
    public interface IProvideChildStageBounds : IProvideParentSizeOrOrientationChangeEvents
    {
       // Function goes and gets the size, which might be coerced by the parent
@@ -65,7 +61,8 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
       /// Gets the current stage bounds.
       /// </summary>
       /// <value>The current stage bounds.</value>
-      Rectangle CurrentStageBounds  { get; }
+      Rectangle CurrentStageBounds { get; }
+
       /// <summary>
       /// Gets or sets the stage bounds provider.
       /// </summary>

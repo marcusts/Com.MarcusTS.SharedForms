@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, StatefulViewModelBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
    using Common.Behaviors;
@@ -43,11 +39,11 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// Interface IStatefulViewModel
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanPullToRefresh" />
+   /// Implements the <see cref="IViewModelBase" />
+   /// Implements the <see cref="ICanPullToRefresh" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IViewModelBase" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.ICanPullToRefresh" />
+   /// <seealso cref="IViewModelBase" />
+   /// <seealso cref="ICanPullToRefresh" />
    public interface IStatefulViewModel : IViewModelBase, ICanPullToRefresh
    {
       // Reports if any of the managed properties has changed
@@ -142,27 +138,27 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// A view model specialized at inputting and saving values.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.ViewModelBase" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
+   /// Implements the <see cref="ViewModelBase" />
+   /// Implements the <see cref="IStatefulViewModel" />
    /// </summary>
    /// <typeparam name="InterfaceT">The type of interface storing the savable values -
    /// can be the entire original view model or a sub-set.</typeparam>
    /// <typeparam name="ClassT">The type of class to be instantiated to create saved values.</typeparam>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.ViewModelBase" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel" />
+   /// <seealso cref="ViewModelBase" />
+   /// <seealso cref="IStatefulViewModel" />
    public abstract class StatefulViewModelBase<InterfaceT, ClassT> : ViewModelBase, IStatefulViewModel
       where InterfaceT : class
       where ClassT : InterfaceT, new()
    {
       /// <summary>
-      /// The behaviors
-      /// </summary>
-      private readonly IList<IEntryValidationBehavior> _behaviors = new List<IEntryValidationBehavior>();
-
-      /// <summary>
       /// The cached property infos
       /// </summary>
       protected readonly PropertyInfo[] _cachedPropInfos;
+
+      /// <summary>
+      /// The behaviors
+      /// </summary>
+      private readonly IList<IEntryValidationBehavior> _behaviors = new List<IEntryValidationBehavior>();
 
       /// <summary>
       /// Any property value has changed
@@ -212,7 +208,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
          // A bit clunky, but not sure what else to do -- if this fails, the class is being used improperly.
          ErrorUtils.ConsiderArgumentError(!(this is InterfaceT),
                                           "The stateful view model base ->" + GetType() +
-                                          "must implement interface type "  + typeof(InterfaceT));
+                                          "must implement interface type " + typeof(InterfaceT));
 
          // Stash the set of reflected properties for use in this class.
          _cachedPropInfos = Extensions.GetAllPropInfos<InterfaceT>();
@@ -254,12 +250,6 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       }
 
       /// <summary>
-      /// Gets the this as interface t.
-      /// </summary>
-      /// <value>The this as interface t.</value>
-      private InterfaceT ThisAsInterfaceT => this as InterfaceT;
-
-      /// <summary>
       /// Gets a value indicating whether [any property value has changed].
       /// </summary>
       /// <value><c>true</c> if [any property value has changed]; otherwise, <c>false</c>.</value>
@@ -295,7 +285,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
             // On reversion, we might not have a different value, but must still enforce this (especially raising the event).
             _pageCanBeSaved = value;
 
-            FormsMessengerUtils.Send(new NotifyPageCanBeSavedChangedMessage {Payload = this});
+            FormsMessengerUtils.Send(new NotifyPageCanBeSavedChangedMessage { Payload = this });
          }
       }
 
@@ -332,6 +322,12 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// </summary>
       /// <value>The refresh data command.</value>
       public Command RefreshDataCommand { get; }
+
+      /// <summary>
+      /// Gets the this as interface t.
+      /// </summary>
+      /// <value>The this as interface t.</value>
+      private InterfaceT ThisAsInterfaceT => this as InterfaceT;
 
       /// <summary>
       /// The deriver can add behaviors as properties, but *MUST* add them here so they
@@ -380,7 +376,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
          {
             foreach (var behavior in _behaviors)
             {
-               behavior.Revalidate();
+               behavior.RevalidateEditorText();
             }
          }
 
@@ -461,7 +457,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// </summary>
       protected void RaiseForceRefreshUIView()
       {
-         FormsMessengerUtils.Send(new RefreshUIViewMessage {Payload = this});
+         FormsMessengerUtils.Send(new RefreshUIViewMessage { Payload = this });
       }
 
       /// <summary>
@@ -576,7 +572,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// <param name="propertyChangedEventArgs">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
       private void ViewModelOnPropertyChanged
       (
-         object                   sender,
+         object sender,
          PropertyChangedEventArgs propertyChangedEventArgs
       )
       {

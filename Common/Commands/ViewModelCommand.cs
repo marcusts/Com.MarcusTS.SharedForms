@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ViewModelCommand.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Commands
 {
@@ -50,10 +46,10 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
    /// <summary>
    /// Class ViewModelCommand.
    /// Implements the <see cref="Xamarin.Forms.Command" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Commands.IViewModelCommand" />
+   /// Implements the <see cref="IViewModelCommand" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Command" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Commands.IViewModelCommand" />
+   /// <seealso cref="IViewModelCommand" />
    public class ViewModelCommand : Command, IViewModelCommand
    {
       /// <summary>
@@ -64,8 +60,8 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
       /// <param name="canExecute">The can execute.</param>
       public ViewModelCommand
       (
-         Action             action,
-         IAmBusy            viewModel,
+         Action action,
+         IAmBusy viewModel,
          Predicate<IAmBusy> canExecute = null
       )
          : base(action, () => (canExecute == null || canExecute(viewModel)) && !viewModel.IsBusy)
@@ -105,7 +101,7 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
       /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
       private void OnViewModelIsBusyChanged
       (
-         object    sender,
+         object sender,
          EventArgs e
       )
       {

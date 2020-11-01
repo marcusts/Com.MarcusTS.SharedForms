@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, FragileServiceBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 #define FORCE_FOREGROUND_LISTENING
 
@@ -112,10 +108,10 @@ namespace Com.MarcusTS.SharedForms.Common.Services
 
    /// <summary>
    /// Class FragileServiceBase.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Services.IFragileService" />
+   /// Implements the <see cref="IFragileService" />
    /// Implements the <see cref="System.IDisposable" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Services.IFragileService" />
+   /// <seealso cref="IFragileService" />
    /// <seealso cref="System.IDisposable" />
    public abstract class FragileServiceBase : IFragileService, IDisposable
    {
@@ -138,15 +134,6 @@ namespace Com.MarcusTS.SharedForms.Common.Services
       /// The stop timer
       /// </summary>
       private volatile bool _stopTimer;
-
-      /// <summary>
-      /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-      /// </summary>
-      public void Dispose()
-      {
-         ReleaseUnmanagedResources();
-         GC.SuppressFinalize(this);
-      }
 
       /// <summary>
       /// Gets a value indicating whether this instance can be forced on.
@@ -198,6 +185,15 @@ namespace Com.MarcusTS.SharedForms.Common.Services
 
          // This one will get canceled inside the stop listening method
          // _stopCancellationTokenSource.Cancel();
+      }
+
+      /// <summary>
+      /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+      /// </summary>
+      public void Dispose()
+      {
+         ReleaseUnmanagedResources();
+         GC.SuppressFinalize(this);
       }
 
       /// <summary>
@@ -255,7 +251,7 @@ namespace Com.MarcusTS.SharedForms.Common.Services
          // Stop listening -- await for safety
          StopListeningInBackground();
 
-         FormsMessengerUtils.Send(new FragileServiceFailureMessage {Payload = this});
+         FormsMessengerUtils.Send(new FragileServiceFailureMessage { Payload = this });
       }
 
       /// <summary>
@@ -278,14 +274,6 @@ namespace Com.MarcusTS.SharedForms.Common.Services
 
          // Warn the StateMachine that they need to change the state to handle this situation
          SetFailState();
-      }
-
-      /// <summary>
-      /// Finalizes an instance of the <see cref="FragileServiceBase" /> class.
-      /// </summary>
-      ~FragileServiceBase()
-      {
-         ReleaseUnmanagedResources();
       }
 
       /// <summary>
@@ -339,11 +327,11 @@ namespace Com.MarcusTS.SharedForms.Common.Services
             {
                if (IsServiceListening)
                {
-                  FormsMessengerUtils.Send(new FragileServiceSuccessMessage {Payload = this});
+                  FormsMessengerUtils.Send(new FragileServiceSuccessMessage { Payload = this });
                }
                else
                {
-                  FormsMessengerUtils.Send(new FragileServiceFailureMessage {Payload = this});
+                  FormsMessengerUtils.Send(new FragileServiceFailureMessage { Payload = this });
                }
             }
          );
@@ -390,6 +378,14 @@ namespace Com.MarcusTS.SharedForms.Common.Services
          {
             Debug.WriteLine(ex.Message);
          }
+      }
+
+      /// <summary>
+      /// Finalizes an instance of the <see cref="FragileServiceBase" /> class.
+      /// </summary>
+      ~FragileServiceBase()
+      {
+         ReleaseUnmanagedResources();
       }
    }
 }

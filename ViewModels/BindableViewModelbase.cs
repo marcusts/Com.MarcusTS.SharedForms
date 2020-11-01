@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, BindableViewModelbase.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,11 +20,9 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
-   using Annotations;
+   using Common.Annotations;
    using System.ComponentModel;
    using System.Runtime.CompilerServices;
 
@@ -46,9 +42,9 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// Class BindableViewModel.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IBindableViewModel" />
+   /// Implements the <see cref="IBindableViewModel" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IBindableViewModel" />
+   /// <seealso cref="IBindableViewModel" />
    public abstract class BindableViewModel : IBindableViewModel
    {
       /// <summary>

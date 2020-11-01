@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, CompleteCommand.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Commands
 {
@@ -46,10 +42,10 @@ namespace Com.MarcusTS.SharedForms.Common.Commands
    /// <summary>
    /// Class CompleteCommand.
    /// Implements the <see cref="Xamarin.Forms.Command" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Commands.ICompleteCommand" />
+   /// Implements the <see cref="ICompleteCommand" />
    /// </summary>
    /// <seealso cref="Xamarin.Forms.Command" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Commands.ICompleteCommand" />
+   /// <seealso cref="ICompleteCommand" />
    public class CompleteCommand : Command, ICompleteCommand
    {
       /// <summary>

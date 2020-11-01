@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, DashboardStatusToggleImageLabelButton.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    /// <summary>
@@ -35,10 +31,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// The normal
       /// </summary>
       Normal,
+
       /// <summary>
       /// The important
       /// </summary>
       Important,
+
       /// <summary>
       /// The critical
       /// </summary>
@@ -47,18 +45,18 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IDashboardStatusToggleImageLabelButton
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{Com.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
+   /// Implements the <see cref="IEnumToggleImageLabelButton{EnumT}.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{Com.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
+   /// <seealso cref="IEnumToggleImageLabelButton{EnumT}.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
    public interface IDashboardStatusToggleImageLabelButton : IEnumToggleImageLabelButton<DashboardStatuses>
    {
    }
 
    /// <summary>
    /// Class DashboardStatusToggleImageLabelButton.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase{Com.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
+   /// Implements the <see cref="EnumToggleImageLabelButtonBase{EnumT}.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase{Com.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
+   /// <seealso cref="EnumToggleImageLabelButtonBase{EnumT}.MarcusTS.SharedForms.Views.Controls.DashboardStatuses}" />
    public class DashboardStatusToggleImageLabelButton : EnumToggleImageLabelButtonBase<DashboardStatuses>
    {
    }

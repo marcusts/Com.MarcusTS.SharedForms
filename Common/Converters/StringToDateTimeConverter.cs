@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, StringToDateTimeConverter.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,17 +20,15 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Converters
 {
    using System;
 
    /// <summary>
    /// Class StringToDateTimeConverter.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Converters.OneWayConverter{System.String, System.DateTime?}" />
+   /// Implements the <see cref="DateTime" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Converters.OneWayConverter{System.String, System.DateTime?}" />
+   /// <seealso cref="DateTime" />
    public class StringToDateTimeConverter : OneWayConverter<string, DateTime?>
    {
       /// <summary>

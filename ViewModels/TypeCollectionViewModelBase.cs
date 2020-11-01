@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, TypeCollectionViewModelBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
    using SharedUtils.Utils;
@@ -32,43 +28,47 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// Interface ITypeCollectionViewModel
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IBindableViewModel" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.IHaveValidationViewModelHelper" />
+   /// Implements the <see cref="IBindableViewModel" />
+   /// Implements the <see cref="IHaveValidationViewModelHelper" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IBindableViewModel" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.IHaveValidationViewModelHelper" />
+   /// <seealso cref="IBindableViewModel" />
+   /// <seealso cref="IHaveValidationViewModelHelper" />
    public interface ITypeCollectionViewModel : IBindableViewModel, IHaveValidationViewModelHelper
    {
+      /// <summary>
+      /// Occurs when [record added or deleted].
+      /// </summary>
+      event EventUtils.NoParamsDelegate RecordAddedOrDeleted;
+
       /// <summary>
       /// Gets the deselected icon path.
       /// </summary>
       /// <value>The deselected icon path.</value>
-      string DeselectedIconPath    { get; }
+      string DeselectedIconPath { get; }
+
       /// <summary>
       /// Creates new recordbuttontext.
       /// </summary>
       /// <value>The new record button text.</value>
-      string NewRecordButtonText   { get; }
+      string NewRecordButtonText { get; }
+
       /// <summary>
       /// Gets the name of the record text binding.
       /// </summary>
       /// <value>The name of the record text binding.</value>
       string RecordTextBindingName { get; }
+
       /// <summary>
       /// Gets the selected icon path.
       /// </summary>
       /// <value>The selected icon path.</value>
-      string SelectedIconPath      { get; }
+      string SelectedIconPath { get; }
+
       /// <summary>
       /// Gets or sets the view models.
       /// </summary>
       /// <value>The view models.</value>
-      IList ViewModels            { get; set; }
-
-      /// <summary>
-      /// Occurs when [record added or deleted].
-      /// </summary>
-      event EventUtils.NoParamsDelegate RecordAddedOrDeleted;
+      IList ViewModels { get; set; }
 
       /// <summary>
       /// Adds the new record.
@@ -80,7 +80,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// Deletes the record.
       /// </summary>
       /// <param name="viewModel">The view model.</param>
-      void DeleteRecord(object                            viewModel);
+      void DeleteRecord(object viewModel);
 
       /// <summary>
       /// Imports the records.
@@ -96,12 +96,12 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
    /// <summary>
    /// Class TypeCollectionViewModelBase.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.BindableViewModel" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.ViewModels.ITypeCollectionViewModel" />
+   /// Implements the <see cref="BindableViewModel" />
+   /// Implements the <see cref="ITypeCollectionViewModel" />
    /// </summary>
    /// <typeparam name="T"></typeparam>
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.BindableViewModel" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.ViewModels.ITypeCollectionViewModel" />
+   /// <seealso cref="BindableViewModel" />
+   /// <seealso cref="ITypeCollectionViewModel" />
    public abstract class TypeCollectionViewModelBase<T> : BindableViewModel, ITypeCollectionViewModel
       where T : class, IHaveValidationViewModelHelper
    {
@@ -114,32 +114,37 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       /// Gets the deselected icon path.
       /// </summary>
       /// <value>The deselected icon path.</value>
-      public abstract string                     DeselectedIconPath    { get; }
+      public abstract string DeselectedIconPath { get; }
+
       /// <summary>
       /// Creates new recordbuttontext.
       /// </summary>
       /// <value>The new record button text.</value>
-      public abstract string                     NewRecordButtonText   { get; }
+      public abstract string NewRecordButtonText { get; }
+
       /// <summary>
       /// Gets the name of the record text binding.
       /// </summary>
       /// <value>The name of the record text binding.</value>
-      public abstract string                     RecordTextBindingName { get; }
+      public abstract string RecordTextBindingName { get; }
+
       /// <summary>
       /// Gets the selected icon path.
       /// </summary>
       /// <value>The selected icon path.</value>
-      public abstract string                     SelectedIconPath      { get; }
+      public abstract string SelectedIconPath { get; }
+
       /// <summary>
       /// Gets or sets the validation helper.
       /// </summary>
       /// <value>The validation helper.</value>
-      public IValidationViewModelHelper ValidationHelper      { get; set; } = new ValidationViewModelHelper();
+      public IValidationViewModelHelper ValidationHelper { get; set; } = new ValidationViewModelHelper();
+
       /// <summary>
       /// Gets or sets the view models.
       /// </summary>
       /// <value>The view models.</value>
-      public abstract IList                      ViewModels            { get; set; }
+      public abstract IList ViewModels { get; set; }
 
       /// <summary>
       /// Adds the new record.
@@ -168,7 +173,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
          {
             if (viewModel is IHaveValidationViewModelHelper viewModelAsHaveValidationViewModelHelper)
             {
-               ValidationHelper.RemoveSubViewModelHelpers(new[] {viewModelAsHaveValidationViewModelHelper});
+               ValidationHelper.RemoveSubViewModelHelpers(new[] { viewModelAsHaveValidationViewModelHelper });
                viewModelAsHaveValidationViewModelHelper.ValidationHelper.PageIsValidChanged -= ResetPageIsValid();
             }
 
@@ -215,7 +220,7 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       {
          ViewModels.Add(newRecord);
 
-         ValidationHelper.AddSubViewModelHelpers(new IHaveValidationViewModelHelper[] {newRecord});
+         ValidationHelper.AddSubViewModelHelpers(new IHaveValidationViewModelHelper[] { newRecord });
          newRecord.ValidationHelper.PageIsValidChanged += ResetPageIsValid();
 
          RecordAddedOrDeleted?.Invoke();

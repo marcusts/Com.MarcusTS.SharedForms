@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, NumericEntryValidationBehavior.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 // #define STOP_REVERSING_VALUES
 
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
@@ -43,26 +39,32 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// The no numeric type
       /// </summary>
       NoNumericType,
+
       /// <summary>
       /// The double numeric type
       /// </summary>
       DoubleNumericType,
+
       /// <summary>
       /// The nullable double numeric type
       /// </summary>
       NullableDoubleNumericType,
+
       /// <summary>
       /// The int numeric type
       /// </summary>
       IntNumericType,
+
       /// <summary>
       /// The nullable int numeric type
       /// </summary>
       NullableIntNumericType,
+
       /// <summary>
       /// The long numeric type
       /// </summary>
       LongNumericType,
+
       /// <summary>
       /// The nullable long numeric type
       /// </summary>
@@ -79,25 +81,27 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// </summary>
       /// <value>The maximum decimal number.</value>
       double MaxDecimalNumber { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum decimal number.
       /// </summary>
       /// <value>The minimum decimal number.</value>
       double MinDecimalNumber { get; set; }
+
       /// <summary>
       /// Gets or sets the type of the numeric.
       /// </summary>
       /// <value>The type of the numeric.</value>
-      NumericTypes NumericType      { get; set; }
+      NumericTypes NumericType { get; set; }
    }
 
    /// <summary>
    /// Interface INumericEntryValidationBehavior
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.IEntryValidationBehavior" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.IHaveMinAndMaxNumbers" />
+   /// Implements the <see cref="IEntryValidationBehavior" />
+   /// Implements the <see cref="IHaveMinAndMaxNumbers" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.IEntryValidationBehavior" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.IHaveMinAndMaxNumbers" />
+   /// <seealso cref="IEntryValidationBehavior" />
+   /// <seealso cref="IHaveMinAndMaxNumbers" />
    public interface INumericEntryValidationBehavior : IEntryValidationBehavior, IHaveMinAndMaxNumbers
    {
       /// <summary>
@@ -105,20 +109,21 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// </summary>
       /// <value>The chars to right of decimal.</value>
       int CharsToRightOfDecimal { get; set; }
+
       /// <summary>
       /// Gets or sets the string format.
       /// </summary>
       /// <value>The string format.</value>
-      string StringFormat          { get; set; }
+      string StringFormat { get; set; }
    }
 
    /// <summary>
    /// Class NumericEntryValidationBehavior.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.INumericEntryValidationBehavior" />
+   /// Implements the <see cref="EntryValidationBehavior" />
+   /// Implements the <see cref="INumericEntryValidationBehavior" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.INumericEntryValidationBehavior" />
+   /// <seealso cref="EntryValidationBehavior" />
+   /// <seealso cref="INumericEntryValidationBehavior" />
    public class NumericEntryValidationBehavior : EntryValidationBehavior, INumericEntryValidationBehavior
    {
       /// <summary>
@@ -138,40 +143,31 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// Gets or sets the chars to right of decimal.
       /// </summary>
       /// <value>The chars to right of decimal.</value>
-      public int          CharsToRightOfDecimal { get; set; }
+      public int CharsToRightOfDecimal { get; set; }
+
       /// <summary>
       /// Gets or sets the maximum decimal number.
       /// </summary>
       /// <value>The maximum decimal number.</value>
-      public double       MaxDecimalNumber      { get; set; }
+      public double MaxDecimalNumber { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum decimal number.
       /// </summary>
       /// <value>The minimum decimal number.</value>
-      public double       MinDecimalNumber      { get; set; }
+      public double MinDecimalNumber { get; set; }
+
       /// <summary>
       /// Gets or sets the type of the numeric.
       /// </summary>
       /// <value>The type of the numeric.</value>
-      public NumericTypes NumericType           { get; set; }
+      public NumericTypes NumericType { get; set; }
+
       /// <summary>
       /// Gets or sets the string format.
       /// </summary>
       /// <value>The string format.</value>
-      public string       StringFormat          { get; set; }
-
-      /// <summary>
-      /// Prepares the text for editing.
-      /// </summary>
-      /// <param name="entryText">The entry text.</param>
-      /// <param name="firstFocused">if set to <c>true</c> [first focused].</param>
-      /// <returns>System.String.</returns>
-      public override string PrepareTextForEditing(string entryText, bool firstFocused = false)
-      {
-         var retStr =
-            StripStringFormatCharacters(entryText, StringFormat, ValidationType, CharsToRightOfDecimal, firstFocused);
-         return retStr;
-      }
+      public string StringFormat { get; set; }
 
       /// <summary>
       /// This method must also *restore* a decimal and trailing zeroes when first focused.
@@ -182,11 +178,11 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="charsToRight">The chars to right.</param>
       /// <param name="firstFocused">if set to <c>true</c> [first focused].</param>
       /// <returns>System.String.</returns>
-      public static string StripStringFormatCharacters(string          entryText,
-                                                       string          stringFormat,
+      public static string StripStringFormatCharacters(string entryText,
+                                                       string stringFormat,
                                                        ValidationTypes validationType,
-                                                       int             charsToRight = 0,
-                                                       bool            firstFocused = false)
+                                                       int charsToRight = 0,
+                                                       bool firstFocused = false)
       {
          // Remove the numeric string formats (all except for numbers and dots)
          if (stringFormat.IsEmpty() || entryText.IsEmpty())
@@ -207,8 +203,8 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
                   var decimalPos = retString.PositionOfDecimal();
                   if (decimalPos == -1)
                   {
-                     retString  += Extensions.DECIMAL;
-                     decimalPos =  retString.PositionOfDecimal();
+                     retString += Extensions.DECIMAL;
+                     decimalPos = retString.PositionOfDecimal();
                   }
 
                   var trueEndPos = decimalPos + charsToRight;
@@ -234,12 +230,25 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
             default:
 
                // Illegal
-               Debug.WriteLine(nameof(NumericEntryValidationBehavior) + ": "           + nameof(PrepareTextForEditing) +
+               Debug.WriteLine(nameof(NumericEntryValidationBehavior) + ": " + nameof(PrepareTextForEditing) +
                                ": illegal numeric validation type ->" + validationType + "<-");
                break;
          }
 
          return entryText;
+      }
+
+      /// <summary>
+      /// Prepares the text for editing.
+      /// </summary>
+      /// <param name="entryText">The entry text.</param>
+      /// <param name="firstFocused">if set to <c>true</c> [first focused].</param>
+      /// <returns>System.String.</returns>
+      public override string PrepareTextForEditing(string entryText, bool firstFocused = false)
+      {
+         var retStr =
+            StripStringFormatCharacters(entryText, StringFormat, ValidationType, CharsToRightOfDecimal, firstFocused);
+         return retStr;
       }
 
       /// <summary>
@@ -254,7 +263,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          {
             // First, fix the decimals
             var preparedStr = PrepareTextForEditing(entryText, true);
-            var retStr      = string.Format(StringFormat, preparedStr);
+            var retStr = string.Format(StringFormat, preparedStr);
             return retStr;
          }
 
@@ -272,9 +281,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <returns>System.String.</returns>
       /// <remarks>We can only evaluate the unmasked text (otherwise all of our tests fail).</remarks>
       protected override string IllegalCharFilter(IEntryValidationBehavior behavior,
-                                                  string                   newText,
-                                                  string                   originalText,
-                                                  out bool                 isOutsideOfRange)
+                                                  string newText,
+                                                  string originalText,
+                                                  out bool isOutsideOfRange)
       {
          isOutsideOfRange = false;
 
@@ -365,7 +374,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
                // This is a text field with numeric constraints
 
                // Illegal
-               Debug.WriteLine(nameof(NumericEntryValidationBehavior) + ": "           + nameof(PrepareTextForEditing) +
+               Debug.WriteLine(nameof(NumericEntryValidationBehavior) + ": " + nameof(PrepareTextForEditing) +
                                ": illegal numeric validation type ->" + ValidationType + "<-");
                break;
          }

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidatableEntry.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // MIT License
 
@@ -50,9 +46,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IValidatableEntry Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// Implements the <see cref="IValidatableView" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// <seealso cref="IValidatableView" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IValidatableEntry : IValidatableView
    {
@@ -65,12 +61,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// A UI element that includes an Entry surrounded by a border. Implements the <see cref="Xamarin.Forms.Grid" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableEntry" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// Implements the <see cref="IValidatableEntry" />
+   /// Implements the <see cref="ValidatableViewBase" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// <seealso cref="ValidatableViewBase" />
    /// <seealso cref="Xamarin.Forms.Grid" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableEntry" />
+   /// <seealso cref="IValidatableEntry" />
    public class ValidatableEntry : ValidatableViewBase, IValidatableEntry
    {
       /// <summary>
@@ -86,23 +82,27 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>
       /// The can unmask password
       /// </summary>
-      private readonly bool     _canUnmaskPassword;
+      private readonly bool _canUnmaskPassword;
+
       /// <summary>
       /// The is password
       /// </summary>
-      private readonly bool     _isPassword;
+      private readonly bool _isPassword;
+
       /// <summary>
       /// The keyboard
       /// </summary>
       private readonly Keyboard _keyboard;
+
       /// <summary>
       /// The editable entry
       /// </summary>
-      private Entry    _editableEntry;
+      private Entry _editableEntry;
+
       /// <summary>
       /// The editable view container
       /// </summary>
-      private View     _editableViewContainer;
+      private View _editableViewContainer;
 
       /// <summary>
       /// The is password showing
@@ -137,24 +137,24 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="viewModelPropertyName">Name of the view model property.</param>
       public ValidatableEntry
       (
-         double?         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         bool            canUnmaskPassword                  = true,
-         BindingMode     bindingMode                        = BindingMode.TwoWay,
-         IValueConverter converter                          = null,
-         object          converterParameter                 = null,
-         double?         entryFontSize                      = null,
-         string          fontFamilyOverride                 = "",
-         string          instructions                       = "",
-         double?         instructionsHeight                 = INSTRUCTIONS_HEIGHT,
-         bool            isPassword                         = false,
-         Keyboard        keyboard                           = null,
-         string          placeholder                        = "",
-         double?         placeholderHeight                  = PLACEHOLDER_HEIGHT,
-         bool            showInstructionsOrValidations      = false,
-         bool            showValidationErrorsAsInstructions = true,
-         string          stringFormat                       = null,
-         ICanBeValid     validator                          = null,
-         string          viewModelPropertyName              = ""
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         bool canUnmaskPassword = true,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         double? entryFontSize = null,
+         string fontFamilyOverride = "",
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         bool isPassword = false,
+         Keyboard keyboard = null,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         ICanBeValid validator = null,
+         string viewModelPropertyName = ""
       )
          : base
          (
@@ -176,19 +176,49 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          )
 
       {
-         _keyboard          = keyboard;
-         _isPassword        = isPassword;
+         _keyboard = keyboard;
+         _isPassword = isPassword;
          _canUnmaskPassword = canUnmaskPassword;
 
          // The editable entry gets created "too soon" for these assignment to work, so repeating them here.
          if (EditableEntry.IsNotNullOrDefault())
          {
-            EditableEntry.Keyboard   = _keyboard;
+            EditableEntry.Keyboard = _keyboard;
             EditableEntry.IsPassword = isPassword;
-            EditableEntry.FontSize   = entryFontSize ?? Device.GetNamedSize(NamedSize.Small, typeof(Entry));
+            EditableEntry.FontSize = entryFontSize ?? Device.GetNamedSize(NamedSize.Small, typeof(Entry));
          }
 
          CallCreateViews();
+      }
+
+      /// <summary>
+      /// Gets the editable entry.
+      /// </summary>
+      /// <value>The editable entry.</value>
+      public Entry EditableEntry
+      {
+         get
+         {
+            if (_editableEntry.IsNullOrDefault())
+            {
+               _editableEntry = new CustomEntry
+               {
+                  // Cannot use non-standard keyboards when there is a mask
+                  Keyboard = _keyboard,
+                  IsEnabled = true,
+                  IsReadOnly = false,
+                  MaxLength = int.MaxValue,
+                  IsPassword = _isPassword,
+                  TextColor = Color.Black,
+                  BackgroundColor = Color.Transparent,
+                  HorizontalOptions = LayoutOptions.FillAndExpand,
+                  VerticalOptions = LayoutOptions.FillAndExpand,
+                  Margin = DEFAULT_BORDER_VIEW_PADDING
+               };
+            }
+
+            return _editableEntry;
+         }
       }
 
       /// <summary>
@@ -234,7 +264,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   _showHideImage.GestureRecognizers.Add(tapGesture);
                   SetShowHideImageSource();
 
-                  _showHideImage.Focused   += ReportGlobalFocusAndRaisePlaceholder;
+                  _showHideImage.Focused += ReportGlobalFocusAndRaisePlaceholder;
                   _showHideImage.Unfocused += ConsiderLoweringPlaceholder;
 
                   editGrid.Children.Add(_showHideImage);
@@ -281,36 +311,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             EditableEntry.IsPassword = !_isPasswordShowing;
 
             SetShowHideImageSource();
-         }
-      }
-
-      /// <summary>
-      /// Gets the editable entry.
-      /// </summary>
-      /// <value>The editable entry.</value>
-      public Entry EditableEntry
-      {
-         get
-         {
-            if (_editableEntry.IsNullOrDefault())
-            {
-               _editableEntry = new CustomEntry
-               {
-                  // Cannot use non-standard keyboards when there is a mask
-                  Keyboard          = _keyboard,
-                  IsEnabled         = true,
-                  IsReadOnly        = false,
-                  MaxLength         = int.MaxValue,
-                  IsPassword        = _isPassword,
-                  TextColor         = Color.Black,
-                  BackgroundColor   = Color.Transparent,
-                  HorizontalOptions = LayoutOptions.FillAndExpand,
-                  VerticalOptions   = LayoutOptions.FillAndExpand,
-                  Margin            = DEFAULT_BORDER_VIEW_PADDING
-               };
-            }
-
-            return _editableEntry;
          }
       }
 

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, TriStateImageLabelButton.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using Common.Utils;
@@ -34,9 +30,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface ITriStateImageLabelButton Implements the
-   /// <see cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+   /// <see cref="IImageLabelButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+   /// <seealso cref="IImageLabelButton" />
    public interface ITriStateImageLabelButton : IImageLabelButton
    {
       // Can deselect when the selection group is 0.
@@ -144,12 +140,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// A button that can contain either an image and/or a label. Implements the
-   /// <see cref="Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" />
+   /// <see cref="ImageLabelButtonBase" />
    /// Implements the
-   /// <see cref="Com.MarcusTS.SharedForms.Views.Controls.ITriStateImageLabelButton" />
+   /// <see cref="ITriStateImageLabelButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ITriStateImageLabelButton" />
+   /// <seealso cref="ImageLabelButtonBase" />
+   /// <seealso cref="ITriStateImageLabelButton" />
    public class TriStateImageLabelButton : ImageLabelButtonBase, ITriStateImageLabelButton
    {
       /// <summary>
@@ -514,12 +510,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private Style _labelSelectedButtonStyle;
 
       /// <summary>
-      /// Gets a value indicating whether this instance is disabled.
-      /// </summary>
-      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
-      protected override bool IsDisabled => ButtonState.IsSameAs(DISABLED_BUTTON_STATE);
-
-      /// <summary>
       /// Gets or sets a value indicating whether [allow coerced deselection].
       /// </summary>
       /// <value><c>true</c> if [allow coerced deselection]; otherwise, <c>false</c>.</value>
@@ -800,12 +790,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public override bool UpdateButtonTextFromStyle => false;
 
       /// <summary>
-      /// Forces the on is enabled changed.
+      /// Gets a value indicating whether this instance is disabled.
       /// </summary>
-      public void ForceOnIsEnabledChanged()
-      {
-         OnIsEnabledChanged();
-      }
+      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
+      protected override bool IsDisabled => ButtonState.IsSameAs(DISABLED_BUTTON_STATE);
 
       /// <summary>
       /// Creates the image label button bindable property.
@@ -818,13 +806,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateImageLabelButtonBindableProperty<PropertyTypeT>
       (
-         string                                                         localPropName,
-         PropertyTypeT                                                  defaultVal     = default,
-         BindingMode                                                    bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<TriStateImageLabelButton, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+      }
+
+      /// <summary>
+      /// Forces the on is enabled changed.
+      /// </summary>
+      public void ForceOnIsEnabledChanged()
+      {
+         OnIsEnabledChanged();
       }
 
       /// <summary>
@@ -897,9 +893,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private void AssignStylesIfNotNull
       (
          ImageLabelButtonStyle imageLabelButtonStyle,
-         Style                 buttonStyle,
-         string                imageFilePath,
-         Style                 labelStyle
+         Style buttonStyle,
+         string imageFilePath,
+         Style labelStyle
       )
       {
          if (imageLabelButtonStyle == null)
@@ -907,11 +903,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             return;
          }
 
-         imageLabelButtonStyle.ButtonStyle            = buttonStyle;
-         imageLabelButtonStyle.ImageFilePath          = imageFilePath;
-         imageLabelButtonStyle.GetImageFromResource   = GetImageFromResource;
+         imageLabelButtonStyle.ButtonStyle = buttonStyle;
+         imageLabelButtonStyle.ImageFilePath = imageFilePath;
+         imageLabelButtonStyle.GetImageFromResource = GetImageFromResource;
          imageLabelButtonStyle.ImageResourceClassType = ImageResourceClassType;
-         imageLabelButtonStyle.LabelStyle             = labelStyle;
+         imageLabelButtonStyle.LabelStyle = labelStyle;
       }
 
       /// <summary>
@@ -921,15 +917,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private void CreateOrRefreshImageLabelButtonStyles(bool forceCreate = false)
       {
          var deselectedStyle = new ImageLabelButtonStyle();
-         var selectedStyle   = new ImageLabelButtonStyle();
-         var disabledStyle   = new ImageLabelButtonStyle();
+         var selectedStyle = new ImageLabelButtonStyle();
+         var disabledStyle = new ImageLabelButtonStyle();
 
          _imageLabelButtonStyles = new List<ImageLabelButtonStyle>();
 
          deselectedStyle = new ImageLabelButtonStyle
          {
-            InternalButtonState    = DESELECTED_BUTTON_STATE,
-            GetImageFromResource   = GetImageFromResource,
+            InternalButtonState = DESELECTED_BUTTON_STATE,
+            GetImageFromResource = GetImageFromResource,
             ImageResourceClassType = ImageResourceClassType
          };
 
@@ -939,8 +935,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             selectedStyle = new ImageLabelButtonStyle
             {
-               InternalButtonState    = SELECTED_BUTTON_STATE,
-               GetImageFromResource   = GetImageFromResource,
+               InternalButtonState = SELECTED_BUTTON_STATE,
+               GetImageFromResource = GetImageFromResource,
                ImageResourceClassType = ImageResourceClassType
             };
 
@@ -951,8 +947,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             disabledStyle = new ImageLabelButtonStyle
             {
-               InternalButtonState    = DISABLED_BUTTON_STATE,
-               GetImageFromResource   = GetImageFromResource,
+               InternalButtonState = DISABLED_BUTTON_STATE,
+               GetImageFromResource = GetImageFromResource,
                ImageResourceClassType = ImageResourceClassType
             };
 
@@ -962,8 +958,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          // Now update these from our proprietary styles ON refresh, there will be no creation, so this step is
          // necessary.
          AssignStylesIfNotNull(deselectedStyle, ButtonDeselectedStyle, ImageDeselectedFilePath, LabelDeselectedStyle);
-         AssignStylesIfNotNull(selectedStyle,   ButtonSelectedStyle,   ImageSelectedFilePath,   LabelSelectedStyle);
-         AssignStylesIfNotNull(disabledStyle,   ButtonDisabledStyle,   ImageDisabledFilePath,   LabelDisabledStyle);
+         AssignStylesIfNotNull(selectedStyle, ButtonSelectedStyle, ImageSelectedFilePath, LabelSelectedStyle);
+         AssignStylesIfNotNull(disabledStyle, ButtonDisabledStyle, ImageDisabledFilePath, LabelDisabledStyle);
 
          FixNullButtonState();
 

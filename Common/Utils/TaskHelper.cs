@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, TaskHelper.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
@@ -93,8 +89,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="actionCallback">The action callback.</param>
       public static void RunParallel
       (
-         Task   task,
-         Task   taskCallback   = null,
+         Task task,
+         Task taskCallback = null,
          Action actionCallback = null
       )
       {

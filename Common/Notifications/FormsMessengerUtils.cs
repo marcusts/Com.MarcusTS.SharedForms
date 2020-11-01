@@ -1,33 +1,38 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// *********************************************************************************
+// Assembly         : Com.MarcusTS.SharedForms
+// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
+// Created          : 12-23-2018
+// Last Modified On : 12-23-2018
 //
-// This file, FormsMessengerUtils.cs, is a part of a program called AccountViewMobile.
+// <copyright file="FormsMessengerUtils.cs" company="Marcus Technical Services, Inc.">
+//     Copyright @2018 Marcus Technical Services, Inc.
+// </copyright>
 //
-// AccountViewMobile is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// MIT License
 //
-// Permission to use, copy, modify, and/or distribute this software
-// for any purpose with or without fee is hereby granted, provided
-// that the above copyright notice and this permission notice appear
-// in all copies.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-// AccountViewMobile is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
-// For the complete GNU General Public License,
-// see <http://www.gnu.org/licenses/>.
-
-#endregion
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
 
 namespace Com.MarcusTS.SharedForms.Common.Notifications
 {
-   using Interfaces;
    using Services;
+   using SharedForms.Common.Utils;
    using System;
    using ViewModels;
    using Xamarin.Forms;
@@ -59,7 +64,8 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       /// Gets a value indicating whether this instance is displayed.
       /// </summary>
       /// <value><c>true</c> if this instance is displayed; otherwise, <c>false</c>.</value>
-      bool IsDisplayed    { get; }
+      bool IsDisplayed { get; }
+
       /// <summary>
       /// Gets the height of the keyboard.
       /// </summary>
@@ -67,24 +73,17 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       double KeyboardHeight { get; }
    }
 
-   /// <summary>
-   /// Interface IMessage
-   /// </summary>
-   public interface IMessage
-   {
-   }
-
-   /// <summary>
-   /// Interface IPageLifecycleMessageArgs
-   /// </summary>
-   public interface IPageLifecycleMessageArgs
-   {
-      /// <summary>
-      /// Gets or sets the page event.
-      /// </summary>
-      /// <value>The page event.</value>
-      IProvidePageEvents SendingPage { get; set; }
-   }
+   ///// <summary>
+   ///// Interface IPageLifecycleMessageArgs
+   ///// </summary>
+   //public interface IPageLifecycleMessageArgs
+   //{
+   //   /// <summary>
+   //   /// Gets or sets the page event.
+   //   /// </summary>
+   //   /// <value>The page event.</value>
+   //   IProvidePageEvents SendingPage { get; set; }
+   //}
 
    /// <summary>
    /// A global static utility library to assist with Xamarin.Forms.MessagingCenter calls.
@@ -100,7 +99,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       public static void Send<TMessage>
       (
          TMessage message,
-         object   sender = null
+         object sender = null
       )
          where TMessage : IMessage
       {
@@ -120,7 +119,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       /// <param name="callback">The callback.</param>
       public static void Subscribe<TMessage>
       (
-         object                   subscriber,
+         object subscriber,
          Action<object, TMessage> callback
       )
          where TMessage : IMessage
@@ -140,14 +139,15 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       }
    }
 
+   /*
    /// <summary>
    /// Class AppStateChangedMessage.
    /// Implements the <see cref="AppStateChangeMessageArgs" />
    /// Implements the
    /// <see cref="AppStateChangeMessageArgs" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs}" />
+   /// Implements the <see cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs}" />
+   /// <seealso cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.AppStateChangeMessageArgs}" />
    /// <seealso cref="AppStateChangeMessageArgs" />
    /// <seealso cref="AppStateChangeMessageArgs" />
    public class AppStateChangedMessage : GenericMessageWithPayload<AppStateChangeMessageArgs>
@@ -160,12 +160,13 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       public AppStateChangedMessage
       (
          string oldAppState,
-         bool   preventNavStackPush
+         bool preventNavStackPush
       )
       {
          Payload = new AppStateChangeMessageArgs(oldAppState, preventNavStackPush);
       }
    }
+   */
 
    /// <summary>
    /// Class AppStateChangeMessageArgs.
@@ -180,10 +181,10 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       public AppStateChangeMessageArgs
       (
          string oldAppState,
-         bool   preventNavStackPush
+         bool preventNavStackPush
       )
       {
-         OldAppState         = oldAppState;
+         OldAppState = oldAppState;
          PreventNavStackPush = preventNavStackPush;
       }
 
@@ -204,9 +205,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Notifies the app that the device size has changed
    /// Implements the
    /// <see cref="DeviceSizeChangeMessageArgs" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// Implements the <see cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// <seealso cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    public class BroadcastDeviceSizeChangedMessage : GenericMessageWithPayload<DeviceSizeChangeMessageArgs>
@@ -230,9 +231,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Class ConnectivityChangedMessage.
    /// Implements the
    /// <see cref="bool" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{System.Boolean}" />
+   /// Implements the <see cref="bool" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{System.Boolean}" />
+   /// <seealso cref="bool" />
    /// <seealso cref="bool" />
    public class ConnectivityChangedMessage : GenericMessageWithPayload<bool>
    {
@@ -240,9 +241,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
 
    /// <summary>
    /// This message is issued as the args whenever a local platform senses a change in its orientation.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.IDeviceSizeChangeMessageArgs" />
+   /// Implements the <see cref="IDeviceSizeChangeMessageArgs" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.IDeviceSizeChangeMessageArgs" />
+   /// <seealso cref="IDeviceSizeChangeMessageArgs" />
    /// <seealso cref="IDeviceSizeChangeMessageArgs" />
    public class DeviceSizeChangeMessageArgs : IDeviceSizeChangeMessageArgs
    {
@@ -257,7 +258,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
          float height
       )
       {
-         ScreenWidth  = width;
+         ScreenWidth = width;
          ScreenHeight = height;
       }
 
@@ -278,9 +279,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Class FragileServiceFailureMessage.
    /// Implements the
    /// <see cref="IFragileService" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Services.IFragileService}" />
+   /// Implements the <see cref="IFragileService" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Services.IFragileService}" />
+   /// <seealso cref="IFragileService" />
    /// <seealso cref="IFragileService" />
    public class FragileServiceFailureMessage : GenericMessageWithPayload<IFragileService>
    {
@@ -297,9 +298,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Class FragileServiceSuccessMessage.
    /// Implements the
    /// <see cref="IFragileService" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Services.IFragileService}" />
+   /// Implements the <see cref="IFragileService" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Services.IFragileService}" />
+   /// <seealso cref="IFragileService" />
    /// <seealso cref="IFragileService" />
    public class FragileServiceSuccessMessage : GenericMessageWithPayload<IFragileService>
    {
@@ -308,10 +309,10 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// <summary>
    /// Class GenericMessageWithPayload.
    /// Implements the <see cref="IMessage" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.IMessage" />
+   /// Implements the <see cref="IMessage" />
    /// </summary>
    /// <typeparam name="T"></typeparam>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.IMessage" />
+   /// <seealso cref="IMessage" />
    /// <seealso cref="IMessage" />
    public abstract class GenericMessageWithPayload<T> : IMessage
    {
@@ -324,9 +325,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
 
    /// <summary>
    /// Class KeyboardToggledMessageArgs.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.IKeyboardToggledMessageArgs" />
+   /// Implements the <see cref="IKeyboardToggledMessageArgs" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.IKeyboardToggledMessageArgs" />
+   /// <seealso cref="IKeyboardToggledMessageArgs" />
    public class KeyboardToggledMessageArgs : IKeyboardToggledMessageArgs
    {
       /// <summary>
@@ -336,7 +337,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       /// <param name="keyboardHeight">Height of the keyboard.</param>
       public KeyboardToggledMessageArgs(bool isDisplayed, double keyboardHeight)
       {
-         IsDisplayed    = isDisplayed;
+         IsDisplayed = isDisplayed;
          KeyboardHeight = keyboardHeight;
       }
 
@@ -344,7 +345,8 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       /// Gets a value indicating whether this instance is displayed.
       /// </summary>
       /// <value><c>true</c> if this instance is displayed; otherwise, <c>false</c>.</value>
-      public bool   IsDisplayed    { get; }
+      public bool IsDisplayed { get; }
+
       /// <summary>
       /// Gets the height of the keyboard.
       /// </summary>
@@ -358,9 +360,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Implements the <see cref="DeviceSizeChangeMessageArgs" />
    /// Implements the
    /// <see cref="DeviceSizeChangeMessageArgs" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// Implements the <see cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// <seealso cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    public class LocalDeviceSizeChangedMessage : GenericMessageWithPayload<DeviceSizeChangeMessageArgs>
@@ -380,12 +382,13 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       }
    }
 
+   /*
    /// <summary>
    /// Class MenuLoadedMessage.
    /// Implements the <see cref="NoPayloadMessage" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
+   /// Implements the <see cref="NoPayloadMessage" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
+   /// <seealso cref="NoPayloadMessage" />
    /// <seealso cref="NoPayloadMessage" />
    public class MenuLoadedMessage : NoPayloadMessage
    {
@@ -394,20 +397,21 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// <summary>
    /// Class NavBarMenuTappedMessage.
    /// Implements the <see cref="NoPayloadMessage" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
+   /// Implements the <see cref="NoPayloadMessage" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.NoPayloadMessage" />
+   /// <seealso cref="NoPayloadMessage" />
    /// <seealso cref="NoPayloadMessage" />
    public class NavBarMenuTappedMessage : NoPayloadMessage
    {
    }
+   */
 
    /// <summary>
    /// Class NoPayloadMessage.
    /// Implements the <see cref="IMessage" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.IMessage" />
+   /// Implements the <see cref="IMessage" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.IMessage" />
+   /// <seealso cref="IMessage" />
    /// <seealso cref="IMessage" />
    public class NoPayloadMessage : IMessage
    {
@@ -417,9 +421,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Class NotifyPageCanBeSavedChangedMessage.
    /// Implements the
    /// <see cref="IStatefulViewModel" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel}" />
+   /// Implements the <see cref="IStatefulViewModel" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel}" />
+   /// <seealso cref="IStatefulViewModel" />
    /// <seealso cref="IStatefulViewModel" />
    public class NotifyPageCanBeSavedChangedMessage : GenericMessageWithPayload<IStatefulViewModel>
    {
@@ -429,9 +433,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Class ObjectDisappearingMessage.
    /// Implements the <see cref="object" />
    /// Implements the <see cref="object" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{System.Object}" />
+   /// Implements the <see cref="object" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{System.Object}" />
+   /// <seealso cref="object" />
    /// <seealso cref="object" />
    /// <seealso cref="object" />
    public class ObjectDisappearingMessage : GenericMessageWithPayload<object>
@@ -442,9 +446,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Class RefreshUIViewMessage.
    /// Implements the
    /// <see cref="IStatefulViewModel" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel}" />
+   /// Implements the <see cref="IStatefulViewModel" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{Com.MarcusTS.SharedForms.ViewModels.IStatefulViewModel}" />
+   /// <seealso cref="IStatefulViewModel" />
    /// <seealso cref="IStatefulViewModel" />
    public class RefreshUIViewMessage : GenericMessageWithPayload<IStatefulViewModel>
    {
@@ -452,9 +456,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
 
    /// <summary>
    /// Class ViewIsBeingEditedMessage.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{System.Boolean}" />
+   /// Implements the <see cref="bool" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Notifications.GenericMessageWithPayload{System.Boolean}" />
+   /// <seealso cref="bool" />
    public class ViewIsBeingEditedMessage : GenericMessageWithPayload<bool>
    {
    }

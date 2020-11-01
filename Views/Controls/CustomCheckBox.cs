@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, CustomCheckBox.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,30 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
-// MIT License
-
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-// ***********************************************************************
-//
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using Common.Images;
@@ -64,6 +38,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    public interface ICustomCheckBox : INotifyPropertyChanged
    {
       /// <summary>
+      /// Occurs when [checked changed].
+      /// </summary>
+      event EventHandler<bool> IsCheckedChanged;
+
+      /// <summary>
       /// Gets or sets a value indicating whether this <see cref="ICustomCheckBox" /> is checked.
       /// </summary>
       /// <value><c>true</c> if checked; otherwise, <c>false</c>.</value>
@@ -74,24 +53,31 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value>The height of the width.</value>
       double WidthHeight { get; set; }
-
-      /// <summary>
-      /// Occurs when [checked changed].
-      /// </summary>
-      event EventHandler<bool> IsCheckedChanged;
    }
 
    /// <summary>
    /// Class CustomCheckBox.
    /// Implements the <see cref="Xamarin.Forms.Image" />
    /// Implements the <see cref="ICustomCheckBox" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ICustomCheckBox" />
+   /// Implements the <see cref="ICustomCheckBox" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ICustomCheckBox" />
+   /// <seealso cref="ICustomCheckBox" />
    /// <seealso cref="Xamarin.Forms.Image" />
    /// <seealso cref="ICustomCheckBox" />
    public class CustomCheckBox : Image, ICustomCheckBox
    {
+      /// <summary>
+      /// The is checked property
+      /// </summary>
+      public static readonly BindableProperty IsCheckedProperty =
+         CreateCheckBoxBindableProperty
+         (
+            nameof(IsChecked),
+            default(bool),
+            BindingMode.TwoWay,
+            (checkBox, oldVal, newVal) => { checkBox.IsCheckedChanged?.Invoke(checkBox, checkBox.IsChecked); }
+         );
+
       /// <summary>
       /// The checkbox checked image
       /// </summary>
@@ -108,18 +94,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private const double DEFAULT_WIDTH_HEIGHT = 24;
 
       /// <summary>
-      /// The is checked property
-      /// </summary>
-      public static readonly BindableProperty IsCheckedProperty =
-         CreateCheckBoxBindableProperty
-         (
-            nameof(IsChecked),
-            default(bool),
-            BindingMode.TwoWay,
-            (checkBox, oldVal, newVal) => { checkBox.IsCheckedChanged?.Invoke(checkBox, checkBox.IsChecked); }
-         );
-
-      /// <summary>
       /// The width height
       /// </summary>
       private double _widthHeight = DEFAULT_WIDTH_HEIGHT;
@@ -129,14 +103,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       public CustomCheckBox()
       {
-         WidthRequest  = DEFAULT_WIDTH_HEIGHT;
+         WidthRequest = DEFAULT_WIDTH_HEIGHT;
          HeightRequest = DEFAULT_WIDTH_HEIGHT;
-         Source        = CHECKBOX_UN_CHECKED_IMAGE;
-         Aspect        = Aspect.AspectFit;
+         Source = CHECKBOX_UN_CHECKED_IMAGE;
+         Aspect = Aspect.AspectFit;
          var imageTapGesture = new TapGestureRecognizer();
          imageTapGesture.Tapped += ImageTapGestureOnTapped;
          GestureRecognizers.Add(imageTapGesture);
-         PropertyChanged += OnPropertyChanged;
 
          this.SetUpBinding(SourceProperty, nameof(IsChecked),
                            converter: IsCheckedToImageSourceConverter.StaticIsCheckedToImageSourceConverter,
@@ -154,7 +127,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value><c>true</c> if checked; otherwise, <c>false</c>.</value>
       public bool IsChecked
       {
-         get => (bool) GetValue(IsCheckedProperty);
+         get => (bool)GetValue(IsCheckedProperty);
          set => SetValue(IsCheckedProperty, value);
       }
 
@@ -167,8 +140,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          get => _widthHeight;
          set
          {
-            _widthHeight  = value;
-            WidthRequest  = _widthHeight;
+            _widthHeight = value;
+            WidthRequest = _widthHeight;
             HeightRequest = _widthHeight;
          }
       }
@@ -184,13 +157,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateCheckBoxBindableProperty<PropertyTypeT>
       (
-         string                                               localPropName,
-         PropertyTypeT                                        defaultVal     = default,
-         BindingMode                                          bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<CustomCheckBox, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+      }
+
+      protected override void OnPropertyChanged(string propertyName = null)
+      {
+         if (propertyName.IsSameAs(nameof(IsEnabled)))
+         {
+            Opacity = IsEnabled ? FormsConst.VISIBLE_OPACITY : FormsConst.VISIBLE_OPACITY / 2;
+         }
       }
 
       /// <summary>
@@ -203,19 +184,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          if (IsEnabled)
          {
             IsChecked = !IsChecked;
-         }
-      }
-
-      /// <summary>
-      /// Handles the <see cref="E:PropertyChanged" /> event.
-      /// </summary>
-      /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
-      private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-      {
-         if (e.IsNotNullOrDefault() && e.PropertyName.IsSameAs(nameof(IsEnabled)))
-         {
-            Opacity = IsEnabled ? FormsConst.VISIBLE_OPACITY : FormsConst.VISIBLE_OPACITY / 2;
          }
       }
 
@@ -243,9 +211,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          /// <remarks>To be added.</remarks>
          public object Convert
          (
-            object      value,
-            Type        targetType,
-            object      parameter,
+            object value,
+            Type targetType,
+            object parameter,
             CultureInfo culture
          )
          {
@@ -267,9 +235,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          /// <returns>System.Object.</returns>
          public object ConvertBack
          (
-            object      value,
-            Type        targetType,
-            object      parameter,
+            object value,
+            Type targetType,
+            object parameter,
             CultureInfo culture
          )
          {

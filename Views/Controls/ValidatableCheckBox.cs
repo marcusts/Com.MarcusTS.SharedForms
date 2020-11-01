@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidatableCheckBox.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // MIT License
 
@@ -52,9 +48,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IValidatableCheckBox Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// Implements the <see cref="IValidatableView" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// <seealso cref="IValidatableView" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IValidatableCheckBox : IValidatableView
    {
@@ -67,12 +63,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// A UI element that includes an CheckBox surrounded by a border. Implements the <see cref="Xamarin.Forms.Grid" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableCheckBox" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// Implements the <see cref="IValidatableCheckBox" />
+   /// Implements the <see cref="ValidatableViewBase" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// <seealso cref="ValidatableViewBase" />
    /// <seealso cref="Xamarin.Forms.Grid" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableCheckBox" />
+   /// <seealso cref="IValidatableCheckBox" />
    public class ValidatableCheckBox : ValidatableViewBase, IValidatableCheckBox
    {
       /// <summary>
@@ -100,21 +96,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="viewModelPropertyName">Name of the view model property.</param>
       public ValidatableCheckBox
       (
-         double?         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode     bindingMode                        = BindingMode.TwoWay,
-         IValueConverter converter                          = null,
-         object          converterParameter                 = null,
-         string          fontFamilyOverride                 = "",
-         string          instructions                       = "",
-         double?         instructionsHeight                 = INSTRUCTIONS_HEIGHT,
-         Action          onIsValidChangedAction             = null,
-         string          placeholder                        = "",
-         double?         placeholderHeight                  = PLACEHOLDER_HEIGHT,
-         bool            showInstructionsOrValidations      = false,
-         bool            showValidationErrorsAsInstructions = true,
-         string          stringFormat                       = null,
-         ICanBeValid     validator                          = null,
-         string          viewModelPropertyName              = ""
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         string fontFamilyOverride = "",
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         Action onIsValidChangedAction = null,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         ICanBeValid validator = null,
+         string viewModelPropertyName = ""
       )
          : base
          (
@@ -148,6 +144,32 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
+      /// Gets the editable CheckBox.
+      /// </summary>
+      /// <value>The editable CheckBox.</value>
+      public CustomCheckBox EditableCheckBox
+      {
+         get
+         {
+            if (_editableCheckBox.IsNullOrDefault())
+            {
+               _editableCheckBox = new CustomCheckBox { BackgroundColor = Color.Transparent, Margin = 7.5 };
+
+               _editableCheckBox.PropertyChanged +=
+                  (sender, args) =>
+                  {
+                     if (args.PropertyName.IsSameAs(CustomCheckBox.IsCheckedProperty.PropertyName))
+                     {
+                        CallRevalidate();
+                     }
+                  };
+            }
+
+            return _editableCheckBox;
+         }
+      }
+
+      /// <summary>
       /// Gets a value indicating whether [derived view is focused].
       /// </summary>
       /// <value><c>true</c> if [derived view is focused]; otherwise, <c>false</c>.</value>
@@ -171,32 +193,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
       protected override bool UserHasEnteredValidContent => true;
-
-      /// <summary>
-      /// Gets the editable CheckBox.
-      /// </summary>
-      /// <value>The editable CheckBox.</value>
-      public CustomCheckBox EditableCheckBox
-      {
-         get
-         {
-            if (_editableCheckBox.IsNullOrDefault())
-            {
-               _editableCheckBox = new CustomCheckBox {BackgroundColor = Color.Transparent, Margin = 7.5};
-
-               _editableCheckBox.PropertyChanged +=
-                  (sender, args) =>
-                  {
-                     if (args.PropertyName.IsSameAs(CustomCheckBox.IsCheckedProperty.PropertyName))
-                     {
-                        CallRevalidate();
-                     }
-                  };
-            }
-
-            return _editableCheckBox;
-         }
-      }
 
       /// <summary>
       /// Nullables the long function.

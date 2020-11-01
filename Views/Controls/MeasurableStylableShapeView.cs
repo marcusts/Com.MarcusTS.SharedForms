@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, MeasurableStylableShapeView.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,7 +20,7 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
+using System.Linq;
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -40,50 +38,57 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    public interface ICanMeasure
    {
       /// <summary>
+      /// Occurs when [measured content size changed].
+      /// </summary>
+      event EventUtils.GenericDelegate<Size> MeasuredContentSizeChanged;
+
+      /// <summary>
       /// Gets or sets a value indicating whether [automatic calculate height].
       /// </summary>
       /// <value><c>true</c> if [automatic calculate height]; otherwise, <c>false</c>.</value>
-      bool AutoCalcHeight   { get; set; }
+      bool AutoCalcHeight { get; set; }
+
       /// <summary>
       /// Gets or sets a value indicating whether [automatic calculate width].
       /// </summary>
       /// <value><c>true</c> if [automatic calculate width]; otherwise, <c>false</c>.</value>
-      bool AutoCalcWidth    { get; set; }
+      bool AutoCalcWidth { get; set; }
+
       /// <summary>
       /// Gets or sets the height of the fixed.
       /// </summary>
       /// <value>The height of the fixed.</value>
-      double FixedHeight      { get; set; }
+      double FixedHeight { get; set; }
+
       /// <summary>
       /// Gets or sets the width of the fixed.
       /// </summary>
       /// <value>The width of the fixed.</value>
-      double FixedWidth       { get; set; }
+      double FixedWidth { get; set; }
+
       /// <summary>
       /// Gets or sets the maximum height of the measure.
       /// </summary>
       /// <value>The maximum height of the measure.</value>
       double MaxMeasureHeight { get; set; }
+
       /// <summary>
       /// Gets or sets the maximum width of the measure.
       /// </summary>
       /// <value>The maximum width of the measure.</value>
-      double MaxMeasureWidth  { get; set; }
+      double MaxMeasureWidth { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum height of the measure.
       /// </summary>
       /// <value>The minimum height of the measure.</value>
       double MinMeasureHeight { get; set; }
+
       /// <summary>
       /// Gets or sets the minimum width of the measure.
       /// </summary>
       /// <value>The minimum width of the measure.</value>
-      double MinMeasureWidth  { get; set; }
-
-      /// <summary>
-      /// Occurs when [measured content size changed].
-      /// </summary>
-      event EventUtils.GenericDelegate<Size> MeasuredContentSizeChanged;
+      double MinMeasureWidth { get; set; }
 
       /// <summary>
       /// Remeasures the size.
@@ -105,20 +110,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IMeasurableStylableShapeView
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ICanMeasure" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Interfaces.IHaveCurrentMeasuredContentSizeRequester" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionStylingHelper" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ICanAlternate" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ICanBeSelected" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveMeasuredContentSize" />
+   /// Implements the <see cref="ICanMeasure" />
+   /// Implements the <see cref="IHaveCurrentMeasuredContentSizeRequester" />
+   /// Implements the <see cref="IHaveSelectionStylingHelper" />
+   /// Implements the <see cref="ICanAlternate" />
+   /// Implements the <see cref="ICanBeSelected" />
+   /// Implements the <see cref="IHaveMeasuredContentSize" />
    /// Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ICanMeasure" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Interfaces.IHaveCurrentMeasuredContentSizeRequester" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveSelectionStylingHelper" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ICanAlternate" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ICanBeSelected" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IHaveMeasuredContentSize" />
+   /// <seealso cref="ICanMeasure" />
+   /// <seealso cref="IHaveCurrentMeasuredContentSizeRequester" />
+   /// <seealso cref="IHaveSelectionStylingHelper" />
+   /// <seealso cref="ICanAlternate" />
+   /// <seealso cref="ICanBeSelected" />
+   /// <seealso cref="IHaveMeasuredContentSize" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IMeasurableStylableShapeView :
       ICanMeasure,
@@ -133,11 +138,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Class MeasurableStylableShapeView.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IMeasurableStylableShapeView" />
+   /// Implements the <see cref="ShapeView" />
+   /// Implements the <see cref="IMeasurableStylableShapeView" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IMeasurableStylableShapeView" />
+   /// <seealso cref="ShapeView" />
+   /// <seealso cref="IMeasurableStylableShapeView" />
    public class MeasurableStylableShapeView : ShapeView, IMeasurableStylableShapeView
    {
       /// <summary>
@@ -326,71 +331,57 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>
       /// The am an alternate
       /// </summary>
-      private bool                               _amAnAlternate;
+      private bool _amAnAlternate;
+
       /// <summary>
       /// The current measured content size requester
       /// </summary>
       private IRequestCurrentMeasuredContentSize _currentMeasuredContentSizeRequester;
+
       /// <summary>
       /// The fixed height
       /// </summary>
-      private double                             _fixedHeight;
+      private double _fixedHeight;
+
       /// <summary>
       /// The fixed width
       /// </summary>
-      private double                             _fixedWidth;
+      private double _fixedWidth;
+
       /// <summary>
       /// The is selected
       /// </summary>
-      private bool                               _isSelected;
+      private bool _isSelected;
+
       /// <summary>
       /// The maximum measure height
       /// </summary>
-      private double                             _maxMeasureHeight;
+      private double _maxMeasureHeight;
+
       /// <summary>
       /// The maximum measure width
       /// </summary>
-      private double                             _maxMeasureWidth;
+      private double _maxMeasureWidth;
+
       /// <summary>
       /// The measured content size
       /// </summary>
-      private Size                               _measuredContentSize;
+      private Size _measuredContentSize;
+
       /// <summary>
       /// The minimum measure height
       /// </summary>
-      private double                             _minMeasureHeight;
+      private double _minMeasureHeight;
+
       /// <summary>
       /// The minimum measure width
       /// </summary>
-      private double                             _minMeasureWidth;
+      private double _minMeasureWidth;
 
       /// <summary>
       /// The styling helper
       /// </summary>
       private ISelectionStylingHelper _stylingHelper;
-
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MeasurableStylableShapeView" /> class.
-      /// </summary>
-      public MeasurableStylableShapeView()
-      {
-         PropertyChanged +=
-            (sender, args) =>
-            {
-               if (args.PropertyName.IsSameAs(nameof(Content)) && (AutoCalcWidth || AutoCalcHeight))
-               {
-                  RemeasureSize();
-               }
-               else
-               {
-                  if ((args.PropertyName.IsSameAs(nameof(Width)) || args.PropertyName.IsSameAs(nameof(Height))) &&
-                      MeasuredContentSize.IsEmpty())
-                  {
-                     MeasuredContentSize = new Size(Width, Height);
-                  }
-               }
-            };
-      }
 
       /// <summary>
       /// Occurs when [is alternate changed].
@@ -455,7 +446,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             if (value.IsNotEmpty() && _fixedHeight.IsDifferentThan(value))
             {
-               _fixedHeight        = value;
+               _fixedHeight = value;
                MeasuredContentSize = new Size(MeasuredContentSize.Width, _fixedHeight);
             }
          }
@@ -590,7 +581,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             {
                _measuredContentSize = value;
 
-               WidthRequest  = _measuredContentSize.Width;
+               WidthRequest = _measuredContentSize.Width;
                HeightRequest = _measuredContentSize.Height;
 
                OnMeasuredContentSizeChanged(_measuredContentSize);
@@ -658,6 +649,80 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
+      /// Creates the measurable shape view property.
+      /// </summary>
+      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+      /// <param name="localPropName">Name of the local property.</param>
+      /// <param name="defaultVal">The default value.</param>
+      /// <param name="bindingMode">The binding mode.</param>
+      /// <param name="callbackAction">The callback action.</param>
+      /// <returns>BindableProperty.</returns>
+      public static BindableProperty CreateMeasurableShapeViewProperty<PropertyTypeT>
+      (
+         string localPropName,
+         PropertyTypeT defaultVal =
+            default,
+         BindingMode bindingMode =
+            BindingMode.OneWay,
+         Action<MeasurableStylableShapeView, PropertyTypeT, PropertyTypeT> callbackAction = null
+      )
+      {
+         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+      }
+
+      /// <summary>
+      /// Creates the measurable shape view style.
+      /// </summary>
+      /// <param name="backColor">Color of the back.</param>
+      /// <param name="borderThickness">The border thickness.</param>
+      /// <param name="borderColor">Color of the border.</param>
+      /// <param name="cornerRadius">The corner radius.</param>
+      /// <returns>Style.</returns>
+      public static Style CreateMeasurableShapeViewStyle
+      (
+         Color? backColor = default,
+         double borderThickness = 0,
+         Color? borderColor = default,
+         double cornerRadius = 0
+      )
+      {
+         var retStyle = new Style(typeof(MeasurableStylableShapeView));
+
+         if (backColor.HasValue)
+         {
+            retStyle.Setters.Add(BackgroundColorProperty, backColor.GetValueOrDefault());
+         }
+         else
+         {
+            retStyle.Setters.Add(BackgroundColorProperty, Color.Transparent);
+         }
+
+         if (borderThickness.IsGreaterThan(0) && borderColor.HasValue)
+         {
+            retStyle.Setters.Add(BorderProperty, FormsUtils.CreateShapeViewBorder(borderColor, borderThickness));
+         }
+         else
+         {
+            var foundSetter = retStyle.Setters.FirstOrDefault(s => s.Property == BorderProperty);
+            if (foundSetter.IsNotNullOrDefault())
+            {
+               retStyle.Setters.Remove(foundSetter);
+            }
+         }
+
+         if (cornerRadius.IsLessThanOrEqualTo(0))
+         {
+            retStyle.Setters.Add(CornerRadiusProperty, 0);
+         }
+         else
+         {
+            retStyle.Setters.Add(CornerRadiusProperty, cornerRadius);
+         }
+
+         return retStyle;
+      }
+
+      /// <summary>
       /// Afters the selection change.
       /// </summary>
       /// <param name="item">The item.</param>
@@ -714,90 +779,29 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Creates the measurable shape view property.
-      /// </summary>
-      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
-      /// <param name="localPropName">Name of the local property.</param>
-      /// <param name="defaultVal">The default value.</param>
-      /// <param name="bindingMode">The binding mode.</param>
-      /// <param name="callbackAction">The callback action.</param>
-      /// <returns>BindableProperty.</returns>
-      public static BindableProperty CreateMeasurableShapeViewProperty<PropertyTypeT>
-      (
-         string localPropName,
-         PropertyTypeT defaultVal =
-            default,
-         BindingMode bindingMode =
-            BindingMode.OneWay,
-         Action<MeasurableStylableShapeView, PropertyTypeT, PropertyTypeT> callbackAction = null
-      )
-      {
-         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
-      }
-
-      /// <summary>
-      /// Creates the measurable shape view style.
-      /// </summary>
-      /// <param name="backColor">Color of the back.</param>
-      /// <param name="BorderThickness">The border thickness.</param>
-      /// <param name="borderColor">Color of the border.</param>
-      /// <param name="cornerRadius">The corner radius.</param>
-      /// <returns>Style.</returns>
-      public static Style CreateMeasurableShapeViewStyle
-      (
-         Color? backColor       = default,
-         double BorderThickness = 0,
-         Color? borderColor     = default,
-         double cornerRadius    = 0
-      )
-      {
-         var retStyle = new Style(typeof(MeasurableStylableShapeView));
-
-         if (backColor.HasValue)
-         {
-            retStyle.Setters.Add(BackgroundColorProperty, backColor.GetValueOrDefault());
-         }
-         else
-         {
-            retStyle.Setters.Add(BackgroundColorProperty, Color.Transparent);
-         }
-
-         if (BorderThickness.IsLessThanOrEqualTo(0))
-         {
-            retStyle.Setters.Add(BorderThicknessProperty, 0);
-         }
-         else
-         {
-            retStyle.Setters.Add(BorderThicknessProperty, BorderThickness);
-         }
-
-         if (borderColor.HasValue)
-         {
-            retStyle.Setters.Add(BorderColorProperty, borderColor.GetValueOrDefault());
-         }
-         else
-         {
-            retStyle.Setters.Add(BorderColorProperty, Color.Transparent);
-         }
-
-         if (cornerRadius.IsLessThanOrEqualTo(0))
-         {
-            retStyle.Setters.Add(CornerRadiusProperty, 0);
-         }
-         else
-         {
-            retStyle.Setters.Add(CornerRadiusProperty, cornerRadius);
-         }
-
-         return retStyle;
-      }
-
-      /// <summary>
       /// Called when [measured content size changed].
       /// </summary>
       /// <param name="measuredContentSize">Size of the measured content.</param>
       protected virtual void OnMeasuredContentSizeChanged(Size measuredContentSize)
       {
+      }
+
+      protected override void OnPropertyChanged(string propertyName = null)
+      {
+         base.OnPropertyChanged(propertyName);
+
+         if (propertyName.IsSameAs(nameof(Content)) && (AutoCalcWidth || AutoCalcHeight))
+         {
+            RemeasureSize();
+         }
+         else
+         {
+            if ((propertyName.IsSameAs(nameof(Width)) || propertyName.IsSameAs(nameof(Height))) &&
+                MeasuredContentSize.IsEmpty())
+            {
+               MeasuredContentSize = new Size(Width, Height);
+            }
+         }
       }
 
       /// <summary>

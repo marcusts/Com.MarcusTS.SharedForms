@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, OrientationService.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Services
 {
@@ -58,14 +54,14 @@ namespace Com.MarcusTS.SharedForms.Common.Services
       /// <param name="message">The message.</param>
       public static void HandleDeviceSizeChanged
       (
-         object                        sender,
+         object sender,
          LocalDeviceSizeChangedMessage message
       )
       {
          // Need the initial orientation
-         ScreenWidth  = message.Payload.ScreenWidth;
+         ScreenWidth = message.Payload.ScreenWidth;
          ScreenHeight = message.Payload.ScreenHeight;
-         IsLandscape  = ScreenWidth > ScreenHeight;
+         IsLandscape = ScreenWidth > ScreenHeight;
 
          // Notify the app classes about this change.
          FormsMessengerUtils.Send(new BroadcastDeviceSizeChangedMessage(ScreenWidth, ScreenHeight));

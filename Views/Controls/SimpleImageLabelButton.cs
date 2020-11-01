@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, SimpleImageLabelButton.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using Common.Utils;
@@ -33,9 +29,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface ISimpleImageLabelButton
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ITriStateImageLabelButton" />
+   /// Implements the <see cref="ITriStateImageLabelButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ITriStateImageLabelButton" />
+   /// <seealso cref="ITriStateImageLabelButton" />
    public interface ISimpleImageLabelButton : ITriStateImageLabelButton
    {
       /// <summary>
@@ -90,11 +86,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <summary>
    /// A button that can contain either an image and/or a label.
    /// This button is not selectable or toggle-able.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.TriStateImageLabelButton" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ISimpleImageLabelButton" />
+   /// Implements the <see cref="TriStateImageLabelButton" />
+   /// Implements the <see cref="ISimpleImageLabelButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.TriStateImageLabelButton" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ISimpleImageLabelButton" />
+   /// <seealso cref="TriStateImageLabelButton" />
+   /// <seealso cref="ISimpleImageLabelButton" />
    public class SimpleImageLabelButton : TriStateImageLabelButton, ISimpleImageLabelButton
    {
       /// <summary>
@@ -292,21 +288,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="fontFamilyOverride">The font family override.</param>
       public SimpleImageLabelButton(double labelWidth, double labelHeight, string fontFamilyOverride = "")
       {
-         CanSelect             = false;
+         CanSelect = false;
          ButtonToggleSelection = false;
-         LabelPos              = FormsConst.OnScreenPositions.CENTER;
+         LabelPos = FormsConst.OnScreenPositions.CENTER;
 
          ButtonLabel = FormsUtils.GetSimpleLabel("", width: labelWidth, height: labelHeight,
                                                  fontFamilyOverride: fontFamilyOverride);
 
          SetAllStyles();
       }
-
-      /// <summary>
-      /// Gets a value indicating whether this instance is disabled.
-      /// </summary>
-      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
-      protected override bool IsDisabled => false;
 
       /// <summary>
       /// Gets or sets the color of the button back.
@@ -403,7 +393,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          get => _labelText;
          set
          {
-            _labelText       = value;
+            _labelText = value;
             ButtonLabel.Text = _labelText;
          }
       }
@@ -421,6 +411,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             ResetLabelStyle();
          }
       }
+
+      /// <summary>
+      /// Gets a value indicating whether this instance is disabled.
+      /// </summary>
+      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
+      protected override bool IsDisabled => false;
 
       /// <summary>
       /// Creates the simple image label button.
@@ -446,41 +442,41 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>ISimpleImageLabelButton.</returns>
       public static ISimpleImageLabelButton CreateSimpleImageLabelButton
       (
-         string         labelText,
-         Color          labelTextColor,
-         double         labelFontSize,
-         double         widthRequest,
-         double         heightRequest,
-         object         bindingContext,
-         Color          buttonBackColor,
-         Color          buttonBorderColor,
-         LayoutOptions  horizontalOptions,
-         LayoutOptions  verticalOptions,
-         string         fontFamilyOverride       = "",
-         string         imageFilePath            = "",
-         float          buttonBorderWidth        = default,
-         FontAttributes labelFontAttributes      = default,
-         double?        cornerRadiusFactor       = default,
-         string         buttonCommandBindingName = "",
-         bool           animateButton            = true,
-         bool           includeHapticFeedback    = true
+         string labelText,
+         Color labelTextColor,
+         double labelFontSize,
+         double widthRequest,
+         double heightRequest,
+         object bindingContext,
+         Color buttonBackColor,
+         Color buttonBorderColor,
+         LayoutOptions horizontalOptions,
+         LayoutOptions verticalOptions,
+         string fontFamilyOverride = "",
+         string imageFilePath = "",
+         float buttonBorderWidth = default,
+         FontAttributes labelFontAttributes = default,
+         double? cornerRadiusFactor = default,
+         string buttonCommandBindingName = "",
+         bool animateButton = true,
+         bool includeHapticFeedback = true
       )
       {
          var newSimpleImageLabelButton = new SimpleImageLabelButton(widthRequest, heightRequest)
          {
-            LabelText                = labelText,
-            LabelTextColor           = labelTextColor,
-            LabelFontSize            = labelFontSize,
-            WidthRequest             = widthRequest,
-            HeightRequest            = heightRequest,
-            BindingContext           = bindingContext,
-            ButtonBackColor          = buttonBackColor,
-            ButtonBorderColor        = buttonBorderColor,
-            HorizontalOptions        = horizontalOptions,
-            VerticalOptions          = verticalOptions,
-            ImageFilePath            = imageFilePath,
-            ButtonBorderWidth        = buttonBorderWidth,
-            LabelFontAttributes      = labelFontAttributes,
+            LabelText = labelText,
+            LabelTextColor = labelTextColor,
+            LabelFontSize = labelFontSize,
+            WidthRequest = widthRequest,
+            HeightRequest = heightRequest,
+            BindingContext = bindingContext,
+            ButtonBackColor = buttonBackColor,
+            ButtonBorderColor = buttonBorderColor,
+            HorizontalOptions = horizontalOptions,
+            VerticalOptions = verticalOptions,
+            ImageFilePath = imageFilePath,
+            ButtonBorderWidth = buttonBorderWidth,
+            LabelFontAttributes = labelFontAttributes,
             ButtonCornerRadiusFactor = cornerRadiusFactor,
             ButtonCommandBindingName = buttonCommandBindingName
          };
@@ -500,7 +496,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             newSimpleImageLabelButton.ButtonImage.BindingContext = bindingContext;
          }
 
-         newSimpleImageLabelButton.AnimateButton         = animateButton;
+         newSimpleImageLabelButton.AnimateButton = animateButton;
          newSimpleImageLabelButton.IncludeHapticFeedback = includeHapticFeedback;
 
          // newSimpleImageLabelButton.ButtonState = DESELECTED_BUTTON_STATE;
@@ -522,9 +518,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateSimpleImageLabelButtonBindableProperty<PropertyTypeT>
       (
-         string                                                       localPropName,
-         PropertyTypeT                                                defaultVal     = default,
-         BindingMode                                                  bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {

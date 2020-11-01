@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, SelectionImageLabelButtonBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using Common.Utils;
@@ -32,9 +28,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface ISelectionImageLabelButton
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+   /// Implements the <see cref="IImageLabelButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+   /// <seealso cref="IImageLabelButton" />
    public interface ISelectionImageLabelButton : IImageLabelButton
    {
       /// <summary>
@@ -59,11 +55,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <summary>
    /// A button that can select an item among a master collection of items.
    /// Multi-select is supported.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ISelectionImageLabelButton" />
+   /// Implements the <see cref="ImageLabelButtonBase" />
+   /// Implements the <see cref="ISelectionImageLabelButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ISelectionImageLabelButton" />
+   /// <seealso cref="ImageLabelButtonBase" />
+   /// <seealso cref="ISelectionImageLabelButton" />
    public abstract class SelectionImageLabelButtonBase : ImageLabelButtonBase, ISelectionImageLabelButton
    {
       /// <summary>
@@ -129,17 +125,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       protected SelectionImageLabelButtonBase()
       {
          ImageResourceClassType = GetType();
-         SelectionStyle         = ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles;
-         ButtonLabel            = FormsUtils.GetSimpleLabel();
-         LabelPos               = FormsConst.OnScreenPositions.CENTER;
-         ImagePos               = FormsConst.OnScreenPositions.NONE;
+         SelectionStyle = ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles;
+         ButtonLabel = FormsUtils.GetSimpleLabel();
+         LabelPos = FormsConst.OnScreenPositions.CENTER;
+         ImagePos = FormsConst.OnScreenPositions.NONE;
       }
-
-      /// <summary>
-      /// Gets a value indicating whether this instance is disabled.
-      /// </summary>
-      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
-      protected override bool IsDisabled => false;
 
       /// <summary>
       /// Gets or sets a value indicating whether [get image from resource].
@@ -172,6 +162,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public override bool UpdateButtonTextFromStyle => true;
 
       /// <summary>
+      /// Gets a value indicating whether this instance is disabled.
+      /// </summary>
+      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
+      protected override bool IsDisabled => false;
+
+      /// <summary>
       /// Creates the selection image label button bindable property.
       /// </summary>
       /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
@@ -182,9 +178,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateSelectionImageLabelButtonBindableProperty<PropertyTypeT>
       (
-         string                                                              localPropName,
-         PropertyTypeT                                                       defaultVal     = default,
-         BindingMode                                                         bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<SelectionImageLabelButtonBase, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {

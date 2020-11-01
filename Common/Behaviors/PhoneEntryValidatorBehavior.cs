@@ -1,5 +1,3 @@
-#region License
-
 // Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, PhoneEntryValidatorBehavior.cs, is a part of a program called AccountViewMobile.
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using SharedUtils.Utils;
@@ -31,9 +27,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
    /// <summary>
    /// Class PhoneEntryValidatorBehavior. Implements the <see cref="EntryValidationBehavior" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
+   /// Implements the <see cref="EntryValidationBehavior" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Common.Behaviors.EntryValidationBehavior" />
+   /// <seealso cref="EntryValidationBehavior" />
    /// <seealso cref="EntryValidationBehavior" />
    public class PhoneEntryValidatorBehavior : EntryValidationBehavior
    {
@@ -59,8 +55,8 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="originalText">The original text.</param>
       /// <param name="isOutsideOfRange">if set to <c>true</c> [is outside of range].</param>
       /// <returns>System.String.</returns>
-      protected override string IllegalCharFilter(IEntryValidationBehavior behavior,     string   newText,
-                                                  string                   originalText, out bool isOutsideOfRange)
+      protected override string IllegalCharFilter(IEntryValidationBehavior behavior, string newText,
+                                                  string originalText, out bool isOutsideOfRange)
       {
          return PhoneNumberIllegalCharFunc(
             behavior, base.IllegalCharFilter(behavior, newText, originalText, out isOutsideOfRange),
@@ -106,7 +102,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       /// <param name="isOutsideOfRange">if set to <c>true</c> [is outside of range].</param>
       /// <returns>System.String.</returns>
       private static string PhoneNumberIllegalCharFunc(IEntryValidationBehavior behaviorBase, string newText,
-                                                       out bool                 isOutsideOfRange)
+                                                       out bool isOutsideOfRange)
       {
          isOutsideOfRange = false;
 

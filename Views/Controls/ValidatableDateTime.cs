@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ValidatableDateTime.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // MIT License
 
@@ -53,9 +49,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface IValidatableDateTime Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// Implements the <see cref="IValidatableView" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
+   /// <seealso cref="IValidatableView" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IValidatableDateTime : IValidatableView
    {
@@ -64,21 +60,22 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value>The editable date picker.</value>
       DatePicker EditableDatePicker { get; }
+
       /// <summary>
       /// Gets or sets the nullable result.
       /// </summary>
       /// <value>The nullable result.</value>
-      DateTime?  NullableResult     { get; set; }
+      DateTime? NullableResult { get; set; }
    }
 
    /// <summary>
    /// A UI element that includes an DateTime surrounded by a border. Implements the <see cref="Xamarin.Forms.Grid" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableDateTime" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// Implements the <see cref="IValidatableDateTime" />
+   /// Implements the <see cref="ValidatableViewBase" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase" />
+   /// <seealso cref="ValidatableViewBase" />
    /// <seealso cref="Xamarin.Forms.Grid" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableDateTime" />
+   /// <seealso cref="IValidatableDateTime" />
    public class ValidatableDateTime : ValidatableViewBase, IValidatableDateTime
    {
       /// <summary>
@@ -103,7 +100,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>
       /// The font size
       /// </summary>
-      private readonly double?    _fontSize;
+      private readonly double? _fontSize;
+
       /// <summary>
       /// The editable date time
       /// </summary>
@@ -133,25 +131,25 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="viewModelPropertyName">Name of the view model property.</param>
       public ValidatableDateTime
       (
-         double?         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode     bindingMode                        = BindingMode.TwoWay,
-         IValueConverter converter                          = null,
-         object          converterParameter                 = null,
-         bool            emptyAllowed                       = false,
-         string          fontFamilyOverride                 = "",
-         double?         fontSize                           = null,
-         string          instructions                       = "",
-         double?         instructionsHeight                 = INSTRUCTIONS_HEIGHT,
-         Keyboard        keyboard                           = null,
-         Action          onIsValidChangedAction             = null,
-         string          placeholder                        = "",
-         double?         placeholderHeight                  = PLACEHOLDER_HEIGHT,
-         bool            returnNonNullableResult            = false,
-         bool            showInstructionsOrValidations      = false,
-         bool            showValidationErrorsAsInstructions = true,
-         string          stringFormat                       = null,
-         ICanBeValid     validator                          = null,
-         string          viewModelPropertyName              = ""
+         double? borderViewHeight = BORDER_VIEW_HEIGHT,
+         BindingMode bindingMode = BindingMode.TwoWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         bool emptyAllowed = false,
+         string fontFamilyOverride = "",
+         double? fontSize = null,
+         string instructions = "",
+         double? instructionsHeight = INSTRUCTIONS_HEIGHT,
+         Keyboard keyboard = null,
+         Action onIsValidChangedAction = null,
+         string placeholder = "",
+         double? placeholderHeight = PLACEHOLDER_HEIGHT,
+         bool returnNonNullableResult = false,
+         bool showInstructionsOrValidations = false,
+         bool showValidationErrorsAsInstructions = true,
+         string stringFormat = null,
+         ICanBeValid validator = null,
+         string viewModelPropertyName = ""
       )
          : base
          (
@@ -179,37 +177,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                              : default,
                   onIsValidChangedAction
                )
-               {EmptyAllowed = emptyAllowed},
+            { EmptyAllowed = emptyAllowed },
             viewModelPropertyName
          )
       {
          _fontSize = fontSize;
          CallCreateViews();
       }
-
-      /// <summary>
-      /// Gets a value indicating whether [derived view is focused].
-      /// </summary>
-      /// <value><c>true</c> if [derived view is focused]; otherwise, <c>false</c>.</value>
-      protected override bool DerivedViewIsFocused => false;
-
-      /// <summary>
-      /// Gets the editable view.
-      /// </summary>
-      /// <value>The editable view.</value>
-      protected override View EditableView => EditableDatePicker;
-
-      /// <summary>
-      /// Gets the editable view container.
-      /// </summary>
-      /// <value>The editable view container.</value>
-      protected override View EditableViewContainer => EditableDatePicker;
-
-      /// <summary>
-      /// Gets a value indicating whether [user has entered valid content].
-      /// </summary>
-      /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
-      protected override bool UserHasEnteredValidContent => EditableDatePicker.Date.IsNotEmpty();
 
       /// <summary>
       /// Gets the editable date picker.
@@ -223,7 +197,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             {
                _editableDateTime = new DatePicker
                {
-                  FontSize        = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE,
+                  FontSize = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE,
                   BackgroundColor = Color.Transparent
                };
 
@@ -252,6 +226,30 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public DateTime? NullableResult { get; set; }
 
       /// <summary>
+      /// Gets a value indicating whether [derived view is focused].
+      /// </summary>
+      /// <value><c>true</c> if [derived view is focused]; otherwise, <c>false</c>.</value>
+      protected override bool DerivedViewIsFocused => false;
+
+      /// <summary>
+      /// Gets the editable view.
+      /// </summary>
+      /// <value>The editable view.</value>
+      protected override View EditableView => EditableDatePicker;
+
+      /// <summary>
+      /// Gets the editable view container.
+      /// </summary>
+      /// <value>The editable view container.</value>
+      protected override View EditableViewContainer => EditableDatePicker;
+
+      /// <summary>
+      /// Gets a value indicating whether [user has entered valid content].
+      /// </summary>
+      /// <value><c>true</c> if [user has entered valid content]; otherwise, <c>false</c>.</value>
+      protected override bool UserHasEnteredValidContent => EditableDatePicker.Date.IsNotEmpty();
+
+      /// <summary>
       /// Creates the validatable view bindable property.
       /// </summary>
       /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
@@ -262,9 +260,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateValidatableViewBindableProperty<PropertyTypeT>
       (
-         string                                                    localPropName,
-         PropertyTypeT                                             defaultVal     = default,
-         BindingMode                                               bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<ValidatableDateTime, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ShapeView.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -49,9 +45,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             BindingMode.OneWay,
             (view, oldVal, newVal) =>
             {
-               view.Color                        = newVal;
-               view.BackgroundGradientStartColor = newVal;
-               view.BackgroundGradientEndColor   = newVal;
+               // view.Color                        = newVal;
+               //view.BackgroundGradientStartColor = newVal;
+               //view.BackgroundGradientEndColor   = newVal;
+               view.BackgroundColor = newVal;
+               view.IsClippedToBounds = true;
             }
          );
 
@@ -60,9 +58,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       public ShapeView()
       {
-         Margin  = 0;
+         Margin = 0;
          Padding = 0;
+         //BackgroundColor = Color.Transparent;
+         //Color = Color.White;
       }
+
+      public new Color BorderColor => Border?.Color ?? default;
+
+      public new float BorderThickness => Border?.Thickness ?? default;
 
       /// <summary>
       /// Gets or sets the color.
@@ -70,7 +74,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color.</value>
       public Color Color
       {
-         get => (Color) GetValue(ColorProperty);
+         get => (Color)GetValue(ColorProperty);
 
          set => SetValue(ColorProperty, value);
       }
@@ -85,12 +89,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="callbackAction">The callback action.</param>
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateValidatableViewBindableProperty<PropertyTypeT>
-      (
-         string                                          localPropName,
-         PropertyTypeT                                   defaultVal     = default,
-         BindingMode                                     bindingMode    = BindingMode.OneWay,
-         Action<ShapeView, PropertyTypeT, PropertyTypeT> callbackAction = null
-      )
+    (
+       string localPropName,
+       PropertyTypeT defaultVal = default,
+       BindingMode bindingMode = BindingMode.OneWay,
+       Action<ShapeView, PropertyTypeT, PropertyTypeT> callbackAction = null
+    )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
       }

@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, TypeSafeViewBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Pages
 {
    using Common.Interfaces;
@@ -40,11 +36,11 @@ namespace Com.MarcusTS.SharedForms.Views.Pages
    /// <summary>
    /// A base class for content views that protects the type safety of the binding context.
    /// Implements the <see cref="Xamarin.Forms.ContentView" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
+   /// Implements the <see cref="ITypeSafeViewBase" />
    /// </summary>
    /// <typeparam name="InterfaceT">The required interface for this view.</typeparam>
    /// <seealso cref="Xamarin.Forms.ContentView" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Pages.ITypeSafeViewBase" />
+   /// <seealso cref="ITypeSafeViewBase" />
    /// <remarks>This code is similar to that at <see cref="TypeSafePageBase{InterfaceT}" /> except it manages a
    /// view rather than a page.</remarks>
    public abstract class TypeSafeViewBase<InterfaceT> : ContentView, ITypeSafeViewBase

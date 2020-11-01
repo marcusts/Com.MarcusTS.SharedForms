@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, BindableUtils.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
@@ -46,9 +42,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateBindableProperty<T, U>
       (
-         string          localPropName,
-         U               defaultVal     = default,
-         BindingMode     bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         U defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<T, U, U> callbackAction = null
       )
          where T : class
@@ -72,7 +68,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                   var bindableAsOverlayButton = bindable as T;
                   if (bindableAsOverlayButton != null)
                   {
-                     callbackAction(bindableAsOverlayButton, (U) oldVal, (U) newVal);
+                     callbackAction(bindableAsOverlayButton, (U)oldVal, (U)newVal);
                   }
                }
             });
@@ -91,7 +87,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static BindableProperty CreateReadOnlyBindableProperty<T, U>
       (
          string localPropName,
-         U      defaultVal = default,
+         U defaultVal = default,
          BindingMode bindingMode =
             BindingMode.OneWay,
          Action<T, U, U> callbackAction = null
@@ -117,8 +113,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                   var bindableAsOverlayButton = bindable as T;
                   if (bindableAsOverlayButton != null)
                   {
-                     callbackAction(bindableAsOverlayButton, (U) oldVal,
-                                    (U) newVal);
+                     callbackAction(bindableAsOverlayButton, (U)oldVal,
+                                    (U)newVal);
                   }
                }
             }).BindableProperty;
@@ -138,13 +134,13 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static void SetUpBinding
       (
          this BindableObject view,
-         BindableProperty    bindableProperty,
-         string              viewModelPropertyName,
-         BindingMode         bindingMode        = BindingMode.OneWay,
-         IValueConverter     converter          = null,
-         object              converterParameter = null,
-         string              stringFormat       = null,
-         object              source             = null
+         BindableProperty bindableProperty,
+         string viewModelPropertyName,
+         BindingMode bindingMode = BindingMode.OneWay,
+         IValueConverter converter = null,
+         object converterParameter = null,
+         string stringFormat = null,
+         object source = null
       )
       {
          view.SetBinding(bindableProperty,

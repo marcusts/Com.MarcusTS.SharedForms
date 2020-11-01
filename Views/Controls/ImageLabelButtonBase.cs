@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, ImageLabelButtonBase.cs, is a part of a program called AccountViewMobile.
 //
@@ -21,8 +19,6 @@
 //
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
-
-#endregion
 
 // #define SHOW_LABEL_BACK_COLOR
 // #define TEST_FONT_SIZES
@@ -79,13 +75,23 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <summary>
    /// Interface IImageLabelButton Implements the <see cref="System.IDisposable" /> Implements the
    /// <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IReportButtonStateChanges" />
+   /// Implements the <see cref="IReportButtonStateChanges" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IReportButtonStateChanges" />
+   /// <seealso cref="IReportButtonStateChanges" />
    /// <seealso cref="System.IDisposable" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IImageLabelButton : IReportButtonStateChanges, IDisposable, INotifyPropertyChanged
    {
+      /// <summary>
+      /// Occurs when [button state changed].
+      /// </summary>
+      event EventUtils.NoParamsDelegate ImageLabelButtonPressed;
+
+      /// <summary>
+      /// Occurs when [is enabled changed].
+      /// </summary>
+      event EventUtils.GenericDelegate<bool> IsEnabledChanged;
+
       /// <summary>
       /// Gets or sets a value indicating whether [animate button].
       /// </summary>
@@ -223,16 +229,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
       bool UpdateButtonTextFromStyle { get; }
-
-      /// <summary>
-      /// Occurs when [button state changed].
-      /// </summary>
-      event EventUtils.NoParamsDelegate ImageLabelButtonPressed;
-
-      /// <summary>
-      /// Occurs when [is enabled changed].
-      /// </summary>
-      event EventUtils.GenericDelegate<bool> IsEnabledChanged;
    }
 
    /// <summary>
@@ -248,12 +244,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// A button that can contain either an image and/or a label. Implements the
-   /// <see cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
+   /// <see cref="ShapeView" />
    /// Implements the
-   /// <see cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+   /// <see cref="IImageLabelButton" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ShapeView" />
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
+   /// <seealso cref="ShapeView" />
+   /// <seealso cref="IImageLabelButton" />
    public abstract class ImageLabelButtonBase : ShapeView, IImageLabelButton
    {
       /// <summary>
@@ -741,86 +737,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Gets or sets the height of the image.
-      /// </summary>
-      /// <value>The height of the image.</value>
-      public double ImageHeight
-      {
-         get => _imageHeight;
-         set
-         {
-            if (_imageHeight.IsDifferentThan(value))
-            {
-               _imageHeight = value;
-
-               CallRecreateImageSafely();
-            }
-         }
-      }
-
-      /// <summary>
-      /// Gets or sets the width of the image.
-      /// </summary>
-      /// <value>The width of the image.</value>
-      public double ImageWidth
-      {
-         get => _imageWidth;
-         set
-         {
-            if (_imageWidth.IsDifferentThan(value))
-            {
-               _imageWidth = value;
-
-               CallRecreateImageSafely();
-            }
-         }
-      }
-
-      /// <summary>
-      /// Gets a value indicating whether this instance is disabled.
-      /// </summary>
-      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
-      protected abstract bool IsDisabled { get; }
-
-      /// <summary>
-      /// Gets the current size best guess.
-      /// </summary>
-      /// <value>The current size best guess.</value>
-      private Size CurrentSizeBestGuess => new Size(Math.Max(Width, WidthRequest), Math.Max(Height, HeightRequest));
-
-      // BUGS REQUIRE THIS
-      /// <summary>
-      /// Gets or sets the margin for the view.
-      /// </summary>
-      /// <value>To be added.</value>
-      /// <remarks>To be added.</remarks>
-      private new Thickness Margin { get; set; }
-
-      // BUGS REQUIRE THIS
-      /// <summary>
-      /// Gets or sets the inner padding of the Layout.
-      /// </summary>
-      /// <value>The Thickness values for the layout. The default value is a Thickness with all values set to 0.</value>
-      /// <remarks><para>
-      /// The padding is the space between the bounds of a layout and the bounding region into which its children should be arranged into.
-      /// </para>
-      /// <para>
-      /// The following example shows setting the padding of a Layout to inset its children.
-      /// </para>
-      /// <example>
-      ///   <code lang="csharp lang-csharp"><![CDATA[
-      /// var stackLayout = new StackLayout {
-      /// Padding = new Thickness (10, 10, 10, 20),
-      /// Children = {
-      /// new Label {Text = "Hello"},
-      /// new Label {Text = "World"}
-      /// }
-      /// }
-      /// ]]></code>
-      /// </example></remarks>
-      private new Thickness Padding { get; set; }
-
-      /// <summary>
       /// Occurs when [button state changed].
       /// </summary>
       public event EventUtils.GenericDelegate<IImageLabelButton> ButtonStateChanged;
@@ -834,6 +750,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// Occurs when [is enabled changed].
       /// </summary>
       public event EventUtils.GenericDelegate<bool> IsEnabledChanged;
+
+      /// <summary>
+      /// Occurs when [i am selected static].
+      /// </summary>
+      protected static event EventUtils.GenericDelegate<IImageLabelButton> IAmSelectedStatic;
 
       /// <summary>
       /// Gets or sets a value indicating whether [animate button].
@@ -1096,10 +1017,28 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             _currentStyle = LastCheckBeforeAssigningStyle(value);
 
             _buttonStateAssignedFromStyle = true;
-            ButtonState                   = _currentStyle.InternalButtonState;
+            ButtonState = _currentStyle.InternalButtonState;
             UpdateButtonText();
             SetAllStyles();
             _buttonStateAssignedFromStyle = false;
+         }
+      }
+
+      /// <summary>
+      /// Gets or sets the height of the image.
+      /// </summary>
+      /// <value>The height of the image.</value>
+      public double ImageHeight
+      {
+         get => _imageHeight;
+         set
+         {
+            if (_imageHeight.IsDifferentThan(value))
+            {
+               _imageHeight = value;
+
+               CallRecreateImageSafely();
+            }
          }
       }
 
@@ -1127,6 +1066,24 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   // Tricky, but works
                   ButtonImage = ButtonImage;
                }
+            }
+         }
+      }
+
+      /// <summary>
+      /// Gets or sets the width of the image.
+      /// </summary>
+      /// <value>The width of the image.</value>
+      public double ImageWidth
+      {
+         get => _imageWidth;
+         set
+         {
+            if (_imageWidth.IsDifferentThan(value))
+            {
+               _imageWidth = value;
+
+               CallRecreateImageSafely();
             }
          }
       }
@@ -1203,61 +1160,66 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public abstract bool UpdateButtonTextFromStyle { get; }
 
       /// <summary>
-      /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+      /// Gets a value indicating whether this instance is disabled.
       /// </summary>
-      public void Dispose()
-      {
-         ReleaseUnmanagedResources();
-         GC.SuppressFinalize(this);
-      }
+      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
+      protected abstract bool IsDisabled { get; }
 
       /// <summary>
-      /// Finalizes an instance of the <see cref="ImageLabelButtonBase" /> class.
+      /// Gets the current size best guess.
       /// </summary>
-      ~ImageLabelButtonBase()
-      {
-         ReleaseUnmanagedResources();
-      }
+      /// <value>The current size best guess.</value>
+      private Size CurrentSizeBestGuess => new Size(Math.Max(Width, WidthRequest), Math.Max(Height, HeightRequest));
 
+      // BUGS REQUIRE THIS
       /// <summary>
-      /// Occurs when [i am selected static].
+      /// Gets or sets the margin for the view.
       /// </summary>
-      protected static event EventUtils.GenericDelegate<IImageLabelButton> IAmSelectedStatic;
+      /// <value>To be added.</value>
+      /// <remarks>To be added.</remarks>
+      private new Thickness Margin { get; set; }
+
+      // BUGS REQUIRE THIS
+      /// <summary>
+      /// Gets or sets the inner padding of the Layout.
+      /// </summary>
+      /// <value>The Thickness values for the layout. The default value is a Thickness with all values set to 0.</value>
+      /// <remarks><para>
+      /// The padding is the space between the bounds of a layout and the bounding region into which its children should be arranged into.
+      /// </para>
+      /// <para>
+      /// The following example shows setting the padding of a Layout to inset its children.
+      /// </para>
+      /// <example>
+      ///   <code lang="csharp lang-csharp"><![CDATA[
+      /// var stackLayout = new StackLayout {
+      /// Padding = new Thickness (10, 10, 10, 20),
+      /// Children = {
+      /// new Label {Text = "Hello"},
+      /// new Label {Text = "World"}
+      /// }
+      /// }
+      /// ]]></code>
+      /// </example></remarks>
+      private new Thickness Padding { get; set; }
 
       /// <summary>
       /// Creates the button style.
       /// </summary>
       /// <param name="backColor">Color of the back.</param>
-      /// <param name="BorderThickness">Width of the border.</param>
+      /// <param name="borderThickness">Width of the border.</param>
       /// <param name="borderColor">Color of the border.</param>
       /// <returns>Style.</returns>
       public static Style CreateButtonStyle
       (
-         Color? backColor       = null,
-         float? BorderThickness = null,
-         Color? borderColor     = default
+         Color? backColor = null,
+         float? borderThickness = null,
+         Color? borderColor = default,
+         double? cornerRadius = null
       )
       {
          var newStyle = new Style(typeof(ImageLabelButtonBase));
-
-         if (backColor.HasValue)
-         {
-            newStyle.Setters.Add(new Setter {Property = ColorProperty, Value = backColor});
-         }
-
-         if (BorderThickness.HasValue)
-         {
-            newStyle.Setters.Add(new Setter
-            {
-               Property = BorderThicknessProperty, Value = BorderThickness.GetValueOrDefault()
-            });
-         }
-
-         if (borderColor.HasValue)
-         {
-            newStyle.Setters.Add(new Setter {Property = BorderColorProperty, Value = borderColor});
-         }
-
+         newStyle.SetShapeViewStyle(backColor, cornerRadius, borderColor, borderThickness);
          return newStyle;
       }
 
@@ -1270,8 +1232,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>Style.</returns>
       public static Style CreateLabelStyle
       (
-         Color?          textColor      = null,
-         double?         fontSize       = null,
+         Color? textColor = null,
+         double? fontSize = null,
          FontAttributes? fontAttributes = null
       )
       {
@@ -1280,20 +1242,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          if (textColor.HasValue)
          {
-            newStyle.Setters.Add(new Setter {Property = Label.TextColorProperty, Value = textColor});
+            newStyle.Setters.Add(new Setter { Property = Label.TextColorProperty, Value = textColor });
          }
 
          // The label is always transparent
-         newStyle.Setters.Add(new Setter {Property = BackgroundColorProperty, Value = Color.Transparent});
+         newStyle.Setters.Add(new Setter { Property = BackgroundColorProperty, Value = Color.Transparent });
 
          if (fontSize.HasValue)
          {
-            newStyle.Setters.Add(new Setter {Property = Label.FontSizeProperty, Value = fontSize});
+            newStyle.Setters.Add(new Setter { Property = Label.FontSizeProperty, Value = fontSize });
          }
 
          if (fontAttributes.HasValue)
          {
-            newStyle.Setters.Add(new Setter {Property = Label.FontAttributesProperty, Value = fontAttributes});
+            newStyle.Setters.Add(new Setter { Property = Label.FontAttributesProperty, Value = fontAttributes });
          }
 
          return newStyle;
@@ -1310,13 +1272,22 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateToggleImageLabelButtonBindableProperty<PropertyTypeT>
       (
-         string                                                     localPropName,
-         PropertyTypeT                                              defaultVal     = default,
-         BindingMode                                                bindingMode    = BindingMode.OneWay,
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
          Action<ImageLabelButtonBase, PropertyTypeT, PropertyTypeT> callbackAction = null
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+      }
+
+      /// <summary>
+      /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+      /// </summary>
+      public void Dispose()
+      {
+         ReleaseUnmanagedResources();
+         GC.SuppressFinalize(this);
       }
 
       /// <summary>
@@ -1421,15 +1392,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <remarks>TODO Cannot avoid async void -- event handler.</remarks>
       protected async void HandleTapGestureTapped
       (
-         object    sender,
+         object sender,
          EventArgs e
       )
       {
-         if (_tappedListenerEntered           ||
-             CannotTap                        ||
-             IsDisabled && !CanTapOnDisabled  ||
+         if (_tappedListenerEntered ||
+             CannotTap ||
+             IsDisabled && !CanTapOnDisabled ||
              ImageLabelButtonStyles.IsEmpty() ||
-             CurrentStyle.IsNullOrDefault()   ||
+             CurrentStyle.IsNullOrDefault() ||
              CurrentStyle.InternalButtonState.IsEmpty())
          {
             return;
@@ -1485,6 +1456,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          return value;
       }
 
+      protected override void OnBindingContextChanged()
+      {
+         base.OnBindingContextChanged();
+
+         if (ButtonLabel.IsNotNullOrDefault())
+         {
+            ButtonLabel.BindingContext = BindingContext;
+         }
+
+         if (ButtonImage.IsNotNullOrDefault())
+         {
+            ButtonImage.BindingContext = BindingContext;
+         }
+      }
+
       /// <summary>
       /// Called when [button command created].
       /// </summary>
@@ -1497,6 +1483,25 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       protected virtual void OnIsEnabledChanged()
       {
+      }
+
+      protected override void OnPropertyChanged(string propertyName = null)
+      {
+         base.OnPropertyChanged(propertyName);
+
+         if (!_isInstantiating && Bounds.AreValidAndHaveChanged(propertyName, _lastBounds))
+         {
+            if (ButtonCornerRadiusFactor.HasValue)
+            {
+               SetCornerRadius();
+            }
+
+            //_layout.ForceLayout();
+            //_imageGrid.ForceLayout();
+            //_labelGrid.ForceLayout();
+
+            _lastBounds = Bounds;
+         }
       }
 
       /// <summary>
@@ -1599,7 +1604,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          // BUGS REQUIRE THIS
          base.Padding = default;
-         base.Margin  = default;
+         base.Margin = default;
 
          IAmSelectedStatic += HandleStaticSelectionChanges;
 
@@ -1608,36 +1613,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          // Applies to the base control only
          InputTransparent = false;
-
-         PropertyChanged += (sender, args) =>
-                            {
-                               if (!_isInstantiating && Bounds.AreValidAndHaveChanged(args.PropertyName, _lastBounds))
-                               {
-                                  if (ButtonCornerRadiusFactor.HasValue)
-                                  {
-                                     SetCornerRadius();
-                                  }
-
-                                  //_layout.ForceLayout();
-                                  //_imageGrid.ForceLayout();
-                                  //_labelGrid.ForceLayout();
-
-                                  _lastBounds = Bounds;
-                               }
-                            };
-
-         BindingContextChanged += (sender, args) =>
-                                  {
-                                     if (ButtonLabel.IsNotNullOrDefault())
-                                     {
-                                        ButtonLabel.BindingContext = BindingContext;
-                                     }
-
-                                     if (ButtonImage.IsNotNullOrDefault())
-                                     {
-                                        ButtonImage.BindingContext = BindingContext;
-                                     }
-                                  };
 
          Content = _layout;
 
@@ -1764,7 +1739,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
       private void HandleButtonCommandCanExecuteChanged
       (
-         object    sender,
+         object sender,
          EventArgs e
       )
       {
@@ -1909,7 +1884,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          _layout.Children.Clear();
 
-         _layout.AddOverlayBasedOnPosition(ButtonImage, ImagePos, ImageWidth,               ImageHeight);
+         _layout.AddOverlayBasedOnPosition(ButtonImage, ImagePos, ImageWidth, ImageHeight);
          _layout.AddOverlayBasedOnPosition(ButtonLabel, LabelPos, ButtonLabel.WidthRequest, ButtonLabel.HeightRequest);
       }
 
@@ -1924,6 +1899,14 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
 
          ButtonLabel.Text = CurrentStyle.ButtonText;
+      }
+
+      /// <summary>
+      /// Finalizes an instance of the <see cref="ImageLabelButtonBase" /> class.
+      /// </summary>
+      ~ImageLabelButtonBase()
+      {
+         ReleaseUnmanagedResources();
       }
    }
 }

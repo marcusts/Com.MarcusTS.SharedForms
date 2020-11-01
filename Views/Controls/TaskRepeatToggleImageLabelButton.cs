@@ -1,6 +1,4 @@
-﻿#region License
-
-// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
 //
 // This file, TaskRepeatToggleImageLabelButton.cs, is a part of a program called AccountViewMobile.
 //
@@ -22,8 +20,6 @@
 // For the complete GNU General Public License,
 // see <http://www.gnu.org/licenses/>.
 
-#endregion
-
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    /// <summary>
@@ -35,18 +31,22 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// The never
       /// </summary>
       Never,
+
       /// <summary>
       /// The hourly
       /// </summary>
       Hourly,
+
       /// <summary>
       /// The daily
       /// </summary>
       Daily,
+
       /// <summary>
       /// The weekly
       /// </summary>
       Weekly,
+
       /// <summary>
       /// The monthly
       /// </summary>
@@ -55,18 +55,18 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    /// <summary>
    /// Interface ITaskRepeatToggleImageLabelButton
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{Com.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
+   /// Implements the <see cref="IEnumToggleImageLabelButton{EnumT}.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IEnumToggleImageLabelButton{Com.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
+   /// <seealso cref="IEnumToggleImageLabelButton{EnumT}.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
    public interface ITaskRepeatToggleImageLabelButton : IEnumToggleImageLabelButton<TaskRepeatFrequency>
    {
    }
 
    /// <summary>
    /// Class TaskRepeatToggleImageLabelButton.
-   /// Implements the <see cref="Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase{Com.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
+   /// Implements the <see cref="EnumToggleImageLabelButtonBase{EnumT}.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
    /// </summary>
-   /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase{Com.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
+   /// <seealso cref="EnumToggleImageLabelButtonBase{EnumT}.MarcusTS.SharedForms.Views.Controls.TaskRepeatFrequency}" />
    public class TaskRepeatToggleImageLabelButton : EnumToggleImageLabelButtonBase<TaskRepeatFrequency>
    {
    }
