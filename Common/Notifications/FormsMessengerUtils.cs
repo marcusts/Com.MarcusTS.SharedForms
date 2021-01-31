@@ -37,6 +37,10 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    using ViewModels;
    using Xamarin.Forms;
 
+   public interface IMessage
+   {
+   }
+   
    /// <summary>
    /// Interface IDeviceSizeChangeMessageArgs
    /// </summary>
@@ -205,9 +209,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Notifies the app that the device size has changed
    /// Implements the
    /// <see cref="DeviceSizeChangeMessageArgs" />
-   /// Implements the <see cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// Implements the <see cref="DeviceSizeChangeMessageArgs" />
    /// </summary>
-   /// <seealso cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// <seealso cref="DeviceSizeChangeMessageArgs" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    public class BroadcastDeviceSizeChangedMessage : GenericMessageWithPayload<DeviceSizeChangeMessageArgs>
@@ -276,37 +280,6 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    }
 
    /// <summary>
-   /// Class FragileServiceFailureMessage.
-   /// Implements the
-   /// <see cref="IFragileService" />
-   /// Implements the <see cref="IFragileService" />
-   /// </summary>
-   /// <seealso cref="IFragileService" />
-   /// <seealso cref="IFragileService" />
-   public class FragileServiceFailureMessage : GenericMessageWithPayload<IFragileService>
-   {
-   }
-
-   //public class KeyboardToggledMessage : GenericMessageWithPayload<IKeyboardToggledMessageArgs>
-   //{
-   //   public KeyboardToggledMessage(bool isDisplayed, double keyboardHeight)
-   //   {
-   //      Payload = new KeyboardToggledMessageArgs(isDisplayed, keyboardHeight);
-   //   }
-   //}
-   /// <summary>
-   /// Class FragileServiceSuccessMessage.
-   /// Implements the
-   /// <see cref="IFragileService" />
-   /// Implements the <see cref="IFragileService" />
-   /// </summary>
-   /// <seealso cref="IFragileService" />
-   /// <seealso cref="IFragileService" />
-   public class FragileServiceSuccessMessage : GenericMessageWithPayload<IFragileService>
-   {
-   }
-
-   /// <summary>
    /// Class GenericMessageWithPayload.
    /// Implements the <see cref="IMessage" />
    /// Implements the <see cref="IMessage" />
@@ -360,9 +333,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    /// Implements the <see cref="DeviceSizeChangeMessageArgs" />
    /// Implements the
    /// <see cref="DeviceSizeChangeMessageArgs" />
-   /// Implements the <see cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// Implements the <see cref="DeviceSizeChangeMessageArgs" />
    /// </summary>
-   /// <seealso cref="GenericMessageWithPayload{T}.MarcusTS.SharedForms.Common.Notifications.DeviceSizeChangeMessageArgs}" />
+   /// <seealso cref="DeviceSizeChangeMessageArgs" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    /// <seealso cref="DeviceSizeChangeMessageArgs" />
    public class LocalDeviceSizeChangedMessage : GenericMessageWithPayload<DeviceSizeChangeMessageArgs>
@@ -418,18 +391,6 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    }
 
    /// <summary>
-   /// Class NotifyPageCanBeSavedChangedMessage.
-   /// Implements the
-   /// <see cref="IStatefulViewModel" />
-   /// Implements the <see cref="IStatefulViewModel" />
-   /// </summary>
-   /// <seealso cref="IStatefulViewModel" />
-   /// <seealso cref="IStatefulViewModel" />
-   public class NotifyPageCanBeSavedChangedMessage : GenericMessageWithPayload<IStatefulViewModel>
-   {
-   }
-
-   /// <summary>
    /// Class ObjectDisappearingMessage.
    /// Implements the <see cref="object" />
    /// Implements the <see cref="object" />
@@ -443,23 +404,33 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
    }
 
    /// <summary>
-   /// Class RefreshUIViewMessage.
-   /// Implements the
-   /// <see cref="IStatefulViewModel" />
-   /// Implements the <see cref="IStatefulViewModel" />
-   /// </summary>
-   /// <seealso cref="IStatefulViewModel" />
-   /// <seealso cref="IStatefulViewModel" />
-   public class RefreshUIViewMessage : GenericMessageWithPayload<IStatefulViewModel>
-   {
-   }
-
-   /// <summary>
    /// Class ViewIsBeingEditedMessage.
    /// Implements the <see cref="bool" />
    /// </summary>
    /// <seealso cref="bool" />
    public class ViewIsBeingEditedMessage : GenericMessageWithPayload<bool>
    {
+   }
+
+   /// <summary>
+   ///    Class AppStateChangedMessage.
+   ///    Implements the
+   ///    <see
+   ///       cref="AppStateChangeMessageArgs" />
+   /// </summary>
+   /// <seealso
+   ///    cref="AppStateChangeMessageArgs" />
+   public class AppStateChangedMessage : GenericMessageWithPayload<AppStateChangeMessageArgs>
+   {
+      /// <summary>
+      ///    Initializes a new instance of the <see cref="AppStateChangedMessage" /> class.
+      /// </summary>
+      /// <param name="oldAppState">Old state of the application.</param>
+      /// <param name="preventNavStackPush">if set to <c>true</c> [prevent nav stack push].</param>
+      public AppStateChangedMessage(string oldAppState,
+         bool                              preventNavStackPush)
+      {
+         Payload = new AppStateChangeMessageArgs(oldAppState, preventNavStackPush);
+      }
    }
 }

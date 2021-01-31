@@ -1025,7 +1025,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          if (CornerRadiusFactor.HasNoValue())
          {
-            CornerRadiusFactor = FormsUtils.BUTTON_RADIUS_FACTOR;
+            CornerRadiusFactor = FormsConst.BUTTON_RADIUS_FACTOR;
          }
 
          if (CornerRadiusFactor.HasValue)
@@ -1038,7 +1038,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
          else
          {
-            CornerRadius = Convert.ToSingle(FormsUtils.BUTTON_RADIUS_FACTOR);
+            CornerRadius = Convert.ToSingle(FormsConst.BUTTON_RADIUS_FACTOR);
          }
       }
 

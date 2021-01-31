@@ -1,4 +1,4 @@
-﻿// ********************************************************************************* <copyright file=ImageUtils.cs
+﻿// ********************************************************************************* <copyright file=ThemeUtils.cs
 // company="Marcus Technical Services, Inc."> Copyright 2019 Marcus Technical Services, Inc. </copyright>
 //
 // MIT License
@@ -17,12 +17,29 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // *********************************************************************************
 
-namespace Com.MarcusTS.SharedForms.Common.Images
+namespace Com.MarcusTS.SharedForms.Common.Utils
 {
-   /// <summary>Class ImageUtils.</summary>
-   public static class SharedImageUtils
+   using Xamarin.Forms;
+
+   /// <summary>Class ThemeUtils.</summary>
+   /// <remarks>
+   ///    https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/text/fonts
+   ///               IOS      Android  UWP
+   ///    Default	   16       14	      14
+   ///    Micro	   11	      10	      15.667
+   ///    Small	   13	      14	      18.667
+   ///    Medium	   16	      17	      22.667
+   ///    Large	   20	      22	      32
+   ///    Body	      17	      16	      14
+   ///    Header	   17	      96	      46
+   ///    Title	   28	      24	      24
+   ///    Subtitle	22	      16	      20
+   ///    Caption	   12	      12	      12
+   /// </remarks>
+   public static class ThemeUtils
    {
-      /// <summary>The image pre path</summary>
-      public const string IMAGE_PRE_PATH = "Com.MarcusTS.SharedForms.Common.Images.";
+      public static readonly Color DARK_THEME_COLOR = Color.FromRgb(0, 48, 87);
+
+      public static readonly Color LIGHT_THEME_COLOR = Color.FromRgb(0, 153, 216);
    }
 }

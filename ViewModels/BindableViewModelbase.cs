@@ -22,9 +22,9 @@
 
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
-   using Common.Annotations;
    using System.ComponentModel;
    using System.Runtime.CompilerServices;
+   using Annotations;
 
    /// <summary>
    /// Interface IBindableViewModel

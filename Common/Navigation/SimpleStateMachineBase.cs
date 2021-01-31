@@ -27,6 +27,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
    using System.Collections.Generic;
    using System.Threading.Tasks;
    using Utils;
+   using Xamarin.Forms;
 
    /// <summary>
    /// Interface IStateMachineBase
@@ -92,7 +93,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
    /// </summary>
    /// <seealso cref="ISimpleStateMachine" />
    /// <seealso cref="ISimpleStateMachine" />
-   public abstract class SimpleStateMachineBase : ISimpleStateMachine
+   public abstract class SimpleStateMachineBase : BindableObject, ISimpleStateMachine
    {
       /// <summary>
       /// The last application state
@@ -109,7 +110,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
       /// Gets or sets the di container.
       /// </summary>
       /// <value>The di container.</value>
-      public ISmartDIContainer DIContainer { get; set; } = new SmartDIContainer();
+      public virtual ISmartDIContainer DIContainer { get; set; } = new SmartDIContainer();
 
       /// <summary>
       /// Gets the start up state.

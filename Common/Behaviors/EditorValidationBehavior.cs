@@ -1,144 +1,75 @@
-﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// ********************************************************************************* <copyright
+// file=ValidationBehavior.cs company="Marcus Technical Services, Inc."> Copyright @2019 Marcus Technical Services, Inc.
+// </copyright>
 //
-// This file, EditorValidationBehavior.cs, is a part of a program called AccountViewMobile.
+// MIT License
 //
-// AccountViewMobile is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+// documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following conditions:
 //
-// Permission to use, copy, modify, and/or distribute this software
-// for any purpose with or without fee is hereby granted, provided
-// that the above copyright notice and this permission notice appear
-// in all copies.
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+// Software.
 //
-// AccountViewMobile is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// For the complete GNU General Public License,
-// see <http://www.gnu.org/licenses/>.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// *********************************************************************************
 
 namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
+   using System;
+   using System.Collections.Generic;
+   using System.ComponentModel;
+   using System.Text;
    using Interfaces;
    using SharedUtils.Utils;
-   using System;
-   using System.ComponentModel;
+   using Utils;
+   using ViewModels;
    using Xamarin.Forms;
 
-   /// <summary>
-   /// Interface IEditorValidationBehavior
-   /// Implements the <see cref="ICanBeValid" />
-   /// Implements the <see cref="System.ComponentModel.INotifyPropertyChanged" />
-   /// </summary>
-   /// <seealso cref="ICanBeValid" />
-   /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IEditorValidationBehavior : ICanBeValid, INotifyPropertyChanged
    {
-      /// <summary>
-      /// Gets or sets the maximum length.
-      /// </summary>
-      /// <value>The maximum length.</value>
       int MaxLength { get; set; }
-
-      /// <summary>
-      /// Gets or sets the minimum length.
-      /// </summary>
-      /// <value>The minimum length.</value>
       int MinLength { get; set; }
-
-      /// <summary>
-      /// Gets or sets the original text.
-      /// </summary>
-      /// <value>The original text.</value>
       string OriginalText { get; set; }
-
-      /// <summary>
-      /// Gets or sets a value indicating whether [text must change].
-      /// </summary>
-      /// <value><c>true</c> if [text must change]; otherwise, <c>false</c>.</value>
       bool TextMustChange { get; set; }
    }
 
-   /// <summary>
-   /// Class EditorValidationBehavior.
-   /// Implements the <see cref="Xamarin.Forms.Behavior{Xamarin.Forms.Editor}" />
-   /// Implements the <see cref="IEditorValidationBehavior" />
-   /// </summary>
-   /// <seealso cref="Xamarin.Forms.Behavior{Xamarin.Forms.Editor}" />
-   /// <seealso cref="IEditorValidationBehavior" />
    public class EditorValidationBehavior : Behavior<Editor>, IEditorValidationBehavior
    {
-      /// <summary>
-      /// The on is valid changed action
-      /// </summary>
       private readonly Action _onIsValidChangedAction;
-
-      /// <summary>
-      /// The editor
-      /// </summary>
       private Editor _editor;
-
-      /// <summary>
-      /// The ignore text changed
-      /// </summary>
-      private bool _ignoreTextChanged;
-
-      /// <summary>
-      /// The is valid
-      /// </summary>
+      private bool  _ignoreTextChanged;
       private bool? _isValid = Extensions.EmptyNullableBool;
-
-      /// <summary>
-      /// The last assigned text
-      /// </summary>
       private string _lastAssignedText;
 
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EditorValidationBehavior" /> class.
-      /// </summary>
-      /// <param name="onIsValidChangedAction">The on is valid changed action.</param>
       public EditorValidationBehavior(Action onIsValidChangedAction)
       {
          _onIsValidChangedAction = onIsValidChangedAction;
       }
 
-      /// <summary>
-      /// Occurs when [is valid changed].
-      /// </summary>
+      public bool IsFocused { get; private set; }
+
       public event EventUtils.GenericDelegate<bool?> IsValidChanged;
 
-      /// <summary>
-      /// Gets or sets a value indicating whether [do not force mask initially].
-      /// </summary>
-      /// <value><c>true</c> if [do not force mask initially]; otherwise, <c>false</c>.</value>
       public bool DoNotForceMaskInitially { get; set; }
 
-      /// <summary>
-      /// Gets a value indicating whether this instance is focused.
-      /// </summary>
-      /// <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
-      public bool IsEditorFocused { get; private set; }
-
-      /// <summary>
-      /// Returns true if ... is valid.
-      /// </summary>
-      /// <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
       public bool? IsValid
       {
          get => _isValid;
 
          private set
          {
-            if (!OverrideFocusEvents && _editor.IsNullOrDefault())
+            if (_editor == null)
             {
                _isValid = Extensions.EmptyNullableBool;
                return;
             }
 
-            if (_isValid.IsNotTheSame(value))
+            if (_isValid.IsDifferentThan(value))
             {
                _isValid = value;
 
@@ -151,44 +82,23 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          }
       }
 
-      /// <summary>
-      /// Gets or sets the last validation error.
-      /// </summary>
-      /// <value>The last validation error.</value>
       public string LastValidationError { get; set; }
 
-      /// <summary>
-      /// Gets or sets the maximum length.
-      /// </summary>
-      /// <value>The maximum length.</value>
-      public int MaxLength { get; set; }
+      public int             MaxLength      { get; set; }
+      public int             MinLength      { get; set; }
 
-      /// <summary>
-      /// Gets or sets the minimum length.
-      /// </summary>
-      /// <value>The minimum length.</value>
-      public int MinLength { get; set; }
+      public void Revalidate()
+      {
+         if (_editor == null)
+         {
+            IsValid = Extensions.EmptyNullableBool;
+            return;
+         }
 
-      /// <summary>
-      /// Gets or sets the original text.
-      /// </summary>
-      /// <value>The original text.</value>
-      public string OriginalText { get; set; }
+         var isValid = IsEditTextValid(this, _editor.Text);
+         IsValid = isValid;
+      }
 
-      public bool OverrideFocusEvents { get; set; }
-
-      /// <summary>
-      /// Gets or sets a value indicating whether [text must change].
-      /// </summary>
-      /// <value><c>true</c> if [text must change]; otherwise, <c>false</c>.</value>
-      public bool TextMustChange { get; set; }
-
-      /// <summary>
-      /// Minimums an maximum length validator.
-      /// </summary>
-      /// <param name="behavior">The behavior.</param>
-      /// <param name="currentText">The current text.</param>
-      /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
       public static bool MinAnMaxLengthValidator(IEditorValidationBehavior behavior, string currentText)
       {
          return
@@ -197,47 +107,11 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
             (behavior.MaxLength == 0 || currentText.IsNotEmpty() && currentText.Length <= behavior.MaxLength);
       }
 
-      public void AttachManually(Editor editor, bool ignoreFocusEvents = false)
+      protected virtual bool IsLongerThanMaxLength(IEditorValidationBehavior behavior, string newText)
       {
-         OverrideFocusEvents = ignoreFocusEvents;
+         return behavior.MaxLength > 0 && newText.IsNotEmpty() && newText.Length > behavior.MaxLength;
       }
 
-      public void ForceTextChangedManually(string newText)
-      {
-         OnTextChanged(this, new TextChangedEventArgs(_lastAssignedText, newText));
-      }
-
-      /// <summary>
-      ///
-      /// </summary>
-      public void Neutralize()
-      {
-         IsValid = default;
-      }
-
-      public void RevalidateDirectText(string text)
-      {
-         var isValid = IsEditTextValid(this, text);
-         IsValid = isValid;
-      }
-
-      public void RevalidateEditorText()
-      {
-         if (_editor.IsNullOrDefault())
-         {
-            IsValid = Extensions.EmptyNullableBool;
-            return;
-         }
-
-         RevalidateDirectText(_editor.Text);
-      }
-
-      /// <summary>
-      /// Determines whether [is edit text valid] [the specified behavior].
-      /// </summary>
-      /// <param name="behavior">The behavior.</param>
-      /// <param name="currentText">The current text.</param>
-      /// <returns><c>true</c> if [is edit text valid] [the specified behavior]; otherwise, <c>false</c>.</returns>
       protected virtual bool IsEditTextValid(IEditorValidationBehavior behavior, string currentText)
       {
          if (!MinAnMaxLengthValidator(behavior, currentText))
@@ -248,87 +122,49 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          // Check against the original text, if any
          if (TextMustChange)
          {
-            return currentText.IsDifferentThan(OriginalText);
+            return _editor.Text.IsDifferentThan(OriginalText);
          }
 
          // DEFAULT
          return true;
       }
 
-      /// <summary>
-      /// Determines whether [is longer than maximum length] [the specified behavior].
-      /// </summary>
-      /// <param name="behavior">The behavior.</param>
-      /// <param name="newText">The new text.</param>
-      /// <returns><c>true</c> if [is longer than maximum length] [the specified behavior]; otherwise, <c>false</c>.</returns>
-      protected virtual bool IsLongerThanMaxLength(IEditorValidationBehavior behavior, string newText)
-      {
-         return behavior.MaxLength > 0 && newText.IsNotEmpty() && newText.Length > behavior.MaxLength;
-      }
-
-      /// <summary>
-      /// Called when [attached to].
-      /// </summary>
-      /// <param name="editor">The editor.</param>
       protected override void OnAttachedTo(Editor editor)
       {
          editor.TextChanged += OnTextChanged;
-
-         if (!OverrideFocusEvents)
-         {
-            editor.Focused += OnFocused;
-            editor.Unfocused += OnUnfocused;
-         }
+         editor.Focused     += OnFocused;
+         editor.Unfocused   += OnUnfocused;
 
          base.OnAttachedTo(editor);
 
          _editor = editor;
 
-         RevalidateEditorText();
+         Revalidate();
       }
 
-      /// <summary>
-      /// Calls the <see cref="M:Xamarin.Forms.Behavior`1.OnDetachingFrom(`0)" /> method and then detaches from the superclass.
-      /// </summary>
-      /// <param name="bindable">The bindable object from which the behavior was detached.</param>
-      /// <remarks>To be added.</remarks>
       protected override void OnDetachingFrom(Editor bindable)
       {
          bindable.TextChanged -= OnTextChanged;
-
-         if (!OverrideFocusEvents)
-         {
-            bindable.Focused -= OnFocused;
-            bindable.Unfocused -= OnUnfocused;
-         }
+         bindable.Focused     -= OnFocused;
+         bindable.Unfocused   -= OnUnfocused;
 
          base.OnDetachingFrom(bindable);
 
          _editor = null;
       }
 
-      /// <summary>
-      /// Handles the <see cref="E:Focused" /> event.
-      /// </summary>
-      /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnFocused
       (
-         object sender,
+         object         sender,
          FocusEventArgs e
       )
       {
-         IsEditorFocused = true;
+         IsFocused = true;
       }
 
-      /// <summary>
-      /// Handles the <see cref="E:TextChanged" /> event.
-      /// </summary>
-      /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="TextChangedEventArgs" /> instance containing the event data.</param>
       protected virtual void OnTextChanged
       (
-         object sender,
+         object               sender,
          TextChangedEventArgs e
       )
       {
@@ -340,34 +176,18 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          ValidateText(e.NewTextValue, e.OldTextValue);
       }
 
-      /// <summary>
-      /// Handles the <see cref="E:Unfocused" /> event.
-      /// </summary>
-      /// <param name="sender">The sender.</param>
-      /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
       protected virtual void OnUnfocused
       (
-         object sender,
+         object         sender,
          FocusEventArgs e
       )
       {
-         IsEditorFocused = false;
+         IsFocused = false;
       }
 
-      /// <summary>
-      ///    Validates the text.
-      /// </summary>
-      /// <param name="newText">The new text.</param>
-      /// <param name="oldText">The old text.</param>
       private void ValidateText(string newText, string oldText)
       {
-         if ((!OverrideFocusEvents && !IsEditorFocused) || newText.IsSameAs(_lastAssignedText))
-         {
-            return;
-         }
-
-         // This is another "success" case, since there is nothing to do.
-         if (newText.IsSameAs(_lastAssignedText))
+         if (_editor.IsNullOrDefault() || !_editor.IsFocused || newText.IsSameAs(_lastAssignedText))
          {
             return;
          }
@@ -376,17 +196,21 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          {
             _lastAssignedText = newText;
 
-            if (_editor.IsNotNullOrDefault() && _editor.Text.IsDifferentThan(newText))
+            if (_editor.Text.IsDifferentThan(newText))
             {
                _ignoreTextChanged = true;
-               _editor.Text = newText;
+               _editor.Text        = newText;
                _ignoreTextChanged = false;
             }
 
-            RevalidateDirectText(newText);
+            Revalidate();
          }
 
          _lastAssignedText = newText;
       }
+
+      public string OriginalText   { get; set; }
+
+      public bool   TextMustChange { get; set; }
    }
 }

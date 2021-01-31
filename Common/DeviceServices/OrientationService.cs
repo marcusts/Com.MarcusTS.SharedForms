@@ -32,8 +32,6 @@
 namespace Com.MarcusTS.SharedForms.Common.DeviceServices
 {
    using Notifications;
-   using BroadcastDeviceSizeChangedMessage = SharedForms.Common.Utils.BroadcastDeviceSizeChangedMessage;
-   using LocalDeviceSizeChangedMessage = SharedForms.Common.Utils.LocalDeviceSizeChangedMessage;
 
    /// <summary>
    /// Class OrientationService.

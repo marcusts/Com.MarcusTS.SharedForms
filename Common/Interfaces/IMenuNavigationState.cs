@@ -1,11 +1,6 @@
 ﻿// *********************************************************************************
-// Assembly         : Com.MarcusTS.SharedForms
-// Author           : Stephen Marcus (Marcus Technical Services, Inc.)
-// Created          : 12-23-2018
-// Last Modified On : 01-01-2019
-//
-// <copyright file="DummyPage.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2018 Marcus Technical Services, Inc.
+// <copyright file=IMenuNavigationState.cs company="Marcus Technical Services, Inc.">
+//     Copyright @2019 Marcus Technical Services, Inc.
 // </copyright>
 //
 // MIT License
@@ -29,35 +24,35 @@
 // SOFTWARE.
 // *********************************************************************************
 
-using Com.MarcusTS.SharedForms.Common.Interfaces;
-
-namespace Com.MarcusTS.SharedForms.Views.Pages
+namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
-   using Common.Utils;
-   using Xamarin.Forms;
-
    /// <summary>
-   /// Class DummyPage.
-   /// Implements the <see cref="IDummyPageViewModel" />
+   ///    A view model base for pages.
    /// </summary>
-   /// <seealso cref="IDummyPageViewModel" />
-   public class DummyPage : MenuNavPageBase<IDummyPageViewModel>
+   public interface IMenuNavigationState
    {
       /// <summary>
-      /// Initializes a new instance of the <see cref="DummyPage" /> class.
+      ///    The app state to navigate to
       /// </summary>
-      public DummyPage()
-      {
-         BackgroundColor = ColorUtils.MAIN_PAGE_BACKGROUND_COLOR;
-      }
+      /// <value>The state of the application.</value>
+      string AppState { get; }
 
       /// <summary>
-      /// Constructs the page view.
+      ///    Gets the menu order.
       /// </summary>
-      /// <returns>View.</returns>
-      protected override View ConstructPageView()
-      {
-         return new ContentView();
-      }
+      /// <value>The menu order.</value>
+      int MenuOrder { get; }
+
+      /// <summary>
+      ///    The menu title
+      /// </summary>
+      /// <value>The menu title.</value>
+      string MenuTitle { get; }
+
+      /// <summary>
+      ///    The page or view title (default: centered on the page)
+      /// </summary>
+      /// <value>The view title.</value>
+      string ViewTitle { get; }
    }
 }

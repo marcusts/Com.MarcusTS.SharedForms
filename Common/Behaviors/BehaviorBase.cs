@@ -35,8 +35,6 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
    public interface IBehaviorBase : ICanBeValid, INotifyPropertyChanged
    {
-      /// <summary>Revalidates this instance.</summary>
-      /// void Revalidate();
    }
 
    /// <summary>
@@ -52,6 +50,8 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    /// <seealso cref="IBehaviorBase" />
    public abstract class BehaviorBase : Behavior<Entry>, IBehaviorBase
    {
+      private static readonly Color ILLEGAL_ENTRY_COLOR = Color.Red;
+
       /// <summary>The illegal character filter</summary>
       private readonly Func<string, string> _illegalCharFilter;
 
@@ -106,13 +106,13 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
                return;
             }
 
-            if (_isValid.IsNotTheSame(value))
+            if (_isValid.IsDifferentThan(value))
             {
                _isValid = value;
 
                var simpleValidBool = _isValid.IsTrue();
 
-               _bindable.BackgroundColor = simpleValidBool ? Color.White : ColorUtils.ILLEGAL_ENTRY_COLOR;
+               _bindable.BackgroundColor = simpleValidBool ? Color.White : ILLEGAL_ENTRY_COLOR;
 
                // Notify that a change has taken place
                _onIsValidChangedAction?.Invoke();
@@ -137,7 +137,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       }
 
       /// <summary>Revalidates this instance.</summary>
-      public void RevalidateEditorText()
+      public void Revalidate()
       {
          if (_bindable == null || Validator == null)
          {
@@ -167,7 +167,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
          _bindable = bindable;
 
-         RevalidateEditorText();
+         Revalidate();
       }
 
       /// <summary>
@@ -226,7 +226,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          // Now see if the text has really changed - including text upper/lower case
          if (_bindable.Text.IsDifferentThan(e.OldTextValue))
          {
-            RevalidateEditorText();
+            Revalidate();
          }
       }
 

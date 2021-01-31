@@ -22,11 +22,11 @@
 
 namespace Com.MarcusTS.SharedForms.ViewModels
 {
-   using Common.Annotations;
    using Common.Interfaces;
    using SharedUtils.Utils;
    using System.ComponentModel;
    using System.Runtime.CompilerServices;
+   using Annotations;
 
    /// <summary>
    /// Interface IViewModelBase

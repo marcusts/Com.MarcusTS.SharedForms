@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "Acr.UserDialogs/7.1.0.463": {
+      "Acr.UserDialogs/7.1.0.475": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Acr.UserDialogs.dll": {}
@@ -11,10 +11,35 @@
           "lib/netstandard2.0/Acr.UserDialogs.dll": {}
         }
       },
-      "Com.MarcusTS.SharedUtils/1.0.16": {
+      "AsyncAwaitBestPractices/5.0.2": {
         "type": "package",
         "dependencies": {
-          "Xamarin.Forms": "4.0.0.425677"
+          "System.Reflection.Emit.Lightweight": "4.7.0",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/AsyncAwaitBestPractices.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AsyncAwaitBestPractices.dll": {}
+        }
+      },
+      "AsyncAwaitBestPractices.MVVM/5.0.2": {
+        "type": "package",
+        "dependencies": {
+          "AsyncAwaitBestPractices": "5.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll": {}
+        }
+      },
+      "Com.MarcusTS.SharedUtils/1.0.17": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.8.0.1451"
         },
         "compile": {
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {}
@@ -23,10 +48,11 @@
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {}
         }
       },
-      "Com.MarcusTS.SmartDI/1.0.19": {
+      "Com.MarcusTS.SmartDI/1.0.22": {
         "type": "package",
         "dependencies": {
-          "Com.MarcusTS.SharedUtils": "1.0.15"
+          "Com.MarcusTS.SharedUtils": "1.0.17",
+          "Xamarin.Forms": "4.8.0.1451"
         },
         "compile": {
           "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll": {}
@@ -35,7 +61,22 @@
           "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll": {}
         }
       },
-      "Fody/3.3.5": {
+      "ConfigureAwait.Fody/3.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/ConfigureAwait.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ConfigureAwait.dll": {}
+        },
+        "build": {
+          "build/ConfigureAwait.Fody.props": {}
+        }
+      },
+      "Fody/6.3.0": {
         "type": "package",
         "build": {
           "build/Fody.targets": {}
@@ -86,20 +127,19 @@
           "lib/netstandard2.0/Plugin.Permissions.dll": {}
         }
       },
-      "PropertyChanged2.Fody/2.6.0": {
+      "PropertyChanged.Fody/3.3.1": {
         "type": "package",
         "dependencies": {
-          "Fody": "3.3.5",
-          "NETStandard.Library": "1.6.1"
+          "Fody": "6.3.0"
         },
         "compile": {
-          "lib/netstandard1.0/PropertyChanged2.dll": {}
+          "lib/netstandard2.0/PropertyChanged.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.0/PropertyChanged2.dll": {}
+          "lib/netstandard2.0/PropertyChanged.dll": {}
         },
         "build": {
-          "build/PropertyChanged2.Fody.props": {}
+          "build/PropertyChanged.Fody.props": {}
         }
       },
       "System.ComponentModel/4.3.0": {
@@ -123,6 +163,27 @@
           "lib/netstandard2.0/System.Numerics.Vectors.dll": {}
         }
       },
+      "System.Reflection.Emit.ILGeneration/4.7.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Reflection.Emit.ILGeneration.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Reflection.Emit.ILGeneration.dll": {}
+        }
+      },
+      "System.Reflection.Emit.Lightweight/4.7.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Reflection.Emit.ILGeneration": "4.7.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Reflection.Emit.Lightweight.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Reflection.Emit.Lightweight.dll": {}
+        }
+      },
       "System.Runtime/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -131,6 +192,27 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.dll": {}
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/4.5.3": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "System.Threading.Tasks.Extensions/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         }
       },
       "Xam.Plugin.Connectivity/3.2.0": {
@@ -170,7 +252,7 @@
           "lib/netstandard2.0/Plugin.Vibrate.dll": {}
         }
       },
-      "Xamarin.Essentials/1.5.3.2": {
+      "Xamarin.Essentials/1.6.1": {
         "type": "package",
         "dependencies": {
           "System.Numerics.Vectors": "4.5.0"
@@ -182,7 +264,7 @@
           "lib/netstandard2.0/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.8.0.1560": {
+      "Xamarin.Forms/4.8.0.1451": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Xamarin.Forms.Core.dll": {},
@@ -215,14 +297,14 @@
     }
   },
   "libraries": {
-    "Acr.UserDialogs/7.1.0.463": {
-      "sha512": "ZSiQTgeDtKl8M/DYhX078qNLG3X6BhENzkZhH+RJ5Ga81KqOq5+m1GAaOn+AQ+YbBmKYEsEc3CFPlPCfNHMFMw==",
+    "Acr.UserDialogs/7.1.0.475": {
+      "sha512": "iGW0uda9bmbGcPABm0UzDjSd5DtGwcTCkOg265aUxKhG9IW0HtoNA3gASMXK64hMye2A+9mfkcmWJDOudbhJWw==",
       "type": "package",
-      "path": "acr.userdialogs/7.1.0.463",
+      "path": "acr.userdialogs/7.1.0.475",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "acr.userdialogs.7.1.0.463.nupkg.sha512",
+        "acr.userdialogs.7.1.0.475.nupkg.sha512",
         "acr.userdialogs.nuspec",
         "lib/monoandroid10.0/Acr.UserDialogs.dll",
         "lib/monoandroid10.0/Acr.UserDialogs.pdb",
@@ -250,48 +332,93 @@
         "readme.txt"
       ]
     },
-    "Com.MarcusTS.SharedUtils/1.0.16": {
-      "sha512": "ig2AbAAFOq6sFJlj2VxKTevyaLSL9bFpGuDmbLnUaHENojTEAkDWGZ1E74ZhPWaKthRJfWZNfyOk8Mi6TU47ng==",
+    "AsyncAwaitBestPractices/5.0.2": {
+      "sha512": "+RV2NTPnqU0u0YShu8f4KtI+DPgd1ntnMJPX7GN1EhYYRnObV1A5LnDv9l6/FcQZeAcdZxjKagPCD/cRdZyKLQ==",
       "type": "package",
-      "path": "com.marcusts.sharedutils/1.0.16",
+      "path": "asyncawaitbestpractices/5.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.sharedutils.1.0.16.nupkg.sha512",
+        "asyncawaitbestpractices.5.0.2.nupkg.sha512",
+        "asyncawaitbestpractices.nuspec",
+        "lib/netstandard1.0/AsyncAwaitBestPractices.dll",
+        "lib/netstandard2.0/AsyncAwaitBestPractices.dll",
+        "lib/netstandard2.1/AsyncAwaitBestPractices.dll"
+      ]
+    },
+    "AsyncAwaitBestPractices.MVVM/5.0.2": {
+      "sha512": "ehFON0Pk/9qrLp41dWv2CiefbOxyQxtTkpRSkd5SMvEBryW6ET6wRMz0ZVmjdgq/wBFiithGWmoFtNIpcQxq+w==",
+      "type": "package",
+      "path": "asyncawaitbestpractices.mvvm/5.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "asyncawaitbestpractices.mvvm.5.0.2.nupkg.sha512",
+        "asyncawaitbestpractices.mvvm.nuspec",
+        "lib/netstandard1.0/AsyncAwaitBestPractices.MVVM.dll",
+        "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll",
+        "lib/netstandard2.1/AsyncAwaitBestPractices.MVVM.dll"
+      ]
+    },
+    "Com.MarcusTS.SharedUtils/1.0.17": {
+      "sha512": "fX+L+oQaxA6bVMfuXzoecZxV7uRgfuxe3tyNLu7PlVb5sZFz7H6Ig/fd7Y0pgA5Y8e22tV2aXjEEHPAa07ckxA==",
+      "type": "package",
+      "path": "com.marcusts.sharedutils/1.0.17",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "com.marcusts.sharedutils.1.0.17.nupkg.sha512",
         "com.marcusts.sharedutils.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.xml"
       ]
     },
-    "Com.MarcusTS.SmartDI/1.0.19": {
-      "sha512": "jy6OvWOYn3yugLlhBWPWpOPcrFapDLtvX2aFdSngPY7d8Hmg6Kg9H31cyHNvKEvjUFQVYy432naWcZreqkYODg==",
+    "Com.MarcusTS.SmartDI/1.0.22": {
+      "sha512": "TmYRmY8xSkLeDf0q1gV4fQgP+MnnOxAWW1J51jjK/72cyHEF+7JvjvMKUHTQJjQXkFx1V++i9PH+Nq96V4+lHQ==",
       "type": "package",
-      "path": "com.marcusts.smartdi/1.0.19",
+      "path": "com.marcusts.smartdi/1.0.22",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.smartdi.1.0.19.nupkg.sha512",
+        "com.marcusts.smartdi.1.0.22.nupkg.sha512",
         "com.marcusts.smartdi.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll",
         "lib/netstandard2.0/Com.MarcusTS.SmartDI.xml"
       ]
     },
-    "Fody/3.3.5": {
-      "sha512": "SsDAvO5IODB/8Xdx1hUynvylW+8lWtHQupeH3yNv0MVO5rDzBfW+W5HqdkYpeNjqDTJRIY/+9zD1rW+zz8i7ig==",
+    "ConfigureAwait.Fody/3.3.1": {
+      "sha512": "R9PQYf0AT4RBZcUXm22xWkCpSmNHdTzQ0dOyLIsxIK6dwXH4S9pY/rZdXU/63i8vZvSzZ99sB1kP7xer8MCe6w==",
       "type": "package",
-      "path": "fody/3.3.5",
+      "path": "configureawait.fody/3.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "build/ConfigureAwait.Fody.props",
+        "configureawait.fody.3.3.1.nupkg.sha512",
+        "configureawait.fody.nuspec",
+        "lib/net452/ConfigureAwait.dll",
+        "lib/net452/ConfigureAwait.xml",
+        "lib/netstandard2.0/ConfigureAwait.dll",
+        "lib/netstandard2.0/ConfigureAwait.xml",
+        "weaver/ConfigureAwait.Fody.dll",
+        "weaver/ConfigureAwait.Fody.xcf"
+      ]
+    },
+    "Fody/6.3.0": {
+      "sha512": "kBGlW/vBUvBSyCvFI3YICNl77gjUr0KMROlBTeBPN/+J3JMU57w1dpXPwjmU4ahdBTYLomzgxKLaJ3jVNuXuQg==",
+      "type": "package",
+      "path": "fody/6.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
         "build/Fody.targets",
-        "fody.3.3.5.nupkg.sha512",
+        "fody.6.3.0.nupkg.sha512",
         "fody.nuspec",
         "netclassictask/Fody.dll",
         "netclassictask/FodyCommon.dll",
         "netclassictask/FodyHelpers.dll",
         "netclassictask/FodyIsolated.dll",
-        "netclassictask/Mono.Cecil.Mdb.dll",
-        "netclassictask/Mono.Cecil.Mdb.pdb",
         "netclassictask/Mono.Cecil.Pdb.dll",
         "netclassictask/Mono.Cecil.Pdb.pdb",
         "netclassictask/Mono.Cecil.Rocks.dll",
@@ -302,8 +429,6 @@
         "netstandardtask/FodyCommon.dll",
         "netstandardtask/FodyHelpers.dll",
         "netstandardtask/FodyIsolated.dll",
-        "netstandardtask/Mono.Cecil.Mdb.dll",
-        "netstandardtask/Mono.Cecil.Mdb.pdb",
         "netstandardtask/Mono.Cecil.Pdb.dll",
         "netstandardtask/Mono.Cecil.Pdb.pdb",
         "netstandardtask/Mono.Cecil.Rocks.dll",
@@ -502,24 +627,24 @@
         "readme.txt"
       ]
     },
-    "PropertyChanged2.Fody/2.6.0": {
-      "sha512": "i6plhXn2rYn9IyKggjfJigoZ6WcVFN3ZlukKmDOEnpDvNlUviDjSXOn6DHCvXihSB91nk2a+X9XwIhtfOTktug==",
+    "PropertyChanged.Fody/3.3.1": {
+      "sha512": "/K/X8wn2IZV7Zezb+WvieOalWopFJKEcB7BrPoDFCj74VexupWdtvqriCoifSyrX0E+XhTzk0cVQd26hQ7TODg==",
       "type": "package",
-      "path": "propertychanged2.fody/2.6.0",
+      "path": "propertychanged.fody/3.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "build/PropertyChanged2.Fody.props",
-        "lib/net40/PropertyChanged2.dll",
-        "lib/net40/PropertyChanged2.xml",
-        "lib/netstandard1.0/PropertyChanged2.dll",
-        "lib/netstandard1.0/PropertyChanged2.xml",
-        "netclassicweaver/PropertyChanged2.Fody.dll",
-        "netclassicweaver/PropertyChanged2.Fody.pdb",
-        "netstandardweaver/PropertyChanged2.Fody.dll",
-        "netstandardweaver/PropertyChanged2.Fody.pdb",
-        "propertychanged2.fody.2.6.0.nupkg.sha512",
-        "propertychanged2.fody.nuspec"
+        "build/PropertyChanged.Fody.props",
+        "lib/net40/PropertyChanged.dll",
+        "lib/net40/PropertyChanged.xml",
+        "lib/netstandard1.0/PropertyChanged.dll",
+        "lib/netstandard1.0/PropertyChanged.xml",
+        "lib/netstandard2.0/PropertyChanged.dll",
+        "lib/netstandard2.0/PropertyChanged.xml",
+        "propertychanged.fody.3.3.1.nupkg.sha512",
+        "propertychanged.fody.nuspec",
+        "weaver/PropertyChanged.Fody.dll",
+        "weaver/PropertyChanged.Fody.xcf"
       ]
     },
     "System.ComponentModel/4.3.0": {
@@ -628,6 +753,122 @@
         "version.txt"
       ]
     },
+    "System.Reflection.Emit.ILGeneration/4.7.0": {
+      "sha512": "AucBYo3DSI0IDxdUjKksBcQJXPHyoPyrCXYURW1WDsLI4M65Ar/goSHjdnHOAY9MiYDNKqDlIgaYm+zL2hA1KA==",
+      "type": "package",
+      "path": "system.reflection.emit.ilgeneration/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/System.Reflection.Emit.ILGeneration.dll",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.Reflection.Emit.ILGeneration.dll",
+        "lib/netstandard1.0/System.Reflection.Emit.ILGeneration.xml",
+        "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.ILGeneration.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.ILGeneration.xml",
+        "lib/netstandard2.1/_._",
+        "lib/portable-net45+wp8/_._",
+        "lib/wp80/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll",
+        "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/de/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/es/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/fr/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/it/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/ja/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/ko/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/ru/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/zh-hans/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard1.0/zh-hant/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard2.0/System.Reflection.Emit.ILGeneration.dll",
+        "ref/netstandard2.0/System.Reflection.Emit.ILGeneration.xml",
+        "ref/netstandard2.1/_._",
+        "ref/portable-net45+wp8/_._",
+        "ref/wp80/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.ILGeneration.dll",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.ILGeneration.xml",
+        "system.reflection.emit.ilgeneration.4.7.0.nupkg.sha512",
+        "system.reflection.emit.ilgeneration.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Reflection.Emit.Lightweight/4.7.0": {
+      "sha512": "a4OLB4IITxAXJeV74MDx49Oq2+PsF6Sml54XAFv+2RyWwtDBcabzoxiiJRhdhx+gaohLh4hEGCLQyBozXoQPqA==",
+      "type": "package",
+      "path": "system.reflection.emit.lightweight/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/System.Reflection.Emit.Lightweight.dll",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.Reflection.Emit.Lightweight.dll",
+        "lib/netstandard1.0/System.Reflection.Emit.Lightweight.xml",
+        "lib/netstandard1.3/System.Reflection.Emit.Lightweight.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.Lightweight.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.Lightweight.xml",
+        "lib/netstandard2.1/_._",
+        "lib/portable-net45+wp8/_._",
+        "lib/wp80/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.0/System.Reflection.Emit.Lightweight.dll",
+        "ref/netstandard1.0/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/de/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/es/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/fr/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/it/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/ja/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/ko/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/ru/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/zh-hans/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard1.0/zh-hant/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard2.0/System.Reflection.Emit.Lightweight.dll",
+        "ref/netstandard2.0/System.Reflection.Emit.Lightweight.xml",
+        "ref/netstandard2.1/_._",
+        "ref/portable-net45+wp8/_._",
+        "ref/wp80/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.Lightweight.dll",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.Lightweight.xml",
+        "system.reflection.emit.lightweight.4.7.0.nupkg.sha512",
+        "system.reflection.emit.lightweight.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Runtime/4.3.0": {
       "sha512": "JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
       "type": "package",
@@ -720,6 +961,72 @@
         "system.runtime.nuspec"
       ]
     },
+    "System.Runtime.CompilerServices.Unsafe/4.5.3": {
+      "sha512": "3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/4.5.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Threading.Tasks.Extensions/4.5.4": {
+      "sha512": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
+      "type": "package",
+      "path": "system.threading.tasks.extensions/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.Threading.Tasks.Extensions.dll",
+        "lib/net461/System.Threading.Tasks.Extensions.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.xml",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/netcoreapp2.1/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+        "system.threading.tasks.extensions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "Xam.Plugin.Connectivity/3.2.0": {
       "sha512": "ZV45TaBTCJg7XQNEl3fPyyJcuMMhdDEQ6BCLc/5pMuTv38M226ER0WTu5sbmba8jlliDuzeRqkRFHwrGdWAgyg==",
       "type": "package",
@@ -731,6 +1038,7 @@
         "lib/MonoAndroid10/Plugin.Connectivity.Abstractions.pdb",
         "lib/MonoAndroid10/Plugin.Connectivity.Abstractions.xml",
         "lib/MonoAndroid10/Plugin.Connectivity.dll",
+        "lib/MonoAndroid10/Plugin.Connectivity.dll.mdb",
         "lib/MonoAndroid10/Plugin.Connectivity.pdb",
         "lib/MonoAndroid10/Plugin.Connectivity.xml",
         "lib/UAP10/Plugin.Connectivity.Abstractions.dll",
@@ -751,6 +1059,7 @@
         "lib/Xamarin.iOS10/Plugin.Connectivity.Abstractions.pdb",
         "lib/Xamarin.iOS10/Plugin.Connectivity.Abstractions.xml",
         "lib/Xamarin.iOS10/Plugin.Connectivity.dll",
+        "lib/Xamarin.iOS10/Plugin.Connectivity.dll.mdb",
         "lib/Xamarin.iOS10/Plugin.Connectivity.pdb",
         "lib/Xamarin.iOS10/Plugin.Connectivity.xml",
         "lib/XamarinTVOS/Plugin.Connectivity.Abstractions.dll",
@@ -880,10 +1189,10 @@
         "xam.plugins.vibrate.nuspec"
       ]
     },
-    "Xamarin.Essentials/1.5.3.2": {
-      "sha512": "BSLgDJUOPFRwTpQaftM+s4qb/MsTjrqXulEYDOcK6KF3i0Orf75zo3RwRfqnQ8WfpoEFxW/v0jgcPWCvOMgHxg==",
+    "Xamarin.Essentials/1.6.1": {
+      "sha512": "gG1Bp4j4bpJQ0dp9MeBJQJ9c8xULauIlhc7Cx5Qw4J2K1c+4Glq5n+gkb9Pm0UA/CevXVqLK5ZXmZkuYI52FgA==",
       "type": "package",
-      "path": "xamarin.essentials/1.5.3.2",
+      "path": "xamarin.essentials/1.6.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -917,6 +1226,9 @@
         "lib/xamarinios10/Xamarin.Essentials.dll",
         "lib/xamarinios10/Xamarin.Essentials.pdb",
         "lib/xamarinios10/Xamarin.Essentials.xml",
+        "lib/xamarinmac20/Xamarin.Essentials.dll",
+        "lib/xamarinmac20/Xamarin.Essentials.pdb",
+        "lib/xamarinmac20/Xamarin.Essentials.xml",
         "lib/xamarintvos10/Xamarin.Essentials.dll",
         "lib/xamarintvos10/Xamarin.Essentials.pdb",
         "lib/xamarintvos10/Xamarin.Essentials.xml",
@@ -924,14 +1236,14 @@
         "lib/xamarinwatchos10/Xamarin.Essentials.pdb",
         "lib/xamarinwatchos10/Xamarin.Essentials.xml",
         "readme.txt",
-        "xamarin.essentials.1.5.3.2.nupkg.sha512",
+        "xamarin.essentials.1.6.1.nupkg.sha512",
         "xamarin.essentials.nuspec"
       ]
     },
-    "Xamarin.Forms/4.8.0.1560": {
-      "sha512": "uWw6knrT26YOI+vZXB8YvYAEimycokY0qN58u++Rb7Y4tcWm/Fzn6UWaGaTCY1VppTXA1JrQMsb5vxBvoyYFhg==",
+    "Xamarin.Forms/4.8.0.1451": {
+      "sha512": "3RUzBpcaBxOjufLLqJnuZRGLhzAbVyfe/Pyp0AFY/H1MkCHYxXIRzgB8h6yC9NTs39NLK2SgGiaMbvC4TJ/zFA==",
       "type": "package",
-      "path": "xamarin.forms/4.8.0.1560",
+      "path": "xamarin.forms/4.8.0.1451",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1240,7 +1552,7 @@
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.dll",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.pdb",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.4.8.0.1560.nupkg.sha512",
+        "xamarin.forms.4.8.0.1451.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
@@ -1283,26 +1595,30 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "Acr.UserDialogs >= 7.1.0.463",
-      "Com.MarcusTS.SharedUtils >= 1.0.16",
-      "Com.MarcusTS.SmartDI >= 1.0.19",
+      "Acr.UserDialogs >= 7.1.0.475",
+      "AsyncAwaitBestPractices >= 5.0.2",
+      "AsyncAwaitBestPractices.MVVM >= 5.0.2",
+      "Com.MarcusTS.SharedUtils >= 1.0.17",
+      "Com.MarcusTS.SmartDI >= 1.0.22",
+      "ConfigureAwait.Fody >= 3.3.1",
       "NETStandard.Library >= 2.0.2",
       "Plugin.Permissions >= 6.0.1",
-      "PropertyChanged2.Fody >= 2.6.0",
+      "PropertyChanged.Fody >= 3.3.1",
       "Xam.Plugin.Connectivity >= 3.2.0",
       "Xam.Plugins.Settings >= 3.1.1",
       "Xam.Plugins.Vibrate >= 4.0.0.5",
-      "Xamarin.Essentials >= 1.5.3.2",
-      "Xamarin.Forms >= 4.8.0.1560",
+      "Xamarin.Essentials >= 1.6.1",
+      "Xamarin.Forms >= 4.8.0.1451",
       "Xamarin.Forms.PancakeView >= 2.3.0.759"
     ]
   },
   "packageFolders": {
     "C:\\Users\\steph\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.23",
+    "version": "1.0.28",
     "restore": {
       "projectUniqueName": "m:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
       "projectName": "Com.MarcusTS.SharedForms",
@@ -1311,7 +1627,8 @@
       "outputPath": "m:\\MyDocs\\Dev\\MtsShared\\SharedForms\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\steph\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1322,8 +1639,8 @@
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://idsmobile.pkgs.visualstudio.com/_packaging/IDSLibraries/nuget/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
@@ -1343,15 +1660,27 @@
         "dependencies": {
           "Acr.UserDialogs": {
             "target": "Package",
-            "version": "[7.1.0.463, )"
+            "version": "[7.1.0.475, )"
+          },
+          "AsyncAwaitBestPractices": {
+            "target": "Package",
+            "version": "[5.0.2, )"
+          },
+          "AsyncAwaitBestPractices.MVVM": {
+            "target": "Package",
+            "version": "[5.0.2, )"
           },
           "Com.MarcusTS.SharedUtils": {
             "target": "Package",
-            "version": "[1.0.16, )"
+            "version": "[1.0.17, )"
           },
           "Com.MarcusTS.SmartDI": {
             "target": "Package",
-            "version": "[1.0.19, )"
+            "version": "[1.0.22, )"
+          },
+          "ConfigureAwait.Fody": {
+            "target": "Package",
+            "version": "[3.3.1, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
@@ -1363,9 +1692,9 @@
             "target": "Package",
             "version": "[6.0.1, )"
           },
-          "PropertyChanged2.Fody": {
+          "PropertyChanged.Fody": {
             "target": "Package",
-            "version": "[2.6.0, )"
+            "version": "[3.3.1, )"
           },
           "Xam.Plugin.Connectivity": {
             "target": "Package",
@@ -1381,11 +1710,11 @@
           },
           "Xamarin.Essentials": {
             "target": "Package",
-            "version": "[1.5.3.2, )"
+            "version": "[1.6.1, )"
           },
           "Xamarin.Forms": {
             "target": "Package",
-            "version": "[4.8.0.1560, )"
+            "version": "[4.8.0.1451, )"
           },
           "Xamarin.Forms.PancakeView": {
             "target": "Package",
@@ -1402,7 +1731,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-rc.2.20479.15\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,24 +1,12 @@
-﻿// Copyright (c) 2019  Marcus Technical Services, Inc. <marcus@marcusts.com>
+﻿// *********************************************************************** Assembly : Com.MarcusTS.SharedForms Author :
+// steph Created : 07-29-2019
 //
-// This file, FormsUtils.cs, is a part of a program called AccountViewMobile.
-//
-// AccountViewMobile is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Permission to use, copy, modify, and/or distribute this software
-// for any purpose with or without fee is hereby granted, provided
-// that the above copyright notice and this permission notice appear
-// in all copies.
-//
-// AccountViewMobile is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// For the complete GNU General Public License,
-// see <http://www.gnu.org/licenses/>.
+// Last Modified By : steph Last Modified On : 08-05-2019
+// ***********************************************************************
+// <copyright file="FormsUtils.cs" company="Marcus Technical Services, Inc.">
+//     Copyright @2019 Marcus Technical Services, Inc.
+// </copyright>
+// <summary></summary>
 
 // MIT License
 
@@ -40,69 +28,348 @@
 
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
-   using Annotations;
-   using Interfaces;
-   using Services;
-   using SharedUtils.Utils;
    using System;
+   using System.Collections;
+   using System.Collections.Concurrent;
    using System.Collections.Generic;
    using System.Diagnostics;
+   using System.Globalization;
    using System.Linq;
    using System.Reflection;
    using System.Text;
+   using System.Threading;
    using System.Threading.Tasks;
+   using Annotations;
+   using Behaviors;
+   using Interfaces;
+   using SharedUtils.Utils;
+   using ViewModels;
    using Views.Controls;
    using Xamarin.Essentials;
    using Xamarin.Forms;
    using Xamarin.Forms.PancakeView;
 
-   /// <summary>
-   /// Class FormsUtils.
-   /// </summary>
+   /// <summary>Class FormsUtils.</summary>
    public static class FormsUtils
    {
       /// <summary>
-      /// The false string
+      ///    Enum OffScreenPositions
       /// </summary>
-      public const string FALSE_STR = "false";
+      public enum OffScreenPositions
+      {
+         /// <summary>
+         ///    The none
+         /// </summary>
+         NONE,
+
+         /// <summary>
+         ///    The left
+         /// </summary>
+         LEFT,
+
+         /// <summary>
+         ///    The top
+         /// </summary>
+         TOP,
+
+         /// <summary>
+         ///    The right
+         /// </summary>
+         RIGHT,
+
+         /// <summary>
+         ///    The bottom
+         /// </summary>
+         BOTTOM
+      }
 
       /// <summary>
-      /// The true string
+      ///    Enum OnScreenPositions
       /// </summary>
-      public const string TRUE_STR = "true";
+      public enum OnScreenPositions
+      {
+         /// <summary>
+         ///    The none
+         /// </summary>
+         NONE,
+
+         /// <summary>
+         ///    The left center
+         /// </summary>
+         LEFT_CENTER,
+
+         /// <summary>
+         ///    The top left
+         /// </summary>
+         TOP_LEFT, // Same as Left_Upper
+
+         /// <summary>
+         ///    The top center
+         /// </summary>
+         TOP_CENTER,
+
+         /// <summary>
+         ///    The top right
+         /// </summary>
+         TOP_RIGHT, // Same as Right_Upper
+
+         /// <summary>
+         ///    The right center
+         /// </summary>
+         RIGHT_CENTER,
+
+         /// <summary>
+         ///    The bottom left
+         /// </summary>
+         BOTTOM_LEFT, // Same as Left_Lower
+
+         /// <summary>
+         ///    The bottom center
+         /// </summary>
+         BOTTOM_CENTER,
+
+         /// <summary>
+         ///    The bottom right
+         /// </summary>
+         BOTTOM_RIGHT, // Same as Right_Lower
+
+         /// <summary>
+         ///    The center
+         /// </summary>
+         CENTER
+      }
 
       /// <summary>
-      /// The button radius factor
+      ///    Enum StageHeaderPositions
       /// </summary>
-      internal const double BUTTON_RADIUS_FACTOR = 0.15f;
+      public enum StageHeaderPositions
+      {
+         /// <summary>
+         ///    The none
+         /// </summary>
+         NONE,
+
+         /// <summary>
+         ///    The top
+         /// </summary>
+         TOP
+      }
 
       /// <summary>
-      /// The default text size
+      ///    Enum StageToolbarPositions
       /// </summary>
-      internal const float DEFAULT_TEXT_SIZE = 20;
+      public enum StageToolbarPositions
+      {
+         /// <summary>
+         ///    The none
+         /// </summary>
+         NONE,
+
+         /// <summary>
+         ///    The bottom
+         /// </summary>
+         BOTTOM,
+
+         /// <summary>
+         ///    The left
+         /// </summary>
+         LEFT,
+
+         /// <summary>
+         ///    The top
+         /// </summary>
+         TOP,
+
+         /// <summary>
+         ///    The right
+         /// </summary>
+         RIGHT
+      }
 
       /// <summary>
-      /// The major button height
+      ///    Enum SubStageFlowDirections
       /// </summary>
-      internal static readonly double MAJOR_BUTTON_HEIGHT = 45.0;
+      public enum SubStageFlowDirections
+      {
+         /// <summary>
+         ///    The left to right
+         /// </summary>
+         LEFT_TO_RIGHT,
+
+         /// <summary>
+         ///    The right to left
+         /// </summary>
+         RIGHT_TO_LEFT,
+
+         /// <summary>
+         ///    The top to bottom
+         /// </summary>
+         TOP_TO_BOTTOM,
+
+         /// <summary>
+         ///    The bottom to top
+         /// </summary>
+         BOTTOM_TO_TOP
+      }
 
       /// <summary>
-      /// The major button width
+      ///    Enum ViewAlignments
       /// </summary>
-      internal static readonly double MAJOR_BUTTON_WIDTH = 120.0;
+      public enum ViewAlignments
+      {
+         /// <summary>
+         ///    The start
+         /// </summary>
+         START,
+
+         /// <summary>
+         ///    The middle
+         /// </summary>
+         MIDDLE,
+
+         /// <summary>
+         ///    The end
+         /// </summary>
+         END,
+
+         /// <summary>
+         ///    The justify
+         /// </summary>
+         JUSTIFY
+      }
+
+      public const string CREDIT_CARD_TEXT_MASK = "XXXX-XXXX-XXXX-XXXX";
+
+      public const string DATE_TIME_FORMAT = "{0:M/d/yy - h:mm tt}";
 
       /// <summary>
-      /// Adds the and set rows and columns.
+      ///    The ios top margin
       /// </summary>
-      /// <param name="grid">The grid.</param>
-      /// <param name="view">The view.</param>
-      /// <param name="row">The row.</param>
-      /// <param name="column">The column.</param>
-      /// <param name="rowSpan">The row span.</param>
-      /// <param name="colSpan">The col span.</param>
+      public const float IOS_TOP_MARGIN = 40;
+
+      public const string LONG_DATE_FORMAT = "{0:MMM d, yyyy}";
+
+      public const double NO_SCALE = 0;
+
+      public const double NORMAL_SCALE = 1;
+
+      /// <summary>
+      ///    The not visible opacity
+      /// </summary>
+      public const double NOT_VISIBLE_OPACITY = 0;
+
+      public const string SERVER_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+      public const string SHORT_DATE_FORMAT = "{0:M/d/yy}";
+
+      public const string SIMPLE_DATE_FORMAT = "{0:M/d/yyyy}";
+
+      public const char SPACE_CHAR = ' ';
+
+      /// <summary>
+      ///    The visible opacity
+      /// </summary>
+      public const double VISIBLE_OPACITY = 1;
+
+      // 0.85 works for denser copy
+      private const double CHARACTERS_TO_FONT_SIZE_ESTIMATOR = 1;
+
+      /// <summary>
+      ///    The maximum expiration years
+      /// </summary>
+      private const int MAX_EXPIRATION_YEARS = 10;
+
+      private static readonly string[] STATIC_MONTHS =
+      {
+         " ",
+         "January",
+         "February",
+         "March",
+         "April",
+         "May",
+         "June",
+         "July",
+         "August",
+         "September",
+         "October",
+         "November",
+         "December"
+      };
+
+      private static readonly string[] STATIC_STATES =
+      {
+         " ",
+         "Alabama",
+         "Alaska",
+         "Arizona",
+         "Arkansas",
+         "California",
+         "Colorado",
+         "Connecticut",
+         "Delaware",
+         "Florida",
+         "Georgia",
+         "Hawaii",
+         "Idaho",
+         "Illinois",
+         "Indiana",
+         "Iowa",
+         "Kansas",
+         "Kentucky",
+         "Louisiana",
+         "Maine",
+         "Maryland",
+         "Massachusetts",
+         "Michigan",
+         "Minnesota",
+         "Mississippi",
+         "Missouri",
+         "Montana",
+         "Nebraska",
+         "Nevada",
+         "New Hampshire",
+         "New Jersey",
+         "New Mexico",
+         "New York",
+         "North Carolina",
+         "North Dakota",
+         "Ohio",
+         "Oklahoma",
+         "Oregon",
+         "Pennsylvania",
+         "Rhode Island",
+         "South Carolina",
+         "South Dakota",
+         "Tennessee",
+         "Texas",
+         "Utah",
+         "Vermont",
+         "Virginia",
+         "Washington",
+         "West Virginia",
+         "Wisconsin",
+         "Wyoming"
+      };
+
+      private static int[] STATIC_EXPIRATION_YEARS
+      {
+         get
+         {
+            var yearsList = new List<int>();
+            var thisYear = DateTime.Now.Year;
+
+            for (var yearIdx = thisYear; yearIdx < thisYear + MAX_EXPIRATION_YEARS; yearIdx++)
+            {
+               yearsList.Add(yearIdx);
+            }
+
+            return yearsList.ToArray();
+         }
+      }
+
       public static void AddAndSetRowsAndColumns(this Grid grid, View view, int? row = default,
-                                                 int? column = default,
-                                                 int? rowSpan = default, int? colSpan = default)
+         int? column = default,
+         int? rowSpan = default, int? colSpan = default)
       {
          grid.Children.Add(view);
 
@@ -127,9 +394,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
       }
 
-      /// <summary>
-      /// Adds the animation and haptic feedback.
-      /// </summary>
+      /// <summary>Adds the animation and haptic feedback.</summary>
       /// <param name="view">The view.</param>
       /// <param name="animate">if set to <c>true</c> [animate].</param>
       /// <param name="vibrate">if set to <c>true</c> [vibrate].</param>
@@ -155,27 +420,21 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
       }
 
-      /// <summary>
-      /// Adds the automatic column.
-      /// </summary>
+      /// <summary>Adds the automatic column.</summary>
       /// <param name="grid">The grid.</param>
       public static void AddAutoColumn(this Grid grid)
       {
          grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
       }
 
-      /// <summary>
-      /// Adds the automatic row.
-      /// </summary>
+      /// <summary>Adds the automatic row.</summary>
       /// <param name="grid">The grid.</param>
       public static void AddAutoRow(this Grid grid)
       {
          grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
       }
 
-      /// <summary>
-      /// Adds the fixed column.
-      /// </summary>
+      /// <summary>Adds the fixed column.</summary>
       /// <param name="grid">The grid.</param>
       /// <param name="width">The width.</param>
       public static void AddFixedColumn
@@ -187,9 +446,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          grid.ColumnDefinitions.Add(new ColumnDefinition { Width = width });
       }
 
-      /// <summary>
-      /// Adds the fixed row.
-      /// </summary>
+      /// <summary>Adds the fixed row.</summary>
       /// <param name="grid">The grid.</param>
       /// <param name="height">The height.</param>
       public static void AddFixedRow
@@ -214,27 +471,19 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
       }
 
-      /// <summary>
-      /// Adds the overlay based on position.
-      /// </summary>
-      /// <param name="layout">The layout.</param>
-      /// <param name="view">The view.</param>
-      /// <param name="position">The position.</param>
-      /// <param name="viewWidth">Width of the view.</param>
-      /// <param name="viewHeight">Height of the view.</param>
       public static void AddOverlayBasedOnPosition(this RelativeLayout layout,
-                                                   View view,
-                                                   FormsConst.OnScreenPositions position,
-                                                   double viewWidth, double viewHeight)
+         View view,
+         OnScreenPositions position,
+         double viewWidth, double viewHeight)
       {
-         if (position == FormsConst.OnScreenPositions.NONE)
+         if (position == OnScreenPositions.NONE)
          {
             return;
          }
 
          switch (position)
          {
-            case FormsConst.OnScreenPositions.CENTER:
+            case OnScreenPositions.CENTER:
                layout.Children.Add
                (
                   view,
@@ -243,7 +492,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.BOTTOM_CENTER:
+            case OnScreenPositions.BOTTOM_CENTER:
                layout.Children.Add
                (
                   view,
@@ -252,7 +501,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.BOTTOM_LEFT:
+            case OnScreenPositions.BOTTOM_LEFT:
                layout.Children.Add
                (
                   view,
@@ -261,7 +510,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.BOTTOM_RIGHT:
+            case OnScreenPositions.BOTTOM_RIGHT:
                layout.Children.Add
                (
                   view,
@@ -270,7 +519,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.TOP_CENTER:
+            case OnScreenPositions.TOP_CENTER:
                layout.Children.Add
                (
                   view,
@@ -279,7 +528,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.TOP_LEFT:
+            case OnScreenPositions.TOP_LEFT:
                layout.Children.Add
                (
                   view,
@@ -288,7 +537,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.TOP_RIGHT:
+            case OnScreenPositions.TOP_RIGHT:
                layout.Children.Add
                (
                   view,
@@ -297,7 +546,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.LEFT_CENTER:
+            case OnScreenPositions.LEFT_CENTER:
                layout.Children.Add
                (
                   view,
@@ -306,7 +555,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                );
                break;
 
-            case FormsConst.OnScreenPositions.RIGHT_CENTER:
+            case OnScreenPositions.RIGHT_CENTER:
                layout.Children.Add
                (
                   view,
@@ -318,40 +567,35 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
          Constraint GetHorizontallyCenteredConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Width - viewWidth - view.Margin.HorizontalThickness) / 2);
+            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Width - viewWidth) / 2);
          }
 
          Constraint GetVerticallyCenteredConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Height - viewHeight - view.Margin.VerticalThickness) / 2);
+            return Constraint.RelativeToParent(relativeLayout => (relativeLayout.Height - viewHeight) / 2);
          }
 
          Constraint GetBottomVerticalConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Height - viewHeight - view.Margin.Bottom);
+            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Height - viewHeight);
          }
 
          Constraint GetTopVerticalConstraint()
          {
-            return Constraint.Constant(view.Margin.Top);
+            return Constraint.Constant(0);
          }
 
          Constraint GetLeftHorizontalConstraint()
          {
-            return Constraint.Constant(view.Margin.Left);
+            return Constraint.Constant(0);
          }
 
          Constraint GetRightHorizontalConstraint()
          {
-            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Width - viewWidth - view.Margin.Right);
+            return Constraint.RelativeToParent(relativeLayout => relativeLayout.Width - viewWidth);
          }
       }
 
-      /// <summary>
-      /// Adds the content of the row.
-      /// </summary>
-      /// <param name="grid">The grid.</param>
-      /// <param name="view">The view.</param>
       public static void AddRowContent(this Grid grid, View view)
       {
          // The count is zero-based, so before we add, the physical count is the same as the "next" count
@@ -361,9 +605,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          Grid.SetRow(view, nextRow);
       }
 
-      /// <summary>
-      /// Adds the star column.
-      /// </summary>
+      /// <summary>Adds the star column.</summary>
       /// <param name="grid">The grid.</param>
       /// <param name="factor">The factor.</param>
       public static void AddStarColumn
@@ -375,9 +617,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(factor, GridUnitType.Star) });
       }
 
-      /// <summary>
-      /// Adds the star row.
-      /// </summary>
+      /// <summary>Adds the star row.</summary>
       /// <param name="grid">The grid.</param>
       /// <param name="factor">The factor.</param>
       public static void AddStarRow
@@ -390,7 +630,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Adjusteds for screen height bug.
+      ///    Adjusteds for screen height bug.
       /// </summary>
       /// <param name="originalHeight">Height of the original.</param>
       /// <returns>System.Single.</returns>
@@ -402,7 +642,6 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                return originalHeight - 52;
 
             case Device.Android:
-
                // return originalHeight - 24;
                return originalHeight - 39;
          }
@@ -410,13 +649,6 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return originalHeight;
       }
 
-      /// <summary>
-      /// Animates the height change.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      /// <param name="nextHeight">Height of the next.</param>
-      /// <param name="fadeMilliseconds">The fade milliseconds.</param>
-      /// <param name="easing">The easing.</param>
       public static void AnimateHeightChange(
          this View view,
          double nextHeight,
@@ -430,18 +662,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
 
          var fadeAnimation = new Animation(f => view.HeightRequest = f,
-                                           view.Opacity,
-                                           nextHeight, easing);
+            view.Opacity,
+            nextHeight, easing);
          fadeAnimation.Commit(view, "fadeAnimation", length: fadeMilliseconds, easing: easing);
       }
 
-      /// <summary>
-      /// Animates the width change.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      /// <param name="nextWidth">Width of the next.</param>
-      /// <param name="fadeMilliseconds">The fade milliseconds.</param>
-      /// <param name="easing">The easing.</param>
       public static void AnimateWidthChange(
          this View view,
          double nextWidth,
@@ -455,14 +680,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
 
          var fadeAnimation = new Animation(f => view.WidthRequest = f,
-                                           view.Opacity,
-                                           nextWidth, easing);
+            view.Opacity,
+            nextWidth, easing);
          fadeAnimation.Commit(view, "fadeAnimation", length: fadeMilliseconds, easing: easing);
       }
 
-      /// <summary>
-      /// Boundses the are valid and have changed.
-      /// </summary>
+      /// <summary>Boundses the are valid and have changed.</summary>
       /// <param name="bounds">The bounds.</param>
       /// <param name="propName">Name of the property.</param>
       /// <param name="lastBounds">The last bounds.</param>
@@ -478,8 +701,69 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Checks the against zero.
+      ///    Assigns the internal date time properties.
       /// </summary>
+      /// <param name="picker">The picker.</param>
+      /// <param name="itemHeight">Height of the item.</param>
+      /// <param name="fontSize">Size of the font.</param>
+      /// <param name="nextTabIndex">Index of the next tab.</param>
+      /// <returns>System.Int32.</returns>
+      public static int AssignInternalDateTimeProperties(DatePicker picker, double itemHeight, double fontSize,
+         int nextTabIndex)
+      {
+         picker.FontSize = fontSize;
+
+         nextTabIndex = AssignInternalViewProperties(picker, itemHeight, nextTabIndex);
+
+         return nextTabIndex;
+      }
+
+      public static int AssignInternalEntryProperties(Entry entry, double itemHeight, double fontSize, int nextTabIndex)
+      {
+         entry.FontSize = fontSize;
+
+         nextTabIndex = AssignInternalViewProperties(entry, itemHeight, nextTabIndex);
+         return nextTabIndex;
+      }
+
+      /// <summary>
+      ///    Assigns the internal picker properties.
+      /// </summary>
+      /// <param name="picker">The picker.</param>
+      /// <param name="itemHeight">Height of the item.</param>
+      /// <param name="fontSize">Size of the font.</param>
+      /// <param name="nextTabIndex">Index of the next tab.</param>
+      /// <returns>System.Int32.</returns>
+      public static int AssignInternalPickerProperties(Picker picker, double itemHeight, double fontSize,
+         int nextTabIndex)
+      {
+         picker.FontSize = fontSize;
+         nextTabIndex = AssignInternalViewProperties(picker, itemHeight, nextTabIndex);
+
+         return nextTabIndex;
+      }
+
+      /// <summary>
+      ///    Assigns the internal view properties.
+      /// </summary>
+      /// <param name="view">The view.</param>
+      /// <param name="itemHeight">Height of the item.</param>
+      /// <param name="nextTabIndex">Index of the next tab.</param>
+      /// <returns>System.Int32.</returns>
+      public static int AssignInternalViewProperties(View view, double itemHeight, int nextTabIndex)
+      {
+         view.HeightRequest = itemHeight;
+         view.HorizontalOptions = LayoutOptions.FillAndExpand;
+
+         if (view is IValidatableView viewAsValidatable)
+         {
+            nextTabIndex = viewAsValidatable.SetTabIndexes(nextTabIndex);
+         }
+
+         return nextTabIndex;
+      }
+
+      /// <summary>Checks the against zero.</summary>
       /// <param name="dbl">The double.</param>
       /// <returns>System.Double.</returns>
       public static double CheckAgainstZero(this double dbl)
@@ -487,9 +771,54 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return Math.Max(0, dbl);
       }
 
-      /// <summary>
-      /// Clears the completely.
-      /// </summary>
+      /// <remarks>
+      ///    This only returns entry validators for the AllText case.
+      /// </remarks>
+      public static IEntryValidationBehavior ChooseEntryValidator(Type attributeValidatorType,
+         ValidationTypes validationTypes,
+         Action handleInputValidationChanged)
+      {
+         if (attributeValidatorType == typeof(PasswordValidationBehavior))
+         {
+            return new PasswordValidationBehavior(handleInputValidationChanged);
+         }
+
+         if (attributeValidatorType == typeof(PhoneEntryValidatorBehavior))
+         {
+            return new PhoneEntryValidatorBehavior(handleInputValidationChanged);
+         }
+
+         if (attributeValidatorType == typeof(ComparisonEntryValidatorBehavior))
+         {
+            return new ComparisonEntryValidatorBehavior(handleInputValidationChanged);
+         }
+
+         if (attributeValidatorType == typeof(EmailEntryValidatorBehavior))
+         {
+            return new EmailEntryValidatorBehavior(handleInputValidationChanged);
+         }
+
+         if (attributeValidatorType == typeof(NumericEntryValidationBehavior))
+         {
+            return new NumericEntryValidationBehavior(handleInputValidationChanged);
+         }
+
+         if (attributeValidatorType == typeof(EntryValidationBehavior))
+         {
+            return new EntryValidationBehavior(handleInputValidationChanged);
+         }
+
+         // Else consider numerics
+         if (validationTypes == ValidationTypes.DecimalNumber || validationTypes == ValidationTypes.WholeNumber)
+         {
+            return new NumericEntryValidationBehavior(handleInputValidationChanged);
+         }
+
+         // Finally, general entry
+         return new EntryValidationBehavior(handleInputValidationChanged);
+      }
+
+      /// <summary>Clears the completely.</summary>
       /// <param name="grid">The grid.</param>
       public static void ClearCompletely(this Grid grid)
       {
@@ -499,7 +828,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Compresseds the date.
+      ///    Compresses the date.
       /// </summary>
       /// <param name="dt">The dt.</param>
       /// <returns>System.String.</returns>
@@ -508,80 +837,41 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return $"{dt:M/d/yy}";
       }
 
-      /// <summary>
-      /// Considers the ios nested stage height hack.
-      /// </summary>
-      /// <param name="isNestedStage">if set to <c>true</c> [is nested stage].</param>
-      /// <returns>System.Single.</returns>
-      public static float ConsiderIosNestedStageHeightHack(bool isNestedStage)
-      {
-         return isNestedStage && IsIos() ? FormsConst.IOS_NESTED_STAGE_REDUCTION : 0;
-      }
+      //public static Style CreateEntryStyle(
+      //   [CanBeNull] string fontFamily = "", double? fontSize = null, Color? backColor = null,
+      //   Color? textColor = null,
+      //   FontAttributes? fontAttributes = null)
+      //{
+      //   var retStyle = new Style(typeof(Entry));
 
-      // public static Rectangle ConvertToInternalBounds(this Rectangle rect, double heightAdjustment)
-      /// <summary>
-      /// Converts to internal bounds.
-      /// </summary>
-      /// <param name="rect">The rect.</param>
-      /// <returns>Rectangle.</returns>
-      public static Rectangle ConvertToInternalBounds(this Rectangle rect) // , double heightAdjustment)
-      {
-         return new Rectangle(0, 0, rect.Width, rect.Height); // + heightAdjustment);
-      }
+      //   if (fontFamily.IsNotEmpty())
+      //   {
+      //      retStyle.Setters.Add(new Setter { Property = Entry.FontFamilyProperty, Value = fontFamily });
+      //   }
 
-      /// <summary>
-      /// Creates the entry style.
-      /// </summary>
-      /// <param name="fontFamily">The font family.</param>
-      /// <param name="fontSize">Size of the font.</param>
-      /// <param name="backColor">Color of the back.</param>
-      /// <param name="textColor">Color of the text.</param>
-      /// <param name="fontAttributes">The font attributes.</param>
-      /// <returns>Style.</returns>
-      public static Style CreateEntryStyle(
-         [CanBeNull] string fontFamily = "", double? fontSize = null, Color? backColor = null,
-         Color? textColor = null,
-         FontAttributes? fontAttributes = null)
-      {
-         var retStyle = new Style(typeof(Entry));
+      //   if (fontSize.HasValue)
+      //   {
+      //      retStyle.Setters.Add(new Setter { Property = Entry.FontSizeProperty, Value = fontSize });
+      //   }
 
-         if (fontFamily.IsNotEmpty())
-         {
-            retStyle.Setters.Add(new Setter { Property = Entry.FontFamilyProperty, Value = fontFamily });
-         }
+      //   if (backColor != null)
+      //   {
+      //      retStyle.Setters.Add(new Setter { Property = VisualElement.BackgroundColorProperty, Value = backColor });
+      //   }
 
-         if (fontSize.HasValue)
-         {
-            retStyle.Setters.Add(new Setter { Property = Entry.FontSizeProperty, Value = fontSize });
-         }
+      //   if (textColor != null)
+      //   {
+      //      retStyle.Setters.Add(new Setter { Property = Entry.TextColorProperty, Value = textColor });
+      //   }
 
-         if (backColor != null)
-         {
-            retStyle.Setters.Add(new Setter { Property = VisualElement.BackgroundColorProperty, Value = backColor });
-         }
+      //   if (fontAttributes != null)
+      //   {
+      //      retStyle.Setters.Add(new Setter { Property = Entry.FontAttributesProperty, Value = fontAttributes });
+      //   }
 
-         if (textColor != null)
-         {
-            retStyle.Setters.Add(new Setter { Property = Entry.TextColorProperty, Value = textColor });
-         }
+      //   return retStyle;
+      //}
 
-         if (fontAttributes != null)
-         {
-            retStyle.Setters.Add(new Setter { Property = Entry.FontAttributesProperty, Value = fontAttributes });
-         }
-
-         return retStyle;
-      }
-
-      /// <summary>
-      /// Creates the label style.
-      /// </summary>
-      /// <param name="fontFamily">The font family.</param>
-      /// <param name="fontSize">Size of the font.</param>
-      /// <param name="backColor">Color of the back.</param>
-      /// <param name="textColor">Color of the text.</param>
-      /// <param name="fontAttributes">The font attributes.</param>
-      /// <returns>Style.</returns>
       public static Style CreateLabelStyle(
          [CanBeNull] string fontFamily = "", double? fontSize = null, Color? backColor = null,
          Color? textColor = null,
@@ -618,7 +908,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Creates the off screen rect.
+      ///    Creates the off screen rect.
       /// </summary>
       /// <param name="parentViewSize">Size of the parent view.</param>
       /// <param name="width">The width.</param>
@@ -632,7 +922,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          Size parentViewSize,
          double width,
          double height,
-         FormsConst.OffScreenPositions position,
+         OffScreenPositions position,
          bool forceLongSize = false,
 
          // Allows space for a header above a toolbar.
@@ -644,21 +934,21 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
          switch (position)
          {
-            case FormsConst.OffScreenPositions.LEFT:
+            case OffScreenPositions.LEFT:
                height = GetForcedHeight(height, forceLongSize, parentViewSize);
                return new Rectangle(-width - 1, adjustedHeight + additionalTopAllowance, width,
-                                    height - additionalTopAllowance);
+                  height - additionalTopAllowance);
 
-            case FormsConst.OffScreenPositions.TOP:
+            case OffScreenPositions.TOP:
                width = GetForcedWidth(width, forceLongSize, parentViewSize);
                return new Rectangle(adjustedWidth, -height, width, height);
 
-            case FormsConst.OffScreenPositions.RIGHT:
+            case OffScreenPositions.RIGHT:
                height = GetForcedHeight(height, forceLongSize, parentViewSize);
                return new Rectangle(parentViewSize.Width + 1, adjustedHeight + additionalTopAllowance, width,
-                                    height - additionalTopAllowance);
+                  height - additionalTopAllowance);
 
-            case FormsConst.OffScreenPositions.BOTTOM:
+            case OffScreenPositions.BOTTOM:
                width = GetForcedWidth(width, forceLongSize, parentViewSize);
                return new Rectangle(adjustedWidth, parentViewSize.Height + 1, width, height);
 
@@ -668,37 +958,14 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Creates the off screen rect with forced side.
-      /// </summary>
-      /// <param name="parentViewSize">Size of the parent view.</param>
-      /// <param name="widthHeight">Height of the width.</param>
-      /// <param name="position">The position.</param>
-      /// <param name="additionalTopAllowance">The additional top allowance.</param>
-      /// <returns>Rectangle.</returns>
-      public static Rectangle CreateOffScreenRectWithForcedSide
-      (
-         Size parentViewSize,
-         double widthHeight,
-         FormsConst.OffScreenPositions position,
-
-         // Allows space for a header
-         double additionalTopAllowance = 0
-      )
-      {
-         var rect = CreateOffScreenRect(parentViewSize, widthHeight, widthHeight, position, true,
-                                        additionalTopAllowance);
-         return rect;
-      }
-
-      /// <summary>
-      /// Creates an on-screen rectangle for the current control based on its width, height and position.
-      /// If forceLongSize==true, either the width or height are set to the maximum screen width or height, depending on the
-      /// position.
-      /// forceLongSize *only* works with basic positions --
-      /// - LEFT_CENTER
-      /// - TOP_CENTER
-      /// - RIGHT_CENTER
-      /// - BOTTOM_CENTER
+      ///    Creates an on-screen rectangle for the current control based on its width, height and position.
+      ///    If forceLongSize==true, either the width or height are set to the maximum screen width or height, depending on the
+      ///    position.
+      ///    forceLongSize *only* works with basic positions --
+      ///    - LEFT_CENTER
+      ///    - TOP_CENTER
+      ///    - RIGHT_CENTER
+      ///    - BOTTOM_CENTER
       /// </summary>
       /// <param name="parentViewSize">Size of the parent view.</param>
       /// <param name="width">The width.</param>
@@ -713,7 +980,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          Size parentViewSize,
          double width,
          double height,
-         FormsConst.OnScreenPositions position,
+         OnScreenPositions position,
          Thickness parentViewPadding = default,
          bool forceLongSize = false,
 
@@ -724,10 +991,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          ErrorUtils.ConsiderArgumentError
          (
             forceLongSize &&
-            position != FormsConst.OnScreenPositions.LEFT_CENTER &&
-            position != FormsConst.OnScreenPositions.TOP_CENTER &&
-            position != FormsConst.OnScreenPositions.RIGHT_CENTER &&
-            position != FormsConst.OnScreenPositions.BOTTOM_CENTER,
+            position != OnScreenPositions.LEFT_CENTER &&
+            position != OnScreenPositions.TOP_CENTER &&
+            position != OnScreenPositions.RIGHT_CENTER &&
+            position != OnScreenPositions.BOTTOM_CENTER,
             nameof(CreateOnScreenRect) + ": illegal position when requesting 'forceLongSize' ->" + position + "<-"
          );
 
@@ -738,21 +1005,19 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
          // Initially adjust the width and height if we have a forced long side (as with a toolbar)
          //    This can only be done on one side (not both width and height)
-         if (position == FormsConst.OnScreenPositions.TOP_CENTER ||
-             position == FormsConst.OnScreenPositions.BOTTOM_CENTER)
+         if (position == OnScreenPositions.TOP_CENTER || position == OnScreenPositions.BOTTOM_CENTER)
          {
             width = GetForcedWidth(width, forceLongSize, parentViewSize);
          }
-         else if (position == FormsConst.OnScreenPositions.LEFT_CENTER ||
-                  position == FormsConst.OnScreenPositions.RIGHT_CENTER)
+         else if (position == OnScreenPositions.LEFT_CENTER || position == OnScreenPositions.RIGHT_CENTER)
          {
             height = GetForcedHeight(height, forceLongSize, parentViewSize);
          }
 
          // Then adjust according to the padding
          width = Math.Min(width, parentViewSize.Width - parentViewPadding.Left - parentViewPadding.Right);
-         height = Math.Min(
-            height, parentViewSize.Height - parentViewPadding.Top - parentViewPadding.Bottom - additionalTopAllowance);
+         height = Math.Min(height,
+            parentViewSize.Height - parentViewPadding.Top - parentViewPadding.Bottom - additionalTopAllowance);
 
          // Set up the adjusted X & Y positions
          var paddingAdjustedLeftXPos = parentViewPadding.Left;
@@ -769,47 +1034,47 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
          switch (position)
          {
-            case FormsConst.OnScreenPositions.LEFT_CENTER:
+            case OnScreenPositions.LEFT_CENTER:
                newLeftX = paddingAdjustedLeftXPos;
                newTopY = verticalCenterY;
                break;
 
-            case FormsConst.OnScreenPositions.TOP_LEFT:
+            case OnScreenPositions.TOP_LEFT:
                newLeftX = paddingAdjustedLeftXPos;
                newTopY = paddingAdjustedTopYPos;
                break;
 
-            case FormsConst.OnScreenPositions.TOP_CENTER:
+            case OnScreenPositions.TOP_CENTER:
                newLeftX = horizontalCenterX;
                newTopY = paddingAdjustedTopYPos;
                break;
 
-            case FormsConst.OnScreenPositions.TOP_RIGHT:
+            case OnScreenPositions.TOP_RIGHT:
                newLeftX = paddingAdjustedRightXPos;
                newTopY = paddingAdjustedTopYPos;
                break;
 
-            case FormsConst.OnScreenPositions.RIGHT_CENTER:
+            case OnScreenPositions.RIGHT_CENTER:
                newLeftX = paddingAdjustedRightXPos;
                newTopY = verticalCenterY;
                break;
 
-            case FormsConst.OnScreenPositions.BOTTOM_LEFT:
+            case OnScreenPositions.BOTTOM_LEFT:
                newLeftX = paddingAdjustedLeftXPos;
                newTopY = paddingAdjustedBottomYPos;
                break;
 
-            case FormsConst.OnScreenPositions.BOTTOM_CENTER:
+            case OnScreenPositions.BOTTOM_CENTER:
                newLeftX = horizontalCenterX;
                newTopY = paddingAdjustedBottomYPos;
                break;
 
-            case FormsConst.OnScreenPositions.BOTTOM_RIGHT:
+            case OnScreenPositions.BOTTOM_RIGHT:
                newLeftX = paddingAdjustedRightXPos;
                newTopY = paddingAdjustedBottomYPos;
                break;
 
-            case FormsConst.OnScreenPositions.CENTER:
+            case OnScreenPositions.CENTER:
                newLeftX = horizontalCenterX;
                newTopY = verticalCenterY;
                break;
@@ -823,7 +1088,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Creates the on screen rect with forced side.
+      ///    Creates the on screen rect with forced side.
       /// </summary>
       /// <param name="parentViewSize">Size of the parent view.</param>
       /// <param name="widthHeight">Height of the width.</param>
@@ -835,7 +1100,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       (
          Size parentViewSize,
          double widthHeight,
-         FormsConst.OnScreenPositions position,
+         OnScreenPositions position,
          Thickness parentViewPadding = default,
 
          // Allows space for a header
@@ -843,16 +1108,10 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       )
       {
          var rect = CreateOnScreenRect(parentViewSize, widthHeight, widthHeight, position, parentViewPadding, true,
-                                       additionalTopAllowance);
+            additionalTopAllowance);
          return rect;
       }
 
-      /// <summary>
-      /// Creates the relative overlay.
-      /// </summary>
-      /// <param name="layout">The layout.</param>
-      /// <param name="viewToAdd">The view to add.</param>
-      /// <param name="padding">The padding.</param>
       public static void CreateRelativeOverlay
       (
          this RelativeLayout layout,
@@ -866,28 +1125,15 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             Constraint.RelativeToParent(parent => parent.Height - padding.Top - padding.Bottom));
       }
 
-      /// <summary>
-      /// Creates the relative overlay.
-      /// </summary>
-      /// <param name="layout">The layout.</param>
-      /// <param name="viewToAdd">The view to add.</param>
-      public static void CreateRelativeOverlay(this RelativeLayout layout,
-                                               View viewToAdd)
-      {
-         layout.Children.Add(
-                             viewToAdd, Constraint.Constant(0), Constraint.Constant(0),
-                             Constraint.RelativeToParent(parent => parent.Width),
-                             Constraint.RelativeToParent(parent => parent.Height));
-      }
 
       public static Border CreateShapeViewBorder(
-                    Color? borderColor = null,
-              double? borderThickness = null
-          )
+         Color?  borderColor     = null,
+         double? borderThickness = null
+      )
       {
          return new Border
          {
-            Color = borderColor.GetValueOrDefault(),
+            Color     = borderColor.GetValueOrDefault(),
             Thickness = ((double)borderThickness.GetValueOrDefault()).ToRoundedInt()
          };
       }
@@ -901,18 +1147,18 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="borderThickness">The border thickness.</param>
       /// <returns>Style.</returns>
       public static Style CreateShapeViewStyle(
-         Color? backColor = null,
-         double? cornerRadius = null,
-         Color? borderColor = null,
+         Color?  backColor       = null,
+         double? cornerRadius    = null,
+         Color?  borderColor     = null,
          double? borderThickness = null)
       {
          var retStyle = new Style(typeof(ShapeView));
          retStyle.SetShapeViewStyle(backColor, cornerRadius, borderColor, borderThickness);
          return retStyle;
       }
-
+      
       /// <summary>
-      /// Creates the tasks.
+      ///    Creates the tasks.
       /// </summary>
       /// <param name="tasks">The tasks.</param>
       /// <returns>Task[].</returns>
@@ -928,9 +1174,232 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return retTasks.ToArray();
       }
 
-      /// <summary>
-      /// Enums the try parse.
-      /// </summary>
+      public static (View, ICanBeValid, int) CreateValidatableEditorsForAttribute
+      (
+         IHaveValidationViewModelHelper viewModel,
+         IViewModelValidationAttribute  attribute,
+         double                         itemHeight,
+         double                         itemWidth,
+         double                         fontSize,
+         int                            nextTabIndex
+      )
+      {
+         ICanBeValid retValidator;
+
+         if (viewModel.IsNullOrDefault())
+         {
+            return default;
+         }
+
+         var keyboard = GetKeyboardFromString(attribute.KeyboardName);
+
+         var borderViewHeight = attribute.BorderViewHeight.IsNotEmpty()
+            ? attribute.BorderViewHeight
+            : itemHeight;
+         var instructionsHeight = attribute.InstructionsHeight.IsNotEmpty()
+            ? attribute.InstructionsHeight
+            : ValidatableViewBase.INSTRUCTIONS_HEIGHT;
+         var placeholderHeight = attribute.PlaceholderHeight.IsNotEmpty()
+            ? attribute.PlaceholderHeight
+            : ValidatableViewBase.PLACEHOLDER_HEIGHT;
+
+         switch (attribute.InputType)
+         {
+            case InputTypes.StateInput:
+               return SetUpValidatablePicker(STATIC_STATES);
+
+            case InputTypes.MonthInput:
+               return SetUpValidatablePicker(STATIC_MONTHS);
+
+            case InputTypes.ExpirationYearInput:
+               return SetUpValidatablePicker(STATIC_EXPIRATION_YEARS);
+
+            case InputTypes.DateTimeInput:
+               var dateTimePicker = new ValidatableDateTime
+               (
+                  viewModelPropertyName: attribute.ViewModelPropertyName,
+                  bindingMode: attribute.BoundMode,
+                  stringFormat: attribute.StringFormat,
+                  showInstructionsOrValidations: attribute.ShowInstructionsOrValidations,
+                  placeholder: attribute.PlaceholderText,
+                  instructions: attribute.InstructionsText,
+                  borderViewHeight: borderViewHeight,
+                  instructionsHeight: instructionsHeight,
+                  placeholderHeight: placeholderHeight,
+                  showValidationErrorsAsInstructions: attribute.ShowValidationErrorsAsInstructions);
+
+               nextTabIndex = AssignInternalDateTimeProperties(dateTimePicker.EditableDatePicker, itemHeight, fontSize,
+                  nextTabIndex);
+               retValidator = ValidatorFromView(dateTimePicker);
+               dateTimePicker.WidthRequest = itemWidth;
+
+               return (dateTimePicker, retValidator, nextTabIndex);
+
+            case InputTypes.CheckBoxInput:
+               var checkBoxPicker = new ValidatableCheckBox
+               (
+                  viewModelPropertyName: attribute.ViewModelPropertyName,
+                  bindingMode: attribute.BoundMode,
+                  stringFormat: attribute.StringFormat,
+                  showInstructionsOrValidations: attribute.ShowInstructionsOrValidations,
+                  placeholder: attribute.PlaceholderText,
+                  instructions: attribute.InstructionsText,
+                  borderViewHeight: borderViewHeight,
+                  instructionsHeight: instructionsHeight,
+                  placeholderHeight: placeholderHeight,
+                  showValidationErrorsAsInstructions: attribute.ShowValidationErrorsAsInstructions);
+
+               nextTabIndex = AssignInternalViewProperties(checkBoxPicker.EditableCheckBox, itemHeight, nextTabIndex);
+               retValidator = ValidatorFromView(checkBoxPicker);
+
+               checkBoxPicker.WidthRequest = itemWidth;
+
+               return (checkBoxPicker, retValidator, nextTabIndex);
+
+            case InputTypes.TextInput:
+               var validator = 
+                  ChooseEntryValidator(
+                     attribute.ValidatorType,
+                     attribute.ValidationType,
+                     viewModel.ValidationHelper.RevalidateBehaviors);
+
+               if (validator.IsNotNullOrDefault())
+               {
+                  validator.MinLength               = attribute.MinLength;
+                  validator.MaxLength               = attribute.MaxLength;
+                  validator.Mask                    = attribute.Mask;
+                  validator.ValidationType          = attribute.ValidationType;
+                  validator.DoNotForceMaskInitially = attribute.DoNotForceMaskInitially;
+                  validator.ExcludedChars           = attribute.ExcludedChars;
+
+                  if (validator is INumericEntryValidationBehavior validatorAsNumericBehavior)
+                  {
+                     validatorAsNumericBehavior.MinDecimalNumber = attribute.MinDecimalNumber;
+                     validatorAsNumericBehavior.MaxDecimalNumber = attribute.MaxDecimalNumber;
+                     validatorAsNumericBehavior.NumericType = attribute.NumericType;
+                     validatorAsNumericBehavior.StringFormat = attribute.StringFormat;
+                     validatorAsNumericBehavior.CharsToRightOfDecimal = attribute.CharsToRightOfDecimal;
+                  }
+               }
+
+               if (attribute.NumericType == NumericTypes.NoNumericType)
+               {
+                  var entry = new ValidatableEntry(validator: validator,
+                     entryFontSize: fontSize,
+                     viewModelPropertyName: attribute.ViewModelPropertyName,
+                     bindingMode: attribute.BoundMode,
+                     stringFormat: attribute.StringFormat,
+                     isPassword: attribute.IsPassword,
+                     keyboard: keyboard,
+                     showInstructionsOrValidations: attribute
+                        .ShowInstructionsOrValidations,
+                     placeholder: attribute.PlaceholderText,
+                     instructions: attribute.InstructionsText,
+                     borderViewHeight: borderViewHeight,
+                     instructionsHeight: instructionsHeight,
+                     placeholderHeight: placeholderHeight,
+                     canUnmaskPassword: attribute.CanUnmaskPassword,
+                     showValidationErrorsAsInstructions: attribute
+                        .ShowValidationErrorsAsInstructions);
+                  nextTabIndex = AssignInternalEntryProperties(entry.EditableEntry, itemHeight, fontSize, nextTabIndex);
+                  retValidator = validator;
+
+                  entry.WidthRequest = itemWidth;
+                  
+                  return (entry, retValidator, nextTabIndex);
+               }
+               else
+               {
+                  var entry = new ValidatableNumericEntry(validator: validator as INumericEntryValidationBehavior,
+                     entryFontSize: fontSize,
+                     viewModelPropertyName: attribute.ViewModelPropertyName,
+                     bindingMode: attribute.BoundMode,
+                     stringFormat: attribute.StringFormat,
+                     keyboard: keyboard,
+                     showInstructionsOrValidations: attribute
+                        .ShowInstructionsOrValidations,
+                     placeholder: attribute.PlaceholderText,
+                     instructions: attribute.InstructionsText,
+                     borderViewHeight: borderViewHeight,
+                     instructionsHeight: instructionsHeight,
+                     placeholderHeight: placeholderHeight,
+                     showValidationErrorsAsInstructions: attribute
+                        .ShowValidationErrorsAsInstructions);
+                  nextTabIndex = AssignInternalEntryProperties(entry.EditableEntry, itemHeight, fontSize, nextTabIndex);
+                  retValidator = validator;
+
+                  entry.WidthRequest = itemWidth;
+                  
+                  return (entry, retValidator, nextTabIndex);
+               }
+         }
+
+         return default;
+
+
+         // -------------------------------------------------------------------------------------------------------
+         // P R I V A T E    M E T H O D S
+         // -------------------------------------------------------------------------------------------------------
+         (View, ICanBeValid, int) SetUpValidatablePicker(IList items)
+         {
+            var picker = new ValidatablePicker
+            (
+               items,
+               stringFormat: attribute.StringFormat,
+               viewModelPropertyName: attribute.ViewModelPropertyName,
+               bindingMode: attribute.BoundMode,
+               showInstructionsOrValidations: attribute.ShowInstructionsOrValidations,
+               placeholder: attribute.PlaceholderText,
+               instructions: attribute.InstructionsText,
+               borderViewHeight: borderViewHeight,
+               instructionsHeight: instructionsHeight,
+               placeholderHeight: placeholderHeight,
+               showValidationErrorsAsInstructions: attribute.ShowValidationErrorsAsInstructions);
+
+            picker.WidthRequest = itemWidth;
+            
+            nextTabIndex = AssignInternalPickerProperties(picker.EditablePicker, itemHeight, fontSize, nextTabIndex);
+            retValidator = ValidatorFromView(picker);
+
+            return (picker, retValidator, nextTabIndex);
+         }
+         // -------------------------------------------------------------------------------------------------------
+      }
+
+      public static IDictionary<PropertyInfo, IViewModelValidationAttribute> CreateViewModelValidationPropertiesDict(
+         this Type type)
+      {
+         if (type.IsNullOrDefault())
+         {
+            return default;
+         }
+
+         var publicProperties = type.GetProperties();
+
+         if (publicProperties.IsEmpty())
+         {
+            return default;
+         }
+
+         var retPropertiesDict = new ConcurrentDictionary<PropertyInfo, IViewModelValidationAttribute>();
+
+         // Reduce the public properties down to those with the custom attribute
+         // ReSharper disable once PossibleNullReferenceException
+         foreach (var propInfo in publicProperties)
+         {
+            var customAttribute = propInfo.GetCustomAttribute<ViewModelValidationAttribute>();
+
+            // Only add properties with a custom attribute
+            if (customAttribute.IsNotNullOrDefault())
+            {
+               retPropertiesDict.AddOrUpdate(propInfo, customAttribute);
+            }
+         }
+
+         return retPropertiesDict;
+      }
+
+      /// <summary>Enums the try parse.</summary>
       /// <typeparam name="EnumT">The type of the enum t.</typeparam>
       /// <param name="input">The input.</param>
       /// <param name="theEnum">The enum.</param>
@@ -945,7 +1414,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          {
             if (enumName.IsSameAs(input))
             {
-               theEnum = (EnumT)Enum.Parse(typeof(EnumT), input, true);
+               theEnum = (EnumT) Enum.Parse(typeof(EnumT), input, true);
                return true;
             }
          }
@@ -957,13 +1426,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
       //   return retColor;
       //}
-      /// <summary>
-      /// Estimates the height.
-      /// </summary>
-      /// <param name="label">The label.</param>
-      /// <param name="width">The width.</param>
-      /// <returns>System.Double.</returns>
-      /// <remarks>This is rough and inductive.</remarks>
+      /// <remarks>
+      ///    This is rough and inductive.
+      /// </remarks>
       public static double EstimateHeight(this Label label, double width)
       {
          if (label.IsNullOrDefault() || !width.IsGreaterThan(0))
@@ -972,18 +1437,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
 
          var length = label.Text.Count();
-         var totalLength = length * label.FontSize * FormsConst.CHARACTERS_TO_FONT_SIZE_ESTIMATOR;
+         var totalLength = length * label.FontSize * CHARACTERS_TO_FONT_SIZE_ESTIMATOR;
          var totalLines = totalLength / width;
 
          return totalLines * label.FontSize; // * (Math.Max(label.LineHeight, label.FontSize));
       }
 
-      /// <summary>
-      /// Expandeds the specified space count.
-      /// </summary>
-      /// <param name="str">The string.</param>
-      /// <param name="spaceCount">The space count.</param>
-      /// <returns>System.String.</returns>
       public static string Expanded(this string str, int spaceCount = 1)
       {
          if (str.IsEmpty())
@@ -1008,7 +1467,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             // ELSE if not the last character
             for (var idx = 0; idx < spaceCount; idx++)
             {
-               strBuilder.Append(FormsConst.SPACE_CHAR);
+               strBuilder.Append(SPACE_CHAR);
             }
          }
 
@@ -1016,18 +1475,18 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return strBuilder.ToString().Trim();
       }
 
-      /// <summary>
-      /// Fades the in.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      /// <param name="fadeMilliseconds">The fade milliseconds.</param>
-      /// <param name="easing">The easing.</param>
-      /// <param name="maxOpacity">The maximum opacity.</param>
-      public static void FadeIn(
+      public static
+#if DEFEAT_FADES 
+#elif ANIMATE_FADES
+#else
+         async
+#endif
+         void 
+         FadeIn(
          this View view,
          uint fadeMilliseconds = 250,
          [CanBeNull] Easing easing = null,
-         double maxOpacity = FormsConst.VISIBLE_OPACITY)
+         double maxOpacity = VISIBLE_OPACITY)
       {
          // Nothing to do
          if (view.Opacity.IsSameAs(maxOpacity))
@@ -1035,52 +1494,54 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             return;
          }
 
+#if DEFEAT_FADES
+         view.Opacity = maxOpacity;
+#elif ANIMATE_FADES
          var fadeAnimation = new Animation(f => view.Opacity = f,
-                                           view.Opacity,
-                                           maxOpacity, easing);
-         fadeAnimation.Commit(view, "fadeAnimation", length: fadeMilliseconds, easing: easing);
+                                                 view.Opacity,
+                                                 maxOpacity, easing);
+         fadeAnimation.Commit(view, "fadeAnimation", length:fadeMilliseconds, easing:easing);
+#else
+         await view.FadeTo(maxOpacity, fadeMilliseconds, easing ?? Easing.CubicIn).WithoutChangingContext();
+#endif
       }
 
       /// <summary>
-      /// Fades the out.
+      ///    Fades the out.
       /// </summary>
       /// <param name="view">The view.</param>
-      /// <param name="fadeMilliseconds">The fade milliseconds.</param>
-      /// <param name="easing">The easing.</param>
+      /// <param name="fadeMilliseconds"></param>
+      /// <param name="easing"></param>
       /// <returns>Task.</returns>
-      public static void FadeOut(
+      public static
+#if DEFEAT_FADES
+#elif ANIMATE_FADES
+#else
+         async
+#endif
+         void FadeOut(
          this View view,
          uint fadeMilliseconds = 250,
          [CanBeNull] Easing easing = null)
       {
          // Nothing to do
-         if (view.Opacity.IsSameAs(FormsConst.NOT_VISIBLE_OPACITY))
+         if (view.Opacity.IsSameAs(NOT_VISIBLE_OPACITY))
          {
             return;
          }
 
+#if DEFEAT_FADES
+         view.Opacity = NOT_VISIBLE_OPACITY;
+#elif ANIMATE_FADES
          var fadeAnimation = new Animation(f => view.Opacity = f,
-                                           view.Opacity, FormsConst.NOT_VISIBLE_OPACITY, easing);
-         fadeAnimation.Commit(view, "fadeAnimation", length: fadeMilliseconds, easing: easing);
+                                           view.Opacity,
+                                           NOT_VISIBLE_OPACITY, easing);
+         fadeAnimation.Commit(view, "fadeAnimation", length:fadeMilliseconds, easing:easing);
+#else
+         await view.FadeTo(NOT_VISIBLE_OPACITY, fadeMilliseconds, easing).WithoutChangingContext();
+#endif
       }
 
-      /// <summary>
-      /// Fixes the negative dimensions.
-      /// </summary>
-      /// <param name="rect">The rect.</param>
-      /// <returns>Rectangle.</returns>
-      public static Rectangle FixNegativeDimensions(this Rectangle rect)
-      {
-         return new Rectangle(CheckAgainstZero(rect.X), CheckAgainstZero(rect.Y), CheckAgainstZero(rect.Width),
-                              CheckAgainstZero(rect.Height));
-      }
-
-      /// <summary>
-      /// Forces the aspect.
-      /// </summary>
-      /// <param name="rect">The rect.</param>
-      /// <param name="aspect">The aspect.</param>
-      /// <returns>Rectangle.</returns>
       public static Rectangle ForceAspect(this Rectangle rect, double aspect)
       {
          var currentAspect = rect.Width / rect.Height;
@@ -1109,9 +1570,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return new Rectangle(rect.X + widthDiff / 2, rect.Y + heightDiff / 2, newWidth, newHeight);
       }
 
-      /// <summary>
-      /// Forces the style.
-      /// </summary>
+      /// <summary>Forces the style.</summary>
       /// <param name="view">The view.</param>
       /// <param name="style">The style.</param>
       public static void ForceStyle
@@ -1164,9 +1623,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
       }
 
-      /// <summary>
-      /// Gets the expanding absolute layout.
-      /// </summary>
+      /// <summary>Gets the expanding absolute layout.</summary>
       /// <returns>AbsoluteLayout.</returns>
       public static AbsoluteLayout GetExpandingAbsoluteLayout()
       {
@@ -1178,9 +1635,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          };
       }
 
-      /// <summary>
-      /// Gets the expanding grid.
-      /// </summary>
+      /// <summary>Gets the expanding grid.</summary>
       /// <returns>Grid.</returns>
       public static Grid GetExpandingGrid()
       {
@@ -1197,9 +1652,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          };
       }
 
-      /// <summary>
-      /// Gets the expanding relative layout.
-      /// </summary>
+      /// <summary>Gets the expanding relative layout.</summary>
       /// <returns>RelativeLayout.</returns>
       public static RelativeLayout GetExpandingRelativeLayout()
       {
@@ -1211,9 +1664,20 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          };
       }
 
-      /// <summary>
-      /// Gets the expanding stack layout.
-      /// </summary>
+      /// <summary>Gets the expanding scroll view.</summary>
+      /// <returns>ScrollView.</returns>
+      public static ScrollView GetExpandingScrollView()
+      {
+         return new ScrollView
+         {
+            VerticalOptions = LayoutOptions.FillAndExpand,
+            HorizontalOptions = LayoutOptions.FillAndExpand,
+            BackgroundColor = Color.Transparent,
+            Orientation = ScrollOrientation.Vertical
+         };
+      }
+
+      /// <summary>Gets the expanding stack layout.</summary>
       /// <returns>StackLayout.</returns>
       public static StackLayout GetExpandingStackLayout()
       {
@@ -1222,13 +1686,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             VerticalOptions = LayoutOptions.StartAndExpand,
             HorizontalOptions = LayoutOptions.FillAndExpand,
             BackgroundColor = Color.Transparent,
-            Orientation = StackOrientation.Vertical
+            Orientation = StackOrientation.Vertical,
+            Spacing = 0
          };
       }
 
-      /// <summary>
-      /// Gets the image.
-      /// </summary>
+      /// <summary>Gets the image.</summary>
       /// <param name="filePath">The file path.</param>
       /// <param name="width">The width.</param>
       /// <param name="height">The height.</param>
@@ -1279,11 +1742,6 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return retImage;
       }
 
-      /// <summary>
-      /// Gets the keyboard from string.
-      /// </summary>
-      /// <param name="attributeKeyboardName">Name of the attribute keyboard.</param>
-      /// <returns>Keyboard.</returns>
       public static Keyboard GetKeyboardFromString(string attributeKeyboardName)
       {
          switch (attributeKeyboardName)
@@ -1317,7 +1775,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Gets the margin for runtime platform.
+      ///    Gets the margin for runtime platform.
       /// </summary>
       /// <returns>Thickness.</returns>
       public static Thickness GetMarginForRuntimePlatform()
@@ -1326,9 +1784,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return new Thickness(0, top, 0, 0);
       }
 
-      /// <summary>
-      /// Gets the shape view.
-      /// </summary>
+      /// <summary>Gets the shape view.</summary>
       /// <returns>ShapeView.</returns>
       public static ShapeView GetShapeView()
       {
@@ -1337,9 +1793,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return retShapeView;
       }
 
-      /// <summary>
-      /// Gets the simple label.
-      /// </summary>
+      /// <summary>Gets the simple label.</summary>
       /// <param name="labelText">The label text.</param>
       /// <param name="textColor">Color of the text.</param>
       /// <param name="textAlignment">The text alignment.</param>
@@ -1350,9 +1804,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="height">The height.</param>
       /// <param name="labelBindingPropertyName">Name of the label binding property.</param>
       /// <param name="labelBindingSource">The label binding source.</param>
-      /// <param name="stringFormat">The string format.</param>
+      /// <param name="stringFormat"></param>
       /// <param name="breakMode">The break mode.</param>
-      /// <param name="fontFamilyOverride">The font family override.</param>
+      /// <param name="fontFamilyOverride"></param>
       /// <returns>Label.</returns>
       public static Label GetSimpleLabel
       (
@@ -1406,7 +1860,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                if (labelBindingSource != null)
                {
                   retLabel.SetUpBinding(Label.TextProperty, labelBindingPropertyName, source: labelBindingSource,
-                                        stringFormat: stringFormat);
+                     stringFormat: stringFormat);
                }
                else
                {
@@ -1440,9 +1894,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       // ------------------------------------------------------------------------------------------
-      /// <summary>
-      /// Gets the spacer.
-      /// </summary>
+      /// <summary>Gets the spacer.</summary>
       /// <param name="height">The height.</param>
       /// <returns>BoxView.</returns>
       public static BoxView GetSpacer(double height)
@@ -1457,16 +1909,16 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Gets the starting y for runtime platform.
+      ///    Gets the starting y for runtime platform.
       /// </summary>
       /// <returns>System.Single.</returns>
       public static double GetStartingYForRuntimePlatform()
       {
-         return IsIos() ? FormsConst.IOS_TOP_MARGIN : 0;
+         return IsIos() ? IOS_TOP_MARGIN : 0;
       }
 
       /// <summary>
-      /// The bounds have become *invalid* (not changed necessarily) in relation to the last known bounds.
+      ///    The bounds have become *invalid* (not changed necessarily) in relation to the last known bounds.
       /// </summary>
       /// <param name="bounds">The bounds.</param>
       /// <param name="propName">Name of the property.</param>
@@ -1482,9 +1934,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return propName.IsBoundsRelatedPropertyChange() && bounds.IsNotValid() && lastBounds.IsValid();
       }
 
-      /// <summary>
-      /// The bounds have become *invalid* OR *changed* in relation to the last known bounds.
-      /// </summary>
+      /// <summary>The bounds have become *invalid* OR *changed* in relation to the last known bounds.</summary>
       /// <param name="bounds">The bounds.</param>
       /// <param name="propName">Name of the property.</param>
       /// <param name="lastBounds">The last bounds.</param>
@@ -1500,19 +1950,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                 (bounds.IsNotValid() || bounds.IsDifferentThan(lastBounds));
       }
 
-      /// <summary>
-      /// Heights the height of from percent of screen.
-      /// </summary>
-      /// <param name="percentDesired">The percent desired.</param>
-      /// <returns>System.Double.</returns>
-      public static double HeightFromPercentOfScreenHeight(this double percentDesired)
-      {
-         return OrientationService.ScreenHeight * percentDesired;
-      }
-
-      /// <summary>
-      /// Horizontals the options from text alignment.
-      /// </summary>
+      /// <summary>Horizontals the options from text alignment.</summary>
       /// <param name="textAlignment">The text alignment.</param>
       /// <returns>LayoutOptions.</returns>
       public static LayoutOptions HorizontalOptionsFromTextAlignment(TextAlignment textAlignment)
@@ -1531,9 +1969,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
       }
 
-      /// <summary>
-      /// Inserts the automatic column.
-      /// </summary>
+      /// <summary>Inserts the automatic column.</summary>
       /// <param name="grid">The grid.</param>
       /// <param name="insertionLoc">The insertion loc.</param>
       public static void InsertAutoColumn(this Grid grid, int insertionLoc)
@@ -1541,11 +1977,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          grid.ColumnDefinitions.Insert(insertionLoc, new ColumnDefinition { Width = GridLength.Auto });
       }
 
-      /// <summary>
-      /// Determines whether [is bounds related property change] [the specified property name].
-      /// </summary>
+      /// <summary>Determines whether [is bounds related property change] [the specified property name].</summary>
       /// <param name="propName">Name of the property.</param>
-      /// <returns><c>true</c> if [is bounds related property change] [the specified property name]; otherwise, <c>false</c>.</returns>
+      /// <returns>
+      ///    <c>true</c> if [is bounds related property change] [the specified property name]; otherwise, <c>false</c>.
+      /// </returns>
       public static bool IsBoundsRelatedPropertyChange
       (
          this string propName
@@ -1556,9 +1992,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                 propName.IsSameAs(FormsConst.Y_PROPERTY_NAME);
       }
 
-      /// <summary>
-      /// Determines whether [is different than] [the specified second color].
-      /// </summary>
+      /// <summary>Determines whether [is different than] [the specified second color].</summary>
       /// <param name="color">The color.</param>
       /// <param name="secondColor">Color of the second.</param>
       /// <returns><c>true</c> if [is different than] [the specified second color]; otherwise, <c>false</c>.</returns>
@@ -1571,9 +2005,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return color.IsNotAnEqualObjectTo(secondColor);
       }
 
-      /// <summary>
-      /// Determines whether [is different than] [the specified other size].
-      /// </summary>
+      /// <summary>Determines whether [is different than] [the specified other size].</summary>
       /// <param name="size">The size.</param>
       /// <param name="otherSize">Size of the other.</param>
       /// <returns><c>true</c> if [is different than] [the specified other size]; otherwise, <c>false</c>.</returns>
@@ -1582,32 +2014,29 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return !size.IsSameAs(otherSize);
       }
 
-      /// <summary>
-      /// Determines whether [is different than] [the specified other thickness].
-      /// </summary>
-      /// <param name="thickness">The thickness.</param>
+      /// <summary>Determines whether [is different than] [the specified other thickness].</summary>
+      /// <param name="Thickness">The thickness.</param>
       /// <param name="otherThickness">The other thickness.</param>
       /// <returns><c>true</c> if [is different than] [the specified other thickness]; otherwise, <c>false</c>.</returns>
-      public static bool IsDifferentThan(this Thickness thickness, Thickness otherThickness)
+      public static bool IsDifferentThan(this Thickness Thickness, Thickness otherThickness)
       {
-         return !thickness.IsSameAs(otherThickness);
+         return !Thickness.IsSameAs(otherThickness);
       }
 
-      /// <summary>
-      /// Determines whether [is different than] [the specified other rect].
-      /// </summary>
+      /// <summary>Determines whether [is different than] [the specified other rect].</summary>
       /// <param name="mainRect">The main rect.</param>
       /// <param name="otherRect">The other rect.</param>
       /// <returns><c>true</c> if [is different than] [the specified other rect]; otherwise, <c>false</c>.</returns>
-      public static bool IsDifferentThan(this Rectangle mainRect,
-         Rectangle otherRect)
+      public static bool IsDifferentThan
+      (
+         this Rectangle mainRect,
+         Rectangle otherRect
+      )
       {
          return !mainRect.IsSameAs(otherRect);
       }
 
-      /// <summary>
-      /// Determines whether the specified size is empty.
-      /// </summary>
+      /// <summary>Determines whether the specified size is empty.</summary>
       /// <param name="size">The size.</param>
       /// <returns><c>true</c> if the specified size is empty; otherwise, <c>false</c>.</returns>
       public static bool IsEmpty(this Size size)
@@ -1615,9 +2044,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return size.Width.IsLessThanOrEqualTo(0) && size.Height.IsLessThanOrEqualTo(0);
       }
 
-      /// <summary>
-      /// Determines whether the specified thickness is empty.
-      /// </summary>
+      /// <summary>Determines whether the specified thickness is empty.</summary>
       /// <param name="Thickness">The thickness.</param>
       /// <returns><c>true</c> if the specified thickness is empty; otherwise, <c>false</c>.</returns>
       public static bool IsEmpty(this Thickness Thickness)
@@ -1626,9 +2053,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                 Thickness.Right.IsLessThanOrEqualTo(0) && Thickness.Top.IsLessThanOrEqualTo(0);
       }
 
-      /// <summary>
-      /// Determines whether the specified main rect is empty.
-      /// </summary>
+      /// <summary>Determines whether the specified main rect is empty.</summary>
       /// <param name="mainRect">The main rect.</param>
       /// <returns><c>true</c> if the specified main rect is empty; otherwise, <c>false</c>.</returns>
       public static bool IsEmpty
@@ -1642,16 +2067,20 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                 mainRect.Height.IsLessThanOrEqualTo(0);
       }
 
-      public static bool IsGreaterThan(this string mainStr, string compareStr)
-      {
-         return string.CompareOrdinal(mainStr, compareStr) > 0;
-      }
-
       /// <summary>
-      /// Determines whether this instance is ios.
+      ///    Determines whether this instance is ios.
       /// </summary>
       /// <returns><c>true</c> if this instance is ios; otherwise, <c>false</c>.</returns>
       public static bool IsIos()
+      {
+         return Device.RuntimePlatform.IsSameAs(Device.iOS);
+      }
+
+      /// <summary>
+      ///    Determines whether this instance is ios.
+      /// </summary>
+      /// <returns><c>true</c> if this instance is ios; otherwise, <c>false</c>.</returns>
+      public static bool IsIOS()
       {
          return Device.RuntimePlatform.IsSameAs(Device.iOS);
       }
@@ -1661,9 +2090,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return string.CompareOrdinal(mainStr, compareStr) < 0;
       }
 
-      /// <summary>
-      /// Determines whether [is not empty] [the specified size].
-      /// </summary>
+      /// <summary>Determines whether [is not empty] [the specified size].</summary>
       /// <param name="size">The size.</param>
       /// <returns><c>true</c> if [is not empty] [the specified size]; otherwise, <c>false</c>.</returns>
       public static bool IsNotEmpty(this Size size)
@@ -1671,9 +2098,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return !size.IsEmpty();
       }
 
-      /// <summary>
-      /// Determines whether [is not empty] [the specified thickness].
-      /// </summary>
+      /// <summary>Determines whether [is not empty] [the specified thickness].</summary>
       /// <param name="Thickness">The thickness.</param>
       /// <returns><c>true</c> if [is not empty] [the specified thickness]; otherwise, <c>false</c>.</returns>
       public static bool IsNotEmpty(this Thickness Thickness)
@@ -1681,9 +2106,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return !Thickness.IsEmpty();
       }
 
-      /// <summary>
-      /// Determines whether [is not empty] [the specified main rect].
-      /// </summary>
+      /// <summary>Determines whether [is not empty] [the specified main rect].</summary>
       /// <param name="mainRect">The main rect.</param>
       /// <returns><c>true</c> if [is not empty] [the specified main rect]; otherwise, <c>false</c>.</returns>
       public static bool IsNotEmpty
@@ -1694,9 +2117,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return !mainRect.IsEmpty();
       }
 
-      /// <summary>
-      /// Determines whether [is not valid] [the specified bounds].
-      /// </summary>
+      /// <summary>Determines whether [is not valid] [the specified bounds].</summary>
       /// <param name="bounds">The bounds.</param>
       /// <returns><c>true</c> if [is not valid] [the specified bounds]; otherwise, <c>false</c>.</returns>
       public static bool IsNotValid(this Rectangle bounds)
@@ -1709,18 +2130,16 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       //   return Device.RuntimePlatform.IsSameAs(Device.iOS) ? isNested ? 0 : IOS_TOP_MARGIN : 0;
       //}
       /// <summary>
-      /// Determines whether [is not visible] [the specified view].
+      ///    Determines whether [is not visible] [the specified view].
       /// </summary>
       /// <param name="view">The view.</param>
       /// <returns><c>true</c> if [is not visible] [the specified view]; otherwise, <c>false</c>.</returns>
       public static bool IsNotVisible(this View view)
       {
-         return view.Opacity.IsDifferentThan(FormsConst.VISIBLE_OPACITY);
+         return view.Opacity.IsDifferentThan(VISIBLE_OPACITY);
       }
 
-      /// <summary>
-      /// Determines whether [is same as] [the specified other size].
-      /// </summary>
+      /// <summary>Determines whether [is same as] [the specified other size].</summary>
       /// <param name="size">The size.</param>
       /// <param name="otherSize">Size of the other.</param>
       /// <returns><c>true</c> if [is same as] [the specified other size]; otherwise, <c>false</c>.</returns>
@@ -1729,9 +2148,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return size.Width.IsSameAs(otherSize.Width) && size.Height.IsSameAs(otherSize.Height);
       }
 
-      /// <summary>
-      /// Determines whether [is same as] [the specified other thickness].
-      /// </summary>
+      /// <summary>Determines whether [is same as] [the specified other thickness].</summary>
       /// <param name="Thickness">The thickness.</param>
       /// <param name="otherThickness">The other thickness.</param>
       /// <returns><c>true</c> if [is same as] [the specified other thickness]; otherwise, <c>false</c>.</returns>
@@ -1741,9 +2158,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                 Thickness.Right.IsSameAs(otherThickness.Right) && Thickness.Top.IsSameAs(otherThickness.Top);
       }
 
-      /// <summary>
-      /// Determines whether [is same as] [the specified other rect].
-      /// </summary>
+      /// <summary>Determines whether [is same as] [the specified other rect].</summary>
       /// <param name="mainRect">The main rect.</param>
       /// <param name="otherRect">The other rect.</param>
       /// <returns><c>true</c> if [is same as] [the specified other rect]; otherwise, <c>false</c>.</returns>
@@ -1754,17 +2169,15 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       )
       {
          return mainRect.Width.IsSameAs(otherRect.Width)
-              &&
+                &&
                 mainRect.Height.IsSameAs(otherRect.Height)
-              &&
+                &&
                 mainRect.X.IsSameAs(otherRect.X)
-              &&
+                &&
                 mainRect.Y.IsSameAs(otherRect.Y);
       }
 
-      /// <summary>
-      /// Determines whether [is unset or default] [the specified color].
-      /// </summary>
+      /// <summary>Determines whether [is unset or default] [the specified color].</summary>
       /// <param name="color">The color.</param>
       /// <returns><c>true</c> if [is unset or default] [the specified color]; otherwise, <c>false</c>.</returns>
       public static bool IsUnsetOrDefault(this Color color)
@@ -1772,9 +2185,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return color.IsAnEqualObjectTo(default);
       }
 
-      /// <summary>
-      /// Returns true if ... is valid.
-      /// </summary>
+      /// <summary>Returns true if ... is valid.</summary>
       /// <param name="bounds">The bounds.</param>
       /// <returns><c>true</c> if the specified bounds is valid; otherwise, <c>false</c>.</returns>
       public static bool IsValid(this Rectangle bounds)
@@ -1782,19 +2193,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return bounds.Width > 0 && bounds.Height > 0;
       }
 
-      /// <summary>
-      /// Returns true if ... is valid.
-      /// </summary>
-      /// <param name="size">The size.</param>
-      /// <returns><c>true</c> if the specified size is valid; otherwise, <c>false</c>.</returns>
       public static bool IsValid(this Size size)
       {
          return size.Width > 0 && size.Height > 0;
       }
 
-      /// <summary>
-      /// Returns true if ... is valid.
-      /// </summary>
+      /// <summary>Returns true if ... is valid.</summary>
       /// <param name="color">The color.</param>
       /// <returns><c>true</c> if the specified color is valid; otherwise, <c>false</c>.</returns>
       public static bool IsValid(this Color color)
@@ -1802,9 +2206,18 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return !color.IsUnsetOrDefault();
       }
 
-      /// <summary>
-      /// Merges the style.
-      /// </summary>
+      //public static double LabelNamedFontSizeForDevice(NamedSize tabletSize, NamedSize phoneSize)
+      //{
+      //   if (Device.Idiom == TargetIdiom.Phone)
+      //   {
+      //      return Device.GetNamedSize(phoneSize, typeof(Label));
+      //   }
+
+      //   // ELSE
+      //   return Device.GetNamedSize(tabletSize, typeof(Label));
+      //}
+
+      /// <summary>Merges the style.</summary>
       /// <typeparam name="T"></typeparam>
       /// <param name="mainStyle">The main style.</param>
       /// <param name="newStyle">The new style.</param>
@@ -1860,11 +2273,13 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return mainStyle;
       }
 
-      //   // ELSE
-      //   return Device.GetNamedSize(tabletSize, typeof(Label));
-      //}
+      public static string NowToServerDateTimeStr()
+      {
+         return DateTime.Now.ToServerDateTimeStr();
+      }
+
       /// <summary>
-      /// Presentables the date.
+      ///    Presentables the date.
       /// </summary>
       /// <param name="dt">The dt.</param>
       /// <returns>System.String.</returns>
@@ -1873,14 +2288,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return $"{dt:MMM d, yyyy}";
       }
 
-      //public static double LabelNamedFontSizeForDevice(NamedSize tabletSize, NamedSize phoneSize)
-      //{
-      //   if (Device.Idiom == TargetIdiom.Phone)
-      //   {
-      //      return Device.GetNamedSize(phoneSize, typeof(Label));
-      //   }
       /// <summary>
-      /// Presentables the dollar amount.
+      ///    Presentables the dollar amount.
       /// </summary>
       /// <param name="dollars">The dollars.</param>
       /// <returns>System.String.</returns>
@@ -1890,7 +2299,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Presentables the whole long int.
+      ///    Presentables the whole long int.
       /// </summary>
       /// <param name="lng">The LNG.</param>
       /// <returns>System.String.</returns>
@@ -1899,191 +2308,52 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return $"{lng:0}";
       }
 
-      /// <summary>
-      /// Replaces the layout to.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      /// <param name="nextBounds">The next bounds.</param>
-      /// <param name="fadeMilliseconds">The fade milliseconds.</param>
-      /// <param name="easing">The easing.</param>
-      public static async Task ReplaceLayoutTo(
-         this View view,
-         Rectangle nextBounds,
-         uint fadeMilliseconds = 250,
-         [CanBeNull] Easing easing = null)
-      {
-         // Nothing to do
-         if (view.Bounds.IsSameAs(nextBounds))
-         {
-            return;
-         }
-
-         //var tasks = new List<Task>();
-
-         //if (view.Bounds.X.IsDifferentThan(nextBounds.X) || view.Bounds.Y.IsDifferentThan(nextBounds.Y))
-         //{
-         //   tasks.Add(view.TranslateTo(nextBounds.X - view.Bounds.X, nextBounds.Y - view.Bounds.Y, fadeMilliseconds,
-         //                              easing).WithoutChangingContext());
-         //}
-
-         //if (view.Bounds.Width.IsDifferentThan(nextBounds.Width))
-         //{
-         //   // view.WidthRequest = nextBounds.Width;
-         //   tasks.Add(new Task(() => view.AnimateWidthChange(nextBounds.Width, fadeMilliseconds, easing)).WithoutChangingContext());
-         //}
-
-         //if (view.Bounds.Height.IsDifferentThan(nextBounds.Height))
-         //{
-         //   // view.HeightRequest = nextBounds.Height;
-         //   tasks.Add(new Task(() => view.AnimateHeightChange(nextBounds.Height, fadeMilliseconds, easing)).WithoutChangingContext());
-         //}
-
-         if (view.Bounds.X.IsDifferentThan(nextBounds.X) || view.Bounds.Y.IsDifferentThan(nextBounds.Y))
-         {
-            await view.TranslateTo(nextBounds.X - view.Bounds.X, nextBounds.Y - view.Bounds.Y, fadeMilliseconds,
-                                   easing).WithoutChangingContext();
-         }
-
-         if (view.Bounds.Width.IsDifferentThan(nextBounds.Width))
-         {
-            // view.WidthRequest = nextBounds.Width;
-            view.AnimateWidthChange(nextBounds.Width, fadeMilliseconds, easing);
-         }
-
-         if (view.Bounds.Height.IsDifferentThan(nextBounds.Height))
-         {
-            // view.HeightRequest = nextBounds.Height;
-            view.AnimateHeightChange(nextBounds.Height, fadeMilliseconds, easing);
-         }
-      }
-
-      /// <summary>
-      /// Scales the in.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      public static async Task ScaleIn(this View view)
-      {
-         await view.ScaleTo(FormsConst.NORMAL_SCALE).WithoutChangingContext();
-      }
-
-      /// <summary>
-      /// Scales the out.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      public static async Task ScaleOut(this View view)
-      {
-         await view.ScaleTo(FormsConst.NO_SCALE).WithoutChangingContext();
-      }
-
-      /// <summary>
-      /// Sets the and force style.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      /// <param name="style">The style.</param>
+      //   var retColor =
+      //      Color.FromRgb
+      //         (
+      //            color.R.MultiplyWithMax(multiplier, MAX_COLOR_ELEMENT),
+      //            color.G.MultiplyWithMax(multiplier, MAX_COLOR_ELEMENT),
+      //            color.B.MultiplyWithMax(multiplier, MAX_COLOR_ELEMENT)
+      //          );
       public static void SetAndForceStyle(this View view, Style style)
       {
          view.Style = style;
          view.ForceStyle(style);
       }
 
-      /// <summary>
-      /// This method assumes on entry, the first view has a gesture recognizer (else exits).
-      /// From there, the child view Input Transparent Booeans are set so the first view's gesture recognizer is active at all
-      /// times, regardless of where the user taps.
-      /// </summary>
-      /// <param name="view">The view.</param>
-      public static void SetChildViewInputTransparencies(this View view)
-      {
-         if (view.IsNullOrDefault())
-         {
-            return;
-         }
-
-         if (view is ContentView viewAsContentView)
-         {
-            view.InputTransparent = false;
-            SetChildViewInputTransparencies(viewAsContentView.Content);
-         }
-         else if (view is ScrollView viewAsScrollView)
-         {
-            view.InputTransparent = false;
-            SetChildViewInputTransparencies(viewAsScrollView.Content);
-         }
-         else if (view is Layout<View> viewAsLayoutView)
-         {
-            view.InputTransparent = false;
-
-            foreach (var child in viewAsLayoutView.Children)
-            {
-               SetChildViewInputTransparencies(child);
-            }
-         }
-         else if (view is InputView viewAsInputView)
-         {
-            viewAsInputView.InputTransparent = false;
-         }
-         else
-         {
-            // Add a tap listener to reach top" view
-            view.InputTransparent = true;
-         }
-      }
-
-      /// <summary>
-      /// Sets the defaults.
-      /// </summary>
-      /// <param name="shapeView">The shape view.</param>
       public static void SetDefaults(this ShapeView shapeView)
       {
-         shapeView.BackgroundColor = Color.Transparent;
          shapeView.Color = Color.White;
-         shapeView.CornerRadius = FormsConst.DEFAULT_CORNER_RADIUS_FIXED;
+         shapeView.CornerRadius = FormsConst.DEFAULT_SHAPE_VIEW_RADIUS;
+         shapeView.BackgroundColor = Color.Transparent;
          shapeView.IsClippedToBounds = true;
          shapeView.HorizontalOptions = LayoutOptions.FillAndExpand;
          shapeView.VerticalOptions = LayoutOptions.FillAndExpand;
       }
 
-      public static void SetShapeViewStyle(
-                                                                                                                                                                                                                                                                                                                                                                                       this Style retStyle,
-         Color? backColor = null,
-         double? cornerRadius = null,
-         Color? borderColor = null,
-         double? borderThickness = null)
+      public static void SetDefaults(this ScrollView scrollView)
       {
-         if (backColor.HasValue)
-         {
-            retStyle.Setters.Add(new Setter { Property = ShapeView.ColorProperty, Value = backColor });
-         }
-
-         if (cornerRadius.HasValue)
-         {
-            retStyle.Setters.Add(new Setter { Property = PancakeView.CornerRadiusProperty, Value = cornerRadius });
-         }
-
-         if (borderColor.HasValue && borderThickness.HasValue)
-         {
-            retStyle.Setters.Add(new Setter { Property = PancakeView.BorderProperty, Value = CreateShapeViewBorder(borderColor, borderThickness) });
-         }
+         scrollView.SetViewDefaults();
+         scrollView.Orientation = ScrollOrientation.Vertical;
       }
 
-      /// <summary>
-      /// Converts to enum.
-      /// </summary>
+      public static void SetViewDefaults(this View view)
+      {
+         view.VerticalOptions = LayoutOptions.FillAndExpand;
+         view.HorizontalOptions = LayoutOptions.FillAndExpand;
+         view.BackgroundColor = Color.Transparent;
+      }
+
+      //   // Determine the maximum multiplication that allows us to keep the exact proportion of the three colors.
+      //   var maxCurrentIndividualColor = Math.Max(Math.Max(color.R, color.G), color.B);
+      //   var multiplier = MAX_COLOR_ELEMENT * howCloseToWhite / maxCurrentIndividualColor;
+      /// <summary>Converts to enum.</summary>
       /// <typeparam name="EnumT">The type of the enum t.</typeparam>
       /// <param name="enumAsString">The enum as string.</param>
       /// <returns>EnumT.</returns>
       public static EnumT ToEnum<EnumT>(this string enumAsString)
          where EnumT : Enum
       {
-         /*
-         if (enumAsString.IsEmpty())
-         {
-            return default(EnumT);
-         }
-
-         return ((EnumT)Enum.Parse(typeof(EnumT), enumAsString, true));
-         */
-
          if (EnumTryParse(enumAsString, out EnumT foundEnum))
          {
             return foundEnum;
@@ -2092,6 +2362,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return default;
       }
 
+      //public static Color SuperPale(this Color color, double howCloseToWhite = VERY_PALE)
+      //{
+      //   if (color.IsAnEqualObjectTo(default))
+      //   {
+      //      return Color.Transparent;
+      //   }
       public static DateTime? ToNullableDateTime(this string str)
       {
          if (str.IsEmpty())
@@ -2107,71 +2383,73 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return default;
       }
 
+      //private static double MultiplyWithMax(this double num, double factor, double max)
+      //{
+      //   return Math.Min(max, (num * factor));
+      //}
       /// <summary>
-      /// Converts to off screen position.
+      ///    Converts to off screen position.
       /// </summary>
       /// <param name="stageToolbarPosition">The stage toolbar position.</param>
       /// <returns>OffScreenPositions.</returns>
-      public static FormsConst.OffScreenPositions ToOffScreenPosition(
-         this FormsConst.StageToolbarPositions stageToolbarPosition)
+      public static OffScreenPositions ToOffScreenPosition(this StageToolbarPositions stageToolbarPosition)
       {
          switch (stageToolbarPosition)
          {
-            case FormsConst.StageToolbarPositions.BOTTOM: return FormsConst.OffScreenPositions.BOTTOM;
+            case StageToolbarPositions.BOTTOM: return OffScreenPositions.BOTTOM;
 
-            case FormsConst.StageToolbarPositions.LEFT: return FormsConst.OffScreenPositions.LEFT;
+            case StageToolbarPositions.LEFT: return OffScreenPositions.LEFT;
 
-            case FormsConst.StageToolbarPositions.TOP: return FormsConst.OffScreenPositions.TOP;
+            case StageToolbarPositions.TOP: return OffScreenPositions.TOP;
 
-            case FormsConst.StageToolbarPositions.RIGHT: return FormsConst.OffScreenPositions.RIGHT;
+            case StageToolbarPositions.RIGHT: return OffScreenPositions.RIGHT;
          }
 
-         return FormsConst.OffScreenPositions.NONE;
+         return OffScreenPositions.NONE;
       }
 
+      //private const double VERY_PALE = 0.9;
+      //private const double MAX_COLOR_ELEMENT = 255;
       /// <summary>
-      /// Converts to offscreenposition.
       /// </summary>
-      /// <param name="flowDirection">The flow direction.</param>
-      /// <returns>FormsConst.OffScreenPositions.</returns>
-      public static FormsConst.OffScreenPositions ToOffScreenPosition(
-         this FormsConst.SubStageFlowDirections flowDirection)
+      /// <param name="flowDirection"></param>
+      /// <returns></returns>
+      public static OffScreenPositions ToOffScreenPosition(this SubStageFlowDirections flowDirection)
       {
          switch (flowDirection)
          {
-            case FormsConst.SubStageFlowDirections.BOTTOM_TO_TOP: return FormsConst.OffScreenPositions.BOTTOM;
-            case FormsConst.SubStageFlowDirections.LEFT_TO_RIGHT: return FormsConst.OffScreenPositions.LEFT;
-            case FormsConst.SubStageFlowDirections.TOP_TO_BOTTOM: return FormsConst.OffScreenPositions.TOP;
-            case FormsConst.SubStageFlowDirections.RIGHT_TO_LEFT: return FormsConst.OffScreenPositions.RIGHT;
+            case SubStageFlowDirections.BOTTOM_TO_TOP: return OffScreenPositions.BOTTOM;
+            case SubStageFlowDirections.LEFT_TO_RIGHT: return OffScreenPositions.LEFT;
+            case SubStageFlowDirections.TOP_TO_BOTTOM: return OffScreenPositions.TOP;
+            case SubStageFlowDirections.RIGHT_TO_LEFT: return OffScreenPositions.RIGHT;
          }
 
-         return FormsConst.OffScreenPositions.NONE;
+         return OffScreenPositions.NONE;
       }
 
       /// <summary>
-      /// Converts to onscreenposition.
+      ///    Converts to on-screen position.
       /// </summary>
       /// <param name="stageToolbarPosition">The stage toolbar position.</param>
       /// <returns>OnScreenPositions.</returns>
-      public static FormsConst.OnScreenPositions ToOnScreenPosition(
-         this FormsConst.StageToolbarPositions stageToolbarPosition)
+      public static OnScreenPositions ToOnScreenPosition(this StageToolbarPositions stageToolbarPosition)
       {
          switch (stageToolbarPosition)
          {
-            case FormsConst.StageToolbarPositions.BOTTOM: return FormsConst.OnScreenPositions.BOTTOM_CENTER;
+            case StageToolbarPositions.BOTTOM: return OnScreenPositions.BOTTOM_CENTER;
 
-            case FormsConst.StageToolbarPositions.LEFT: return FormsConst.OnScreenPositions.LEFT_CENTER;
+            case StageToolbarPositions.LEFT: return OnScreenPositions.LEFT_CENTER;
 
-            case FormsConst.StageToolbarPositions.TOP: return FormsConst.OnScreenPositions.TOP_CENTER;
+            case StageToolbarPositions.TOP: return OnScreenPositions.TOP_CENTER;
 
-            case FormsConst.StageToolbarPositions.RIGHT: return FormsConst.OnScreenPositions.RIGHT_CENTER;
+            case StageToolbarPositions.RIGHT: return OnScreenPositions.RIGHT_CENTER;
          }
 
-         return FormsConst.OnScreenPositions.NONE;
+         return OnScreenPositions.NONE;
       }
 
       /// <summary>
-      /// Converts to options.
+      ///    Converts to options.
       /// </summary>
       /// <param name="alignment">The alignment.</param>
       /// <returns>LayoutOptions.</returns>
@@ -2196,29 +2474,62 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return default;
       }
 
+      public static string ToServerDateTimeStr(this DateTime dateTime)
+      {
+         var retStr = dateTime.ToString(SERVER_DATE_FORMAT);
+
+         return retStr;
+      }
+
       /// <summary>
-      /// Validators from view.
+      ///    Use the current thread's culture info for conversion
       /// </summary>
-      /// <param name="view">The view.</param>
-      /// <returns>ICanBeValid.</returns>
+      public static string ToTitleCase(this string str)
+      {
+         if (str.IsEmpty())
+         {
+            return "";
+         }
+
+         var cultureInfo = Thread.CurrentThread.CurrentCulture;
+         return cultureInfo.TextInfo.ToTitleCase(str.ToLower());
+      }
+
+      /// <summary>
+      ///    Overload which uses the culture info with the specified name
+      /// </summary>
+      public static string ToTitleCase(this string str, string cultureInfoName)
+      {
+         if (str.IsEmpty())
+         {
+            return "";
+         }
+
+         var cultureInfo = new CultureInfo(cultureInfoName);
+         return cultureInfo.TextInfo.ToTitleCase(str.ToLower());
+      }
+
+      /// <summary>
+      ///    Overload which uses the specified culture info
+      /// </summary>
+      public static string ToTitleCase(this string str, CultureInfo cultureInfo)
+      {
+         if (str.IsEmpty())
+         {
+            return "";
+         }
+
+         return cultureInfo.TextInfo.ToTitleCase(str.ToLower());
+      }
+
+      //   }
+      //}
       public static ICanBeValid ValidatorFromView(View view)
       {
          return view.Behaviors?.FirstOrDefault(b => b is ICanBeValid) as ICanBeValid;
       }
 
-      /// <summary>
-      /// Widthes the width of from percent of screen.
-      /// </summary>
-      /// <param name="percentDesired">The percent desired.</param>
-      /// <returns>System.Double.</returns>
-      public static double WidthFromPercentOfScreenWidth(this double percentDesired)
-      {
-         return OrientationService.ScreenWidth * percentDesired;
-      }
-
-      /// <summary>
-      /// Runs a Task without changing the context (configure await is false).
-      /// </summary>
+      /// <summary>Runs a Task without changing the context (configure await is false).</summary>
       /// <param name="task">The task.</param>
       /// <returns>Task.</returns>
       public static async Task WithoutChangingContext(this Task task) =>
@@ -2229,9 +2540,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
 #endif
 
-      /// <summary>
-      /// Withouts the changing context.
-      /// </summary>
+      /// <summary>Withouts the changing context.</summary>
       /// <typeparam name="T"></typeparam>
       /// <param name="task">The task.</param>
       /// <returns>Task&lt;T&gt;.</returns>
@@ -2240,27 +2549,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return await task.ConfigureAwait(false);
       }
 
-      //   if (decimalPos >= 0)
-      //   {
-      //   }
-      //}
       /// <summary>
-      /// Gets the expanding scroll view.
-      /// </summary>
-      /// <returns>ScrollView.</returns>
-      internal static ScrollView GetExpandingScrollView()
-      {
-         return new ScrollView
-         {
-            VerticalOptions = LayoutOptions.FillAndExpand,
-            HorizontalOptions = LayoutOptions.FillAndExpand,
-            BackgroundColor = Color.Transparent,
-            Orientation = ScrollOrientation.Vertical
-         };
-      }
-
-      /// <summary>
-      /// Gets the height of the forced.
+      ///    Gets the height of the forced.
       /// </summary>
       /// <param name="height">The height.</param>
       /// <param name="forceLongSize">if set to <c>true</c> [force long size].</param>
@@ -2278,7 +2568,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
 
       /// <summary>
-      /// Gets the width of the forced.
+      ///    Gets the width of the forced.
       /// </summary>
       /// <param name="width">The width.</param>
       /// <param name="forceLongSize">if set to <c>true</c> [force long size].</param>
@@ -2293,6 +2583,73 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       {
          width = forceLongSize ? currentSize.Width : width;
          return width;
+      }
+      
+      public static int GetAdjacentCharacterCount(this string str, int maxCharsAllowed)
+      {
+         if (str.IsEmpty())
+         {
+            return 0;
+         }
+
+         var maxViolations = 0;
+         
+         for (var idx = maxCharsAllowed; idx < str.Length; idx++)
+         {
+            // Test the idx and characters directly to its left
+            // The min idx is the exact characters allowed:
+            // Assuming 2 consecutive characters are allowed - 3 is a violation --
+            
+            // ABCDDD
+            
+            // The idx finally gets to the end of the string, so is at idx 5
+            // We start at 4, one to the left (no need to check the idx we are on).
+            // We end at 3 because that's all we need for a violation:
+            // The character "D" at indexes 3, 4 and 5
+            var minIdx = idx - maxCharsAllowed;
+
+            for (var subIdx = idx - 1; subIdx >= minIdx; subIdx--)
+            {
+               // Not the same, so not illegal
+               if (str[idx] != str[subIdx])
+               {
+                  break;
+               }
+
+               // All characters matched
+               if (subIdx == minIdx)
+               {
+                  maxViolations++;
+               }
+               
+               // Else continue checking 
+            }
+         }
+
+         return maxViolations;
+      }
+
+      public static void SetShapeViewStyle(
+         this Style retStyle,
+         Color?     backColor       = null,
+         double?    cornerRadius    = null,
+         Color?     borderColor     = null,
+         double?    borderThickness = null)
+      {
+         if (backColor.HasValue)
+         {
+            retStyle.Setters.Add(new Setter { Property = ShapeView.ColorProperty, Value = backColor });
+         }
+
+         if (cornerRadius.HasValue)
+         {
+            retStyle.Setters.Add(new Setter { Property = PancakeView.CornerRadiusProperty, Value = cornerRadius });
+         }
+
+         if (borderColor.HasValue && borderThickness.HasValue)
+         {
+            retStyle.Setters.Add(new Setter { Property = PancakeView.BorderProperty, Value = CreateShapeViewBorder(borderColor, borderThickness) });
+         }
       }
    }
 }
