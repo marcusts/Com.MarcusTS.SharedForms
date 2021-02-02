@@ -804,6 +804,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                AfterButtonStateChanged();
                BroadcastIfSelected();
                ButtonStateChanged?.Invoke(this);
+               UpdateCurrentStyleFromButtonState(value);
             }
 #else
             if (_buttonStateAssignedFromStyle)
