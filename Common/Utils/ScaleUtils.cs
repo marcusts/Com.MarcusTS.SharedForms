@@ -32,6 +32,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    using Xamarin.Essentials;
    using Xamarin.Forms;
 
+   /// <summary>
+   /// 
+   /// </summary>
    public static class ScaleUtils
    {
       // The baseline for fonts, widths and heights of buttons etc., is an iPhone X: 375 pixels.
@@ -69,6 +72,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          return retSize;
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="namedSize"></param>
+      /// <param name="additionalFactor"></param>
+      /// <returns></returns>
       public static double AdjustForOsAndDevice(this NamedSize namedSize, double additionalFactor = 1.0)
       {
          return Device.GetNamedSize(namedSize, typeof(Label)).AdjustForOsAndDevice() * additionalFactor;

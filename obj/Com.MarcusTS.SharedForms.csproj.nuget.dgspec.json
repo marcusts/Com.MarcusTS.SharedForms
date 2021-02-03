@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "m:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {}
+    "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {}
   },
   "projects": {
-    "m:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {
-      "version": "1.0.28",
+    "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {
+      "version": "1.0.30",
       "restore": {
-        "projectUniqueName": "m:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
+        "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
         "projectName": "Com.MarcusTS.SharedForms",
-        "projectPath": "m:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
+        "projectPath": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
         "packagesPath": "C:\\Users\\steph\\.nuget\\packages\\",
-        "outputPath": "m:\\MyDocs\\Dev\\MtsShared\\SharedForms\\obj\\",
+        "outputPath": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
