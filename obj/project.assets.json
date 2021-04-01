@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "Acr.UserDialogs/7.1.0.475": {
+      "Acr.UserDialogs/7.1.0.483": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Acr.UserDialogs.dll": {}
@@ -11,7 +11,7 @@
           "lib/netstandard2.0/Acr.UserDialogs.dll": {}
         }
       },
-      "AsyncAwaitBestPractices/5.0.2": {
+      "AsyncAwaitBestPractices/5.1.0": {
         "type": "package",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.7.0",
@@ -24,10 +24,10 @@
           "lib/netstandard2.0/AsyncAwaitBestPractices.dll": {}
         }
       },
-      "AsyncAwaitBestPractices.MVVM/5.0.2": {
+      "AsyncAwaitBestPractices.MVVM/5.1.0": {
         "type": "package",
         "dependencies": {
-          "AsyncAwaitBestPractices": "5.0.2"
+          "AsyncAwaitBestPractices": "5.1.0"
         },
         "compile": {
           "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll": {}
@@ -36,10 +36,10 @@
           "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll": {}
         }
       },
-      "Com.MarcusTS.SharedUtils/1.0.17": {
+      "Com.MarcusTS.SharedUtils/1.0.18": {
         "type": "package",
         "dependencies": {
-          "Xamarin.Forms": "4.8.0.1451"
+          "Xamarin.Forms": "4.0.0.425677"
         },
         "compile": {
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {}
@@ -76,7 +76,7 @@
           "build/ConfigureAwait.Fody.props": {}
         }
       },
-      "Fody/6.3.0": {
+      "Fody/6.4.0": {
         "type": "package",
         "build": {
           "build/Fody.targets": {}
@@ -127,10 +127,10 @@
           "lib/netstandard2.0/Plugin.Permissions.dll": {}
         }
       },
-      "PropertyChanged.Fody/3.3.1": {
+      "PropertyChanged.Fody/3.3.3": {
         "type": "package",
         "dependencies": {
-          "Fody": "6.3.0"
+          "Fody": "6.4.0"
         },
         "compile": {
           "lib/netstandard2.0/PropertyChanged.dll": {}
@@ -297,14 +297,14 @@
     }
   },
   "libraries": {
-    "Acr.UserDialogs/7.1.0.475": {
-      "sha512": "iGW0uda9bmbGcPABm0UzDjSd5DtGwcTCkOg265aUxKhG9IW0HtoNA3gASMXK64hMye2A+9mfkcmWJDOudbhJWw==",
+    "Acr.UserDialogs/7.1.0.483": {
+      "sha512": "Uoo7ZcrHl9SN3M05A5/e3qwUcR7lFhgsSI+7HaVSPnIQcectHNrERJbLoV8HLjDJc+0/3t3tfinxDHu/e2fiMw==",
       "type": "package",
-      "path": "acr.userdialogs/7.1.0.475",
+      "path": "acr.userdialogs/7.1.0.483",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "acr.userdialogs.7.1.0.475.nupkg.sha512",
+        "acr.userdialogs.7.1.0.483.nupkg.sha512",
         "acr.userdialogs.nuspec",
         "lib/monoandroid10.0/Acr.UserDialogs.dll",
         "lib/monoandroid10.0/Acr.UserDialogs.pdb",
@@ -332,42 +332,42 @@
         "readme.txt"
       ]
     },
-    "AsyncAwaitBestPractices/5.0.2": {
-      "sha512": "+RV2NTPnqU0u0YShu8f4KtI+DPgd1ntnMJPX7GN1EhYYRnObV1A5LnDv9l6/FcQZeAcdZxjKagPCD/cRdZyKLQ==",
+    "AsyncAwaitBestPractices/5.1.0": {
+      "sha512": "hRPwbZRrbCRlMYelzAh5AVtw43iMAatdVRm7llQ1MnAFSVjt7wZkd8LRUnxumBKxgOhWKb+jCV2bmippx9QfJA==",
       "type": "package",
-      "path": "asyncawaitbestpractices/5.0.2",
+      "path": "asyncawaitbestpractices/5.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "asyncawaitbestpractices.5.0.2.nupkg.sha512",
+        "asyncawaitbestpractices.5.1.0.nupkg.sha512",
         "asyncawaitbestpractices.nuspec",
         "lib/netstandard1.0/AsyncAwaitBestPractices.dll",
         "lib/netstandard2.0/AsyncAwaitBestPractices.dll",
         "lib/netstandard2.1/AsyncAwaitBestPractices.dll"
       ]
     },
-    "AsyncAwaitBestPractices.MVVM/5.0.2": {
-      "sha512": "ehFON0Pk/9qrLp41dWv2CiefbOxyQxtTkpRSkd5SMvEBryW6ET6wRMz0ZVmjdgq/wBFiithGWmoFtNIpcQxq+w==",
+    "AsyncAwaitBestPractices.MVVM/5.1.0": {
+      "sha512": "l8xxMjFzkNzUGpx2SJzYHj9jxUyI63Uq5SRmb+UdOpmb5qOPlcy/8VNJ3ELPrf4SwDkJnY+K/jqvMlFTFJFkgg==",
       "type": "package",
-      "path": "asyncawaitbestpractices.mvvm/5.0.2",
+      "path": "asyncawaitbestpractices.mvvm/5.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "asyncawaitbestpractices.mvvm.5.0.2.nupkg.sha512",
+        "asyncawaitbestpractices.mvvm.5.1.0.nupkg.sha512",
         "asyncawaitbestpractices.mvvm.nuspec",
         "lib/netstandard1.0/AsyncAwaitBestPractices.MVVM.dll",
         "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll",
         "lib/netstandard2.1/AsyncAwaitBestPractices.MVVM.dll"
       ]
     },
-    "Com.MarcusTS.SharedUtils/1.0.17": {
-      "sha512": "fX+L+oQaxA6bVMfuXzoecZxV7uRgfuxe3tyNLu7PlVb5sZFz7H6Ig/fd7Y0pgA5Y8e22tV2aXjEEHPAa07ckxA==",
+    "Com.MarcusTS.SharedUtils/1.0.18": {
+      "sha512": "BcVhjRK+XOsIe3CC71WTBHdzOYxUycAezaRwrIA/USCntXaFoebZoEs3eNCFBjRzLWjC1XA83IwATrIKDDtwpw==",
       "type": "package",
-      "path": "com.marcusts.sharedutils/1.0.17",
+      "path": "com.marcusts.sharedutils/1.0.18",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.sharedutils.1.0.17.nupkg.sha512",
+        "com.marcusts.sharedutils.1.0.18.nupkg.sha512",
         "com.marcusts.sharedutils.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.xml"
@@ -404,16 +404,16 @@
         "weaver/ConfigureAwait.Fody.xcf"
       ]
     },
-    "Fody/6.3.0": {
-      "sha512": "kBGlW/vBUvBSyCvFI3YICNl77gjUr0KMROlBTeBPN/+J3JMU57w1dpXPwjmU4ahdBTYLomzgxKLaJ3jVNuXuQg==",
+    "Fody/6.4.0": {
+      "sha512": "5cgK5htSklGmBTR8Bj/xvTGrxTINj18QY9S1rAu1G5QX9NAzK9lAB0TugUPdeSGmktW82R3gMj2NNnTgicMwsg==",
       "type": "package",
-      "path": "fody/6.3.0",
+      "path": "fody/6.4.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "License.txt",
         "build/Fody.targets",
-        "fody.6.3.0.nupkg.sha512",
+        "fody.6.4.0.nupkg.sha512",
         "fody.nuspec",
         "netclassictask/Fody.dll",
         "netclassictask/FodyCommon.dll",
@@ -627,10 +627,10 @@
         "readme.txt"
       ]
     },
-    "PropertyChanged.Fody/3.3.1": {
-      "sha512": "/K/X8wn2IZV7Zezb+WvieOalWopFJKEcB7BrPoDFCj74VexupWdtvqriCoifSyrX0E+XhTzk0cVQd26hQ7TODg==",
+    "PropertyChanged.Fody/3.3.3": {
+      "sha512": "2dHoq3+Y37J2g06RRyV57zMY9uVOq9JanPienXxineL1pIACCgxn8dL/f6C9I0L1hPvhoipxtP2u9jcSlVsn6Q==",
       "type": "package",
-      "path": "propertychanged.fody/3.3.1",
+      "path": "propertychanged.fody/3.3.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -641,7 +641,9 @@
         "lib/netstandard1.0/PropertyChanged.xml",
         "lib/netstandard2.0/PropertyChanged.dll",
         "lib/netstandard2.0/PropertyChanged.xml",
-        "propertychanged.fody.3.3.1.nupkg.sha512",
+        "lib/netstandard2.1/PropertyChanged.dll",
+        "lib/netstandard2.1/PropertyChanged.xml",
+        "propertychanged.fody.3.3.3.nupkg.sha512",
         "propertychanged.fody.nuspec",
         "weaver/PropertyChanged.Fody.dll",
         "weaver/PropertyChanged.Fody.xcf"
@@ -1595,15 +1597,15 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "Acr.UserDialogs >= 7.1.0.475",
-      "AsyncAwaitBestPractices >= 5.0.2",
-      "AsyncAwaitBestPractices.MVVM >= 5.0.2",
-      "Com.MarcusTS.SharedUtils >= 1.0.17",
+      "Acr.UserDialogs >= 7.1.0.483",
+      "AsyncAwaitBestPractices >= 5.1.0",
+      "AsyncAwaitBestPractices.MVVM >= 5.1.0",
+      "Com.MarcusTS.SharedUtils >= 1.0.18",
       "Com.MarcusTS.SmartDI >= 1.0.22",
       "ConfigureAwait.Fody >= 3.3.1",
       "NETStandard.Library >= 2.0.2",
       "Plugin.Permissions >= 6.0.1",
-      "PropertyChanged.Fody >= 3.3.1",
+      "PropertyChanged.Fody >= 3.3.3",
       "Xam.Plugin.Connectivity >= 3.2.0",
       "Xam.Plugins.Settings >= 3.1.1",
       "Xam.Plugins.Vibrate >= 4.0.0.5",
@@ -1614,11 +1616,11 @@
   },
   "packageFolders": {
     "C:\\Users\\steph\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.30",
+    "version": "1.0.31",
     "restore": {
       "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
       "projectName": "Com.MarcusTS.SharedForms",
@@ -1627,7 +1629,7 @@
       "outputPath": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
@@ -1639,8 +1641,9 @@
         "netstandard2.0"
       ],
       "sources": {
+        "https://api.bintray.com/nuget/asapp/ChatSDKFeed": {},
         "https://api.nuget.org/v3/index.json": {},
-        "https://idsmobile.pkgs.visualstudio.com/_packaging/IDSLibraries/nuget/v3/index.json": {}
+        "https://artifactory.spectrumtoolbox.com/artifactory/api/nuget/nuget": {}
       },
       "frameworks": {
         "netstandard2.0": {
@@ -1660,19 +1663,19 @@
         "dependencies": {
           "Acr.UserDialogs": {
             "target": "Package",
-            "version": "[7.1.0.475, )"
+            "version": "[7.1.0.483, )"
           },
           "AsyncAwaitBestPractices": {
             "target": "Package",
-            "version": "[5.0.2, )"
+            "version": "[5.1.0, )"
           },
           "AsyncAwaitBestPractices.MVVM": {
             "target": "Package",
-            "version": "[5.0.2, )"
+            "version": "[5.1.0, )"
           },
           "Com.MarcusTS.SharedUtils": {
             "target": "Package",
-            "version": "[1.0.17, )"
+            "version": "[1.0.18, )"
           },
           "Com.MarcusTS.SmartDI": {
             "target": "Package",
@@ -1694,7 +1697,7 @@
           },
           "PropertyChanged.Fody": {
             "target": "Package",
-            "version": "[3.3.1, )"
+            "version": "[3.3.3, )"
           },
           "Xam.Plugin.Connectivity": {
             "target": "Package",
@@ -1731,7 +1734,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

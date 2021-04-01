@@ -45,9 +45,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             BindingMode.OneWay,
             (view, oldVal, newVal) =>
             {
-               // view.Color                        = newVal;
-               //view.BackgroundGradientStartColor = newVal;
-               //view.BackgroundGradientEndColor   = newVal;
                view.BackgroundColor = newVal;
                view.IsClippedToBounds = true;
             }

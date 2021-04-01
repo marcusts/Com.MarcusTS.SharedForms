@@ -1,6 +1,5 @@
-﻿
-#define ALWAYS_SET_BUTTON_STATE
-#define NO_THREADS
+﻿#define NO_THREADS
+// #define FORCE_CURRENT_STYLE_COPY
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -9,6 +8,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    using System.ComponentModel;
    using System.Diagnostics;
    using System.Linq;
+   using Common.Interfaces;
    using Common.Utils;
    using SharedUtils.Utils;
    using Xamarin.Forms;
@@ -26,7 +26,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       ToggleSelectionAsFirstTwoStyles,
 
       /// <summary>Toggles selection through all styles.</summary>
-      ToggleSelectionThroughAllStyles,
+      ToggleSelectionThroughAllStyles
    }
 
    /// <summary>
@@ -36,7 +36,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// </summary>
    /// <seealso cref="System.IDisposable" />
    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-   public interface IImageLabelButton : IReportButtonStateChanges, IDisposable, INotifyPropertyChanged
+   public interface IImageLabelButton : IHaveButtonState, IDisposable, INotifyPropertyChanged
    {
       /// <summary>Gets or sets a value indicating whether [animate button].</summary>
       /// <value><c>true</c> if [animate button]; otherwise, <c>false</c>.</value>
@@ -82,21 +82,28 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The button label.</value>
       Label ButtonLabel { get; set; }
 
-      /// <summary>Gets or sets the state of the button.</summary>
-      /// <value>The state of the button.</value>
-      string ButtonState { get; set; }
+      bool CannotTap { get; set; }
+
+      bool CanTapOnDisabled { get; set; }
 
       /// <summary>Gets or sets the current style.</summary>
       /// <value>The current style.</value>
       ImageLabelButtonStyle CurrentStyle { get; set; }
 
+      double ImageHeight { get; set; }
+
+      LayoutOptions ImageHorizontalAlign   { get; set; }
+      LayoutOptions ImageHorizontalOptions { get; set; }
+
       /// <summary>Gets the image label button styles.</summary>
       /// <value>The image label button styles.</value>
       IList<ImageLabelButtonStyle> ImageLabelButtonStyles { get; }
 
-      /// <summary>Gets or sets the image position.</summary>
-      /// <value>The image position.</value>
-      FormsUtils.OnScreenPositions ImagePos { get; set; }
+      Thickness     ImageMargin          { get; set; }
+      LayoutOptions ImageVerticalAlign   { get; set; }
+      LayoutOptions ImageVerticalOptions { get; set; }
+
+      double ImageWidth { get; set; }
 
       /// <summary>Gets or sets a value indicating whether [include haptic feedback].</summary>
       /// <value><c>true</c> if [include haptic feedback]; otherwise, <c>false</c>.</value>
@@ -105,14 +112,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>Gets a value indicating whether this instance is selected.</summary>
       /// <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
       bool IsSelected { get; }
-
-      /// <summary>Gets or sets the label position.</summary>
-      /// <value>The label position.</value>
-      FormsUtils.OnScreenPositions LabelPos { get; set; }
-
-      /// <summary>Gets or sets the selection group.</summary>
-      /// <value>The selection group.</value>
-      int SelectionGroup { get; set; }
 
       /// <summary>Gets or sets the selection style.</summary>
       /// <value>The selection style.</value>
@@ -126,16 +125,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>Occurs when [image label button pressed].</summary>
       event EventUtils.NoParamsDelegate ImageLabelButtonPressed;
 
-      bool CanTapOnDisabled { get; set; }
-
-      bool CannotTap { get; set; }
-
       event EventUtils.GenericDelegate<bool> IsEnabledChanged;
-   }
-
-   public interface IReportButtonStateChanges
-   {
-      event EventUtils.GenericDelegate<IImageLabelButton> ButtonStateChanged;
    }
 
    /// <summary>
@@ -158,33 +148,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(AnimateButton),
-            true,
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.AnimateButton = newVal;
-            }
-         );
-
-      /// <summary>The image width property</summary>
-      public static readonly BindableProperty ImageWidthProperty =
-         CreateImageLabelButtonBaseBindableProperty
-         (
-            nameof(ImageWidth),
-            default(double),
-            BindingMode.OneWay,
-            (
-               imageButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               imageButton.ImageWidth = newVal;
-            }
+            true
          );
 
       /// <summary>The button command binding name property</summary>
@@ -192,7 +156,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonCommandBindingName),
-            default(string),
+            default(string)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -200,7 +165,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonCommandBindingName = newVal;
+               viewButton.SetUpCompleteButtonCommandBinding();
             }
          );
 
@@ -209,7 +174,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonCommandConverterParameter),
-            default(object),
+            default(object)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -217,7 +183,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonCommandConverterParameter = newVal;
+               viewButton.SetUpCompleteButtonCommandBinding();
             }
          );
 
@@ -226,7 +192,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonCommandConverter),
-            default(IValueConverter),
+            default(IValueConverter)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -234,7 +201,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonCommandConverter = newVal;
+               viewButton.SetUpCompleteButtonCommandBinding();
             }
          );
 
@@ -243,7 +210,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonCommand),
-            default(Command),
+            default(Command)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -251,7 +219,35 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonCommand = newVal;
+               viewButton.RemoveButtonCommandEventListener();
+
+               if (viewButton.ButtonCommand != null)
+               {
+                  viewButton.ButtonCommand.CanExecuteChanged += viewButton.HandleButtonCommandCanExecuteChanged;
+
+                  // Force-fire the initial state
+                  viewButton.ButtonCommand.ChangeCanExecute();
+
+                  viewButton.OnButtonCommandCreated();
+               }
+            }
+         );
+
+      /// <summary>The button command converter property</summary>
+      public static readonly BindableProperty ButtonCommandSourceProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ButtonCommandSource),
+            default(IValueConverter)
+            ,
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.SetUpCompleteButtonCommandBinding();
             }
          );
 
@@ -260,7 +256,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonCommandStringFormat),
-            default(string),
+            default(string)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -268,7 +265,41 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonCommandStringFormat = newVal;
+               viewButton.SetUpCompleteButtonCommandBinding();
+            }
+         );
+
+      /// <summary>The corner radius factor property</summary>
+      public static readonly BindableProperty ButtonCornerRadiusFactorProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ButtonCornerRadiusFactor),
+            default(double?),
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.SetCornerRadius();
+            }
+         );
+
+      /// <summary>The corner radius fixed property</summary>
+      public static readonly BindableProperty ButtonCornerRadiusFixedProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ButtonCornerRadiusFixed),
+            FormsConst.DEFAULT_SHAPE_VIEW_RADIUS,
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.SetCornerRadius();
             }
          );
 
@@ -277,7 +308,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonImage),
-            default(Image),
+            default(Image)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -285,7 +317,32 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonImage = newVal;
+               if (oldVal.IsNotNullOrDefault())
+               {
+                  if (viewButton._grid.Children.Contains(oldVal))
+                  {
+                     viewButton._grid.Children.Remove(oldVal);
+                  }
+               }
+
+               // Already set before entering this method
+               // viewButton._buttonImage = newVal;
+
+               if (viewButton.ButtonImage != null)
+               {
+                  viewButton.ButtonImage.BindingContext = viewButton.BindingContext;
+
+                  if (!viewButton._grid.Children.Contains(newVal))
+                  {
+                     viewButton._grid.AddAndSetRowsAndColumns(newVal, 0, 0);
+
+                     if (viewButton.ButtonLabel.IsNotNullOrDefault())
+                     {
+                        // The label is always on top
+                        viewButton._grid.RaiseChild(viewButton.ButtonLabel);
+                     }
+                  }
+               }
             }
          );
 
@@ -302,7 +359,32 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonLabel = newVal;
+               if (oldVal.IsNotNullOrDefault())
+               {
+                  if (viewButton._grid.Children.Contains(oldVal))
+                  {
+                     viewButton._grid.Children.Remove(oldVal);
+                  }
+               }
+
+               // Already set before entering this method.
+               // _buttonLabel = value;
+
+               if (viewButton.ButtonLabel != null)
+               {
+                  viewButton.ButtonLabel.BindingContext   = viewButton.BindingContext;
+                  viewButton.ButtonLabel.InputTransparent = true;
+
+                  if (!viewButton._grid.Children.Contains(newVal))
+                  {
+                     viewButton._grid.AddAndSetRowsAndColumns(newVal, 0, 0);
+
+                     // The label is always on top
+                     viewButton._grid.RaiseChild(viewButton.ButtonLabel);
+                  }
+
+                  viewButton.SetLabelStyle();
+               }
             }
          );
 
@@ -310,50 +392,43 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonState),
-            default(string),
-            BindingMode.OneWay,
+            default(string)
+            ,
+            BindingMode.TwoWay,
             (
                viewButton,
                oldVal,
                newVal
             ) =>
             {
-               viewButton.ButtonState = newVal;
+               if (newVal == oldVal)
+               {
+                  // Nothing to do
+                  return;
+               }
+
+               // Already done before entering this method.
+               // _buttonState = value;
+
+               viewButton.AfterButtonStateChanged();
+               viewButton.BroadcastIfSelected();
+               viewButton.ButtonStateChanged?.Invoke(newVal);
+               viewButton.UpdateCurrentStyleFromButtonState(newVal);
             }
          );
 
-      /// <summary>The corner radius factor property</summary>
-      public static readonly BindableProperty CornerRadiusFactorProperty =
+      public static readonly BindableProperty CannotTapProperty =
          CreateImageLabelButtonBaseBindableProperty
          (
-            nameof(ButtonCornerRadiusFactor),
-            default(double?),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.ButtonCornerRadiusFactor = newVal;
-            }
+            nameof(CannotTap),
+            default(bool)
          );
 
-      /// <summary>The corner radius fixed property</summary>
-      public static readonly BindableProperty CornerRadiusFixedProperty =
+      public static readonly BindableProperty CanTapOnDisabledProperty =
          CreateImageLabelButtonBaseBindableProperty
          (
-            nameof(ButtonCornerRadiusFixed),
-            default(double?),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.ButtonCornerRadiusFixed = newVal;
-            }
+            nameof(CanTapOnDisabled),
+            default(bool)
          );
 
       /// <summary>The current style property</summary>
@@ -369,7 +444,63 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.CurrentStyle = newVal;
+               if (_currentStylePropChangedEntered)
+               {
+                  // CRITICAL 
+                  viewButton.SetAllStyles();
+                  return;
+               }
+
+               _currentStylePropChangedEntered = true;
+
+               try
+               {
+                  newVal = viewButton.LastCheckBeforeAssigningStyle(newVal);
+
+                  if (newVal.IsNotNullOrDefault() && oldVal.IsNotNullOrDefault() &&
+                     oldVal.IsAnEqualReferenceTo(newVal))
+                  {
+                     // No change
+                     return;
+                  }
+
+                  if (viewButton.CurrentStyle.IsNotAnEqualReferenceTo(newVal))
+                  {
+                     viewButton.CurrentStyle = newVal;
+                  }   
+                  
+                  viewButton.ButtonState  = viewButton.CurrentStyle.InternalButtonState;
+                  viewButton.UpdateButtonText();
+                  viewButton.SetAllStyles();
+               }
+               finally
+               {
+                  _currentStylePropChangedEntered = false;
+               }
+            },
+            (viewButton, newVal) =>
+            {
+               if (_currentStyleCoerceEntered)
+               {
+                  return newVal;
+               }
+
+               _currentStyleCoerceEntered = true;
+
+               try
+               {
+                  if (newVal.IsNullOrDefault() && viewButton.CurrentStyle.IsNullOrDefault() && viewButton.ImageLabelButtonStyles.IsNotEmpty())
+                  {
+                     viewButton.CurrentStyle = viewButton.ImageLabelButtonStyles[0];
+                  }
+
+                  // ELSE
+                  return newVal;
+               }
+               finally
+               {
+                  _currentStyleCoerceEntered = false;
+               }
             }
          );
 
@@ -378,24 +509,14 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ImageHeight),
-            default(double),
-            BindingMode.OneWay,
-            (
-               imageButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               imageButton.ImageHeight = newVal;
-            }
+            default(double)
          );
 
-      /// <summary>The image position property</summary>
-      public static readonly BindableProperty ImagePosProperty =
+      public static readonly BindableProperty ImageHorizontalAlignProperty =
          CreateImageLabelButtonBaseBindableProperty
          (
-            nameof(ImagePos),
-            default(FormsUtils.OnScreenPositions),
+            nameof(ImageHorizontalAlign),
+            LayoutOptions.Center,
             BindingMode.OneWay,
             (
                viewButton,
@@ -403,43 +524,69 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ImagePos = newVal;
+               viewButton.CallRecreateImageSafely();
             }
          );
 
+      public static readonly BindableProperty ImageHorizontalOptionsProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ImageHorizontalOptions),
+            LayoutOptions.Center
+         );
+
+      public static readonly BindableProperty ImageMarginProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ImageMargin),
+            default(Thickness),
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.CallRecreateImageSafely();
+            }
+         );
+
+      public static readonly BindableProperty ImageVerticalAlignProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ImageVerticalAlign),
+            LayoutOptions.Center,
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.CallRecreateImageSafely();
+            }
+         );
+
+      public static readonly BindableProperty ImageVerticalOptionsProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ImageVerticalOptions),
+            LayoutOptions.Center
+         );
+
+      public static readonly BindableProperty ImageWidthProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(ImageWidth),
+            default(double)
+         );
 
       /// <summary>The include haptic feedback property</summary>
       public static readonly BindableProperty IncludeHapticFeedbackProperty =
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(IncludeHapticFeedback),
-            true,
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.IncludeHapticFeedback = newVal;
-            }
-         );
-
-      /// <summary>The label position property</summary>
-      public static readonly BindableProperty LabelPosProperty =
-         CreateImageLabelButtonBaseBindableProperty
-         (
-            nameof(LabelPos),
-            default(FormsUtils.OnScreenPositions),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.LabelPos = newVal;
-            }
+            true
          );
 
       /// <summary>The selection group property</summary>
@@ -447,7 +594,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(SelectionGroup),
-            default(int),
+            default(int)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -455,7 +603,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.SelectionGroup = newVal;
+               viewButton.BroadcastIfSelected();
             }
          );
 
@@ -464,7 +612,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(SelectionStyle),
-            default(ImageLabelButtonSelectionStyles),
+            default(ImageLabelButtonSelectionStyles)
+            ,
             BindingMode.OneWay,
             (
                viewButton,
@@ -472,75 +621,34 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.SelectionStyle = newVal;
+               viewButton.SetAllStyles();
             }
          );
 
+      public static readonly BindableProperty UpdateButtonTextFromStyleProperty =
+         CreateImageLabelButtonBaseBindableProperty
+         (
+            nameof(UpdateButtonTextFromStyle),
+            default(bool)
+         );
+
+      private static bool _currentStyleCoerceEntered;
+
+      private static bool _currentStylePropChangedEntered;
+
       /// <summary>The layout</summary>
-      private readonly RelativeLayout _layout = FormsUtils.GetExpandingRelativeLayout();
+      private readonly Grid _grid = FormsUtils.GetExpandingGrid();
 
       /// <summary>The tap gesture</summary>
       private readonly TapGestureRecognizer _tapGesture = new TapGestureRecognizer();
 
-      /// <summary>The button command</summary>
-      private Command _buttonCommand;
-
-      /// <summary>The button command binding name</summary>
-      private string _buttonCommandBindingName;
-
-      /// <summary>The button command converter</summary>
-      private IValueConverter _buttonCommandConverter;
-
-      /// <summary>The button command converter parameter</summary>
-      private object _buttonCommandConverterParameter;
-
-      /// <summary>The button command source</summary>
-      private object _buttonCommandSource;
-
-      /// <summary>The button image</summary>
-      private Image _buttonImage;
-
-      /// <summary>The button label</summary>
-      private Label _buttonLabel;
-
-      /// <summary>The button state</summary>
-      private string _buttonState;
-
-      /// <summary>The button state assigned from style</summary>
-      private bool _buttonStateAssignedFromStyle;
-
-      /// <summary>The corner radius factor</summary>
-      private double? _cornerRadiusFactor;
-
-      /// <summary>The corner radius fixed</summary>
-      private double? _cornerRadiusFixed;
-
-      /// <summary>The current style</summary>
-      private ImageLabelButtonStyle _currentStyle;
-
-      /// <summary>The image height</summary>
-      private double _imageHeight;
-
-      /// <summary>The image position</summary>
-      private FormsUtils.OnScreenPositions _imagePos;
-
-      /// <summary>The label position</summary>
-      private FormsUtils.OnScreenPositions _labelPos;
+      private bool _isInstantiating;
 
       /// <summary>The last bounds</summary>
       private Rectangle _lastBounds;
 
-      /// <summary>The selection group</summary>
-      private int _selectionGroup;
-
-      /// <summary>The selection style</summary>
-      private ImageLabelButtonSelectionStyles _selectionStyle;
-
       /// <summary>The tapped listener entered</summary>
       private volatile bool _tappedListenerEntered;
-
-      private bool _isInstantiating;
-      private double _imageWidth;
 
       /// <summary>Initializes a new instance of the <see cref="ImageLabelButtonBase" /> class.</summary>
       protected ImageLabelButtonBase()
@@ -552,620 +660,231 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
       protected abstract bool IsDisabled { get; }
 
-      public bool CanTapOnDisabled { get; set; } = false;
-
-      public bool CannotTap { get; set; } = false;
-
-      /// <summary>Gets the current size best guess.</summary>
-      /// <value>The current size best guess.</value>
-      private Size CurrentSizeBestGuess => new Size(Math.Max(Width, WidthRequest), Math.Max(Height, HeightRequest));
-
-      // BUGS REQUIRE THIS
-      /// <summary>Gets or sets the margin for the view.</summary>
-      /// <value>To be added.</value>
-      /// <remarks>To be added.</remarks>
-      private new Thickness Margin { get; set; }
-
-      // BUGS REQUIRE THIS
-      /// <summary>Gets or sets the inner padding of the Layout.</summary>
-      /// <value>The Thickness values for the layout. The default value is a Thickness with all values set to 0.</value>
-      /// <remarks>
-      ///    <para>
-      ///       The padding is the space between the bounds of a layout and the bounding region into which its children should
-      ///       be arranged into.
-      ///    </para>
-      ///    <para>The following example shows setting the padding of a Layout to inset its children.</para>
-      ///    <example>
-      ///       <code lang="csharp lang-csharp">
-      /// <![CDATA[
-      /// var stackLayout = new StackLayout {
-      /// Padding = new Thickness (10, 10, 10, 20),
-      /// Children = {
-      /// new Label {Text = "Hello"},
-      /// new Label {Text = "World"}
-      /// }
-      /// }
-      /// ]]>
-      /// </code>
-      ///    </example>
-      /// </remarks>
-      private new Thickness Padding { get; set; }
-
       /// <summary>Occurs when [button state changed].</summary>
-      public event EventUtils.GenericDelegate<IImageLabelButton> ButtonStateChanged;
+      public event EventUtils.GenericDelegate<string> ButtonStateChanged;
 
       /// <summary>Occurs when [image label button pressed].</summary>
       public event EventUtils.NoParamsDelegate ImageLabelButtonPressed;
 
+      public event EventUtils.GenericDelegate<bool> IsEnabledChanged;
+
       /// <summary>Gets or sets a value indicating whether [animate button].</summary>
       /// <value><c>true</c> if [animate button]; otherwise, <c>false</c>.</value>
-      public bool AnimateButton { get; set; } = true;
+      public bool AnimateButton
+      {
+         get => (bool) GetValue(AnimateButtonProperty);
+         set => SetValue(AnimateButtonProperty, value);
+      }
 
       /// <summary>Gets or sets the button command.</summary>
       /// <value>The button command.</value>
       public Command ButtonCommand
       {
-         get => _buttonCommand;
-         set
-         {
-            RemoveButtonCommandEventListener();
-
-            _buttonCommand = value;
-
-            if (ButtonCommand != null)
-            {
-               ButtonCommand.CanExecuteChanged += HandleButtonCommandCanExecuteChanged;
-
-               // Force-fire the initial state
-               ButtonCommand.ChangeCanExecute();
-
-               OnButtonCommandCreated();
-            }
-         }
+         get => (Command) GetValue(ButtonCommandProperty);
+         set => SetValue(ButtonCommandProperty, value);
       }
 
       /// <summary>Gets or sets the name of the button command binding.</summary>
       /// <value>The name of the button command binding.</value>
       public string ButtonCommandBindingName
       {
-         get => _buttonCommandBindingName;
-         set
-         {
-            if (_buttonCommandBindingName.IsDifferentThan(value))
-            {
-               _buttonCommandBindingName = value;
-               SetUpCompleteButtonCommandBinding();
-            }
-         }
+         get => (string) GetValue(ButtonCommandBindingNameProperty);
+         set => SetValue(ButtonCommandBindingNameProperty, value);
       }
 
       /// <summary>Gets or sets the button command converter.</summary>
       /// <value>The button command converter.</value>
       public IValueConverter ButtonCommandConverter
       {
-         get => _buttonCommandConverter;
-         set
-         {
-            _buttonCommandConverter = value;
-            SetUpCompleteButtonCommandBinding();
-         }
+         get => (IValueConverter) GetValue(ButtonCommandConverterProperty);
+         set => SetValue(ButtonCommandConverterProperty, value);
       }
 
       /// <summary>Gets or sets the button command converter parameter.</summary>
       /// <value>The button command converter parameter.</value>
       public object ButtonCommandConverterParameter
       {
-         get => _buttonCommandConverterParameter;
-         set
-         {
-            _buttonCommandConverterParameter = value;
-            SetUpCompleteButtonCommandBinding();
-         }
+         get => (IValueConverter) GetValue(ButtonCommandConverterParameterProperty);
+         set => SetValue(ButtonCommandConverterParameterProperty, value);
       }
 
       /// <summary>Gets or sets the button command source.</summary>
       /// <value>The button command source.</value>
       public object ButtonCommandSource
       {
-         get => _buttonCommandSource;
-         set
-         {
-            _buttonCommandSource = value;
-            SetUpCompleteButtonCommandBinding();
-         }
+         get => (IValueConverter) GetValue(ButtonCommandSourceProperty);
+         set => SetValue(ButtonCommandSourceProperty, value);
       }
 
       /// <summary>Gets or sets the button command string format.</summary>
       /// <value>The button command string format.</value>
-      public string ButtonCommandStringFormat { get; set; }
+      public string ButtonCommandStringFormat
+      {
+         get => (string) GetValue(ButtonCommandStringFormatProperty);
+         set => SetValue(ButtonCommandStringFormatProperty, value);
+      }
 
       /// <summary>Gets or sets the button corner radius factor.</summary>
       /// <value>The button corner radius factor.</value>
       public double? ButtonCornerRadiusFactor
       {
-         get => _cornerRadiusFactor;
-         set
-         {
-            _cornerRadiusFactor = value;
-            SetCornerRadius();
-         }
+         get => (double?) GetValue(ButtonCornerRadiusFactorProperty);
+         set => SetValue(ButtonCornerRadiusFactorProperty, value);
       }
 
       /// <summary>Gets or sets the button corner radius fixed.</summary>
       /// <value>The button corner radius fixed.</value>
       public double? ButtonCornerRadiusFixed
       {
-         get => _cornerRadiusFixed;
-         set
-         {
-            _cornerRadiusFixed = value;
-            SetCornerRadius();
-         }
+         get => (double?) GetValue(ButtonCornerRadiusFixedProperty);
+         set => SetValue(ButtonCornerRadiusFixedProperty, value);
       }
 
       /// <summary>Gets or sets the button image.</summary>
       /// <value>The button image.</value>
       public Image ButtonImage
       {
-         get => _buttonImage;
-         set
-         {
-            if (value.IsNotNullOrDefault())
-            {
-               if (_layout.Children.Contains(value))
-               {
-                  _layout.Children.Remove(value);
-               }
-            }
-
-            _buttonImage = value;
-
-            if (_buttonImage != null)
-            {
-               ButtonImage.BindingContext = BindingContext;
-
-               _buttonImage.InputTransparent = true;
-
-               if (ButtonLabel.IsNullOrDefault())
-               {
-                  _layout.CreateRelativeOverlay(_buttonImage, Padding);
-               }
-               else
-               {
-                  ShareButtonAndLabelPositions();
-               }
-            }
-         }
+         get => (Image) GetValue(ButtonImageProperty);
+         set => SetValue(ButtonImageProperty, value);
       }
 
-      private void ShareButtonAndLabelPositions()
-      {
-         // Callers must verify this
-         if (ButtonLabel.IsNullOrDefault() || ButtonImage.IsNullOrDefault())
-         {
-            return;
-         }
-
-         _layout.Children.Clear();
-
-         _layout.AddOverlayBasedOnPosition(ButtonImage, ImagePos, ImageWidth, ImageHeight);
-         _layout.AddOverlayBasedOnPosition(ButtonLabel, LabelPos, ButtonLabel.WidthRequest, ButtonLabel.HeightRequest);
-      } 
-      
       /// <summary>Gets or sets the button label.</summary>
       /// <value>The button label.</value>
       public Label ButtonLabel
       {
-         get => _buttonLabel;
-         set
-         {
-            if (value.IsNotNullOrDefault())
-            {
-               if (_layout.Children.Contains(value))
-               {
-                  _layout.Children.Remove(value);
-               }
-            }
-
-            _buttonLabel = value;
-
-            if (_buttonLabel != null)
-            {
-               ButtonLabel.BindingContext = BindingContext;
-
-               _buttonLabel.InputTransparent = true;
-
-               if (ButtonImage.IsNullOrDefault())
-               {
-                  _layout.CreateRelativeOverlay(ButtonLabel, Padding);
-               }
-               else
-               {
-                  ShareButtonAndLabelPositions();
-               }
-
-               SetLabelStyle();
-            }
-         }
+         get => (Label) GetValue(ButtonLabelProperty);
+         set => SetValue(ButtonLabelProperty, value);
       }
 
       /// <summary>Gets or sets the state of the button.</summary>
       /// <value>The state of the button.</value>
       public string ButtonState
       {
-         get => _buttonState;
-         set
-         {
-
-#if ALWAYS_SET_BUTTON_STATE
-            if (_buttonState != value)
-            {
-               _buttonState = value;
-               AfterButtonStateChanged();
-               BroadcastIfSelected();
-               ButtonStateChanged?.Invoke(this);
-               UpdateCurrentStyleFromButtonState(value);
-            }
-#else
-            if (_buttonStateAssignedFromStyle)
-            {
-               if (_buttonState != value)
-               {
-                  _buttonState = value;
-                  AfterButtonStateChanged();
-                  BroadcastIfSelected();
-                  ButtonStateChanged?.Invoke(this);
-               }
-            }
-            else
-            {
-               UpdateCurrentStyleFromButtonState(value);
-            }
-#endif            
-         }
+         get => (string) GetValue(ButtonStateProperty);
+         set => SetValue(ButtonStateProperty, value);
       }
 
-      /// <summary>Gets or sets the width of the image.</summary>
-      /// <value>The width of the image.</value>
-      public double ImageWidth
+      public bool CannotTap
       {
-         get => _imageWidth;
-         set
-         {
-            if (_imageWidth.IsDifferentThan(value))
-            {
-               _imageWidth = value;
+         get => (bool) GetValue(CannotTapProperty);
+         set => SetValue(CannotTapProperty, value);
+      }
 
-               CallRecreateImageSafely();
-            }
-         }
+      public bool CanTapOnDisabled
+      {
+         get => (bool) GetValue(CanTapOnDisabledProperty);
+         set => SetValue(CanTapOnDisabledProperty, value);
       }
 
       /// <summary>Gets or sets the current style.</summary>
       /// <value>The current style.</value>
       public ImageLabelButtonStyle CurrentStyle
       {
-         get
-         {
-            if (_currentStyle.IsNullOrDefault())
-            {
-               if (ImageLabelButtonStyles.IsNotEmpty())
-               {
-                  _currentStyle = ImageLabelButtonStyles[0];
-               }
-            }
-
-            return _currentStyle;
-         }
-         set
-         {
-            _currentStyle = LastCheckBeforeAssigningStyle(value);
-
-            _buttonStateAssignedFromStyle = true;
-            ButtonState                   = _currentStyle.InternalButtonState;
-            UpdateButtonText();
-            SetAllStyles();
-            _buttonStateAssignedFromStyle = false;
-         }
+         get => (ImageLabelButtonStyle) GetValue(CurrentStyleProperty);
+         set => SetValue(CurrentStyleProperty, value);
       }
 
-      protected virtual ImageLabelButtonStyle LastCheckBeforeAssigningStyle(ImageLabelButtonStyle value)
-      {
-         return value;
-      }
-
-      /// <summary>Gets or sets the height of the image.</summary>
-      /// <value>The height of the image.</value>
       public double ImageHeight
       {
-         get => _imageHeight;
-         set
-         {
-            if (_imageHeight.IsDifferentThan(value))
-            {
-               _imageHeight = value;
+         get => (double) GetValue(ImageHeightProperty);
+         set => SetValue(ImageHeightProperty, value);
+      }
 
-               CallRecreateImageSafely();
-            }
-         }
+      public LayoutOptions ImageHorizontalAlign
+      {
+         get => (LayoutOptions) GetValue(ImageHorizontalAlignProperty);
+         set => SetValue(ImageHorizontalAlignProperty, value);
+      }
+
+      public LayoutOptions ImageHorizontalOptions
+      {
+         get => (LayoutOptions) GetValue(ImageHorizontalOptionsProperty);
+         set => SetValue(ImageHorizontalOptionsProperty, value);
       }
 
       /// <summary>Gets the image label button styles.</summary>
       /// <value>The image label button styles.</value>
       public abstract IList<ImageLabelButtonStyle> ImageLabelButtonStyles { get; }
 
-      /// <summary>Gets or sets the image position.</summary>
-      /// <value>The image position.</value>
-      public FormsUtils.OnScreenPositions ImagePos
+      public Thickness ImageMargin
       {
-         get => _imagePos;
-         set
-         {
-            if (_imagePos != value)
-            {
-               _imagePos = value;
+         get => (Thickness) GetValue(ImageMarginProperty);
+         set => SetValue(ImageMarginProperty, value);
+      }
 
-               if (ButtonImage.IsNotNullOrDefault())
-               {
-                  // Tricky, but works 
-                  ButtonImage = ButtonImage;
-               }
-            }
-         }
+      public LayoutOptions ImageVerticalAlign
+      {
+         get => (LayoutOptions) GetValue(ImageVerticalAlignProperty);
+         set => SetValue(ImageVerticalAlignProperty, value);
+      }
+
+      public LayoutOptions ImageVerticalOptions
+      {
+         get => (LayoutOptions) GetValue(ImageVerticalOptionsProperty);
+         set => SetValue(ImageVerticalOptionsProperty, value);
+      }
+
+      public double ImageWidth
+      {
+         get => (double) GetValue(ImageWidthProperty);
+         set => SetValue(ImageWidthProperty, value);
       }
 
       /// <summary>Gets or sets a value indicating whether [include haptic feedback].</summary>
       /// <value><c>true</c> if [include haptic feedback]; otherwise, <c>false</c>.</value>
-      public bool IncludeHapticFeedback { get; set; } = true;
+      public bool IncludeHapticFeedback
+      {
+         get => (bool) GetValue(IncludeHapticFeedbackProperty);
+         set => SetValue(IncludeHapticFeedbackProperty, value);
+      }
 
       /// <summary>Gets a value indicating whether this instance is selected.</summary>
       /// <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
       public abstract bool IsSelected { get; }
 
-      /// <summary>Gets or sets the label position.</summary>
-      /// <value>The label position.</value>
-      public FormsUtils.OnScreenPositions LabelPos
-      {
-         get => _labelPos;
-         set
-         {
-            if (_labelPos != value)
-            {
-               _labelPos = value;
-
-               if (ButtonLabel.IsNotNullOrDefault())
-               {
-                  // Tricky, but works 
-                  ButtonLabel = ButtonLabel;
-               }
-            }
-         }
-      }
-
       /// <summary>Gets or sets the selection group.</summary>
       /// <value>The selection group.</value>
       public int SelectionGroup
       {
-         get => _selectionGroup;
-         set
-         {
-            if (_selectionGroup != value)
-            {
-               _selectionGroup = value;
-               BroadcastIfSelected();
-            }
-         }
+         get => (int) GetValue(SelectionGroupProperty);
+         set => SetValue(SelectionGroupProperty, value);
       }
 
       /// <summary>Gets or sets the selection style.</summary>
       /// <value>The selection style.</value>
       public ImageLabelButtonSelectionStyles SelectionStyle
       {
-         get => _selectionStyle;
-         set
-         {
-            _selectionStyle = value;
-            SetAllStyles();
-         }
+         get => (ImageLabelButtonSelectionStyles) GetValue(SelectionStyleProperty);
+         set => SetValue(SelectionStyleProperty, value);
       }
 
       /// <summary>Gets a value indicating whether [update button text from style].</summary>
       /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
-      public abstract bool UpdateButtonTextFromStyle { get; }
+      public bool UpdateButtonTextFromStyle
+      {
+         get => (bool) GetValue(UpdateButtonTextFromStyleProperty);
+         set => SetValue(UpdateButtonTextFromStyleProperty, value);
+      }
 
-      /// <summary>Finalizes an instance of the <see cref="ImageLabelButtonBase" /> class.</summary>
-      ~ImageLabelButtonBase()
+      /// <summary>
+      ///    Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+      /// </summary>
+      public void Dispose()
       {
          ReleaseUnmanagedResources();
+         GC.SuppressFinalize(this);
       }
 
       /// <summary>Occurs when [i am selected static].</summary>
       protected static event EventUtils.GenericDelegate<IImageLabelButton> IAmSelectedStatic;
 
-      /// <summary>Handles the static selection changes.</summary>
-      /// <param name="button">The button.</param>
-      private void HandleStaticSelectionChanges(IImageLabelButton button)
-      {
-         // Do not recur onto our own broadcast; also only respond to the same selection group.
-         if (button.SelectionGroup == SelectionGroup && !ReferenceEquals(button, this) &&
-             (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles ||
-              (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles) && button.IsSelected))
-         {
-            Deselect();
-         }
-      }
-
-      /// <summary>Recreates the image.</summary>
-      private void RecreateImage()
-      {
-         if (!CurrentStyleIndexFound(out var styleIdx))
-         {
-            return;
-         }
-
-         var imageFileName = ImageLabelButtonStyles[styleIdx].ImageFilePath;
-
-         if (imageFileName.IsEmpty())
-         {
-            return;
-         }
-
-         if (CurrentStyle.GetImageFromResource && CurrentStyle.ImageResourceClassType.IsNullOrDefault())
-         {
-            return;
-         }
-
-         ButtonImage =
-            FormsUtils.GetImage(imageFileName, ImageWidth, ImageHeight,
-                                getFromResources: CurrentStyle.GetImageFromResource,
-                                resourceClass: CurrentStyle.ImageResourceClassType);
-
-         // The image always has a transparent background
-         ButtonImage.BackgroundColor = Color.Transparent;
-      }
-
-      /// <summary>Releases the unmanaged resources.</summary>
-      private void ReleaseUnmanagedResources()
-      {
-         // Global static, so remove the handler
-         IAmSelectedStatic -= HandleStaticSelectionChanges;
-
-         _tapGesture.Tapped -= HandleTapGestureTapped;
-
-         RemoveButtonCommandEventListener();
-      }
-
-      /// <summary>Removes the button command event listener.</summary>
-      private void RemoveButtonCommandEventListener()
-      {
-         if (ButtonCommand != null)
-         {
-            ButtonCommand.CanExecuteChanged -= HandleButtonCommandCanExecuteChanged;
-         }
-      }
-
-      /// <summary>Sets the corner radius.</summary>
-      private void SetCornerRadius()
-      {
-         if (ButtonCornerRadiusFactor.HasValue && Bounds.IsValid())
-         {
-            CornerRadius = Convert.ToSingle(Math.Min(Bounds.Width, Bounds.Height) * ButtonCornerRadiusFactor.GetValueOrDefault());
-         }
-         else if (ButtonCornerRadiusFixed.HasValue)
-         {
-            CornerRadius = Convert.ToSingle(ButtonCornerRadiusFixed);
-         }
-         else
-         {
-            CornerRadius = Convert.ToSingle(FormsConst.DEFAULT_SHAPE_VIEW_RADIUS);
-         }
-      }
-
-      /// <summary>Sets up complete button command binding.</summary>
-      private void SetUpCompleteButtonCommandBinding()
-      {
-         if (ButtonCommandBindingName.IsEmpty())
-         {
-            RemoveBinding(ButtonCommandProperty);
-         }
-         else
-         {
-            // NOTE Extremely reactive code below; see ValidatableViewBase.CreateBindings
-            if (ButtonCommandConverter.IsNotNullOrDefault())
-            {
-               if (ButtonCommandSource.IsNotNullOrDefault())
-               {
-                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName, converter:ButtonCommandConverter, converterParameter: ButtonCommandConverterParameter, source: ButtonCommandSource);
-               }
-               else
-               {
-                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName, converter: ButtonCommandConverter,
-                     converterParameter: ButtonCommandConverterParameter);
-               }
-            }
-            else
-            {
-               if (ButtonCommandSource.IsNotNullOrDefault())
-               {
-                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName, source: ButtonCommandSource);
-               }
-               else
-               {
-                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName);
-               }
-            }
-         }
-      }  
-
-      /// <summary>Converts toggle current style.</summary>
-      protected virtual void ToggleCurrentStyle()
-      {
-         // Corner case: cannot manually deselect if selected and if the SelectionGroup is set
-         if (IsSelected && SelectionGroup > 0)
-         {
-            return;
-         }
-
-         switch (SelectionStyle)
-         {
-            case ImageLabelButtonSelectionStyles.NoSelection:
-            case ImageLabelButtonSelectionStyles.SelectionButNoToggleAsFirstTwoStyles:
-               break;
-
-            case ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles:
-
-               // Toggle between ButtonStates[0] and ButtonStates[1]
-               CurrentStyle = ImageLabelButtonStyles.Count >= 2
-                                 ? CurrentStyle.InternalButtonState.IsSameAs(
-                                      ImageLabelButtonStyles[0].InternalButtonState)
-                                      ? ImageLabelButtonStyles[1]
-                                      : ImageLabelButtonStyles[0]
-                                 : ImageLabelButtonStyles.IsNotEmpty()
-                                    ? ImageLabelButtonStyles[0]
-                                    : default;
-               break;
-
-            case ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles:
-
-               // Find the current button state; Increment it; If beyond the end of the button states, go back to 0.
-               var foundStyle =
-                  ImageLabelButtonStyles.FirstOrDefault(
-                     style => style.InternalButtonState.IsSameAs(CurrentStyle.InternalButtonState));
-               var buttonStateIdx = ImageLabelButtonStyles.IndexOf(foundStyle);
-               if (buttonStateIdx < 0)
-               {
-                  CurrentStyle = ImageLabelButtonStyles.IsNotEmpty() ? ImageLabelButtonStyles[0] : default;
-               }
-               else
-               {
-                  buttonStateIdx++;
-
-                  // ReSharper disable once PossibleNullReferenceException
-                  CurrentStyle = ImageLabelButtonStyles.Count <= buttonStateIdx
-                                    ? ImageLabelButtonStyles[0]
-                                    : ImageLabelButtonStyles[buttonStateIdx];
-               }
-
-               break;
-         }
-      }
-
-      /// <summary>Updates the button text.</summary>
-      private void UpdateButtonText()
-      {
-         if (!UpdateButtonTextFromStyle || ButtonLabel == null || CurrentStyle.IsNullOrDefault())
-         {
-            return;
-         }
-
-         ButtonLabel.Text = CurrentStyle.ButtonText;
-      }
       /// <summary>
-      /// Creates the button style.
+      ///    Creates the button style.
       /// </summary>
       /// <param name="backColor">Color of the back.</param>
       /// <param name="borderThickness">Width of the border.</param>
       /// <param name="borderColor">Color of the border.</param>
+      /// <param name="cornerRadius"></param>
       /// <returns>Style.</returns>
       public static Style CreateButtonStyle
       (
@@ -1180,6 +899,26 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          return newStyle;
       }
 
+      /// <summary>Creates the toggle image label button bindable property.</summary>
+      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
+      /// <param name="localPropName">Name of the local property.</param>
+      /// <param name="defaultVal">The default value.</param>
+      /// <param name="bindingMode">The binding mode.</param>
+      /// <param name="callbackAction">The callback action.</param>
+      /// <param name="coerceValueDelegate"></param>
+      /// <returns>BindableProperty.</returns>
+      public static BindableProperty CreateImageLabelButtonBaseBindableProperty<PropertyTypeT>
+      (
+         string                                                     localPropName,
+         PropertyTypeT                                              defaultVal          = default,
+         BindingMode                                                bindingMode         = BindingMode.OneWay,
+         Action<ImageLabelButtonBase, PropertyTypeT, PropertyTypeT> callbackAction      = null,
+         Func<ImageLabelButtonBase, PropertyTypeT, PropertyTypeT>   coerceValueDelegate = default
+      )
+      {
+         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction,
+            coerceValueDelegate);
+      }
 
       /// <summary>Creates the label style.</summary>
       /// <param name="textColor">Color of the text.</param>
@@ -1188,8 +927,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>Style.</returns>
       public static Style CreateLabelStyle
       (
-         Color?          textColor = null,
-         double?         fontSize = null,
+         Color?          textColor      = null,
+         double?         fontSize       = null,
          FontAttributes? fontAttributes = null
       )
       {
@@ -1198,50 +937,23 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          if (textColor.HasValue)
          {
-            newStyle.Setters.Add(new Setter {Property = Label.TextColorProperty, Value = textColor});
+            newStyle.Setters.Add(new Setter { Property = Label.TextColorProperty, Value = textColor });
          }
 
          // The label is always transparent
-         newStyle.Setters.Add(new Setter {Property = BackgroundColorProperty, Value = Color.Transparent});
+         newStyle.Setters.Add(new Setter { Property = BackgroundColorProperty, Value = Color.Transparent });
 
          if (fontSize.HasValue)
          {
-            newStyle.Setters.Add(new Setter {Property = Label.FontSizeProperty, Value = fontSize});
+            newStyle.Setters.Add(new Setter { Property = Label.FontSizeProperty, Value = fontSize });
          }
 
          if (fontAttributes.HasValue)
          {
-            newStyle.Setters.Add(new Setter {Property = Label.FontAttributesProperty, Value = fontAttributes});
+            newStyle.Setters.Add(new Setter { Property = Label.FontAttributesProperty, Value = fontAttributes });
          }
 
          return newStyle;
-      }
-
-      /// <summary>Creates the toggle image label button bindable property.</summary>
-      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
-      /// <param name="localPropName">Name of the local property.</param>
-      /// <param name="defaultVal">The default value.</param>
-      /// <param name="bindingMode">The binding mode.</param>
-      /// <param name="callbackAction">The callback action.</param>
-      /// <returns>BindableProperty.</returns>
-      public static BindableProperty CreateImageLabelButtonBaseBindableProperty<PropertyTypeT>
-      (
-         string                                                     localPropName,
-         PropertyTypeT                                              defaultVal     = default,
-         BindingMode                                                bindingMode    = BindingMode.OneWay,
-         Action<ImageLabelButtonBase, PropertyTypeT, PropertyTypeT> callbackAction = null
-      )
-      {
-         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
-      }
-
-      /// <summary>
-      ///    Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-      /// </summary>
-      public void Dispose()
-      {
-         ReleaseUnmanagedResources();
-         GC.SuppressFinalize(this);
       }
 
       /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
@@ -1256,9 +968,40 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
+      protected virtual void AfterButtonStateChanged()
+      {
+      }
+
       /// <summary>Afters the content set.</summary>
       protected virtual void AfterContentSet()
       {
+      }
+
+      /// <summary>Called when [button state changed].</summary>
+      protected virtual void BeforeButtonStateChangedFromStyle(ref string newButtonState)
+      {
+      }
+
+      protected bool ButtonStateIndexFound(string buttonStateToFind, out int styleIdx)
+      {
+         styleIdx = -1;
+
+         if (ImageLabelButtonStyles.IsEmpty() || buttonStateToFind.IsEmpty())
+         {
+            return false;
+         }
+
+         var foundStyle =
+            ImageLabelButtonStyles.FirstOrDefault(style => style.InternalButtonState.IsSameAs(buttonStateToFind));
+         styleIdx = ImageLabelButtonStyles.IndexOf(foundStyle);
+
+         // Should never occur due to constraints set up at this class's constructor
+         if (styleIdx < 0 || ImageLabelButtonStyles.Count < styleIdx)
+         {
+            return false;
+         }
+
+         return true;
       }
 
       /// <summary>Calls the recreate image safely.</summary>
@@ -1272,7 +1015,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          catch (Exception)
          {
             Debug.WriteLine(nameof(ImageLabelButtonBase) + ": " + nameof(CallRecreateImageSafely) +
-                            ": COULD NOT CREATE AN IMAGE");
+               ": COULD NOT CREATE AN IMAGE");
          }
 #else
          if (ThreadHelper.IsOnMainThread)
@@ -1299,12 +1042,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          EventArgs e
       )
       {
-         if (_tappedListenerEntered         || 
-             CannotTap ||
-             (IsDisabled && !CanTapOnDisabled)|| 
-             ImageLabelButtonStyles.IsEmpty() ||
-             CurrentStyle.IsNullOrDefault() || 
-             CurrentStyle.InternalButtonState.IsEmpty())
+         if (_tappedListenerEntered ||
+            CannotTap ||
+            IsDisabled && !CanTapOnDisabled ||
+            ImageLabelButtonStyles.IsEmpty() ||
+            CurrentStyle.IsNullOrDefault() ||
+            CurrentStyle.InternalButtonState.IsEmpty())
          {
             return;
          }
@@ -1314,7 +1057,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          ImageLabelButtonPressed?.Invoke();
 
          if (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles ||
-             SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles)
+            SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles)
          {
             ToggleCurrentStyle();
          }
@@ -1323,7 +1066,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          // it is.
          if (ButtonCommand != null)
          {
-
 #if USE_BEGIN_INVOKE
             Device.BeginInvokeOnMainThread
             (
@@ -1350,17 +1092,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
+      protected virtual ImageLabelButtonStyle LastCheckBeforeAssigningStyle(ImageLabelButtonStyle value)
+      {
+         return value;
+      }
+
       /// <summary>Called when [button command created].</summary>
       protected virtual void OnButtonCommandCreated()
       {
       }
 
-      /// <summary>Called when [button state changed].</summary>
-      protected virtual void BeforeButtonStateChangedFromStyle(ref string newButtonState)
-      {
-      }
-
-      protected virtual void AfterButtonStateChanged()
+      protected virtual void OnIsEnabledChanged()
       {
       }
 
@@ -1452,10 +1194,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          _isInstantiating = true;
 
-         // BUGS REQUIRE THIS
-         base.Padding = default;
-         base.Margin  = default;
-
          IAmSelectedStatic += HandleStaticSelectionChanges;
 
          GestureRecognizers.Add(_tapGesture);
@@ -1465,37 +1203,90 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          InputTransparent = false;
 
          PropertyChanged += (sender, args) =>
-                            {
-                               if (!_isInstantiating && Bounds.AreValidAndHaveChanged(args.PropertyName, _lastBounds))
-                               {
-                                  if (ButtonCornerRadiusFactor.HasValue)
-                                  {
-                                     SetCornerRadius();
-                                  }
+         {
+            if (!_isInstantiating && Bounds.AreValidAndHaveChanged(args.PropertyName, _lastBounds))
+            {
+               if (ButtonCornerRadiusFactor.HasValue)
+               {
+                  SetCornerRadius();
+               }
 
-                                  //_layout.ForceLayout();
-                                  //_imageGrid.ForceLayout();
-                                  //_labelGrid.ForceLayout();
-
-                                  _lastBounds = Bounds;
-                               }
-                            };
+               _lastBounds = Bounds;
+            }
+         };
 
          BindingContextChanged += (sender, args) =>
-                                  {
-                                     if (ButtonLabel.IsNotNullOrDefault())
-                                     {
-                                        ButtonLabel.BindingContext = BindingContext;
-                                     }
-                                     if (ButtonImage.IsNotNullOrDefault())
-                                     {
-                                        ButtonImage.BindingContext = BindingContext;
-                                     }
-                                  };
+         {
+            if (ButtonLabel.IsNotNullOrDefault())
+            {
+               ButtonLabel.BindingContext = BindingContext;
+            }
 
-         Content = _layout;
+            if (ButtonImage.IsNotNullOrDefault())
+            {
+               ButtonImage.BindingContext = BindingContext;
+            }
+         };
+
+         _grid.AddStarColumn();
+         _grid.AddStarRow();
+
+         Content = _grid;
 
          _isInstantiating = false;
+      }
+
+      /// <summary>Converts toggle current style.</summary>
+      protected virtual void ToggleCurrentStyle()
+      {
+         // Corner case: cannot manually deselect if selected and if the SelectionGroup is set
+         if (IsSelected && SelectionGroup > 0)
+         {
+            return;
+         }
+
+         switch (SelectionStyle)
+         {
+            case ImageLabelButtonSelectionStyles.NoSelection:
+            case ImageLabelButtonSelectionStyles.SelectionButNoToggleAsFirstTwoStyles:
+               break;
+
+            case ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles:
+
+               // Toggle between ButtonStates[0] and ButtonStates[1]
+               CurrentStyle = ImageLabelButtonStyles.Count >= 2
+                  ? CurrentStyle.InternalButtonState.IsSameAs(
+                     ImageLabelButtonStyles[0].InternalButtonState)
+                     ? ImageLabelButtonStyles[1]
+                     : ImageLabelButtonStyles[0]
+                  : ImageLabelButtonStyles.IsNotEmpty()
+                     ? ImageLabelButtonStyles[0]
+                     : default;
+               break;
+
+            case ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles:
+
+               // Find the current button state; Increment it; If beyond the end of the button states, go back to 0.
+               var foundStyle =
+                  ImageLabelButtonStyles.FirstOrDefault(
+                     style => style.InternalButtonState.IsSameAs(CurrentStyle.InternalButtonState));
+               var buttonStateIdx = ImageLabelButtonStyles.IndexOf(foundStyle);
+               if (buttonStateIdx < 0)
+               {
+                  CurrentStyle = ImageLabelButtonStyles.IsNotEmpty() ? ImageLabelButtonStyles[0] : default;
+               }
+               else
+               {
+                  buttonStateIdx++;
+
+                  // ReSharper disable once PossibleNullReferenceException
+                  CurrentStyle = ImageLabelButtonStyles.Count <= buttonStateIdx
+                     ? ImageLabelButtonStyles[0]
+                     : ImageLabelButtonStyles[buttonStateIdx];
+               }
+
+               break;
+         }
       }
 
       protected void UpdateCurrentStyleFromButtonState(string currentState)
@@ -1512,14 +1303,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             CurrentStyle = newStyle;
 
 #if FORCE_CURRENT_STYLE_COPY
-            CurrentStyle.ButtonStyle            = newStyle.ButtonStyle;
-            CurrentStyle.ButtonText             = newStyle.ButtonText;
-            CurrentStyle.GetImageFromResource   = newStyle.GetImageFromResource;
-            CurrentStyle.ImageFilePath          = newStyle.ImageFilePath;
+            CurrentStyle.ButtonStyle = newStyle.ButtonStyle;
+            CurrentStyle.ButtonText = newStyle.ButtonText;
+            CurrentStyle.GetImageFromResource = newStyle.GetImageFromResource;
+            CurrentStyle.ImageFilePath = newStyle.ImageFilePath;
             CurrentStyle.ImageResourceClassType = newStyle.ImageResourceClassType;
-            CurrentStyle.LabelStyle             = newStyle.LabelStyle;
+            CurrentStyle.LabelStyle = newStyle.LabelStyle;
 #endif
-
          }
       }
 
@@ -1539,30 +1329,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          StartUp();
       }
 
-      protected bool ButtonStateIndexFound(string buttonStateToFind, out int styleIdx)
-      {
-         styleIdx = -1;
-
-         if (ImageLabelButtonStyles.IsEmpty() || buttonStateToFind.IsEmpty())
-         {
-            return false;
-         }
-
-         var foundStyle = ImageLabelButtonStyles.FirstOrDefault(style => style.InternalButtonState.IsSameAs(buttonStateToFind));
-         styleIdx = ImageLabelButtonStyles.IndexOf(foundStyle);
-
-         // Should never occur due to constraints set up at this class's constructor
-         if (styleIdx < 0 || ImageLabelButtonStyles.Count < styleIdx)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
       /// <summary>Currents the style index found.</summary>
       /// <param name="styleIdx">Index of the style.</param>
-      /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+      /// <returns><c>true</c> if the button state was found, otherwise <c>false</c> .</returns>
       private bool CurrentStyleIndexFound(out int styleIdx)
       {
          return ButtonStateIndexFound(CurrentStyle?.InternalButtonState, out styleIdx);
@@ -1591,11 +1360,142 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          SetAllStyles();
       }
 
-
-      protected virtual void OnIsEnabledChanged()
+      /// <summary>Handles the static selection changes.</summary>
+      /// <param name="button">The button.</param>
+      private void HandleStaticSelectionChanges(IImageLabelButton button)
       {
+         // Do not recur onto our own broadcast; also only respond to the same selection group.
+         if (button.SelectionGroup == SelectionGroup && !ReferenceEquals(button, this) &&
+            (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles ||
+               SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles && button.IsSelected))
+         {
+            Deselect();
+         }
       }
 
-      public event EventUtils.GenericDelegate<bool> IsEnabledChanged;
+      /// <summary>Recreates the image.</summary>
+      private void RecreateImage()
+      {
+         if (!CurrentStyleIndexFound(out var styleIdx))
+         {
+            return;
+         }
+
+         var imageFileName = ImageLabelButtonStyles[styleIdx].ImageFilePath;
+
+         if (imageFileName.IsEmpty())
+         {
+            return;
+         }
+
+         if (CurrentStyle.GetImageFromResource && CurrentStyle.ImageResourceClassType.IsNullOrDefault())
+         {
+            return;
+         }
+
+         ButtonImage =
+            FormsUtils.GetImage(
+               imageFileName, 
+               ImageWidth, 
+               ImageHeight,
+               Aspect.AspectFit, 
+               ImageHorizontalAlign, 
+               ImageVerticalAlign, 
+               ImageMargin,  
+               CurrentStyle.GetImageFromResource,
+               CurrentStyle.ImageResourceClassType);
+      }
+
+      /// <summary>Releases the unmanaged resources.</summary>
+      private void ReleaseUnmanagedResources()
+      {
+         // Global static, so remove the handler
+         IAmSelectedStatic -= HandleStaticSelectionChanges;
+
+         _tapGesture.Tapped -= HandleTapGestureTapped;
+
+         RemoveButtonCommandEventListener();
+      }
+
+      /// <summary>Removes the button command event listener.</summary>
+      private void RemoveButtonCommandEventListener()
+      {
+         if (ButtonCommand != null)
+         {
+            ButtonCommand.CanExecuteChanged -= HandleButtonCommandCanExecuteChanged;
+         }
+      }
+
+      /// <summary>Sets the corner radius.</summary>
+      private void SetCornerRadius()
+      {
+         if (ButtonCornerRadiusFactor.HasValue && Bounds.IsValid())
+         {
+            CornerRadius =
+               Convert.ToSingle(Math.Min(Bounds.Width, Bounds.Height) * ButtonCornerRadiusFactor.GetValueOrDefault());
+         }
+         else if (ButtonCornerRadiusFixed.HasValue)
+         {
+            CornerRadius = Convert.ToSingle(ButtonCornerRadiusFixed);
+         }
+         else
+         {
+            CornerRadius = Convert.ToSingle(FormsConst.DEFAULT_SHAPE_VIEW_RADIUS);
+         }
+      }
+
+      /// <summary>Sets up complete button command binding.</summary>
+      private void SetUpCompleteButtonCommandBinding()
+      {
+         if (ButtonCommandBindingName.IsEmpty())
+         {
+            RemoveBinding(ButtonCommandProperty);
+         }
+         else
+         {
+            // NOTE Extremely reactive code below; see ValidatableViewBase.CreateBindings
+            if (ButtonCommandConverter.IsNotNullOrDefault())
+            {
+               if (ButtonCommandSource.IsNotNullOrDefault())
+               {
+                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName, converter: ButtonCommandConverter,
+                     converterParameter: ButtonCommandConverterParameter, source: ButtonCommandSource);
+               }
+               else
+               {
+                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName, converter: ButtonCommandConverter,
+                     converterParameter: ButtonCommandConverterParameter);
+               }
+            }
+            else
+            {
+               if (ButtonCommandSource.IsNotNullOrDefault())
+               {
+                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName, source: ButtonCommandSource);
+               }
+               else
+               {
+                  this.SetUpBinding(ButtonCommandProperty, ButtonCommandBindingName);
+               }
+            }
+         }
+      }
+
+      /// <summary>Updates the button text.</summary>
+      private void UpdateButtonText()
+      {
+         if (!UpdateButtonTextFromStyle || ButtonLabel == null || CurrentStyle.IsNullOrDefault())
+         {
+            return;
+         }
+
+         ButtonLabel.Text = CurrentStyle.ButtonText;
+      }
+
+      /// <summary>Finalizes an instance of the <see cref="ImageLabelButtonBase" /> class.</summary>
+      ~ImageLabelButtonBase()
+      {
+         ReleaseUnmanagedResources();
+      }
    }
 }

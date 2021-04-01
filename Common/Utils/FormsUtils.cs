@@ -1696,25 +1696,33 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="width">The width.</param>
       /// <param name="height">The height.</param>
       /// <param name="aspect">The aspect.</param>
+      /// <param name="margin"></param>
       /// <param name="getFromResources">if set to <c>true</c> [get from resources].</param>
       /// <param name="resourceClass">The resource class.</param>
+      /// <param name="horizontalAlign"></param>
+      /// <param name="verticalAlign"></param>
       /// <returns>Image.</returns>
       public static Image GetImage
       (
-         string filePath,
-         double width = 0,
-         double height = 0,
-         Aspect aspect = Aspect.AspectFit,
-         bool getFromResources = false,
-         Type resourceClass = null
+         string         filePath,
+         double?        width            = default,
+         double?        height           = default,
+         Aspect         aspect           = Aspect.AspectFit,
+         LayoutOptions? horizontalAlign  = default,
+         LayoutOptions? verticalAlign    = default,
+         Thickness?     margin           = default,
+         bool           getFromResources = false,
+         Type           resourceClass    = null
       )
       {
          var retImage =
             new Image
             {
                Aspect = aspect,
-               VerticalOptions = LayoutOptions.Center,
-               HorizontalOptions = LayoutOptions.Center
+               VerticalOptions = verticalAlign ?? LayoutOptions.Center,
+               HorizontalOptions = horizontalAlign ?? LayoutOptions.Center,
+               BackgroundColor = Color.Transparent,
+               InputTransparent = true
             };
 
          if (filePath.IsNotEmpty())
@@ -1729,16 +1737,21 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             }
          }
 
-         if (width.IsNotEmpty())
+         if (width.HasValue)
          {
-            retImage.WidthRequest = width;
+            retImage.WidthRequest = width.Value;
          }
 
-         if (height.IsNotEmpty())
+         if (height.HasValue)
          {
-            retImage.HeightRequest = height;
+            retImage.HeightRequest = height.Value;
          }
 
+         if (margin.HasValue)
+         {
+            retImage.Margin = margin.Value;
+         }   
+         
          return retImage;
       }
 

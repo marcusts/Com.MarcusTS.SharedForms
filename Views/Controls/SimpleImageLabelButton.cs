@@ -27,8 +27,8 @@
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using Common.Utils;
    using System;
+   using Common.Utils;
    using SharedUtils.Utils;
    using Xamarin.Forms;
 
@@ -113,7 +113,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.ButtonBackColor = newVal;
+               simpleButton.ResetButtonStyle();
             }
          );
 
@@ -132,7 +132,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.ButtonBorderColor = newVal;
+               simpleButton.ResetButtonStyle();
             }
          );
 
@@ -151,7 +151,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.ButtonBorderWidth = newVal;
+               simpleButton.ResetButtonStyle();
             }
          );
 
@@ -170,9 +170,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.ImageFilePath = newVal;
-            }
-         );
+               simpleButton.ImageDeselectedFilePath = newVal;
+               simpleButton.ResetButtonStyle();
+            },
+            (simpleButton, value) => simpleButton.ImageDeselectedFilePath);
 
       /// <summary>
       ///    The label font attributes property
@@ -189,7 +190,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.LabelFontAttributes = newVal;
+               simpleButton.ResetLabelStyle();
             }
          );
 
@@ -208,7 +209,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.LabelFontSize = newVal;
+               simpleButton.ResetLabelStyle();
             }
          );
 
@@ -227,7 +228,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.LabelTextColor = newVal;
+               simpleButton.ResetLabelStyle();
             }
          );
 
@@ -246,44 +247,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               simpleButton.LabelText = newVal;
+               simpleButton.ResetLabelStyle();
             }
          );
-
-      /// <summary>
-      ///    The button back color
-      /// </summary>
-      private Color _buttonBackColor;
-
-      /// <summary>
-      ///    The button border color
-      /// </summary>
-      private Color _buttonBorderColor;
-
-      /// <summary>
-      ///    The button border width
-      /// </summary>
-      private float _buttonBorderWidth;
-
-      /// <summary>
-      ///    The label font attributes
-      /// </summary>
-      private FontAttributes _labelFontAttributes;
-
-      /// <summary>
-      ///    The label font size
-      /// </summary>
-      private double _labelFontSize;
-
-      /// <summary>
-      ///    The label text
-      /// </summary>
-      private string _labelText;
-
-      /// <summary>
-      ///    The label text color
-      /// </summary>
-      private Color _labelTextColor;
 
       /// <summary>
       ///    Initializes a new instance of the <see cref="SimpleImageLabelButton" /> class.
@@ -292,10 +258,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          CanSelect             = false;
          ButtonToggleSelection = false;
-         LabelPos              = FormsUtils.OnScreenPositions.CENTER;
-
-         ButtonLabel           = FormsUtils.GetSimpleLabel("", width:labelWidth, height:labelHeight, fontFamilyOverride:fontFamilyOverride);
-
+         ButtonLabel = FormsUtils.GetSimpleLabel("", width: labelWidth, height: labelHeight,
+            fontFamilyOverride: fontFamilyOverride);
          SetAllStyles();
       }
 
@@ -311,12 +275,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color of the button back.</value>
       public Color ButtonBackColor
       {
-         get => _buttonBackColor;
-         set
-         {
-            _buttonBackColor = value;
-            ResetButtonStyle();
-         }
+         get => (Color) GetValue(ButtonBackColorProperty);
+         set => SetValue(ButtonBackColorProperty, value);
       }
 
       /// <summary>
@@ -325,12 +285,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color of the button border.</value>
       public Color ButtonBorderColor
       {
-         get => _buttonBorderColor;
-         set
-         {
-            _buttonBorderColor = value;
-            ResetButtonStyle();
-         }
+         get => (Color) GetValue(ButtonBorderColorProperty);
+         set => SetValue(ButtonBorderColorProperty, value);
       }
 
       /// <summary>
@@ -339,12 +295,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The width of the button border.</value>
       public float ButtonBorderWidth
       {
-         get => _buttonBorderWidth;
-         set
-         {
-            _buttonBorderWidth = value;
-            ResetButtonStyle();
-         }
+         get => (float) GetValue(ButtonBorderWidthProperty);
+         set => SetValue(ButtonBorderWidthProperty, value);
       }
 
       /// <summary>
@@ -353,8 +305,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The image file path.</value>
       public string ImageFilePath
       {
-         get => ImageDeselectedFilePath;
-         set => ImageDeselectedFilePath = value;
+         get => (string) GetValue(ImageFilePathProperty);
+         set => SetValue(ImageFilePathProperty, value);
       }
 
       /// <summary>
@@ -369,12 +321,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The label font attributes.</value>
       public FontAttributes LabelFontAttributes
       {
-         get => _labelFontAttributes;
-         set
-         {
-            _labelFontAttributes = value;
-            ResetLabelStyle();
-         }
+         get => (FontAttributes) GetValue(LabelFontAttributesProperty);
+         set => SetValue(LabelFontAttributesProperty, value);
       }
 
       /// <summary>
@@ -383,12 +331,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The size of the label font.</value>
       public double LabelFontSize
       {
-         get => _labelFontSize;
-         set
-         {
-            _labelFontSize = value;
-            ResetLabelStyle();
-         }
+         get => (double) GetValue(LabelFontSizeProperty);
+         set => SetValue(LabelFontSizeProperty, value);
       }
 
       /// <summary>
@@ -397,12 +341,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The label text.</value>
       public string LabelText
       {
-         get => _labelText;
-         set
-         {
-            _labelText = value;
-            ButtonLabel.Text = _labelText;
-         }
+         get => (string) GetValue(LabelTextProperty);
+         set => SetValue(LabelTextProperty, value);
       }
 
       /// <summary>
@@ -411,12 +351,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color of the label text.</value>
       public Color LabelTextColor
       {
-         get => _labelTextColor;
-         set
-         {
-            _labelTextColor = value;
-            ResetLabelStyle();
-         }
+         get => (Color) GetValue(LabelTextColorProperty);
+         set => SetValue(LabelTextColorProperty, value);
       }
 
       /// <summary>
@@ -453,14 +389,14 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          Color          buttonBorderColor,
          LayoutOptions  horizontalOptions,
          LayoutOptions  verticalOptions,
-         string fontFamilyOverride = "",
-         string imageFilePath            = "",
-         float        buttonBorderWidth        = default,
+         string         fontFamilyOverride       = "",
+         string         imageFilePath            = "",
+         float          buttonBorderWidth        = default,
          FontAttributes labelFontAttributes      = default,
          float          cornerRadiusFactor       = DEFAULT_BUTTON_RADIUS_FACTOR,
          string         buttonCommandBindingName = "",
-         bool animateButton = true,
-         bool includeHapticFeedback = true
+         bool           animateButton            = true,
+         bool           includeHapticFeedback    = true
       )
       {
          var newSimpleImageLabelButton = new SimpleImageLabelButton(widthRequest, heightRequest)
@@ -499,10 +435,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          newSimpleImageLabelButton.AnimateButton         = animateButton;
          newSimpleImageLabelButton.IncludeHapticFeedback = includeHapticFeedback;
-         
+
          return newSimpleImageLabelButton;
       }
-      
+
       /// <summary>
       ///    Creates the simple image label button bindable property.
       /// </summary>
@@ -511,16 +447,19 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="defaultVal">The default value.</param>
       /// <param name="bindingMode">The binding mode.</param>
       /// <param name="callbackAction">The callback action.</param>
+      /// <param name="coerceValueDelegate"></param>
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateSimpleImageLabelButtonBindableProperty<PropertyTypeT>
       (
          string                                                       localPropName,
-         PropertyTypeT                                                defaultVal     = default,
-         BindingMode                                                  bindingMode    = BindingMode.OneWay,
-         Action<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT> callbackAction = null
+         PropertyTypeT                                                defaultVal          = default,
+         BindingMode                                                  bindingMode         = BindingMode.OneWay,
+         Action<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT> callbackAction      = null,
+         Func<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT>   coerceValueDelegate = default
       )
       {
-         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction,
+            coerceValueDelegate);
       }
 
       /// <summary>

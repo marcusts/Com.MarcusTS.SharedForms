@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Com.MarcusTS.SharedForms</id>
-    <version>1.0.28</version>
+    <version>1.0.31</version>
     <title>Shared Forms</title>
     <authors>Stephen Marcus</authors>
     <owners>Marcus Technical Services, Inc.</owners>
@@ -11,7 +11,7 @@
      <description>
         Utilities to support development in Xamarin.Forms.
     </description>
-    <releaseNotes>Downgraded Xamarin for general compatibility.</releaseNotes>
+    <releaseNotes></releaseNotes>
     <copyright>Copyright 2021 Marcus Technical Services, Inc. (https://www.marcusts.com)</copyright>
     <tags>xamarin-forms xamarin-forms-utilities xamarin-forms-components</tags>
   </metadata>

@@ -7,17 +7,17 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Com.MarcusTS.SharedForms/1.0.28": {
+      "Com.MarcusTS.SharedForms/1.0.31": {
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.475",
-          "AsyncAwaitBestPractices": "5.0.2",
-          "AsyncAwaitBestPractices.MVVM": "5.0.2",
-          "Com.MarcusTS.SharedUtils": "1.0.17",
+          "Acr.UserDialogs": "7.1.0.483",
+          "AsyncAwaitBestPractices": "5.1.0",
+          "AsyncAwaitBestPractices.MVVM": "5.1.0",
+          "Com.MarcusTS.SharedUtils": "1.0.18",
           "Com.MarcusTS.SmartDI": "1.0.22",
           "ConfigureAwait.Fody": "3.3.1",
           "NETStandard.Library": "2.0.2",
           "Plugin.Permissions": "6.0.1",
-          "PropertyChanged.Fody": "3.3.1",
+          "PropertyChanged.Fody": "3.3.3",
           "Xam.Plugin.Connectivity": "3.2.0",
           "Xam.Plugins.Settings": "3.1.1",
           "Xam.Plugins.Vibrate": "4.0.0.5",
@@ -29,15 +29,15 @@
           "Com.MarcusTS.SharedForms.dll": {}
         }
       },
-      "Acr.UserDialogs/7.1.0.475": {
+      "Acr.UserDialogs/7.1.0.483": {
         "runtime": {
           "lib/netstandard2.0/Acr.UserDialogs.dll": {
-            "assemblyVersion": "7.1.0.475",
-            "fileVersion": "7.1.0.475"
+            "assemblyVersion": "7.1.0.483",
+            "fileVersion": "7.1.0.483"
           }
         }
       },
-      "AsyncAwaitBestPractices/5.0.2": {
+      "AsyncAwaitBestPractices/5.1.0": {
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Threading.Tasks.Extensions": "4.5.4"
@@ -49,9 +49,9 @@
           }
         }
       },
-      "AsyncAwaitBestPractices.MVVM/5.0.2": {
+      "AsyncAwaitBestPractices.MVVM/5.1.0": {
         "dependencies": {
-          "AsyncAwaitBestPractices": "5.0.2"
+          "AsyncAwaitBestPractices": "5.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll": {
@@ -60,20 +60,20 @@
           }
         }
       },
-      "Com.MarcusTS.SharedUtils/1.0.17": {
+      "Com.MarcusTS.SharedUtils/1.0.18": {
         "dependencies": {
           "Xamarin.Forms": "4.8.0.1451"
         },
         "runtime": {
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {
-            "assemblyVersion": "1.0.17.0",
-            "fileVersion": "1.0.17.0"
+            "assemblyVersion": "1.0.18.0",
+            "fileVersion": "1.0.18.0"
           }
         }
       },
       "Com.MarcusTS.SmartDI/1.0.22": {
         "dependencies": {
-          "Com.MarcusTS.SharedUtils": "1.0.17",
+          "Com.MarcusTS.SharedUtils": "1.0.18",
           "Xamarin.Forms": "4.8.0.1451"
         },
         "runtime": {
@@ -85,7 +85,7 @@
       },
       "ConfigureAwait.Fody/3.3.1": {
         "dependencies": {
-          "Fody": "6.3.0"
+          "Fody": "6.4.0"
         },
         "runtime": {
           "lib/netstandard2.0/ConfigureAwait.dll": {
@@ -94,7 +94,7 @@
           }
         }
       },
-      "Fody/6.3.0": {},
+      "Fody/6.4.0": {},
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
       "NETStandard.Library/2.0.2": {
@@ -113,14 +113,14 @@
           }
         }
       },
-      "PropertyChanged.Fody/3.3.1": {
+      "PropertyChanged.Fody/3.3.3": {
         "dependencies": {
-          "Fody": "6.3.0"
+          "Fody": "6.4.0"
         },
         "runtime": {
           "lib/netstandard2.0/PropertyChanged.dll": {
-            "assemblyVersion": "3.3.1.0",
-            "fileVersion": "3.3.1.0"
+            "assemblyVersion": "3.3.3.0",
+            "fileVersion": "3.3.3.0"
           }
         }
       },
@@ -267,38 +267,38 @@
     }
   },
   "libraries": {
-    "Com.MarcusTS.SharedForms/1.0.28": {
+    "Com.MarcusTS.SharedForms/1.0.31": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Acr.UserDialogs/7.1.0.475": {
+    "Acr.UserDialogs/7.1.0.483": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-iGW0uda9bmbGcPABm0UzDjSd5DtGwcTCkOg265aUxKhG9IW0HtoNA3gASMXK64hMye2A+9mfkcmWJDOudbhJWw==",
-      "path": "acr.userdialogs/7.1.0.475",
-      "hashPath": "acr.userdialogs.7.1.0.475.nupkg.sha512"
+      "sha512": "sha512-Uoo7ZcrHl9SN3M05A5/e3qwUcR7lFhgsSI+7HaVSPnIQcectHNrERJbLoV8HLjDJc+0/3t3tfinxDHu/e2fiMw==",
+      "path": "acr.userdialogs/7.1.0.483",
+      "hashPath": "acr.userdialogs.7.1.0.483.nupkg.sha512"
     },
-    "AsyncAwaitBestPractices/5.0.2": {
+    "AsyncAwaitBestPractices/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+RV2NTPnqU0u0YShu8f4KtI+DPgd1ntnMJPX7GN1EhYYRnObV1A5LnDv9l6/FcQZeAcdZxjKagPCD/cRdZyKLQ==",
-      "path": "asyncawaitbestpractices/5.0.2",
-      "hashPath": "asyncawaitbestpractices.5.0.2.nupkg.sha512"
+      "sha512": "sha512-hRPwbZRrbCRlMYelzAh5AVtw43iMAatdVRm7llQ1MnAFSVjt7wZkd8LRUnxumBKxgOhWKb+jCV2bmippx9QfJA==",
+      "path": "asyncawaitbestpractices/5.1.0",
+      "hashPath": "asyncawaitbestpractices.5.1.0.nupkg.sha512"
     },
-    "AsyncAwaitBestPractices.MVVM/5.0.2": {
+    "AsyncAwaitBestPractices.MVVM/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ehFON0Pk/9qrLp41dWv2CiefbOxyQxtTkpRSkd5SMvEBryW6ET6wRMz0ZVmjdgq/wBFiithGWmoFtNIpcQxq+w==",
-      "path": "asyncawaitbestpractices.mvvm/5.0.2",
-      "hashPath": "asyncawaitbestpractices.mvvm.5.0.2.nupkg.sha512"
+      "sha512": "sha512-l8xxMjFzkNzUGpx2SJzYHj9jxUyI63Uq5SRmb+UdOpmb5qOPlcy/8VNJ3ELPrf4SwDkJnY+K/jqvMlFTFJFkgg==",
+      "path": "asyncawaitbestpractices.mvvm/5.1.0",
+      "hashPath": "asyncawaitbestpractices.mvvm.5.1.0.nupkg.sha512"
     },
-    "Com.MarcusTS.SharedUtils/1.0.17": {
+    "Com.MarcusTS.SharedUtils/1.0.18": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-fX+L+oQaxA6bVMfuXzoecZxV7uRgfuxe3tyNLu7PlVb5sZFz7H6Ig/fd7Y0pgA5Y8e22tV2aXjEEHPAa07ckxA==",
-      "path": "com.marcusts.sharedutils/1.0.17",
-      "hashPath": "com.marcusts.sharedutils.1.0.17.nupkg.sha512"
+      "sha512": "sha512-BcVhjRK+XOsIe3CC71WTBHdzOYxUycAezaRwrIA/USCntXaFoebZoEs3eNCFBjRzLWjC1XA83IwATrIKDDtwpw==",
+      "path": "com.marcusts.sharedutils/1.0.18",
+      "hashPath": "com.marcusts.sharedutils.1.0.18.nupkg.sha512"
     },
     "Com.MarcusTS.SmartDI/1.0.22": {
       "type": "package",
@@ -314,12 +314,12 @@
       "path": "configureawait.fody/3.3.1",
       "hashPath": "configureawait.fody.3.3.1.nupkg.sha512"
     },
-    "Fody/6.3.0": {
+    "Fody/6.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kBGlW/vBUvBSyCvFI3YICNl77gjUr0KMROlBTeBPN/+J3JMU57w1dpXPwjmU4ahdBTYLomzgxKLaJ3jVNuXuQg==",
-      "path": "fody/6.3.0",
-      "hashPath": "fody.6.3.0.nupkg.sha512"
+      "sha512": "sha512-5cgK5htSklGmBTR8Bj/xvTGrxTINj18QY9S1rAu1G5QX9NAzK9lAB0TugUPdeSGmktW82R3gMj2NNnTgicMwsg==",
+      "path": "fody/6.4.0",
+      "hashPath": "fody.6.4.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -349,12 +349,12 @@
       "path": "plugin.permissions/6.0.1",
       "hashPath": "plugin.permissions.6.0.1.nupkg.sha512"
     },
-    "PropertyChanged.Fody/3.3.1": {
+    "PropertyChanged.Fody/3.3.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/K/X8wn2IZV7Zezb+WvieOalWopFJKEcB7BrPoDFCj74VexupWdtvqriCoifSyrX0E+XhTzk0cVQd26hQ7TODg==",
-      "path": "propertychanged.fody/3.3.1",
-      "hashPath": "propertychanged.fody.3.3.1.nupkg.sha512"
+      "sha512": "sha512-2dHoq3+Y37J2g06RRyV57zMY9uVOq9JanPienXxineL1pIACCgxn8dL/f6C9I0L1hPvhoipxtP2u9jcSlVsn6Q==",
+      "path": "propertychanged.fody/3.3.3",
+      "hashPath": "propertychanged.fody.3.3.3.nupkg.sha512"
     },
     "System.ComponentModel/4.3.0": {
       "type": "package",

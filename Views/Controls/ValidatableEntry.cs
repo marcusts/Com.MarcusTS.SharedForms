@@ -142,7 +142,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   var showHideImageWidthHeight = BorderView.HeightRequest * 0.85;
 
                   _showHideImage = FormsUtils.GetImage("", showHideImageWidthHeight, showHideImageWidthHeight,
-                     Aspect.AspectFit, true, GetType());
+                     Aspect.AspectFit, getFromResources: true, resourceClass: GetType());
                   _showHideImage.Margin = new Thickness(0, 0, 5, 0);
                   var tapGesture = new TapGestureRecognizer();
 

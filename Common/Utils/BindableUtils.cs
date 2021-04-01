@@ -43,13 +43,15 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="defaultVal">The default value.</param>
       /// <param name="bindingMode">The binding mode.</param>
       /// <param name="callbackAction">The callback action.</param>
+      /// <param name="coerceValueDelegate"></param>
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateBindableProperty<T, U>
       (
          string          localPropName,
-         U               defaultVal     = default,
-         BindingMode     bindingMode    = BindingMode.OneWay,
-         Action<T, U, U> callbackAction = null
+         U               defaultVal          = default,
+         BindingMode     bindingMode         = BindingMode.OneWay,
+         Action<T, U, U> callbackAction      = null,
+         Func<T, U, U>   coerceValueDelegate = default
       )
          where T : class
       {
@@ -60,6 +62,23 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             typeof(T),
             defaultVal,
             bindingMode,
+            coerceValue:
+            (
+               bindable,
+               newVal
+            ) =>
+            {
+               if (coerceValueDelegate != null)
+               {
+                  if (bindable is T bindableAsT)
+                  {
+                     return coerceValueDelegate(bindableAsT, (U) newVal);
+                  }
+               }
+
+               // Do not coerce
+               return newVal;
+            },
             propertyChanged:
             (
                bindable,
@@ -69,10 +88,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             {
                if (callbackAction != null)
                {
-                  var bindableAsOverlayButton = bindable as T;
-                  if (bindableAsOverlayButton != null)
+                  if (bindable is T bindableAsT)
                   {
-                     callbackAction(bindableAsOverlayButton, (U) oldVal, (U) newVal);
+                     callbackAction(bindableAsT, (U) oldVal, (U) newVal);
                   }
                }
             });
@@ -118,7 +136,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                   if (bindableAsOverlayButton != null)
                   {
                      callbackAction(bindableAsOverlayButton, (U) oldVal,
-                                    (U) newVal);
+                        (U) newVal);
                   }
                }
             }).BindableProperty;
@@ -148,8 +166,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       )
       {
          view.SetBinding(bindableProperty,
-                         new Binding(viewModelPropertyName, bindingMode, converter, converterParameter, stringFormat,
-                                     source));
+            new Binding(viewModelPropertyName, bindingMode, converter, converterParameter, stringFormat,
+               source));
       }
    }
 }

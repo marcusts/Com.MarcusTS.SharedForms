@@ -1,5 +1,4 @@
-﻿
-// *********************************************************************** Assembly : Com.MarcusTS.SharedForms Author :
+﻿// *********************************************************************** Assembly : Com.MarcusTS.SharedForms Author :
 // steph Created : 08-04-2019
 //
 // Last Modified By : steph Last Modified On : 08-08-2019
@@ -104,9 +103,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>The default border view border width</summary>
       private const float BORDER_VIEW_BORDER_WIDTH = 1;
 
-      /// <summary>The default border view radius</summary>
-      private const float BORDER_VIEW_RADIUS = 3;
-
       /// <summary>The default grid single padding</summary>
       private const double GRID_SINGLE_PADDING = 6;
 
@@ -114,9 +110,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private const double PLACEHOLDER_INSET = 8;
 
       private const double PLACEHOLDER_LABEL_SIDE_MARGIN = 6;
-
-      /// <summary>The default shape view single padding</summary>
-      private const double SHAPE_VIEW_SINGLE_PADDING = 6;
+      private const double VERTICAL_SLOP                 = 4;
 
       /// <summary>The invalid border view style property</summary>
       public static readonly BindableProperty InvalidBorderViewStyleProperty =
@@ -131,7 +125,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               view.InvalidBorderViewStyle = newVal;
+               view.ResetStyles();
             }
          );
 
@@ -148,7 +142,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               view.InvalidInstructionsStyle = newVal;
+               view.ResetStyles();
             }
          );
 
@@ -165,7 +159,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               view.InvalidPlaceholderStyle = newVal;
+               view.ResetStyles();
             }
          );
 
@@ -182,7 +176,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               view.ValidBorderViewStyle = newVal;
+               view.ResetStyles();
             }
          );
 
@@ -199,7 +193,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               view.ValidInstructionsStyle = newVal;
+               view.ResetStyles();
             }
          );
 
@@ -216,20 +210,14 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               view.ValidPlaceholderStyle = newVal;
+               view.ResetStyles();
             }
          );
-
-      private const double VERTICAL_SLOP = 4;
 
       protected static readonly Thickness DEFAULT_BORDER_VIEW_PADDING = new Thickness(8, 0, 4, 0);
 
       /// <summary>The default border view border color</summary>
       private static readonly Color DEFAULT_BORDER_VIEW_BORDER_COLOR = Color.Black;
-
-      /// <summary>The default grid padding</summary>
-      private static readonly Thickness DEFAULT_GRID_PADDING =
-         new Thickness(GRID_SINGLE_PADDING);
 
       /// <summary>The default instructions label font size</summary>
       private static readonly double DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE =
@@ -244,13 +232,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
       /// <summary>The default placeholder text color</summary>
       private static readonly Color DEFAULT_PLACEHOLDER_TEXT_COLOR = Color.DimGray;
-
-      ///// <summary>The default shape view border color</summary>
-      //private static readonly Color DEFAULT_SHAPE_VIEW_BORDER_COLOR = Color.Black;
-
-      /// <summary>The default shape view padding</summary>
-      private static readonly Thickness DEFAULT_SHAPE_VIEW_PADDING =
-         new Thickness(SHAPE_VIEW_SINGLE_PADDING);
 
       /// <summary>The invalid font attributes</summary>
       private static readonly FontAttributes INVALID_FONT_ATTRIBUTES = FontAttributes.Bold | FontAttributes.Italic;
@@ -274,22 +255,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private readonly        bool             _showInstructionsOrValidations;
       private readonly        bool             _showValidationErrorsAsInstructions;
       private readonly        string           _stringFormat;
+      private readonly        ICanBeValid      _validator;
       private readonly        string           _viewModelPropertyName;
+      private                 AbsoluteLayout   _canvas;
       private                 Style            _invalidBorderViewStyle;
       private                 Style            _invalidInstructionsStyle;
       private                 Style            _invalidPlaceholderStyle;
       private                 Rectangle        _lastBorderViewBounds;
       private                 Rectangle        _lastEditableViewContainerBounds;
+      private                 Style            _lastValidBorderViewStyle;
       private                 Grid             _placeholderGrid;
       private                 bool             _placeholderLabelHasBeenShown;
       private                 Style            _validBorderViewStyle;
       private                 Style            _validInstructionsStyle;
       private                 Style            _validPlaceholderStyle;
-      private readonly        ICanBeValid      _validator;
       private                 bool             _viewsCreated;
-      private                 AbsoluteLayout   _canvas;
-      private                 Style            _lastValidBorderViewStyle;
-      private                 Style            _lastValidPlaceholderStyle;
 
       protected ValidatableViewBase
       (
@@ -325,21 +305,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          _stringFormat                       = stringFormat;
          _validator                          = validator;
          _viewModelPropertyName              = viewModelPropertyName;
-         HorizontalOptions = LayoutOptions.FillAndExpand;
-         VerticalOptions   = LayoutOptions.FillAndExpand;
-         BackgroundColor   = Color.Transparent;
-         ColumnSpacing     = 0;
-         RowSpacing        = 0;
-      }
-
-      // WARNING: Async void
-      protected override async void OnBindingContextChanged()
-      {
-         base.OnBindingContextChanged();
-         
-         EditableView.BindingContext = BindingContext;
-         
-         await ResetPlaceholderPosition().WithoutChangingContext();
+         HorizontalOptions                   = LayoutOptions.FillAndExpand;
+         VerticalOptions                     = LayoutOptions.FillAndExpand;
+         BackgroundColor                     = Color.Transparent;
+         ColumnSpacing                       = 0;
+         RowSpacing                          = 0;
       }
 
       protected abstract bool DerivedViewIsFocused { get; }
@@ -351,7 +321,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>The font family override</summary>
       protected string FontFamilyOverride { get; }
 
-      protected abstract bool        UserHasEnteredValidContent { get; }
+      protected abstract bool UserHasEnteredValidContent { get; }
 
       /// <summary>Gets the border view.</summary>
       /// <value>The border view.</value>
@@ -370,36 +340,24 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The invalid border view style.</value>
       public Style InvalidBorderViewStyle
       {
-         get => _invalidBorderViewStyle;
-         set
-         {
-            _invalidBorderViewStyle = value;
-            ResetStyles();
-         }
+         get => (Style) GetValue(InvalidBorderViewStyleProperty);
+         set => SetValue(InvalidBorderViewStyleProperty, value);
       }
 
       /// <summary>Gets or sets the invalid instructions style.</summary>
       /// <value>The invalid instructions style.</value>
       public Style InvalidInstructionsStyle
       {
-         get => _invalidInstructionsStyle;
-         set
-         {
-            _invalidInstructionsStyle = value;
-            ResetStyles();
-         }
+         get => (Style) GetValue(InvalidInstructionsStyleProperty);
+         set => SetValue(InvalidInstructionsStyleProperty, value);
       }
 
       /// <summary>Gets or sets the invalid placeholder style.</summary>
       /// <value>The invalid placeholder style.</value>
       public Style InvalidPlaceholderStyle
       {
-         get => _invalidPlaceholderStyle;
-         set
-         {
-            _invalidPlaceholderStyle = value;
-            ResetStyles();
-         }
+         get => (Style) GetValue(InvalidPlaceholderStyleProperty);
+         set => SetValue(InvalidPlaceholderStyleProperty, value);
       }
 
       /// <summary>Gets the placeholder label.</summary>
@@ -410,36 +368,46 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The valid border view style.</value>
       public Style ValidBorderViewStyle
       {
-         get => _validBorderViewStyle;
-         set
-         {
-            _validBorderViewStyle = value;
-            ResetStyles();
-         }
+         get => (Style)GetValue(ValidBorderViewStyleProperty);
+         set => SetValue(ValidBorderViewStyleProperty, value);
       }
 
       /// <summary>Gets or sets the valid instructions style.</summary>
       /// <value>The valid instructions style.</value>
       public Style ValidInstructionsStyle
       {
-         get => _validInstructionsStyle;
-         set
-         {
-            _validInstructionsStyle = value;
-            ResetStyles();
-         }
+         get => (Style)GetValue(ValidInstructionsStyleProperty);
+         set => SetValue(ValidInstructionsStyleProperty, value);
       }
 
       /// <summary>Gets or sets the valid placeholder style.</summary>
       /// <value>The valid placeholder style.</value>
       public Style ValidPlaceholderStyle
       {
-         get => _validPlaceholderStyle;
-         set
+         get => (Style)GetValue(ValidPlaceholderStyleProperty);
+         set => SetValue(ValidPlaceholderStyleProperty, value);
+      }
+
+      public void CallRevalidate()
+      {
+         _validator?.Revalidate();
+      }
+
+      public virtual int SetTabIndexes(int incomingTabIndex)
+      {
+         BorderView.IsTabStop = false;
+         BorderView.TabIndex  = incomingTabIndex++;
+
+         if (EditableViewContainer.IsNotAnEqualReferenceTo(EditableView))
          {
-            _validPlaceholderStyle = value;
-            ResetStyles();
+            EditableViewContainer.IsTabStop = false;
+            EditableViewContainer.TabIndex  = incomingTabIndex++;
          }
+
+         EditableView.IsTabStop = true;
+         EditableView.TabIndex  = incomingTabIndex++;
+
+         return incomingTabIndex;
       }
 
       /// <summary>Creates the validatable entry bindable property.</summary>
@@ -458,6 +426,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+      }
+
+      protected void CallCreateViews()
+      {
+         // if (EditableViewContainer.IsNullOrDefault() || EditableView.IsNullOrDefault() || _viewsCreated)
+         if (_viewsCreated)
+         {
+            return;
+         }
+
+         CreateViews();
+         CreateBindings();
+         ResetStyles();
+
+         _viewsCreated = true;
       }
 
       /// <summary>Considers the lowering placeholder.</summary>
@@ -483,18 +466,18 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             if (_stringFormat.IsNotEmpty())
             {
                EditableView.SetUpBinding(_bindableProperty, _viewModelPropertyName, _bindingMode, _converter,
-                                         _converterParameter, _stringFormat);
+                  _converterParameter, _stringFormat);
             }
             else
             {
                EditableView.SetUpBinding(_bindableProperty, _viewModelPropertyName, _bindingMode, _converter,
-                                         _converterParameter);
+                  _converterParameter);
             }
          }
          else if (_stringFormat.IsNotEmpty())
          {
             EditableView.SetUpBinding(_bindableProperty, _viewModelPropertyName, _bindingMode,
-                                      stringFormat: _stringFormat);
+               stringFormat: _stringFormat);
          }
          else
          {
@@ -503,27 +486,28 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      /// Creates the views.
+      ///    Creates the views.
       /// </summary>
       protected virtual void CreateViews()
       {
          // WARNING: BorderView must be created before the EditableViewContainer is referenced.
 
-         BorderView = FormsUtils.GetShapeView();
+         BorderView                   = FormsUtils.GetShapeView();
          BorderView.HorizontalOptions = LayoutOptions.FillAndExpand;
-         BorderView.VerticalOptions = LayoutOptions.CenterAndExpand;
+         BorderView.VerticalOptions   = LayoutOptions.CenterAndExpand;
 
          var borderViewHeight = _borderViewHeight ?? BORDER_VIEW_HEIGHT;
 
          BorderView.HeightRequest = borderViewHeight;
-         BorderView.CornerRadius = borderViewHeight * FormsConst.DEFAULT_CORNER_RADIUS_FACTOR;
-         BorderView.Border = FormsUtils.CreateShapeViewBorder(DEFAULT_BORDER_VIEW_BORDER_COLOR, BORDER_VIEW_BORDER_WIDTH);
+         BorderView.CornerRadius  = borderViewHeight * FormsConst.DEFAULT_CORNER_RADIUS_FACTOR;
+         BorderView.Border =
+            FormsUtils.CreateShapeViewBorder(DEFAULT_BORDER_VIEW_BORDER_COLOR, BORDER_VIEW_BORDER_WIDTH);
 
          // Allow for the border view's height and the vertical padding
          var totalHeight = BorderView.HeightRequest + GRID_SINGLE_PADDING * 2;
 
          BorderView.Content = EditableViewContainer;
-         BorderView.Margin = new Thickness(0, 5, 0, 0);
+         BorderView.Margin  = new Thickness(0, 5, 0, 0);
 
          BorderView.PropertyChanged +=
             async (sender, args) =>
@@ -545,11 +529,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             InstructionsLabel =
                FormsUtils.GetSimpleLabel(_instructions, fontFamilyOverride: FontFamilyOverride, textColor: Color.Red,
-                                         fontAttributes: FontAttributes.Italic | FontAttributes.Bold,
-                                         fontSize: NamedSize.Micro.AdjustForOsAndDevice());
+                  fontAttributes: FontAttributes.Italic | FontAttributes.Bold,
+                  fontSize: NamedSize.Micro.AdjustForOsAndDevice());
             InstructionsLabel.HorizontalOptions = LayoutOptions.FillAndExpand;
-            InstructionsLabel.VerticalOptions = LayoutOptions.Start;
-            InstructionsLabel.HeightRequest = _instructionsHeight ?? INSTRUCTIONS_HEIGHT;
+            InstructionsLabel.VerticalOptions   = LayoutOptions.Start;
+            InstructionsLabel.HeightRequest     = _instructionsHeight ?? INSTRUCTIONS_HEIGHT;
 
             var smallMargin = GRID_SINGLE_PADDING / 2;
 
@@ -572,13 +556,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
 #if FADE_PLACEHOLDER
             // Hide initially
-            PlaceholderLabel.Opacity       = FormsConst.NOT_VISIBLE_OPACITY;
+            PlaceholderLabel.Opacity = FormsConst.NOT_VISIBLE_OPACITY;
 #endif
 
             PlaceholderLabel.HeightRequest = _placeholderHeight;
-            PlaceholderLabel.Text = _placeholder;
+            PlaceholderLabel.Text          = _placeholder;
 
-            _placeholderGrid = FormsUtils.GetExpandingGrid();
+            _placeholderGrid                 = FormsUtils.GetExpandingGrid();
             _placeholderGrid.BackgroundColor = DEFAULT_PLACEHOLDER_BACK_COLOR;
             PlaceholderLabel.BackgroundColor = DEFAULT_PLACEHOLDER_BACK_COLOR;
             _placeholderGrid.AddFixedColumn(PLACEHOLDER_LABEL_SIDE_MARGIN);
@@ -605,7 +589,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
             // SetRowSpan(_canvas, 2);
 
-            EditableView.Focused += ReportGlobalFocusAndRaisePlaceholder;
+            EditableView.Focused   += ReportGlobalFocusAndRaisePlaceholder;
             EditableView.Unfocused += ConsiderLoweringPlaceholder;
          }
 
@@ -636,23 +620,33 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          HeightRequest = totalHeight;
 
-         _invalidBorderViewStyle = CreateDefaultInvalidBorderViewStyle();
+         _invalidBorderViewStyle   = CreateDefaultInvalidBorderViewStyle();
          _invalidInstructionsStyle = CreateDefaultInvalidInstructionsStyle();
-         _invalidPlaceholderStyle = CreateDefaultInvalidPlaceholderStyle();
-         _validPlaceholderStyle = CreateDefaultValidPlaceholderStyle();
-         _validBorderViewStyle = CreateDefaultBorderViewStyle();
-         _validInstructionsStyle = CreateDefaultValidInstructionsStyle();
+         _invalidPlaceholderStyle  = CreateDefaultInvalidPlaceholderStyle();
+         _validPlaceholderStyle    = CreateDefaultValidPlaceholderStyle();
+         _validBorderViewStyle     = CreateDefaultBorderViewStyle();
+         _validInstructionsStyle   = CreateDefaultValidInstructionsStyle();
 
          EditableViewContainer.PropertyChanged +=
             async (sender, args) =>
             {
                if (EditableViewContainer.Bounds.AreValidAndHaveChanged(args.PropertyName,
-                                                                       _lastEditableViewContainerBounds))
+                  _lastEditableViewContainerBounds))
                {
                   _lastEditableViewContainerBounds = EditableViewContainer.Bounds;
                   await ResetPlaceholderPosition().WithoutChangingContext();
                }
             };
+      }
+
+      // WARNING: Async void
+      protected override async void OnBindingContextChanged()
+      {
+         base.OnBindingContextChanged();
+
+         EditableView.BindingContext = BindingContext;
+
+         await ResetPlaceholderPosition().WithoutChangingContext();
       }
 
       /// <summary>Raises the placeholder.</summary>
@@ -666,26 +660,45 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          await ResetPlaceholderPosition().WithoutChangingContext();
       }
 
+      /// <summary>Resets the placeholder position.</summary>
+      protected async Task ResetPlaceholderPosition()
+      {
+         // Make sure we have a valid placeholder
+         if (PlaceholderLabel.IsNullOrDefault() || PlaceholderLabel.Text.IsEmpty() || EditableView.IsNullOrDefault() ||
+            BorderView.IsNullOrDefault() || _placeholderGrid.IsNullOrDefault())
+         {
+            return;
+         }
+
+         var    targetX = PLACEHOLDER_INSET;
+         double targetY;
+
+         // See if the entry has focus or not
+         if (EditableView.IsFocused || UserHasEnteredValidContent || DerivedViewIsFocused)
+         {
+            targetY = -(_placeholderHeight / 2) + VERTICAL_SLOP;
+         }
+         else
+         {
+            targetY = (BorderView.Height - _placeholderHeight) / 2 + VERTICAL_SLOP;
+         }
+
+         _canvas.RaiseChild(_placeholderGrid);
+
+         await _placeholderGrid.TranslateTo(targetX, targetY).WithoutChangingContext();
+
+         if (!_placeholderLabelHasBeenShown)
+         {
+            PlaceholderLabel.FadeIn();
+            _placeholderLabelHasBeenShown = true;
+         }
+      }
+
       /// <summary>Resets the styles.</summary>
       protected virtual void ResetStyles()
       {
          // If the validator is null, we are valid by default.
          HandleIsValidChanged(_validator.IsNullOrDefault() || _validator.IsValid.GetValueOrDefault());
-      }
-
-      protected void CallCreateViews()
-      {
-         // if (EditableViewContainer.IsNullOrDefault() || EditableView.IsNullOrDefault() || _viewsCreated)
-         if (_viewsCreated)
-         {
-            return;
-         }
-
-         CreateViews();
-         CreateBindings();
-         ResetStyles();
-
-         _viewsCreated = true;
       }
 
       /// <summary>Creates the default border view style.</summary>
@@ -697,7 +710,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
       private Style CreateDefaultInvalidBorderViewStyle()
       {
-         return FormsUtils.CreateShapeViewStyle(borderColor:Color.Red, borderThickness:1);
+         return FormsUtils.CreateShapeViewStyle(borderColor: Color.Red, borderThickness: 1);
       }
 
       /// <summary>Creates the default invalid instructions style.</summary>
@@ -760,7 +773,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          // If the validator issues a validation error, show that in place of the instructions (below the border view).
          if (_validator.IsNotNullOrDefault() && _validator.LastValidationError.IsNotEmpty() &&
-             _showValidationErrorsAsInstructions)
+            _showValidationErrorsAsInstructions)
          {
             CurrentInstructions = _validator.LastValidationError;
          }
@@ -771,9 +784,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                ? _lastValidBorderViewStyle
                : ValidBorderViewStyle);
 
-#if SKIP_RESTORING_PLACEHOLDER            
+#if SKIP_RESTORING_PLACEHOLDER
             PlaceholderLabel?.SetAndForceStyle(ValidPlaceholderStyle);
-#else            
+#else
             PlaceholderLabel?.SetAndForceStyle(_lastValidPlaceholderStyle.IsNotNullOrDefault()
                ? _lastValidPlaceholderStyle
                : ValidBorderViewStyle);
@@ -782,79 +795,25 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          else
          {
             // The corner radius is always uniform in or examples so randomly picking top left
-            _lastValidBorderViewStyle  = FormsUtils.CreateShapeViewStyle(BorderView.Color, BorderView.CornerRadius.TopLeft, BorderView.BorderColor, BorderView.BorderThickness);
+            _lastValidBorderViewStyle = FormsUtils.CreateShapeViewStyle(BorderView.Color,
+               BorderView.CornerRadius.TopLeft, BorderView.BorderColor, BorderView.BorderThickness);
 
-#if SKIP_RESTORING_PLACEHOLDER            
+#if SKIP_RESTORING_PLACEHOLDER
             PlaceholderLabel?.SetAndForceStyle(ValidPlaceholderStyle);
-#else            
+#else
             if (PlaceholderLabel.IsNotNullOrDefault())
             {
-               _lastValidPlaceholderStyle = FormsUtils.CreateLabelStyle(PlaceholderLabel.FontFamily, PlaceholderLabel.FontSize, PlaceholderLabel.BackgroundColor, PlaceholderLabel.TextColor);
+               _lastValidPlaceholderStyle =
+ FormsUtils.CreateLabelStyle(PlaceholderLabel.FontFamily, PlaceholderLabel.FontSize, PlaceholderLabel.BackgroundColor, PlaceholderLabel.TextColor);
             }
-#endif            
+#endif
 
             BorderView.SetAndForceStyle(InvalidBorderViewStyle);
 
 #if !SKIP_RESTORING_PLACEHOLDER
             PlaceholderLabel?.SetAndForceStyle(InvalidPlaceholderStyle);
 #endif
-            
          }
-      }
-
-      /// <summary>Resets the placeholder position.</summary>
-      protected async Task ResetPlaceholderPosition()
-      {
-         // Make sure we have a valid placeholder
-         if (PlaceholderLabel.IsNullOrDefault() || PlaceholderLabel.Text.IsEmpty() || EditableView.IsNullOrDefault() || BorderView.IsNullOrDefault() || _placeholderGrid.IsNullOrDefault())
-         {
-            return;
-         }
-
-         var    targetX = PLACEHOLDER_INSET;
-         double targetY;
-
-         // See if the entry has focus or not
-         if (EditableView.IsFocused || UserHasEnteredValidContent || DerivedViewIsFocused)
-         {
-            targetY = -(_placeholderHeight / 2) + VERTICAL_SLOP;
-         }
-         else
-         {
-            targetY = ((BorderView.Height - _placeholderHeight) / 2) + VERTICAL_SLOP;
-         }
-
-         _canvas.RaiseChild(_placeholderGrid);
-
-         await _placeholderGrid.TranslateTo(targetX, targetY).WithoutChangingContext();
-
-         if (!_placeholderLabelHasBeenShown)
-         {
-            PlaceholderLabel.FadeIn();
-            _placeholderLabelHasBeenShown = true;
-         }
-      }
-
-      public void CallRevalidate()
-      {
-         _validator?.Revalidate();
-      }
-
-      public virtual int SetTabIndexes(int incomingTabIndex)
-      {
-         BorderView.IsTabStop = false;
-         BorderView.TabIndex = incomingTabIndex++;
-
-         if (EditableViewContainer.IsNotAnEqualReferenceTo(EditableView))
-         {
-            EditableViewContainer.IsTabStop = false;
-            EditableViewContainer.TabIndex  = incomingTabIndex++;
-         }
-
-         EditableView.IsTabStop = true;
-         EditableView.TabIndex  = incomingTabIndex++;
-
-         return incomingTabIndex;
       }
 
       ///// <summary>

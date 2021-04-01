@@ -28,22 +28,28 @@
 
 namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
+   using System;
+   using SharedUtils.Utils;
+   using Views.Controls;
+
    /// <summary>
    /// </summary>
    public enum ButtonStates
    {
       // Important to have this first
       Deselected,
-
       Selected,
-      Disabled
+      Disabled,
+      None
    }
 
    /// <summary>
    /// </summary>
    public interface IHaveButtonState
    {
-      ButtonStates ButtonState { get; set; }
+      string ButtonState { get; set; }
+
+      event EventUtils.GenericDelegate<string> ButtonStateChanged;
 
       int SelectionGroup { get; set; }
    }

@@ -5,7 +5,7 @@
   },
   "projects": {
     "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {
-      "version": "1.0.30",
+      "version": "1.0.31",
       "restore": {
         "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
         "projectName": "Com.MarcusTS.SharedForms",
@@ -14,7 +14,7 @@
         "outputPath": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -26,8 +26,9 @@
           "netstandard2.0"
         ],
         "sources": {
+          "https://api.bintray.com/nuget/asapp/ChatSDKFeed": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://idsmobile.pkgs.visualstudio.com/_packaging/IDSLibraries/nuget/v3/index.json": {}
+          "https://artifactory.spectrumtoolbox.com/artifactory/api/nuget/nuget": {}
         },
         "frameworks": {
           "netstandard2.0": {
@@ -47,19 +48,19 @@
           "dependencies": {
             "Acr.UserDialogs": {
               "target": "Package",
-              "version": "[7.1.0.475, )"
+              "version": "[7.1.0.483, )"
             },
             "AsyncAwaitBestPractices": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[5.1.0, )"
             },
             "AsyncAwaitBestPractices.MVVM": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[5.1.0, )"
             },
             "Com.MarcusTS.SharedUtils": {
               "target": "Package",
-              "version": "[1.0.17, )"
+              "version": "[1.0.18, )"
             },
             "Com.MarcusTS.SmartDI": {
               "target": "Package",
@@ -81,7 +82,7 @@
             },
             "PropertyChanged.Fody": {
               "target": "Package",
-              "version": "[3.3.1, )"
+              "version": "[3.3.3, )"
             },
             "Xam.Plugin.Connectivity": {
               "target": "Package",
@@ -118,7 +119,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

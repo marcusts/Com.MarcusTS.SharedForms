@@ -26,8 +26,8 @@
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using Com.MarcusTS.SharedForms.Common.Utils;
-   using Com.MarcusTS.SharedUtils.Utils;
+   using Common.Utils;
+   using SharedUtils.Utils;
    using System;
    using System.Collections.Generic;
    using System.Linq;
@@ -95,6 +95,36 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       where EnumT : Enum
    {
       /// <summary>
+      ///    The default button back color
+      /// </summary>
+      private static readonly Color DEFAULT_BUTTON_BACK_COLOR = Color.FromRgb(25, 25, 25);
+
+      /// <summary>
+      ///    The default button border color
+      /// </summary>
+      private static readonly Color DEFAULT_BUTTON_BORDER_COLOR = Color.Transparent;
+
+      /// <summary>
+      ///    The default button border width
+      /// </summary>
+      private static readonly float? DEFAULT_BUTTON_BORDER_WIDTH = 0;
+
+      /// <summary>
+      ///    The default label font attributes
+      /// </summary>
+      private static readonly FontAttributes DEFAULT_LABEL_FONT_ATTRIBUTES = FontAttributes.Bold;
+
+      /// <summary>
+      ///    The default label font size
+      /// </summary>
+      private static readonly double DEFAULT_LABEL_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+
+      /// <summary>
+      ///    The default label text color
+      /// </summary>
+      private static readonly Color DEFAULT_LABEL_TEXT_COLOR = Color.White;
+
+      /// <summary>
       ///    The default image suffix
       /// </summary>
       private const string DEFAULT_IMAGE_SUFFIX = ".png";
@@ -114,7 +144,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonBackColor = newVal;
+               viewButton.RefreshLabelButtonStyles();
             }
          );
 
@@ -133,7 +163,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonBorderColor = newVal;
+               viewButton.RefreshLabelButtonStyles();
             }
          );
 
@@ -152,7 +182,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonBorderWidth = newVal;
+               viewButton.RefreshLabelButtonStyles();
             }
          );
 
@@ -190,7 +220,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.LabelFontAttributes = newVal;
+               viewButton.RefreshLabelButtonStyles();
             }
          );
 
@@ -209,7 +239,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.LabelFontSize = newVal;
+               viewButton.RefreshLabelButtonStyles();
             }
          );
 
@@ -228,39 +258,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.LabelTextColor = newVal;
+               viewButton.RefreshLabelButtonStyles();
             }
          );
-
-      /// <summary>
-      ///    The default button back color
-      /// </summary>
-      private static readonly Color DEFAULT_BUTTON_BACK_COLOR = Color.FromRgb(25, 25, 25);
-
-      /// <summary>
-      ///    The default button border color
-      /// </summary>
-      private static readonly Color DEFAULT_BUTTON_BORDER_COLOR = Color.Transparent;
-
-      /// <summary>
-      ///    The default button border width
-      /// </summary>
-      private static readonly float? DEFAULT_BUTTON_BORDER_WIDTH = 0;
-
-      /// <summary>
-      ///    The default label font attributes
-      /// </summary>
-      private static readonly FontAttributes DEFAULT_LABEL_FONT_ATTRIBUTES = FontAttributes.Bold;
-
-      /// <summary>
-      ///    The default label font size
-      /// </summary>
-      private static readonly double DEFAULT_LABEL_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-
-      /// <summary>
-      ///    The default label text color
-      /// </summary>
-      private static readonly Color DEFAULT_LABEL_TEXT_COLOR = Color.White;
 
       /// <summary>
       ///    The is initializing
@@ -268,39 +268,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private readonly bool _isInitializing;
 
       /// <summary>
-      ///    The button back color
-      /// </summary>
-      private Color _buttonBackColor;
-
-      /// <summary>
-      ///    The button border color
-      /// </summary>
-      private Color _buttonBorderColor;
-
-      /// <summary>
-      ///    The button border width
-      /// </summary>
-      private float? _buttonBorderWidth;
-
-      /// <summary>
       ///    The image label button styles
       /// </summary>
       private IList<ImageLabelButtonStyle> _imageLabelButtonStyles;
-
-      /// <summary>
-      ///    The label font attributes
-      /// </summary>
-      private FontAttributes _labelFontAttributes;
-
-      /// <summary>
-      ///    The label font size
-      /// </summary>
-      private double _labelFontSize;
-
-      /// <summary>
-      ///    The label text color
-      /// </summary>
-      private Color _labelTextColor;
 
       /// <summary>
       ///    Initializes a new instance of the <see cref="EnumToggleImageLabelButtonBase{EnumT}" /> class.
@@ -319,9 +289,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          // LabelHeight              = 35;
          ButtonCornerRadiusFactor = DEFAULT_BUTTON_RADIUS_FACTOR;
 
+         UpdateButtonTextFromStyle = true;
+
          _isInitializing = false;
 
-         RefreshImageLabelButtonStyles();
+         RefreshLabelButtonStyles();
       }
 
       /// <summary>
@@ -331,26 +303,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public override IList<ImageLabelButtonStyle> ImageLabelButtonStyles => _imageLabelButtonStyles ??= CreateImageLabelButtonStyles();
 
       /// <summary>
-      ///    Required by this case; each style has its own text.
-      /// </summary>
-      /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
-      public override bool UpdateButtonTextFromStyle => true;
-
-      /// <summary>
       ///    Gets or sets the color of the button back.
       /// </summary>
       /// <value>The color of the button back.</value>
       public Color ButtonBackColor
       {
-         get => _buttonBackColor;
-         set
-         {
-            if (_buttonBackColor.IsDifferentThan(value))
-            {
-               _buttonBackColor = value;
-               RefreshImageLabelButtonStyles();
-            }
-         }
+         get => (Color)GetValue(ButtonBackColorProperty);
+         set => SetValue(ButtonBackColorProperty, value);
       }
 
       /// <summary>
@@ -359,15 +318,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color of the button border.</value>
       public Color ButtonBorderColor
       {
-         get => _buttonBorderColor;
-         set
-         {
-            if (_buttonBorderColor.IsDifferentThan(value))
-            {
-               _buttonBorderColor = value;
-               RefreshImageLabelButtonStyles();
-            }
-         }
+         get => (Color)GetValue(ButtonBorderColorProperty);
+         set => SetValue(ButtonBorderColorProperty, value);
       }
 
       /// <summary>
@@ -376,15 +328,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The width of the button border.</value>
       public float? ButtonBorderWidth
       {
-         get => _buttonBorderWidth;
-         set
-         {
-            if (_buttonBorderWidth.IsNotAnEqualObjectTo(value))
-            {
-               _buttonBorderWidth = value;
-               RefreshImageLabelButtonStyles();
-            }
-         }
+         get => (float?)GetValue(ButtonBorderWidthProperty);
+         set => SetValue(ButtonBorderWidthProperty, value);
       }
 
       /// <summary>
@@ -394,7 +339,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public EnumT CurrentSelection
       {
          get => (EnumT) GetValue(CurrentSelectionProperty);
-
          set => SetValue(CurrentSelectionProperty, value);
       }
 
@@ -404,15 +348,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The label font attributes.</value>
       public FontAttributes LabelFontAttributes
       {
-         get => _labelFontAttributes;
-         set
-         {
-            if (_labelFontAttributes.IsNotAnEqualObjectTo(value))
-            {
-               _labelFontAttributes = value;
-               RefreshImageLabelButtonStyles();
-            }
-         }
+         get => (FontAttributes)GetValue(LabelFontAttributesProperty);
+         set => SetValue(LabelFontAttributesProperty, value);
       }
 
       /// <summary>
@@ -421,15 +358,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The size of the label font.</value>
       public double LabelFontSize
       {
-         get => _labelFontSize;
-         set
-         {
-            if (_labelFontSize.IsDifferentThan(value))
-            {
-               _labelFontSize = value;
-               RefreshImageLabelButtonStyles();
-            }
-         }
+         get => (double)GetValue(LabelFontSizeProperty);
+         set => SetValue(LabelFontSizeProperty, value);
       }
 
       /// <summary>
@@ -438,15 +368,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color of the label text.</value>
       public Color LabelTextColor
       {
-         get => _labelTextColor;
-         set
-         {
-            if (_labelTextColor.IsDifferentThan(value))
-            {
-               _labelTextColor = value;
-               RefreshImageLabelButtonStyles();
-            }
-         }
+         get => (Color)GetValue(LabelTextColorProperty);
+         set => SetValue(LabelTextColorProperty, value);
       }
 
       /// <summary>
@@ -577,7 +500,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>
       ///    Refreshes the image label button styles.
       /// </summary>
-      private void RefreshImageLabelButtonStyles()
+      private void RefreshLabelButtonStyles()
       {
          if (_isInitializing)
          {

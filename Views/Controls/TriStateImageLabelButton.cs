@@ -34,6 +34,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IImageLabelButton" />
    public interface ITriStateImageLabelButton : IImageLabelButton
    {
+      // Can deselect when the selection group is 0.
+      bool AllowCoercedDeselection { get; set; }
+
       /// <summary>Gets or sets the button deselected style.</summary>
       /// <value>The button deselected style.</value>
       Style ButtonDeselectedStyle { get; set; }
@@ -78,6 +81,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The image selected file path.</value>
       string ImageSelectedFilePath { get; set; }
 
+      bool IsCompleted { get; set; }
+
       /// <summary>Gets or sets the label deselected style.</summary>
       /// <value>The label deselected style.</value>
       Style LabelDeselectedStyle { get; set; }
@@ -90,12 +95,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The label selected style.</value>
       Style LabelSelectedStyle { get; set; }
 
-      bool IsCompleted { get; set; }
-
       void ForceOnIsEnabledChanged();
-
-      // Can deselect when the selection group is 0.
-      bool AllowCoercedDeselection { get; set; }
    }
 
    /// <summary>
@@ -110,30 +110,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.ITriStateImageLabelButton" />
    public class TriStateImageLabelButton : ImageLabelButtonBase, ITriStateImageLabelButton
    {
-      /// <summary>The deselected button state</summary>
       public const string DESELECTED_BUTTON_STATE = "Deselected";
-
-      /// <summary>The disabled button state</summary>
-      public const string DISABLED_BUTTON_STATE = "Disabled";
-
-      /// <summary>The selected button state</summary>
-      public const string SELECTED_BUTTON_STATE = "Selected";
-
-      public static readonly BindableProperty IsCompletedProperty =
-         CreateImageLabelButtonBindableProperty
-         (
-            nameof(IsCompleted),
-            default(bool),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.IsCompleted = newVal;
-            }
-         );
+      public const string DISABLED_BUTTON_STATE   = "Disabled";
+      public const string SELECTED_BUTTON_STATE   = "Selected";
 
       /// <summary>The button deselected style property</summary>
       public static readonly BindableProperty ButtonDeselectedStyleProperty =
@@ -148,7 +127,80 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ButtonDeselectedStyle = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
+            }
+         );
+
+      /// <summary>The disabled button style property</summary>
+      public static readonly BindableProperty ButtonDisabledStyleProperty =
+         CreateImageLabelButtonBindableProperty
+         (
+            nameof(ButtonDisabledStyle),
+            default(Style),
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
+            }
+         );
+
+      /// <summary>The selected button style property</summary>
+      public static readonly BindableProperty ButtonSelectedStyleProperty =
+         CreateImageLabelButtonBindableProperty
+         (
+            nameof(ButtonSelectedStyle),
+            default(Style),
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
+            }
+         );
+
+      public static readonly BindableProperty ButtonToggleSelectionProperty =
+         CreateImageLabelButtonBindableProperty
+         (
+            nameof(ButtonToggleSelection),
+            default(bool),
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               viewButton.ResetSelectionStyle();
+            }
+         );
+
+      public static readonly BindableProperty CanDisableProperty =
+         CreateImageLabelButtonBindableProperty
+         (
+            nameof(CanDisable),
+            default(bool),
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               // Corner case -- get off of disabled if illegal
+               if (viewButton.IsDisabled && !viewButton.CanDisable)
+               {
+                  viewButton.ButtonState = DESELECTED_BUTTON_STATE;
+               }
+
+               viewButton.OnIsEnabledChanged();
+               viewButton.ResetSelectionStyle();
             }
          );
 
@@ -165,24 +217,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.CanSelect = newVal;
-            }
-         );
+               viewButton.ResetSelectionStyle();
 
-      /// <summary>The disabled button style property</summary>
-      public static readonly BindableProperty DisabledButtonStyleProperty =
-         CreateImageLabelButtonBindableProperty
-         (
-            nameof(ButtonDisabledStyle),
-            default(Style),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.ButtonDisabledStyle = newVal;
+               // Corner case
+               if (viewButton.IsSelected && !viewButton.CanSelect)
+               {
+                  viewButton.ButtonState = DESELECTED_BUTTON_STATE;
+               }
             }
          );
 
@@ -199,7 +240,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.GetImageFromResource = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
             }
          );
 
@@ -216,7 +257,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ImageDeselectedFilePath = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
             }
          );
 
@@ -233,7 +274,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ImageDisabledFilePath = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
             }
          );
 
@@ -250,7 +291,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ImageResourceClassType = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
             }
          );
 
@@ -267,7 +308,27 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.ImageSelectedFilePath = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
+            }
+         );
+
+      public static readonly BindableProperty IsCompletedProperty =
+         CreateImageLabelButtonBindableProperty
+         (
+            nameof(IsCompleted),
+            default(bool),
+            BindingMode.OneWay,
+            (
+               viewButton,
+               oldVal,
+               newVal
+            ) =>
+            {
+               // If not selected, change the button state to disabled is that is legal
+               if (viewButton.CanDisable && !viewButton.IsSelected)
+               {
+                  viewButton.ButtonState = DISABLED_BUTTON_STATE;
+               }
             }
          );
 
@@ -284,7 +345,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.LabelDeselectedStyle = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
             }
          );
 
@@ -301,7 +362,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.LabelDisabledStyle = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
             }
          );
 
@@ -318,232 +379,89 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                newVal
             ) =>
             {
-               viewButton.LabelSelectedStyle = newVal;
+               viewButton.CreateOrRefreshImageLabelButtonStyles();
             }
          );
-
-      /// <summary>The selected button style property</summary>
-      public static readonly BindableProperty SelectedButtonStyleProperty =
-         CreateImageLabelButtonBindableProperty
-         (
-            nameof(ButtonSelectedStyle),
-            default(Style),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.ButtonSelectedStyle = newVal;
-            }
-         );
-
-      /// <summary>Converts to ggleselectionproperty.</summary>
-      public static readonly BindableProperty ToggleSelectionProperty =
-         CreateImageLabelButtonBindableProperty
-         (
-            nameof(ButtonToggleSelection),
-            default(bool),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.ButtonToggleSelection = newVal;
-            }
-         );
-
-      /// <summary>The button deselected style</summary>
-      private Style _buttonDeselectedStyle;
-
-      /// <summary>The button disabled style</summary>
-      private Style _buttonDisabledStyle;
-
-      /// <summary>The button selected style</summary>
-      private Style _buttonSelectedStyle;
-
-      /// <summary>The button toggle selection</summary>
-      private bool _buttonToggleSelection;
-
-      /// <summary>The can disable</summary>
-      private bool _canDisable;
-
-      /// <summary>The can select</summary>
-      private bool _canSelect;
-
-      private bool _getImageFromResource = true;
-
-      /// <summary>The image deselected file path</summary>
-      private string _imageDeselectedFilePath;
-
-      /// <summary>The image disabled file path</summary>
-      private string _imageDisabledFilePath;
 
       /// <summary>The image label button styles</summary>
       private IList<ImageLabelButtonStyle> _imageLabelButtonStyles;
-
-      private Type _imageResourceClassType;
-
-      /// <summary>The image selected file path</summary>
-      private string _imageSelectedFilePath;
-
-      /// <summary>The label deselected style</summary>
-      private Style _labelDeselectedStyle;
-
-      /// <summary>The label disabled style</summary>
-      private Style _labelDisabledStyle;
-
-      /// <summary>The label selected button style</summary>
-      private Style _labelSelectedButtonStyle;
-
-      private bool _isCompleted;
 
       /// <summary>Gets a value indicating whether this instance is disabled.</summary>
       /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
       protected override bool IsDisabled => ButtonState.IsSameAs(DISABLED_BUTTON_STATE);
 
+      public bool AllowCoercedDeselection { get; set; }
+
       /// <summary>Gets or sets the button deselected style.</summary>
       /// <value>The button deselected style.</value>
       public Style ButtonDeselectedStyle
       {
-         get => _buttonDeselectedStyle;
-         set
-         {
-            _buttonDeselectedStyle = value;
-            CreateOrRefreshImageLabelButtonStyles();
-         }
+         get => (Style) GetValue(ButtonDeselectedStyleProperty);
+         set => SetValue(ButtonDeselectedStyleProperty, value);
       }
 
       /// <summary>Gets or sets the button disabled style.</summary>
       /// <value>The button disabled style.</value>
       public Style ButtonDisabledStyle
       {
-         get => _buttonDisabledStyle;
-         set
-         {
-            _buttonDisabledStyle = value;
-            CreateOrRefreshImageLabelButtonStyles();
-         }
+         get => (Style) GetValue(ButtonDisabledStyleProperty);
+         set => SetValue(ButtonDisabledStyleProperty, value);
       }
 
       /// <summary>Gets or sets the button selected style.</summary>
       /// <value>The button selected style.</value>
       public Style ButtonSelectedStyle
       {
-         get => _buttonSelectedStyle;
-         set
-         {
-            _buttonSelectedStyle = value;
-            CreateOrRefreshImageLabelButtonStyles();
-         }
+         get => (Style) GetValue(ButtonSelectedStyleProperty);
+         set => SetValue(ButtonSelectedStyleProperty, value);
       }
 
       /// <summary>Gets or sets a value indicating whether [button toggle selection].</summary>
       /// <value><c>true</c> if [button toggle selection]; otherwise, <c>false</c>.</value>
       public bool ButtonToggleSelection
       {
-         get => _buttonToggleSelection;
-         set
-         {
-            if (_buttonToggleSelection != value)
-            {
-               _buttonToggleSelection = value;
-               ResetSelectionStyle();
-            }
-         }
+         get => (bool) GetValue(ButtonToggleSelectionProperty);
+         set => SetValue(ButtonToggleSelectionProperty, value);
       }
 
       /// <summary>Gets or sets a value indicating whether this instance can disable.</summary>
       /// <value><c>true</c> if this instance can disable; otherwise, <c>false</c>.</value>
       public bool CanDisable
       {
-         get => _canDisable;
-         set
-         {
-            if (_canDisable != value)
-            {
-               _canDisable = value;
-
-               // Corner case -- get off of disabled if illegal
-               if (IsDisabled && !_canDisable)
-               {
-                  ButtonState = DESELECTED_BUTTON_STATE;
-               }
-
-               OnIsEnabledChanged();
-
-               ResetSelectionStyle();
-            }
-         }
+         get => (bool)GetValue(CanDisableProperty);
+         set => SetValue(CanDisableProperty, value);
       }
 
       /// <summary>Gets or sets a value indicating whether this instance can select.</summary>
       /// <value><c>true</c> if this instance can select; otherwise, <c>false</c>.</value>
       public bool CanSelect
       {
-         get => _canSelect;
-         set
-         {
-            if (_canSelect != value)
-            {
-               _canSelect = value;
-
-               ResetSelectionStyle();
-
-               // Corner case
-               if (IsSelected && !_canSelect)
-               {
-                  ButtonState = DESELECTED_BUTTON_STATE;
-               }
-            }
-         }
+         get => (bool)GetValue(CanSelectProperty);
+         set => SetValue(CanSelectProperty, value);
       }
 
       /// <summary>Gets or sets a value indicating whether [get image from resource].</summary>
       /// <value><c>true</c> if [get image from resource]; otherwise, <c>false</c>.</value>
       public bool GetImageFromResource
       {
-         get => _getImageFromResource;
-         set
-         {
-            _getImageFromResource = value;
-
-            // MUST FORCE
-            CreateOrRefreshImageLabelButtonStyles(true);
-         }
+         get => (bool) GetValue(GetImageFromResourceProperty);
+         set => SetValue(GetImageFromResourceProperty, value);
       }
 
       /// <summary>Gets or sets the image deselected file path.</summary>
       /// <value>The image deselected file path.</value>
       public string ImageDeselectedFilePath
       {
-         get => _imageDeselectedFilePath;
-         set
-         {
-            if (_imageDeselectedFilePath.IsDifferentThan(value))
-            {
-               _imageDeselectedFilePath = value;
-               CreateOrRefreshImageLabelButtonStyles();
-            }
-         }
+         get => (string) GetValue(ImageDeselectedFilePathProperty);
+         set => SetValue(ImageDeselectedFilePathProperty, value);
       }
 
       /// <summary>Gets or sets the image disabled file path.</summary>
       /// <value>The image disabled file path.</value>
       public string ImageDisabledFilePath
       {
-         get => _imageDisabledFilePath;
-         set
-         {
-            if (_imageDisabledFilePath.IsDifferentThan(value))
-            {
-               _imageDisabledFilePath = value;
-               CreateOrRefreshImageLabelButtonStyles();
-            }
-         }
+         get => (string) GetValue(ImageDisabledFilePathProperty);
+         set => SetValue(ImageDisabledFilePathProperty, value);
       }
 
       /// <summary>Gets the image label button styles.</summary>
@@ -554,32 +472,22 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The type of the image resource class.</value>
       public Type ImageResourceClassType
       {
-         get => _imageResourceClassType;
-         set
-         {
-            if (_imageResourceClassType != value)
-            {
-               _imageResourceClassType = value;
-
-               // MUST FORCE
-               CreateOrRefreshImageLabelButtonStyles(true);
-            }
-         }
+         get => (Type) GetValue(ImageResourceClassTypeProperty);
+         set => SetValue(ImageResourceClassTypeProperty, value);
       }
 
       /// <summary>Gets or sets the image selected file path.</summary>
       /// <value>The image selected file path.</value>
       public string ImageSelectedFilePath
       {
-         get => _imageSelectedFilePath;
-         set
-         {
-            if (_imageSelectedFilePath.IsDifferentThan(value))
-            {
-               _imageSelectedFilePath = value;
-               CreateOrRefreshImageLabelButtonStyles();
-            }
-         }
+         get => (string) GetValue(ImageSelectedFilePathProperty);
+         set => SetValue(ImageSelectedFilePathProperty, value);
+      }
+
+      public bool IsCompleted
+      {
+         get => (bool) GetValue(IsCompletedProperty);
+         set => SetValue(IsCompletedProperty, value);
       }
 
       /// <summary>Gets a value indicating whether this instance is selected.</summary>
@@ -590,41 +498,30 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The label deselected style.</value>
       public Style LabelDeselectedStyle
       {
-         get => _labelDeselectedStyle;
-         set
-         {
-            _labelDeselectedStyle = value;
-            CreateOrRefreshImageLabelButtonStyles();
-         }
+         get => (Style) GetValue(LabelDeselectedStyleProperty);
+         set => SetValue(LabelDeselectedStyleProperty, value);
       }
 
       /// <summary>Gets or sets the label disabled style.</summary>
       /// <value>The label disabled style.</value>
       public Style LabelDisabledStyle
       {
-         get => _labelDisabledStyle;
-         set
-         {
-            _labelDisabledStyle = value;
-            CreateOrRefreshImageLabelButtonStyles();
-         }
+         get => (Style) GetValue(LabelDisabledStyleProperty);
+         set => SetValue(LabelDisabledStyleProperty, value);
       }
 
       /// <summary>Gets or sets the label selected style.</summary>
       /// <value>The label selected style.</value>
       public Style LabelSelectedStyle
       {
-         get => _labelSelectedButtonStyle;
-         set
-         {
-            _labelSelectedButtonStyle = value;
-            CreateOrRefreshImageLabelButtonStyles();
-         }
+         get => (Style) GetValue(LabelSelectedStyleProperty);
+         set => SetValue(LabelSelectedStyleProperty, value);
       }
 
-      /// <summary>Leave the button intact; it is not intended to change with selections.</summary>
-      /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
-      public override bool UpdateButtonTextFromStyle => false;
+      public void ForceOnIsEnabledChanged()
+      {
+         OnIsEnabledChanged();
+      }
 
       /// <summary>Creates the image label button bindable property.</summary>
       /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
@@ -658,10 +555,38 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
+      protected override ImageLabelButtonStyle LastCheckBeforeAssigningStyle(ImageLabelButtonStyle style)
+      {
+         if (IsCompleted && CanDisable && style.InternalButtonState.IsSameAs(DESELECTED_BUTTON_STATE))
+         {
+            if (ButtonStateIndexFound(DISABLED_BUTTON_STATE, out var disabledStyleIdx))
+            {
+               return ImageLabelButtonStyles[disabledStyleIdx];
+            }
+         }
+
+         // ELSE let the base do the work
+         return base.LastCheckBeforeAssigningStyle(style);
+      }
+
       /// <summary>Called when [button command created].</summary>
       protected override void OnButtonCommandCreated()
       {
          CreateOrRefreshImageLabelButtonStyles();
+      }
+
+      protected override void OnIsEnabledChanged()
+      {
+         if (!IsEnabled && CanDisable)
+         {
+            ButtonState = DISABLED_BUTTON_STATE;
+         }
+         else if (IsEnabled)
+         {
+            ButtonState = IsSelected ? SELECTED_BUTTON_STATE : DESELECTED_BUTTON_STATE;
+         }
+
+         ResetSelectionStyle();
       }
 
       /// <summary>Assigns the styles if not null.</summary>
@@ -682,27 +607,27 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             return;
          }
 
-         imageLabelButtonStyle.ButtonStyle   = buttonStyle;
-         imageLabelButtonStyle.ImageFilePath = imageFilePath;
-         imageLabelButtonStyle.GetImageFromResource = GetImageFromResource;
+         imageLabelButtonStyle.ButtonStyle            = buttonStyle;
+         imageLabelButtonStyle.ImageFilePath          = imageFilePath;
+         imageLabelButtonStyle.GetImageFromResource   = GetImageFromResource;
          imageLabelButtonStyle.ImageResourceClassType = ImageResourceClassType;
-         imageLabelButtonStyle.LabelStyle    = labelStyle;
+         imageLabelButtonStyle.LabelStyle             = labelStyle;
       }
 
       /// <summary>Creates the or refresh image label button styles.</summary>
       /// <param name="forceCreate">if set to <c>true</c> [force create].</param>
       private void CreateOrRefreshImageLabelButtonStyles(bool forceCreate = false)
       {
-         ImageLabelButtonStyle deselectedStyle = new ImageLabelButtonStyle();
-         ImageLabelButtonStyle selectedStyle   = new ImageLabelButtonStyle();
-         ImageLabelButtonStyle disabledStyle   = new ImageLabelButtonStyle();
+         ImageLabelButtonStyle deselectedStyle = default;
+         var selectedStyle   = new ImageLabelButtonStyle();
+         var disabledStyle   = new ImageLabelButtonStyle();
 
          _imageLabelButtonStyles = new List<ImageLabelButtonStyle>();
 
          deselectedStyle = new ImageLabelButtonStyle
          {
-            InternalButtonState    = DESELECTED_BUTTON_STATE, 
-            GetImageFromResource = GetImageFromResource,
+            InternalButtonState    = DESELECTED_BUTTON_STATE,
+            GetImageFromResource   = GetImageFromResource,
             ImageResourceClassType = ImageResourceClassType
          };
 
@@ -712,8 +637,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             selectedStyle = new ImageLabelButtonStyle
             {
-               InternalButtonState    = SELECTED_BUTTON_STATE, 
-               GetImageFromResource = GetImageFromResource,
+               InternalButtonState    = SELECTED_BUTTON_STATE,
+               GetImageFromResource   = GetImageFromResource,
                ImageResourceClassType = ImageResourceClassType
             };
 
@@ -724,8 +649,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             disabledStyle = new ImageLabelButtonStyle
             {
-               InternalButtonState    = DISABLED_BUTTON_STATE, 
-               GetImageFromResource = GetImageFromResource,
+               InternalButtonState    = DISABLED_BUTTON_STATE,
+               GetImageFromResource   = GetImageFromResource,
                ImageResourceClassType = ImageResourceClassType
             };
 
@@ -745,7 +670,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          SetAllStyles();
       }
-      
+
       private void FixNullButtonState()
       {
          if (ButtonState.IsEmpty() && ImageLabelButtonStyles.Count > 0)
@@ -758,68 +683,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private void ResetSelectionStyle()
       {
          SelectionStyle = CanSelect
-                              ? 
-                              (
-                                 ButtonToggleSelection 
-                                 ? 
-                                 ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles 
-                                 :
-                                 ImageLabelButtonSelectionStyles.SelectionButNoToggleAsFirstTwoStyles
-                              )
-                              : 
-                              ImageLabelButtonSelectionStyles.NoSelection;
+            ? ButtonToggleSelection
+               ? ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles
+               : ImageLabelButtonSelectionStyles.SelectionButNoToggleAsFirstTwoStyles
+            : ImageLabelButtonSelectionStyles.NoSelection;
 
          CreateOrRefreshImageLabelButtonStyles(true);
       }
-
-      protected override void OnIsEnabledChanged()
-      {
-         if (!IsEnabled && CanDisable)
-         {
-            ButtonState = DISABLED_BUTTON_STATE;
-         }
-         else if (IsEnabled)
-         {
-            ButtonState = IsSelected ? SELECTED_BUTTON_STATE : DESELECTED_BUTTON_STATE;
-         }
-
-         ResetSelectionStyle();
-      }
-
-      public bool IsCompleted
-      {
-         get => _isCompleted;
-         set
-         {
-            _isCompleted = value;
-
-            // If not selected, change the button state to disabled is that is legal
-            if (CanDisable && !IsSelected)
-            {
-               ButtonState = DISABLED_BUTTON_STATE;
-            }
-         }
-      }
-
-      public void ForceOnIsEnabledChanged()
-      {
-         OnIsEnabledChanged();
-      }
-
-      protected override ImageLabelButtonStyle LastCheckBeforeAssigningStyle(ImageLabelButtonStyle style)
-      {
-         if (IsCompleted && CanDisable && style.InternalButtonState.IsSameAs(DESELECTED_BUTTON_STATE))
-         {
-            if (ButtonStateIndexFound(DISABLED_BUTTON_STATE, out var disabledStyleIdx))
-            {
-               return ImageLabelButtonStyles[disabledStyleIdx];
-            }
-         }
-
-         // ELSE let the base do the work
-         return base.LastCheckBeforeAssigningStyle(style);
-      }
-
-      public bool AllowCoercedDeselection { get; set; }
    }
 }

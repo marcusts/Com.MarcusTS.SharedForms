@@ -26,8 +26,8 @@
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using Com.MarcusTS.SharedForms.Common.Utils;
    using System;
+   using Common.Utils;
    using Xamarin.Forms;
 
    /// <summary>
@@ -73,16 +73,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateSelectionImageLabelButtonBindableProperty
          (
             nameof(GetImageFromResource),
-            default(bool),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.GetImageFromResource = newVal;
-            }
+            true
          );
 
       /// <summary>
@@ -92,16 +83,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateSelectionImageLabelButtonBindableProperty
          (
             nameof(ImageResourceClassType),
-            default(Type),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.ImageResourceClassType = newVal;
-            }
+            default(Type)
          );
 
       /// <summary>
@@ -111,16 +93,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateSelectionImageLabelButtonBindableProperty
          (
             nameof(MultiSelectAllowed),
-            default(bool),
-            BindingMode.OneWay,
-            (
-               viewButton,
-               oldVal,
-               newVal
-            ) =>
-            {
-               viewButton.MultiSelectAllowed = newVal;
-            }
+            default(bool)
          );
 
       /// <summary>
@@ -128,11 +101,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       protected SelectionImageLabelButtonBase()
       {
-         ImageResourceClassType = GetType();
-         SelectionStyle         = ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles;
-         ButtonLabel            = FormsUtils.GetSimpleLabel();
-         LabelPos               = FormsUtils.OnScreenPositions.CENTER;
-         ImagePos               = FormsUtils.OnScreenPositions.NONE;
+         ImageResourceClassType    = GetType();
+         SelectionStyle            = ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles;
+         ButtonLabel               = FormsUtils.GetSimpleLabel();
+         UpdateButtonTextFromStyle = true;
       }
 
       /// <summary>
@@ -145,13 +117,21 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       ///    Gets or sets a value indicating whether [get image from resource].
       /// </summary>
       /// <value><c>true</c> if [get image from resource]; otherwise, <c>false</c>.</value>
-      public bool GetImageFromResource { get; set; } = true;
+      public bool GetImageFromResource
+      {
+         get => (bool) GetValue(GetImageFromResourceProperty);
+         set => SetValue(GetImageFromResourceProperty, value);
+      }
 
       /// <summary>
       ///    Gets or sets the type of the image resource class.
       /// </summary>
       /// <value>The type of the image resource class.</value>
-      public Type ImageResourceClassType { get; set; }
+      public Type ImageResourceClassType
+      {
+         get => (Type) GetValue(ImageResourceClassTypeProperty);
+         set => SetValue(ImageResourceClassTypeProperty, value);
+      }
 
       /// <summary>
       ///    Gets a value indicating whether this instance is selected.
@@ -163,13 +143,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       ///    Gets or sets a value indicating whether [multi select allowed].
       /// </summary>
       /// <value><c>true</c> if [multi select allowed]; otherwise, <c>false</c>.</value>
-      public bool MultiSelectAllowed { get; set; }
-
-      /// <summary>
-      ///    Required by this case; each style has its own text.
-      /// </summary>
-      /// <value><c>true</c> if [update button text from style]; otherwise, <c>false</c>.</value>
-      public override bool UpdateButtonTextFromStyle => true;
+      public bool MultiSelectAllowed
+      {
+         get => (bool) GetValue(MultiSelectAllowedProperty);
+         set => SetValue(MultiSelectAllowedProperty, value);
+      }
 
       /// <summary>
       ///    Creates the selection image label button bindable property.
