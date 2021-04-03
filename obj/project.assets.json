@@ -36,7 +36,7 @@
           "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll": {}
         }
       },
-      "Com.MarcusTS.SharedUtils/1.0.18": {
+      "Com.MarcusTS.SharedUtils/1.0.19": {
         "type": "package",
         "dependencies": {
           "Xamarin.Forms": "4.0.0.425677"
@@ -48,11 +48,11 @@
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {}
         }
       },
-      "Com.MarcusTS.SmartDI/1.0.22": {
+      "Com.MarcusTS.SmartDI/1.0.23": {
         "type": "package",
         "dependencies": {
-          "Com.MarcusTS.SharedUtils": "1.0.17",
-          "Xamarin.Forms": "4.8.0.1451"
+          "Com.MarcusTS.SharedUtils": "1.0.18",
+          "Xamarin.Forms": "4.0.0.425677"
         },
         "compile": {
           "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll": {}
@@ -264,7 +264,7 @@
           "lib/netstandard2.0/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.8.0.1451": {
+      "Xamarin.Forms/4.8.0.1534": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Xamarin.Forms.Core.dll": {},
@@ -360,27 +360,27 @@
         "lib/netstandard2.1/AsyncAwaitBestPractices.MVVM.dll"
       ]
     },
-    "Com.MarcusTS.SharedUtils/1.0.18": {
-      "sha512": "BcVhjRK+XOsIe3CC71WTBHdzOYxUycAezaRwrIA/USCntXaFoebZoEs3eNCFBjRzLWjC1XA83IwATrIKDDtwpw==",
+    "Com.MarcusTS.SharedUtils/1.0.19": {
+      "sha512": "epMT6lxHn0YUsZBuY4HLUgGMRgeFI+BpQ2S2Mel4QSu7LuTJ31GdMdmgyjFEFy0QWvT76HOohDrnTeNnkAQhDg==",
       "type": "package",
-      "path": "com.marcusts.sharedutils/1.0.18",
+      "path": "com.marcusts.sharedutils/1.0.19",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.sharedutils.1.0.18.nupkg.sha512",
+        "com.marcusts.sharedutils.1.0.19.nupkg.sha512",
         "com.marcusts.sharedutils.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.xml"
       ]
     },
-    "Com.MarcusTS.SmartDI/1.0.22": {
-      "sha512": "TmYRmY8xSkLeDf0q1gV4fQgP+MnnOxAWW1J51jjK/72cyHEF+7JvjvMKUHTQJjQXkFx1V++i9PH+Nq96V4+lHQ==",
+    "Com.MarcusTS.SmartDI/1.0.23": {
+      "sha512": "uKO7r9z6sKjfhrAWgWwVBag4UOXWt3tChHyk429dCHMWouu0S4vxjuXrK/6lnEi7P5WID+MKdj09i81DQzKCOw==",
       "type": "package",
-      "path": "com.marcusts.smartdi/1.0.22",
+      "path": "com.marcusts.smartdi/1.0.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.smartdi.1.0.22.nupkg.sha512",
+        "com.marcusts.smartdi.1.0.23.nupkg.sha512",
         "com.marcusts.smartdi.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SmartDI.dll",
         "lib/netstandard2.0/Com.MarcusTS.SmartDI.xml"
@@ -1242,10 +1242,10 @@
         "xamarin.essentials.nuspec"
       ]
     },
-    "Xamarin.Forms/4.8.0.1451": {
-      "sha512": "3RUzBpcaBxOjufLLqJnuZRGLhzAbVyfe/Pyp0AFY/H1MkCHYxXIRzgB8h6yC9NTs39NLK2SgGiaMbvC4TJ/zFA==",
+    "Xamarin.Forms/4.8.0.1534": {
+      "sha512": "h5S4nWRBYUNgbs2FtxkSLISh2FUBdLGZ0yVR0KP8utNMTOiRUhWcLzuJf3w4NYtboWFFUx/dyqZpi+aCcIMvSg==",
       "type": "package",
-      "path": "xamarin.forms/4.8.0.1451",
+      "path": "xamarin.forms/4.8.0.1534",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1554,7 +1554,7 @@
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.dll",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.pdb",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.4.8.0.1451.nupkg.sha512",
+        "xamarin.forms.4.8.0.1534.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
@@ -1600,8 +1600,8 @@
       "Acr.UserDialogs >= 7.1.0.483",
       "AsyncAwaitBestPractices >= 5.1.0",
       "AsyncAwaitBestPractices.MVVM >= 5.1.0",
-      "Com.MarcusTS.SharedUtils >= 1.0.18",
-      "Com.MarcusTS.SmartDI >= 1.0.22",
+      "Com.MarcusTS.SharedUtils >= 1.0.19",
+      "Com.MarcusTS.SmartDI >= 1.0.23",
       "ConfigureAwait.Fody >= 3.3.1",
       "NETStandard.Library >= 2.0.2",
       "Plugin.Permissions >= 6.0.1",
@@ -1610,7 +1610,7 @@
       "Xam.Plugins.Settings >= 3.1.1",
       "Xam.Plugins.Vibrate >= 4.0.0.5",
       "Xamarin.Essentials >= 1.6.1",
-      "Xamarin.Forms >= 4.8.0.1451",
+      "Xamarin.Forms >= 4.8.0.1534",
       "Xamarin.Forms.PancakeView >= 2.3.0.759"
     ]
   },
@@ -1620,7 +1620,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.31",
+    "version": "1.0.32",
     "restore": {
       "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
       "projectName": "Com.MarcusTS.SharedForms",
@@ -1675,11 +1675,11 @@
           },
           "Com.MarcusTS.SharedUtils": {
             "target": "Package",
-            "version": "[1.0.18, )"
+            "version": "[1.0.19, )"
           },
           "Com.MarcusTS.SmartDI": {
             "target": "Package",
-            "version": "[1.0.22, )"
+            "version": "[1.0.23, )"
           },
           "ConfigureAwait.Fody": {
             "target": "Package",
@@ -1717,7 +1717,7 @@
           },
           "Xamarin.Forms": {
             "target": "Package",
-            "version": "[4.8.0.1451, )"
+            "version": "[4.8.0.1534, )"
           },
           "Xamarin.Forms.PancakeView": {
             "target": "Package",

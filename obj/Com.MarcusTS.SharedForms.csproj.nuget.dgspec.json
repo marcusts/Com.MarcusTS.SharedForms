@@ -5,7 +5,7 @@
   },
   "projects": {
     "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {
-      "version": "1.0.31",
+      "version": "1.0.32",
       "restore": {
         "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
         "projectName": "Com.MarcusTS.SharedForms",
@@ -60,11 +60,11 @@
             },
             "Com.MarcusTS.SharedUtils": {
               "target": "Package",
-              "version": "[1.0.18, )"
+              "version": "[1.0.19, )"
             },
             "Com.MarcusTS.SmartDI": {
               "target": "Package",
-              "version": "[1.0.22, )"
+              "version": "[1.0.23, )"
             },
             "ConfigureAwait.Fody": {
               "target": "Package",
@@ -102,7 +102,7 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.8.0.1451, )"
+              "version": "[4.8.0.1534, )"
             },
             "Xamarin.Forms.PancakeView": {
               "target": "Package",
