@@ -7,12 +7,12 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Com.MarcusTS.SharedForms/1.0.33": {
+      "Com.MarcusTS.SharedForms/1.0.34": {
         "dependencies": {
           "Acr.UserDialogs": "7.1.0.483",
           "AsyncAwaitBestPractices": "5.1.0",
           "AsyncAwaitBestPractices.MVVM": "5.1.0",
-          "Com.MarcusTS.SharedUtils": "1.0.20",
+          "Com.MarcusTS.SharedUtils": "1.0.21",
           "Com.MarcusTS.SmartDI": "1.0.23",
           "ConfigureAwait.Fody": "3.3.1",
           "NETStandard.Library": "2.0.2",
@@ -60,20 +60,20 @@
           }
         }
       },
-      "Com.MarcusTS.SharedUtils/1.0.20": {
+      "Com.MarcusTS.SharedUtils/1.0.21": {
         "dependencies": {
           "Xamarin.Forms": "4.8.0.1534"
         },
         "runtime": {
           "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll": {
-            "assemblyVersion": "1.0.20.0",
-            "fileVersion": "1.0.20.0"
+            "assemblyVersion": "1.0.21.0",
+            "fileVersion": "1.0.21.0"
           }
         }
       },
       "Com.MarcusTS.SmartDI/1.0.23": {
         "dependencies": {
-          "Com.MarcusTS.SharedUtils": "1.0.20",
+          "Com.MarcusTS.SharedUtils": "1.0.21",
           "Xamarin.Forms": "4.8.0.1534"
         },
         "runtime": {
@@ -267,7 +267,7 @@
     }
   },
   "libraries": {
-    "Com.MarcusTS.SharedForms/1.0.33": {
+    "Com.MarcusTS.SharedForms/1.0.34": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -293,12 +293,12 @@
       "path": "asyncawaitbestpractices.mvvm/5.1.0",
       "hashPath": "asyncawaitbestpractices.mvvm.5.1.0.nupkg.sha512"
     },
-    "Com.MarcusTS.SharedUtils/1.0.20": {
+    "Com.MarcusTS.SharedUtils/1.0.21": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Uh/W6qIuJUZErSGoxOckS4I7IUYdBVbTqaNJKPFwu3XlASCyltBFUjzmJ0yAoBdmXfEPoqMXL+BSJmTVGyy6bA==",
-      "path": "com.marcusts.sharedutils/1.0.20",
-      "hashPath": "com.marcusts.sharedutils.1.0.20.nupkg.sha512"
+      "sha512": "sha512-35Z9R8GfAn4StDWCvuieGFt81eF2bzxDavTS+HW340w14nMPX3KFPc53/e2ZlKhBlJdPYkSeAhjSXdtD8Y3bJQ==",
+      "path": "com.marcusts.sharedutils/1.0.21",
+      "hashPath": "com.marcusts.sharedutils.1.0.21.nupkg.sha512"
     },
     "Com.MarcusTS.SmartDI/1.0.23": {
       "type": "package",
