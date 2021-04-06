@@ -24,8 +24,6 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-// #define AVOID_CONTEXT_MANAGEMENT
-
 namespace Com.MarcusTS.SharedForms.Common.Utils
 {
    using System;
@@ -2537,29 +2535,14 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
       //   }
       //}
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="view"></param>
+      /// <returns></returns>
       public static ICanBeValid ValidatorFromView(View view)
       {
          return view.Behaviors?.FirstOrDefault(b => b is ICanBeValid) as ICanBeValid;
-      }
-
-      /// <summary>Runs a Task without changing the context (configure await is false).</summary>
-      /// <param name="task">The task.</param>
-      /// <returns>Task.</returns>
-      public static async Task WithoutChangingContext(this Task task) =>
-#if AVOID_CONTEXT_MANAGEMENT
-         await task;
-#else
-         await task.ConfigureAwait(false);
-
-#endif
-
-      /// <summary>Withouts the changing context.</summary>
-      /// <typeparam name="T"></typeparam>
-      /// <param name="task">The task.</param>
-      /// <returns>Task&lt;T&gt;.</returns>
-      public static async Task<T> WithoutChangingContext<T>(this Task<T> task)
-      {
-         return await task.ConfigureAwait(false);
       }
 
       /// <summary>

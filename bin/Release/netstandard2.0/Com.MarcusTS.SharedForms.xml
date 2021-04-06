@@ -3677,16 +3677,12 @@
                Overload which uses the specified culture info
             </summary>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.WithoutChangingContext(System.Threading.Tasks.Task)">
-            <summary>Runs a Task without changing the context (configure await is false).</summary>
-            <param name="task">The task.</param>
-            <returns>Task.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.WithoutChangingContext``1(System.Threading.Tasks.Task{``0})">
-            <summary>Withouts the changing context.</summary>
-            <typeparam name="T"></typeparam>
-            <param name="task">The task.</param>
-            <returns>Task&lt;T&gt;.</returns>
+        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ValidatorFromView(Xamarin.Forms.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetForcedHeight(System.Double,System.Boolean,Xamarin.Forms.Size)">
             <summary>

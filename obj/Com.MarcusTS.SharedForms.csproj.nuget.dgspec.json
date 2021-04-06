@@ -5,7 +5,7 @@
   },
   "projects": {
     "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj": {
-      "version": "1.0.32",
+      "version": "1.0.33",
       "restore": {
         "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
         "projectName": "Com.MarcusTS.SharedForms",
@@ -60,7 +60,7 @@
             },
             "Com.MarcusTS.SharedUtils": {
               "target": "Package",
-              "version": "[1.0.19, )"
+              "version": "[1.0.20, )"
             },
             "Com.MarcusTS.SmartDI": {
               "target": "Package",

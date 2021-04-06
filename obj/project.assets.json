@@ -36,7 +36,7 @@
           "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll": {}
         }
       },
-      "Com.MarcusTS.SharedUtils/1.0.19": {
+      "Com.MarcusTS.SharedUtils/1.0.20": {
         "type": "package",
         "dependencies": {
           "Xamarin.Forms": "4.0.0.425677"
@@ -360,14 +360,14 @@
         "lib/netstandard2.1/AsyncAwaitBestPractices.MVVM.dll"
       ]
     },
-    "Com.MarcusTS.SharedUtils/1.0.19": {
-      "sha512": "epMT6lxHn0YUsZBuY4HLUgGMRgeFI+BpQ2S2Mel4QSu7LuTJ31GdMdmgyjFEFy0QWvT76HOohDrnTeNnkAQhDg==",
+    "Com.MarcusTS.SharedUtils/1.0.20": {
+      "sha512": "Uh/W6qIuJUZErSGoxOckS4I7IUYdBVbTqaNJKPFwu3XlASCyltBFUjzmJ0yAoBdmXfEPoqMXL+BSJmTVGyy6bA==",
       "type": "package",
-      "path": "com.marcusts.sharedutils/1.0.19",
+      "path": "com.marcusts.sharedutils/1.0.20",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "com.marcusts.sharedutils.1.0.19.nupkg.sha512",
+        "com.marcusts.sharedutils.1.0.20.nupkg.sha512",
         "com.marcusts.sharedutils.nuspec",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.dll",
         "lib/netstandard2.0/Com.MarcusTS.SharedUtils.xml"
@@ -1600,7 +1600,7 @@
       "Acr.UserDialogs >= 7.1.0.483",
       "AsyncAwaitBestPractices >= 5.1.0",
       "AsyncAwaitBestPractices.MVVM >= 5.1.0",
-      "Com.MarcusTS.SharedUtils >= 1.0.19",
+      "Com.MarcusTS.SharedUtils >= 1.0.20",
       "Com.MarcusTS.SmartDI >= 1.0.23",
       "ConfigureAwait.Fody >= 3.3.1",
       "NETStandard.Library >= 2.0.2",
@@ -1620,7 +1620,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.32",
+    "version": "1.0.33",
     "restore": {
       "projectUniqueName": "M:\\MyDocs\\Dev\\MtsShared\\SharedForms\\Com.MarcusTS.SharedForms.csproj",
       "projectName": "Com.MarcusTS.SharedForms",
@@ -1675,7 +1675,7 @@
           },
           "Com.MarcusTS.SharedUtils": {
             "target": "Package",
-            "version": "[1.0.19, )"
+            "version": "[1.0.20, )"
           },
           "Com.MarcusTS.SmartDI": {
             "target": "Package",
