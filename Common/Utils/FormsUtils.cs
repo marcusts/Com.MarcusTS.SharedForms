@@ -1195,11 +1195,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             ? attribute.BorderViewHeight
             : itemHeight;
          var instructionsHeight = attribute.InstructionsHeight.IsNotEmpty()
-            ? attribute.InstructionsHeight
-            : ValidatableViewBase.INSTRUCTIONS_HEIGHT;
+            ? (double?)attribute.InstructionsHeight
+            : null;
          var placeholderHeight = attribute.PlaceholderHeight.IsNotEmpty()
-            ? attribute.PlaceholderHeight
-            : ValidatableViewBase.PLACEHOLDER_HEIGHT;
+            ? (double?)attribute.PlaceholderHeight
+            : null;
 
          switch (attribute.InputType)
          {
@@ -1822,7 +1822,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       public static Label GetSimpleLabel
       (
          string labelText = default,
-         Color textColor = default,
+         Color? textColor = null,
          TextAlignment textAlignment = TextAlignment.Center,
          NamedSize fontNamedSize = NamedSize.Medium,
          double fontSize = 0.0,
@@ -1836,7 +1836,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          string fontFamilyOverride = ""
       )
       {
-         if (textColor.IsUnsetOrDefault())
+         if (textColor == null)
          {
             textColor = Color.Black;
          }
@@ -1844,24 +1844,19 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          var retLabel =
             new Label
             {
-               Text = labelText,
-               TextColor = textColor,
+               Text                    = labelText,
+               TextColor               = textColor.GetValueOrDefault(),
                HorizontalTextAlignment = textAlignment,
-               VerticalTextAlignment = TextAlignment.Center,
-               HorizontalOptions = HorizontalOptionsFromTextAlignment(textAlignment),
-               VerticalOptions = LayoutOptions.CenterAndExpand,
-               BackgroundColor = Color.Transparent,
-
-               FontAttributes = fontAttributes,
+               VerticalTextAlignment   = TextAlignment.Center,
+               HorizontalOptions       = HorizontalOptionsFromTextAlignment(textAlignment),
+               VerticalOptions         = LayoutOptions.CenterAndExpand,
+               BackgroundColor         = Color.Transparent,
+               FontAttributes          = fontAttributes,
                FontSize =
                   fontSize.IsNotEmpty() ? fontSize : Device.GetNamedSize(fontNamedSize, typeof(Label)),
-               LineBreakMode = breakMode
+               LineBreakMode = breakMode,
+               FontFamily    = fontFamilyOverride.IsEmpty() ? Font.SystemFontOfSize(0d).FontFamily : fontFamilyOverride
             };
-
-         if (fontFamilyOverride.IsNotEmpty())
-         {
-            retLabel.FontFamily = fontFamilyOverride;
-         }
 
          // Set up the label text binding (if provided)
          if (labelBindingPropertyName.IsNotEmpty())
@@ -2334,9 +2329,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
       public static void SetDefaults(this ShapeView shapeView)
       {
-         shapeView.Color = Color.White;
-         shapeView.CornerRadius = FormsConst.DEFAULT_SHAPE_VIEW_RADIUS;
-         shapeView.BackgroundColor = Color.Transparent;
+         shapeView.CornerRadius = (double)FormsConst.DEFAULT_SHAPE_VIEW_RADIUS;
+         shapeView.BackgroundColor = Color.White;
          shapeView.IsClippedToBounds = true;
          shapeView.HorizontalOptions = LayoutOptions.FillAndExpand;
          shapeView.VerticalOptions = LayoutOptions.FillAndExpand;
@@ -2634,7 +2628,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       {
          if (backColor.HasValue)
          {
-            retStyle.Setters.Add(new Setter { Property = ShapeView.ColorProperty, Value = backColor });
+            retStyle.Setters.Add(new Setter { Property = ShapeView.BackgroundColorProperty, Value = backColor });
          }
 
          if (cornerRadius.HasValue)

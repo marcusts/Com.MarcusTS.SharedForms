@@ -291,7 +291,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonCornerRadiusFixed),
-            FormsConst.DEFAULT_SHAPE_VIEW_RADIUS,
+            (double)FormsConst.DEFAULT_SHAPE_VIEW_RADIUS,
             BindingMode.OneWay,
             (
                viewButton,
@@ -1436,11 +1436,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
          else if (ButtonCornerRadiusFixed.HasValue)
          {
-            CornerRadius = Convert.ToSingle(ButtonCornerRadiusFixed);
+            CornerRadius = (double)ButtonCornerRadiusFixed;
          }
          else
          {
-            CornerRadius = Convert.ToSingle(FormsConst.DEFAULT_SHAPE_VIEW_RADIUS);
+            CornerRadius = (double)FormsConst.DEFAULT_SHAPE_VIEW_RADIUS;
          }
       }
 

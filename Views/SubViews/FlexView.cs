@@ -123,13 +123,14 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       }
 
       protected ITriStateImageLabelButton CreateButton(string text, Command command, int tabIndex, bool allowDisable,
-         Color?                                             textColor = default, Color? backColor = default)
+         Color?                                             textColor = default, double? fontSize = null, Color? backColor = default)
       {
-         ITriStateImageLabelButton button = SimpleImageLabelButton.CreateSimpleImageLabelButton
+         ITriStateImageLabelButton button = 
+            SimpleImageLabelButton.CreateSimpleImageLabelButton
             (
                text,
                textColor ?? Color.White,
-               NamedSize.Small.AdjustForOsAndDevice(),
+               fontSize ?? NamedSize.Small.AdjustForOsAndDevice(),
                BUTTON_WIDTH,
                BUTTON_HEIGHT,
                BindingContext,

@@ -95,10 +95,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public const double BORDER_VIEW_HEIGHT = 40;
 
       /// <summary>The default instructions height</summary>
-      public const double INSTRUCTIONS_HEIGHT = 25;
+      private const double INSTRUCTIONS_HEIGHT = 30;
+      public const double INSTRUCTIONS_HEIGHT_TO_BORDER_VIEW_HEIGHT_FACTOR = INSTRUCTIONS_HEIGHT / BORDER_VIEW_HEIGHT;
 
       /// <summary>The default placeholder height</summary>
-      public const double PLACEHOLDER_HEIGHT = 12;
+      private const double PLACEHOLDER_HEIGHT = 20;
+      public const double PLACEHOLDER_HEIGHT_TO_BORDER_VIEW_HEIGHT_FACTOR = PLACEHOLDER_HEIGHT / BORDER_VIEW_HEIGHT;
 
       /// <summary>The default border view border width</summary>
       private const float BORDER_VIEW_BORDER_WIDTH = 1;
@@ -110,7 +112,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private const double PLACEHOLDER_INSET = 8;
 
       private const double PLACEHOLDER_LABEL_SIDE_MARGIN = 6;
-      private const double VERTICAL_SLOP                 = 4;
+      private const double VERTICAL_SLOP                 = 6;
 
       /// <summary>The invalid border view style property</summary>
       public static readonly BindableProperty InvalidBorderViewStyleProperty =
@@ -220,15 +222,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private static readonly Color DEFAULT_BORDER_VIEW_BORDER_COLOR = Color.Black;
 
       /// <summary>The default instructions label font size</summary>
-      private static readonly double DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE =
-         Device.GetNamedSize(NamedSize.Micro, typeof(Label));
+      private static readonly double DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR = 0.5d;
 
       /// <summary>The default placeholder back color</summary>
       private static readonly Color DEFAULT_PLACEHOLDER_BACK_COLOR = Color.White;
 
       /// <summary>The default placeholder label font size</summary>
-      private static readonly double DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE =
-         Device.GetNamedSize(NamedSize.Micro, typeof(Label)) * 1.15;
+      private static readonly double DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR = 2 / 3d;
 
       /// <summary>The default placeholder text color</summary>
       private static readonly Color DEFAULT_PLACEHOLDER_TEXT_COLOR = Color.DimGray;
@@ -280,9 +280,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          object           converterParameter                 = null,
          string           fontFamilyOverride                 = "",
          string           instructions                       = "",
-         double?          instructionsHeight                 = INSTRUCTIONS_HEIGHT,
+         double?          instructionsHeight                 = null,
          string           placeholder                        = "",
-         double?          placeholderHeight                  = PLACEHOLDER_HEIGHT,
+         double?          placeholderHeight                  = null,
          bool             showInstructionsOrValidations      = false,
          bool             showValidationErrorsAsInstructions = true,
          string           stringFormat                       = null,
@@ -290,16 +290,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          string           viewModelPropertyName              = ""
       )
       {
-         FontFamilyOverride                  = fontFamilyOverride;
+         FontFamilyOverride                  = fontFamilyOverride ?? Font.SystemFontOfSize(1d).FontFamily;
          _bindableProperty                   = bindableProperty;
          _bindingMode                        = bindingMode;
          _borderViewHeight                   = borderViewHeight;
          _converter                          = converter;
          _converterParameter                 = converterParameter;
          _instructions                       = instructions;
-         _instructionsHeight                 = instructionsHeight;
+         _instructionsHeight                 = instructionsHeight ?? (borderViewHeight * INSTRUCTIONS_HEIGHT_TO_BORDER_VIEW_HEIGHT_FACTOR).GetValueOrDefault();
          _placeholder                        = placeholder;
-         _placeholderHeight                  = placeholderHeight.GetValueOrDefault();
+         _placeholderHeight = placeholderHeight ?? (borderViewHeight * PLACEHOLDER_HEIGHT_TO_BORDER_VIEW_HEIGHT_FACTOR).GetValueOrDefault();
          _showInstructionsOrValidations      = showInstructionsOrValidations;
          _showValidationErrorsAsInstructions = showValidationErrorsAsInstructions;
          _stringFormat                       = stringFormat;
@@ -530,7 +530,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             InstructionsLabel =
                FormsUtils.GetSimpleLabel(_instructions, fontFamilyOverride: FontFamilyOverride, textColor: Color.Red,
                   fontAttributes: FontAttributes.Italic | FontAttributes.Bold,
-                  fontSize: NamedSize.Micro.AdjustForOsAndDevice());
+                  fontSize: GetInstructionsFactoredFontSize());
             InstructionsLabel.HorizontalOptions = LayoutOptions.FillAndExpand;
             InstructionsLabel.VerticalOptions   = LayoutOptions.Start;
             InstructionsLabel.HeightRequest     = _instructionsHeight ?? INSTRUCTIONS_HEIGHT;
@@ -552,7 +552,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          if (_placeholder.IsNotEmpty())
          {
-            PlaceholderLabel = FormsUtils.GetSimpleLabel(_placeholder, fontFamilyOverride: FontFamilyOverride);
+            PlaceholderLabel = FormsUtils.GetSimpleLabel(_placeholder, fontFamilyOverride: FontFamilyOverride,
+               fontSize: GetPlaceholderFactoredFontSize());
 
 #if FADE_PLACEHOLDER
             // Hide initially
@@ -578,7 +579,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             _canvas.BackgroundColor = Color.Yellow;
 #endif
 
-            // CRITICAL -- the overla wll block input !!!
+            // CRITICAL -- the overlay will block input !!!
             _canvas.InputTransparent = true;
 
             // The exact position will be set once the border view gets its bounds (and whenever those bonds change)
@@ -637,6 +638,23 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   await ResetPlaceholderPosition().WithoutChangingContext();
                }
             };
+      }
+
+      private double GetFactoredFontSize(double factor)
+      {
+         return EditableView is Entry editableVVBiewAsEntry
+            ? editableVVBiewAsEntry.FontSize * factor
+            : Device.GetNamedSize(NamedSize.Small, typeof(Label));
+      }
+
+      private double GetPlaceholderFactoredFontSize()
+      {
+         return GetFactoredFontSize(DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR);
+      }
+
+      private double GetInstructionsFactoredFontSize()
+      {
+         return GetFactoredFontSize(DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR);
       }
 
       // WARNING: Async void
@@ -748,7 +766,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          return FormsUtils.CreateLabelStyle(
             FontFamilyOverride,
-            DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE,
+            GetInstructionsFactoredFontSize(),
             Color.Transparent,
             isValid ? VALID_TEXT_COLOR : INVALID_TEXT_COLOR,
             isValid ? VALID_FONT_ATTRIBUTES : INVALID_FONT_ATTRIBUTES
@@ -761,7 +779,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          return FormsUtils.CreateLabelStyle(
             FontFamilyOverride,
-            DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE,
+            GetPlaceholderFactoredFontSize(),
             DEFAULT_PLACEHOLDER_BACK_COLOR,
             DEFAULT_PLACEHOLDER_TEXT_COLOR
          );
@@ -795,7 +813,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          else
          {
             // The corner radius is always uniform in or examples so randomly picking top left
-            _lastValidBorderViewStyle = FormsUtils.CreateShapeViewStyle(BorderView.Color,
+            _lastValidBorderViewStyle = FormsUtils.CreateShapeViewStyle(BorderView.BackgroundColor,
                BorderView.CornerRadius.TopLeft, BorderView.BorderColor, BorderView.BorderThickness);
 
 #if SKIP_RESTORING_PLACEHOLDER
@@ -804,7 +822,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             if (PlaceholderLabel.IsNotNullOrDefault())
             {
                _lastValidPlaceholderStyle =
- FormsUtils.CreateLabelStyle(PlaceholderLabel.FontFamily, PlaceholderLabel.FontSize, PlaceholderLabel.BackgroundColor, PlaceholderLabel.TextColor);
+                   FormsUtils.CreateLabelStyle(PlaceholderLabel.FontFamily, PlaceholderLabel.FontSize, PlaceholderLabel.BackgroundColor, PlaceholderLabel.TextColor);
             }
 #endif
 

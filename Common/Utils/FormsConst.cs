@@ -6,7 +6,7 @@
    {
       public const string SPACE = " ";
 
-      public const float DEFAULT_SHAPE_VIEW_RADIUS = 6;
+      public const double DEFAULT_SHAPE_VIEW_RADIUS = 6;
 
       /// <summary>The haptic vibration milliseconds</summary>
       public const float HAPTIC_VIBRATION_MILLISECONDS = 250;

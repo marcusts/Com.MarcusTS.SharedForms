@@ -72,10 +72,10 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          string                   fontFamilyOverride                 = "",
          double?                  fontSize                           = null,
          string                   instructions                       = "",
-         double?                  instructionsHeight                 = INSTRUCTIONS_HEIGHT,
+         double?                  instructionsHeight                 = null,
          Action                   onIsValidChangedAction             = null,
          string                   placeholder                        = "",
-         double?                  placeholderHeight                  = PLACEHOLDER_HEIGHT,
+         double?                  placeholderHeight                  = null,
 
          // For returning strings as numeric
          bool                     returnAsNumeric                    = false,

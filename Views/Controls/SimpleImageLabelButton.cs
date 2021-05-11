@@ -399,29 +399,25 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          bool           includeHapticFeedback    = true
       )
       {
-         var newSimpleImageLabelButton = new SimpleImageLabelButton(widthRequest, heightRequest)
-         {
-            LabelText                = labelText,
-            LabelTextColor           = labelTextColor,
-            LabelFontSize            = labelFontSize,
-            WidthRequest             = widthRequest,
-            HeightRequest            = heightRequest,
+         var newSimpleImageLabelButton = 
+            new SimpleImageLabelButton(widthRequest, heightRequest, fontFamilyOverride)
+               {
+                  LabelText                = labelText,
+                  LabelTextColor           = labelTextColor,
+                  LabelFontSize            = labelFontSize,
+                  WidthRequest             = widthRequest,
+                  HeightRequest            = heightRequest,
             BindingContext           = bindingContext,
             ButtonBackColor          = buttonBackColor,
             ButtonBorderColor        = buttonBorderColor,
             HorizontalOptions        = horizontalOptions,
             VerticalOptions          = verticalOptions,
             ImageFilePath            = imageFilePath,
-            ButtonBorderWidth        = buttonBorderWidth,
-            LabelFontAttributes      = labelFontAttributes,
-            ButtonCornerRadiusFactor = cornerRadiusFactor,
-            ButtonCommandBindingName = buttonCommandBindingName
-         };
-
-         if (fontFamilyOverride.IsNotEmpty())
-         {
-            newSimpleImageLabelButton.ButtonLabel.FontFamily = fontFamilyOverride;
-         }
+                  ButtonBorderWidth        = buttonBorderWidth,
+                  LabelFontAttributes      = labelFontAttributes,
+                  ButtonCornerRadiusFactor = cornerRadiusFactor,
+                  ButtonCommandBindingName = buttonCommandBindingName
+               };
 
          if (newSimpleImageLabelButton.ButtonLabel != null)
          {
@@ -483,6 +479,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       private void ResetLabelStyle()
       {
+         // These might not be set yet
+         if (ButtonLabel.IsNotNullOrDefault())
+         {
+            ButtonLabel.Text = LabelText;
+            ButtonLabel.FontSize = LabelFontSize;
+            ButtonLabel.FontAttributes = LabelFontAttributes;
+            ButtonLabel.TextColor = LabelTextColor;
+         }
+
          LabelDeselectedStyle = CreateLabelStyle(LabelTextColor, LabelFontSize, LabelFontAttributes);
       }
    }

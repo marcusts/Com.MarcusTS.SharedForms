@@ -35,65 +35,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    public class ShapeView : PancakeView
    {
       /// <summary>
-      /// The color property
-      /// </summary>
-      public static readonly BindableProperty ColorProperty =
-         CreateValidatableViewBindableProperty
-         (
-            nameof(Color),
-            default(Color),
-            BindingMode.OneWay,
-            (view, oldVal, newVal) =>
-            {
-               view.BackgroundColor = newVal;
-               view.IsClippedToBounds = true;
-            }
-         );
-
-      /// <summary>
       /// Initializes a new instance of the <see cref="ShapeView" /> class.
       /// </summary>
       public ShapeView()
       {
-         Margin = 0;
-         Padding = 0;
-         //BackgroundColor = Color.Transparent;
-         //Color = Color.White;
+         Margin            = 0;
+         Padding           = 0;
+         IsClippedToBounds = true;
       }
 
       public new Color BorderColor => Border?.Color ?? default;
 
       public new float BorderThickness => Border?.Thickness ?? default;
-
-      /// <summary>
-      /// Gets or sets the color.
-      /// </summary>
-      /// <value>The color.</value>
-      public Color Color
-      {
-         get => (Color)GetValue(ColorProperty);
-
-         set => SetValue(ColorProperty, value);
-      }
-
-      /// <summary>
-      /// Creates the validatable view bindable property.
-      /// </summary>
-      /// <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
-      /// <param name="localPropName">Name of the local property.</param>
-      /// <param name="defaultVal">The default value.</param>
-      /// <param name="bindingMode">The binding mode.</param>
-      /// <param name="callbackAction">The callback action.</param>
-      /// <returns>BindableProperty.</returns>
-      public static BindableProperty CreateValidatableViewBindableProperty<PropertyTypeT>
-    (
-       string localPropName,
-       PropertyTypeT defaultVal = default,
-       BindingMode bindingMode = BindingMode.OneWay,
-       Action<ShapeView, PropertyTypeT, PropertyTypeT> callbackAction = null
-    )
-      {
-         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
-      }
    }
 }

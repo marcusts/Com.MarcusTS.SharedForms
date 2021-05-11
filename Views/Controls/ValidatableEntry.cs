@@ -73,11 +73,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          double?         entryFontSize                      = null,
          string          fontFamilyOverride                 = "",
          string          instructions                       = "",
-         double?         instructionsHeight                 = INSTRUCTIONS_HEIGHT,
+         double?         instructionsHeight                 = null,
          bool            isPassword                         = false,
          Keyboard        keyboard                           = null,
          string          placeholder                        = "",
-         double?         placeholderHeight                  = PLACEHOLDER_HEIGHT,
+         double?         placeholderHeight                  = null,
          bool            showInstructionsOrValidations      = false,
          bool            showValidationErrorsAsInstructions = true,
          string          stringFormat                       = null,
@@ -116,6 +116,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             EditableEntry.FontSize   = entryFontSize ?? Device.GetNamedSize(NamedSize.Small, typeof(Entry));
          }
 
+         // Scale the placeholder and instructions to the EditableEntry.FontSize
+
          CallCreateViews();
       }
 
@@ -144,6 +146,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   _showHideImage = FormsUtils.GetImage("", showHideImageWidthHeight, showHideImageWidthHeight,
                      Aspect.AspectFit, getFromResources: true, resourceClass: GetType());
                   _showHideImage.Margin = new Thickness(0, 0, 5, 0);
+                  _showHideImage.InputTransparent = false;
                   var tapGesture = new TapGestureRecognizer();
 
                   tapGesture.Tapped += (sender, args) => { IsPasswordShowing = !IsPasswordShowing; };
@@ -155,6 +158,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
                   editGrid.Children.Add(_showHideImage);
                   SetColumn(_showHideImage, 1);
+                  editGrid.RaiseChild(_showHideImage);
 
                   _editableViewContainer = editGrid;
                }

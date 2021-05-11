@@ -3429,7 +3429,7 @@
             <summary>Gets the shape view.</summary>
             <returns>ShapeView.</returns>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetSimpleLabel(System.String,Xamarin.Forms.Color,Xamarin.Forms.TextAlignment,Xamarin.Forms.NamedSize,System.Double,Xamarin.Forms.FontAttributes,System.Double,System.Double,System.String,System.Object,System.String,Xamarin.Forms.LineBreakMode,System.String)">
+        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetSimpleLabel(System.String,System.Nullable{Xamarin.Forms.Color},Xamarin.Forms.TextAlignment,Xamarin.Forms.NamedSize,System.Double,Xamarin.Forms.FontAttributes,System.Double,System.Double,System.String,System.Object,System.String,Xamarin.Forms.LineBreakMode,System.String)">
             <summary>Gets the simple label.</summary>
             <param name="labelText">The label text.</param>
             <param name="textColor">Color of the text.</param>
@@ -5317,32 +5317,10 @@
             </summary>
             <seealso cref="T:Xamarin.Forms.PancakeView.PancakeView" />
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.ColorProperty">
-            <summary>
-            The color property
-            </summary>
-        </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.ShapeView" /> class.
             </summary>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.Color">
-            <summary>
-            Gets or sets the color.
-            </summary>
-            <value>The color.</value>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ShapeView.CreateValidatableViewBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{Com.MarcusTS.SharedForms.Views.Controls.ShapeView,``0,``0})">
-            <summary>
-            Creates the validatable view bindable property.
-            </summary>
-            <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
-            <param name="localPropName">Name of the local property.</param>
-            <param name="defaultVal">The default value.</param>
-            <param name="bindingMode">The binding mode.</param>
-            <param name="callbackAction">The callback action.</param>
-            <returns>BindableProperty.</returns>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Views.Controls.ISimpleImageLabelButton">
             <summary>
@@ -5982,13 +5960,13 @@
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_BORDER_VIEW_BORDER_COLOR">
             <summary>The default border view border color</summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE">
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR">
             <summary>The default instructions label font size</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_PLACEHOLDER_BACK_COLOR">
             <summary>The default placeholder back color</summary>
         </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE">
+        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR">
             <summary>The default placeholder label font size</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_PLACEHOLDER_TEXT_COLOR">
