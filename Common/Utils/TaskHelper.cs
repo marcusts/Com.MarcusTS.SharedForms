@@ -114,7 +114,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                   }
                   else if (actionCallback.IsNotNullOrDefault())
                   {
-                     await MainThread.InvokeOnMainThreadAsync(() => { actionCallback?.Invoke(); });
+                     await MainThread.InvokeOnMainThreadAsync(() => { actionCallback?.Invoke(); }).WithoutChangingContext();
                   }
                }
             );

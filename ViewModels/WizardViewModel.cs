@@ -57,8 +57,8 @@ namespace Com.MarcusTS.SharedForms.ViewModels
    {
       public WizardViewModel()
       {
-         NextCommand   = new Command(async () => await RunFinalValidation(), () => ValidationHelper.PageIsValid);
-         CancelCommand = new Command(async () => await SetOutcome(Outcomes.Cancel));
+         NextCommand   = new Command(async () => await RunFinalValidation().WithoutChangingContext(), () => ValidationHelper.PageIsValid);
+         CancelCommand = new Command(async () => await SetOutcome(Outcomes.Cancel).WithoutChangingContext());
 
          ValidationHelper.PageIsValidChanged +=
             val => { VerifyCommandCanExecute(); };
@@ -85,18 +85,18 @@ namespace Com.MarcusTS.SharedForms.ViewModels
       {
          Outcome = outcome;
 
-         await OnOutcomeChanged.Invoke(this, NextState, CancelState);
+         await OnOutcomeChanged.Invoke(this, NextState, CancelState).WithoutChangingContext();
       }
 
       private async Task RunFinalValidation()
       {
          if (FinalValidation.IsNullOrDefault())
          {
-            await OnOutcomeChanged.Invoke(this, NextState, CancelState);
+            await OnOutcomeChanged.Invoke(this, NextState, CancelState).WithoutChangingContext();
          }
          else
          {
-            await FinalValidation.Invoke(this);
+            await FinalValidation.Invoke(this).WithoutChangingContext();
          }
       }
    }
