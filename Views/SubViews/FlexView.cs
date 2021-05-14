@@ -183,6 +183,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
 
          MasterLayoutAsView.SourceViews.Clear();
          MasterLayoutAsView.Children.Clear();
+         _allBehaviors.Clear();
 
          if (BindingContext.IsNullOrDefault())
          {
@@ -195,10 +196,18 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
 
          if (_viewModelAsValidator.IsNullOrDefault())
          {
-            ErrorUtils.ThrowArgumentError(nameof(FlexView) + ": " + nameof(OnBindingContextChanged) +
-               ": The binding context must implement " +
-               nameof(IHaveValidationViewModelHelper) + ".");
+            /*
+                       way too aggressive -- binding context can be temporarily set to some odd view model, ad then re-assigned.
+            
+                     ErrorUtils.ThrowArgumentError(nameof(FlexView) + ": " + nameof(OnBindingContextChanged) +
+                        ": The binding context must implement " +
+                        nameof(IHaveValidationViewModelHelper) + ".");
+                     */
+            
+            return;
          }
+         
+         // ELSE
 
          // Get the custom attributes from the view model
          var propInfoDict =
