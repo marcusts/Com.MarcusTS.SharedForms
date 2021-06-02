@@ -1,7 +1,7 @@
 ﻿#region License
 // Copyright (c) 2020  Marcus Technical Services, Inc. <marcus@marcusts.com>
 // 
-// This file, PasswordValidationBehavior.cs, is a part of a program called VDT.Mobile.
+// This file, PasswordEntryValidationBehavior.cs, is a part of a program called VDT.Mobile.
 // 
 // VDT.Mobile is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,21 +26,15 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 {
    using System;
    using System.Linq;
+using Com.MarcusTS.SharedForms.ViewModels;
    using SharedUtils.Utils;
    using Utils;
 
-   public interface IPasswordEntryValidationBehavior : IEntryValidationBehavior
+   public interface IPasswordEntryValidationBehavior : IEntryValidationBehavior, IPasswordProps
    {
-      int MinCapitalCharacterCount { get; set; }
-      int MinLowCaseCharacterCount { get; set; }
-      int MinCharacterCount { get; set; }
-      int MaxCharacterCount { get; set; }
-      int MinNumericCharacterCount { get; set; }
-      int MinSpecialCharacterCount { get; set; }
-      int MaxRepeatChars { get; set; }
    }
 
-   public class PasswordValidationBehavior : EntryValidationBehavior, IPasswordEntryValidationBehavior
+   public class PasswordEntryValidationBehavior : EntryValidationBehavior, IPasswordEntryValidationBehavior
    {
       private const int DEFAULT_MIN_CAPITAL_CHARACTER_COUNT = 1;
       private const int DEFAULT_MIN_LOW_CASE_CHARACTER_COUNT = 1;
@@ -51,7 +45,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       private const int DEFAULT_MAX_REPEAT_CHARS = 2;
       private const string VALIDATION_ERROR_PREFIX = "Please enter a password that has at least ";
 
-      public PasswordValidationBehavior(Action onIsValidChangedAction) : base(onIsValidChangedAction)
+      public PasswordEntryValidationBehavior(Action onIsValidChangedAction) : base(onIsValidChangedAction)
       {
       }
 

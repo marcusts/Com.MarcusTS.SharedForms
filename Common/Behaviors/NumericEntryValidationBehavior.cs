@@ -28,12 +28,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    using SharedUtils.Utils;
    using Utils;
    using ViewModels;
-   using Xamarin.Forms;
 
    public interface INumericEntryValidationBehavior : IEntryValidationBehavior, IHaveMinAndMaxNumbers
    {
-      int    CharsToRightOfDecimal { get; set; }
-      string StringFormat          { get; set; }
    }
 
    public class NumericEntryValidationBehavior : EntryValidationBehavior, INumericEntryValidationBehavior
@@ -48,7 +45,6 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       public double       MaxDecimalNumber      { get; set; }
       public double       MinDecimalNumber      { get; set; }
       public NumericTypes NumericType           { get; set; }
-      public string       StringFormat          { get; set; }
 
       public override string PrepareTextForEditing(string entryText, bool firstFocused = false)
       {

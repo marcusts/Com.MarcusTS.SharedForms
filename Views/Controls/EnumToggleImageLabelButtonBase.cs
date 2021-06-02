@@ -125,11 +125,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private static readonly Color DEFAULT_LABEL_TEXT_COLOR = Color.White;
 
       /// <summary>
-      ///    The default image suffix
-      /// </summary>
-      private const string DEFAULT_IMAGE_SUFFIX = ".png";
-
-      /// <summary>
       ///    The button back color property
       /// </summary>
       public static readonly BindableProperty ButtonBackColorProperty =
@@ -419,7 +414,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          string enumString
       )
       {
-         return enumString.ToLower() + DEFAULT_IMAGE_SUFFIX;
+         return enumString.ToLower() + FormsConst.DEFAULT_IMAGE_SUFFIX;
       }
 
       /// <summary>

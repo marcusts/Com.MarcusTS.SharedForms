@@ -6,8 +6,6 @@
    {
       public const string SPACE = " ";
 
-      public const double DEFAULT_SHAPE_VIEW_RADIUS = 6;
-
       /// <summary>The haptic vibration milliseconds</summary>
       public const float HAPTIC_VIBRATION_MILLISECONDS = 250;
 
@@ -35,14 +33,22 @@
       /// <summary>
       /// The default corner radius factor
       /// </summary>
-      public static float DEFAULT_CORNER_RADIUS_FACTOR = 0.12f;
+      public const float DEFAULT_CORNER_RADIUS_FACTOR = 0.04f;
       /// The default corner radius fixed
       /// </summary>
       public static float DEFAULT_CORNER_RADIUS_FIXED = 6;
+      public const double DEFAULT_SHAPE_VIEW_RADIUS = 6;
 
       /// <summary>
       /// The button radius factor
       /// </summary>
       public const double BUTTON_RADIUS_FACTOR = 0.15f;
+
+      public const double NEUTRAL_WIDTH_HEIGHT = -1;
+
+      /// <summary>
+      ///    The default image suffix
+      /// </summary>
+      public const string DEFAULT_IMAGE_SUFFIX = ".png";
    }
 }

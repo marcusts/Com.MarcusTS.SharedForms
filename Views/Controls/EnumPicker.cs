@@ -35,7 +35,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    public class EnumPicker : Picker, IEnumPicker
    {
-      public static BindableProperty CurrentEnumProperty = CreateEnumPickerBindableProperty
+      public static readonly BindableProperty CurrentEnumProperty = CreateEnumPickerBindableProperty
       (
          nameof(CurrentEnum),
          true,
@@ -55,7 +55,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          string   currentEnumStrBindingPropertyName,
          Behavior validator = null)
       {
-         // ErrorUtils.ConsiderArgumentError(enumType.IsEnum, nameof(EnumPicker) + ": Must supply an enum type.");
+         // ErrorUtils.IssueArgumentErrorIfTrue(enumType.IsEnum, nameof(EnumPicker) + ": Must supply an enum type.");
 
          _enumType = enumType;
 

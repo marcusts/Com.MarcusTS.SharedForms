@@ -1,35 +1,43 @@
-﻿// *********************************************************************** Assembly : Com.MarcusTS.SharedForms Author :
-// steph Created : 08-04-2019
-//
-// Last Modified By : steph Last Modified On : 08-08-2019
-// ***********************************************************************
-// <copyright file="ValidatableEntry.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
+﻿// *********************************************************************************
+// Copyright @2021 Marcus Technical Services, Inc.
+// <copyright
+// file=ValidatableEntry.cs
+// company="Marcus Technical Services, Inc.">
 // </copyright>
-// <summary></summary>
-
+// 
 // MIT License
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
-// Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// ***********************************************************************
+// #define SHOW_BACK_COLOR
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
+   using System;
+   using System.Runtime.CompilerServices;
+   using System.Threading.Tasks;
+   using Com.MarcusTS.SharedForms.ViewModels;
    using Common.Images;
-   using Common.Interfaces;
    using Common.Utils;
    using SharedUtils.Utils;
+   using Xamarin.Essentials;
    using Xamarin.Forms;
 
    /// <summary>
@@ -55,6 +63,25 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>The show password image</summary>
       private const string SHOW_PASSWORD_IMAGE = SharedImageUtils.IMAGE_PRE_PATH + "show_password.png";
 
+      protected static readonly Thickness DEFAULT_EDITABLE_ENTRY_MARGIN = new Thickness(8, 0, 4, 0);
+
+      public static readonly BindableProperty EditableEntryMarginProperty = 
+         CreateValidatableEntryBindableProperty
+            (
+               nameof(EditableEntryMargin),
+               DEFAULT_EDITABLE_ENTRY_MARGIN,
+               BindingMode.OneWay,
+               (
+                  view,
+                  oldVal,
+                  newVal
+               ) =>
+               {
+                  // Fore reconstruction
+                  view._editableEntry = default;
+               }
+            );
+
       private readonly bool     _canUnmaskPassword;
       private readonly bool     _isPassword;
       private readonly Keyboard _keyboard;
@@ -62,63 +89,42 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private          View     _editableViewContainer;
       private          bool     _isPasswordShowing;
       private          Image    _showHideImage;
+      private readonly double   _entryFontSize;
 
       public ValidatableEntry
       (
-         double?         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         bool            canUnmaskPassword                  = true,
-         BindingMode     bindingMode                        = BindingMode.TwoWay,
-         IValueConverter converter                          = null,
-         object          converterParameter                 = null,
-         double?         entryFontSize                      = null,
-         string          fontFamilyOverride                 = "",
-         string          instructions                       = "",
-         double?         instructionsHeight                 = null,
-         bool            isPassword                         = false,
-         Keyboard        keyboard                           = null,
-         string          placeholder                        = "",
-         double?         placeholderHeight                  = null,
-         bool            showInstructionsOrValidations      = false,
-         bool            showValidationErrorsAsInstructions = true,
-         string          stringFormat                       = null,
-         ICanBeValid     validator                          = null,
-         string          viewModelPropertyName              = ""
+         bool     canUnmaskPassword         = true,
+         double   editableEntryMarginBottom = 0,
+         double   editableEntryMarginLeft   = 0,
+         double   editableEntryMarginRight  = 0,
+         double   editableEntryMarginTop    = 0,
+         double?  entryFontSize             = null,
+         bool     isPassword                = false,
+         Keyboard keyboard                  = null,
+         bool asleepInitially = false
       )
-         : base
-         (
-            Entry.TextProperty,
-            borderViewHeight,
-            bindingMode,
-            converter,
-            converterParameter,
-            fontFamilyOverride,
-            instructions,
-            instructionsHeight,
-            placeholder,
-            placeholderHeight,
-            showInstructionsOrValidations,
-            showValidationErrorsAsInstructions,
-            stringFormat,
-            validator,
-            viewModelPropertyName
-         )
-
+         : base(Entry.TextProperty, asleepInitially: asleepInitially)
+         //   : base (default, asleepInitially:asleepInitially)
       {
          _keyboard          = keyboard;
          _isPassword        = isPassword;
          _canUnmaskPassword = canUnmaskPassword;
+         _entryFontSize      = entryFontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE;
+         EditableEntryMargin = new Thickness(editableEntryMarginLeft.GetUSetValueOrDefault(),
+                                             editableEntryMarginTop.GetUSetValueOrDefault(),
+                                             editableEntryMarginRight.GetUSetValueOrDefault(),
+                                             editableEntryMarginBottom.GetUSetValueOrDefault());
 
-         // The editable entry gets created too soon for these assignments to work, so repeating them here.
-         if (EditableEntry.IsNotNullOrDefault())
+         if (!IsConstructing)
          {
-            EditableEntry.Keyboard   = _keyboard;
-            EditableEntry.IsPassword = isPassword;
-            EditableEntry.FontSize   = entryFontSize ?? Device.GetNamedSize(NamedSize.Small, typeof(Entry));
+            RecreateAllViewsBindingsAndStyles();
          }
+      }
 
-         // Scale the placeholder and instructions to the EditableEntry.FontSize
-
-         CallCreateViews();
+      public Thickness EditableEntryMargin
+      {
+         get => (Thickness) GetValue(EditableEntryMarginProperty);
+         set => SetValue(EditableEntryMarginProperty, value);
       }
 
       protected override bool DerivedViewIsFocused => _showHideImage.IsNotNullOrDefault() && _showHideImage.IsFocused;
@@ -129,7 +135,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          get
          {
-            if (_editableViewContainer.IsNullOrDefault())
+            // CRITICAL BorderView must be created before the EditableViewContainer is referenced.
+            if (_editableViewContainer.IsNullOrDefault() && !IsConstructing && BorderView.IsNotNullOrDefault())
             {
                if (_isPassword && _canUnmaskPassword)
                {
@@ -145,15 +152,31 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
                   _showHideImage = FormsUtils.GetImage("", showHideImageWidthHeight, showHideImageWidthHeight,
                      Aspect.AspectFit, getFromResources: true, resourceClass: GetType());
-                  _showHideImage.Margin = new Thickness(0, 0, 5, 0);
+                  _showHideImage.Margin           = new Thickness(0, 0, 5, 0);
                   _showHideImage.InputTransparent = false;
                   var tapGesture = new TapGestureRecognizer();
 
-                  tapGesture.Tapped += (sender, args) => { IsPasswordShowing = !IsPasswordShowing; };
+                  tapGesture.Tapped += async (sender, args) =>
+                                       {
+                                          var cursorIdx = EditableEntry.CursorPosition;
+                                          
+                                          IsPasswordShowing = !IsPasswordShowing;
+
+                                          await Task.Delay(100).WithoutChangingContext();
+
+                                          MainThread.BeginInvokeOnMainThread(() =>
+                                                                             {
+                                                                                // Go back to editing
+                                                                                EditableEntry.Focus();
+                                                                                EditableEntry.CursorPosition = cursorIdx;
+                                                                             });
+                                       };
                   _showHideImage.GestureRecognizers.Add(tapGesture);
                   SetShowHideImageSource();
 
+                  _showHideImage.Focused   -= ReportGlobalFocusAndRaisePlaceholder;
                   _showHideImage.Focused   += ReportGlobalFocusAndRaisePlaceholder;
+                  _showHideImage.Unfocused -= ConsiderLoweringPlaceholder;
                   _showHideImage.Unfocused += ConsiderLoweringPlaceholder;
 
                   editGrid.Children.Add(_showHideImage);
@@ -202,26 +225,43 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          get
          {
-            if (_editableEntry.IsNullOrDefault())
+            if (_editableEntry.IsNullOrDefault() && !IsConstructing)
             {
                _editableEntry = new CustomEntry
                {
                   // Cannot use non-standard keyboards when there is a mask
-                  Keyboard          = _keyboard,
-                  IsEnabled         = true,
-                  IsReadOnly        = false,
-                  MaxLength         = int.MaxValue,
-                  IsPassword        = _isPassword,
-                  TextColor         = Color.Black,
-                  BackgroundColor   = Color.Transparent,
+                  Keyboard = _keyboard,
+                  
+#if SHOW_BACK_COLOR  
+                  BackgroundColor = Color.Yellow,
+#else                     
+                  BackgroundColor = Color.Transparent,
+#endif
+                  FontSize = _entryFontSize,
+                  IsEnabled = true,
+                  IsReadOnly = false,
+                  MaxLength = int.MaxValue,
+                  IsPassword = _isPassword,
+                  TextColor = Color.Black,
                   HorizontalOptions = LayoutOptions.FillAndExpand,
-                  VerticalOptions   = LayoutOptions.FillAndExpand,
-                  Margin            = DEFAULT_BORDER_VIEW_PADDING
+                  VerticalOptions = LayoutOptions.FillAndExpand,
+                  Margin = DEFAULT_EDITABLE_ENTRY_MARGIN
                };
             }
 
             return _editableEntry;
          }
+      }
+
+      public static BindableProperty CreateValidatableEntryBindableProperty<PropertyTypeT>
+      (
+         string                                                 localPropName,
+         PropertyTypeT                                          defaultVal     = default,
+         BindingMode                                            bindingMode    = BindingMode.OneWay,
+         Action<ValidatableEntry, PropertyTypeT, PropertyTypeT> callbackAction = null
+      )
+      {
+         return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
       }
 
       private void SetShowHideImageSource()

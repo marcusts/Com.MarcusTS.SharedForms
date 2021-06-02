@@ -1,6 +1,4 @@
-﻿// #define SHOW_BACK_COLOR
-
-namespace Com.MarcusTS.SharedForms.Views.SubViews
+﻿namespace Com.MarcusTS.SharedForms.Views.SubViews
 {
    using System.Collections.Generic;
    using System.Diagnostics;
@@ -14,13 +12,11 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
    using ViewModels;
    using Xamarin.Forms;
 
-   // No IStackLayout available
-   public interface IFlexView
+   public interface IFlexView // No IContentView is available
    {
       double               FontSize     { get; set; }
       double               ItemHeight   { get; set; }
       double               ItemWidth    { get; set; }
-      IAnimatedStackLayout MasterLayout { get; }
       double               StackPadding { get; set; }
       double               StackSpacing { get; set; }
    }
@@ -59,15 +55,6 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
             var scroller = FormsUtils.GetExpandingScrollView();
             scroller.BindingContext = BindingContext;
             scroller.Content        = MasterLayoutAsView;
-
-            //scroller.VerticalOptions   = LayoutOptions.Start;
-            //scroller.HorizontalOptions = LayoutOptions.FillAndExpand;
-
-#if SHOW_BACK_COLOR
-            scroller.BackgroundColor = Color.Cyan;
-            BackgroundColor          = Color.Orange;
-#endif
-
             Content = scroller;
          }
          else
@@ -76,12 +63,6 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          }
 
          MasterLayoutAsView.BindingContext = BindingContext;
-
-         //VerticalOptions   = LayoutOptions.Start;
-         //HorizontalOptions = LayoutOptions.FillAndExpand;
-
-         //Content.VerticalOptions   = LayoutOptions.Start;
-         //Content.HorizontalOptions = LayoutOptions.FillAndExpand;
       }
 
       // Convenience only
@@ -101,7 +82,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          set
          {
             _stackPadding              = value;
-            MasterLayoutAsView.Padding = StackSpacing;
+            MasterLayoutAsView.Padding = _stackPadding;
             OnPropertyChanged();
          }
       }
@@ -112,7 +93,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          set
          {
             _stackSpacing              = value;
-            MasterLayoutAsView.Spacing = StackSpacing;
+            MasterLayoutAsView.Spacing = _stackSpacing;
             OnPropertyChanged();
          }
       }
@@ -171,7 +152,7 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
                ItemHeight,
                ItemWidth,
                FontSize,
-               _nextTabIndex
+               ref _nextTabIndex
             );
 
          return (result.Item1, result.Item2);
@@ -264,7 +245,8 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          // Critical to bubble validations up to the view model and commands
          _viewModelAsValidator?.ValidationHelper.AddBehaviors(_allBehaviors.ToArray());
 
-         TaskHelper.RunParallel(AfterSourceViewsLoaded(), actionCallback: MasterLayout.AnimateIn);
+         // TODO use the newer flex view with tasks when it is available
+         AfterSourceViewsLoaded().RunParallel(actionCallback: MasterLayout.AnimateIn);
       }
    }
 }

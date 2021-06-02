@@ -109,7 +109,9 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
       public static bool DefaultValidator(IViewValidationBehavior behavior, object o)
       {
-         return behavior.EmptyAllowed || (!behavior.IsNumeric && o.IsNotNullOrDefault()) || behavior.IsNumeric && IsANumberGreaterThanZero(o);
+         return behavior.EmptyAllowed || 
+                ((o is string) && o.ToString().IsNotEmpty()) ||
+                (!(o is string) && ((!behavior.IsNumeric && o.IsNotNullOrDefault()) || (behavior.IsNumeric  && IsANumberGreaterThanZero(o))));
       }
 
       private static bool IsANumberGreaterThanZero(object o)
@@ -160,6 +162,8 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       )
       {
          IsFocused = false;
+         
+         Revalidate();
       }
 
       public bool IsNumeric { get; set; }

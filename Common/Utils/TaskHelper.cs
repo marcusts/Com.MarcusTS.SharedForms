@@ -95,7 +95,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="actionCallback">The action callback.</param>
       public static void RunParallel
       (
-         Task   task,
+         this Task   task,
          Task   taskCallback   = default,
          Action actionCallback = default
       )

@@ -27,7 +27,6 @@
 namespace Com.MarcusTS.SharedForms.Common.Notifications
 {
    using Acr.UserDialogs;
-   using Com.MarcusTS.SharedForms.Common.Utils;
    using Com.MarcusTS.SharedUtils.Utils;
    using System;
    using System.Threading.Tasks;
@@ -149,9 +148,9 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
       (
          string toastStr,
          string actionText           = "OK",
-         Color  backgroundColor      = default,
-         Color  messageTextColor     = default,
-         Color  actionTextColor      = default,
+         Color? backgroundColor      = default,
+         Color? messageTextColor     = default,
+         Color? actionTextColor      = default,
          bool   useTimeout           = true,
          int    toastDissolveSeconds = TOAST_DISSOLVE_SECONDS,
          Action action               = null
@@ -165,14 +164,12 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
          var newConfig =
             new ToastConfig(toastStr).SetMessageTextColor
             (
-               messageTextColor.IsUnsetOrDefault()
-                  ? Color.White
-                  : messageTextColor
+               messageTextColor ?? Color.White
             );
 
-         if (backgroundColor.IsValid())
+         if (backgroundColor.HasValue)
          {
-            newConfig.SetBackgroundColor(backgroundColor);
+            newConfig.SetBackgroundColor(backgroundColor.Value);
          }
 
          newConfig.SetDuration(
@@ -191,7 +188,7 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
             if (actionText.IsNotEmpty())
             {
                newAction.SetText(actionText);
-               newAction.SetTextColor(actionTextColor.IsAnEqualObjectTo(default(Color)) ? Color.White : actionTextColor);
+               newAction.SetTextColor(actionTextColor ?? Color.White);
             }
 
             newConfig.SetAction(newAction);

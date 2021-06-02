@@ -1,7 +1,33 @@
-﻿
+﻿// *********************************************************************************
+// Copyright @2021 Marcus Technical Services, Inc.
+// <copyright
+// file=ValidatableSlider.cs
+// company="Marcus Technical Services, Inc.">
+// </copyright>
+// 
+// MIT License
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
+
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using Common.Interfaces;
    using Common.Utils;
    using SharedUtils.Utils;
    using Xamarin.Forms;
@@ -14,10 +40,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
    public class ValidatableSlider : ValidatableViewBase, IValidatableSlider
    {
-      private const double MARGIN_SIDE   = 5;
-      private const double SLIDER_HEIGHT = 20;
-      private const double REMARKS_HEIGHT = 20;
-
+      private const    double         MARGIN_SIDE    = 5;
+      private const    double         REMARKS_HEIGHT = 20;
+      private const    double         SLIDER_HEIGHT  = 20;
       private readonly string         _endingRemarks;
       private readonly Color          _maxColor;
       private readonly double         _maxValue;
@@ -35,75 +60,48 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
       public ValidatableSlider
       (
-         string          endingRemarks,
-         Color?          maxColor,
-         double          maxValue,
-         Color?          minColor,
-         double          minValue,
-         FontAttributes  remarksFontAttributes,
-         double?         remarksFontSize,
-         Color?          remarksTextColor,
-         Color?          sliderColor,
-         string          startingRemarks,
-         double          step,
-         Color?          thumbColor,
-         double?         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode     bindingMode                        = BindingMode.TwoWay,
-         IValueConverter converter                          = null,
-         object          converterParameter                 = null,
-         string          fontFamilyOverride                 = "",
-         string          instructions                       = "",
-         double?         instructionsHeight                 = null,
-         string          placeholder                        = "",
-         double?         placeholderHeight                  = null,
-         bool            showInstructionsOrValidations      = false,
-         bool            showValidationErrorsAsInstructions = true,
-         string          stringFormat                       = null,
-         ICanBeValid     validator                          = null,
-         string          viewModelPropertyName              = ""
+         string         endingRemarks,
+         Color?         maxColor,
+         double         maxValue,
+         Color?         minColor,
+         double         minValue,
+         FontAttributes remarksFontAttributes,
+         double?        remarksFontSize,
+         Color?         remarksTextColor,
+         Color?         sliderColor,
+         string         startingRemarks,
+         double         step,
+         Color?         thumbColor,
+         bool           asleepInitially = false
       )
-         : base
-         (
-            Slider.ValueProperty,
-            borderViewHeight,
-            bindingMode,
-            converter,
-            converterParameter,
-            fontFamilyOverride,
-            instructions,
-            instructionsHeight,
-            placeholder,
-            placeholderHeight,
-            showInstructionsOrValidations,
-            showValidationErrorsAsInstructions,
-            stringFormat,
-            validator,
-            viewModelPropertyName
-         )
+      : base(Slider.ValueProperty, asleepInitially: asleepInitially)
       {
-         ErrorUtils.ConsiderArgumentError(!maxValue.IsGreaterThan(minValue),
-                                          nameof(ValidatableSlider) +
-                                          ": The minimum values must be less than the maximum value");
+         ErrorUtils.IssueArgumentErrorIfTrue(!maxValue.IsGreaterThan(minValue),
+            nameof(ValidatableSlider) +
+            ": The minimum values must be less than the maximum value");
 
          // Counter-intuitive
-         _maxColor              = maxColor ?? Color.Green;
+         _maxColor = maxColor ?? Color.Green;
 
          _endingRemarks         = endingRemarks;
          _maxValue              = maxValue;
          _minValue              = minValue;
          _remarksFontAttributes = remarksFontAttributes;
-         _remarksFontSize       = remarksFontSize  ?? Device.GetNamedSize(NamedSize.Small, typeof(Label));
+         _remarksFontSize       = remarksFontSize ?? Device.GetNamedSize(NamedSize.Small, typeof(Label));
          _remarksTextColor      = remarksTextColor ?? Color.DimGray;
 
          // Counter-intuitive
-         _minColor              = minColor         ?? Color.Red;
+         _minColor = minColor ?? Color.Red;
 
-         _sliderColor           = sliderColor      ?? Color.Gray;
-         _startingRemarks       = startingRemarks;
-         _step                  = step;
-         _thumbColor            = thumbColor ?? Color.Black;
+         _sliderColor     = sliderColor ?? Color.Gray;
+         _startingRemarks = startingRemarks;
+         _step            = step;
+         _thumbColor      = thumbColor ?? Color.Black;
 
-         CallCreateViews();
+         if (!IsConstructing)
+         {
+            RecreateAllViewsBindingsAndStyles();
+         }
       }
 
       protected override bool DerivedViewIsFocused => false;
@@ -131,7 +129,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   ThumbColor        = _thumbColor,
                   HorizontalOptions = LayoutOptions.FillAndExpand,
                   VerticalOptions   = LayoutOptions.End,
-                  Margin = new Thickness(-7.5, 0)
+                  Margin            = new Thickness(-7.5, 0)
                };
 
                //_editableSlider.BindingContextChanged +=

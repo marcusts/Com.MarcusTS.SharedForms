@@ -1617,13 +1617,7 @@
             <summary>Gets or sets the compare entry.</summary>
             <value>The compare entry.</value>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.ComparisonEntryValidatorBehavior.CompareEntryOnPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
-            <summary>Compares the entry on property changed.</summary>
-            <param name="sender">The sender.</param>
-            <param name="propertyChangedEventArgs">
-               The <see cref="T:System.ComponentModel.PropertyChangedEventArgs" /> instance containing the event data.
-            </param>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Com.MarcusTS.SharedForms.Common.Behaviors.ComparisonEntryValidatorBehavior.CompareEntryOnPropertyChanged(System.Object,Xamarin.Forms.TextChangedEventArgs)" -->
         <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.ComparisonEntryValidatorBehavior.ValidateCompareEntry(Com.MarcusTS.SharedForms.Common.Behaviors.IEntryValidationBehavior,System.String)">
             <summary>Validates the compare entry.</summary>
             <param name="behavior">The behavior.</param>
@@ -1657,7 +1651,7 @@
             We can only evaluate the unmasked text (otherwise all of our tests fail).
             </remarks>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.PasswordValidationBehavior.IsWholeEntryValid(Com.MarcusTS.SharedForms.Common.Behaviors.IEntryValidationBehavior,System.String)">
+        <member name="M:Com.MarcusTS.SharedForms.Common.Behaviors.PasswordEntryValidationBehavior.IsWholeEntryValid(Com.MarcusTS.SharedForms.Common.Behaviors.IEntryValidationBehavior,System.String)">
             <summary>
             Determines whether [is whole entry valid] [the specified behavior].
             </summary>
@@ -2605,7 +2599,7 @@
             <param name="useTimeout">Whether to remove the toast after a timeout.  Defaults to *true*.</param>
             <param name="action">The action to take if the user taps the toast.</param>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Notifications.DialogFactory.ShowToastInternal(System.String,System.String,Xamarin.Forms.Color,Xamarin.Forms.Color,Xamarin.Forms.Color,System.Boolean,System.Int32,System.Action)">
+        <member name="M:Com.MarcusTS.SharedForms.Common.Notifications.DialogFactory.ShowToastInternal(System.String,System.String,System.Nullable{Xamarin.Forms.Color},System.Nullable{Xamarin.Forms.Color},System.Nullable{Xamarin.Forms.Color},System.Boolean,System.Int32,System.Action)">
             <summary>
                Can call directly.
             </summary>
@@ -2998,208 +2992,133 @@
             The button radius factor
             </summary>
         </member>
+        <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DEFAULT_IMAGE_SUFFIX">
+            <summary>
+               The default image suffix
+            </summary>
+        </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils">
             <summary>Class FormsUtils.</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OffScreenPositions">
-            <summary>
-               Enum OffScreenPositions
-            </summary>
+            <summary>Enum OffScreenPositions</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OffScreenPositions.NONE">
-            <summary>
-               The none
-            </summary>
+            <summary>The none</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OffScreenPositions.LEFT">
-            <summary>
-               The left
-            </summary>
+            <summary>The left</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OffScreenPositions.TOP">
-            <summary>
-               The top
-            </summary>
+            <summary>The top</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OffScreenPositions.RIGHT">
-            <summary>
-               The right
-            </summary>
+            <summary>The right</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OffScreenPositions.BOTTOM">
-            <summary>
-               The bottom
-            </summary>
+            <summary>The bottom</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions">
-            <summary>
-               Enum OnScreenPositions
-            </summary>
+            <summary>Enum OnScreenPositions</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.NONE">
-            <summary>
-               The none
-            </summary>
+            <summary>The none</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.LEFT_CENTER">
-            <summary>
-               The left center
-            </summary>
+            <summary>The left center</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.TOP_LEFT">
-            <summary>
-               The top left
-            </summary>
+            <summary>The top left</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.TOP_CENTER">
-            <summary>
-               The top center
-            </summary>
+            <summary>The top center</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.TOP_RIGHT">
-            <summary>
-               The top right
-            </summary>
+            <summary>The top right</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.RIGHT_CENTER">
-            <summary>
-               The right center
-            </summary>
+            <summary>The right center</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.BOTTOM_LEFT">
-            <summary>
-               The bottom left
-            </summary>
+            <summary>The bottom left</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.BOTTOM_CENTER">
-            <summary>
-               The bottom center
-            </summary>
+            <summary>The bottom center</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.BOTTOM_RIGHT">
-            <summary>
-               The bottom right
-            </summary>
+            <summary>The bottom right</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions.CENTER">
-            <summary>
-               The center
-            </summary>
+            <summary>The center</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageHeaderPositions">
-            <summary>
-               Enum StageHeaderPositions
-            </summary>
+            <summary>Enum StageHeaderPositions</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageHeaderPositions.NONE">
-            <summary>
-               The none
-            </summary>
+            <summary>The none</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageHeaderPositions.TOP">
-            <summary>
-               The top
-            </summary>
+            <summary>The top</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions">
-            <summary>
-               Enum StageToolbarPositions
-            </summary>
+            <summary>Enum StageToolbarPositions</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions.NONE">
-            <summary>
-               The none
-            </summary>
+            <summary>The none</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions.BOTTOM">
-            <summary>
-               The bottom
-            </summary>
+            <summary>The bottom</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions.LEFT">
-            <summary>
-               The left
-            </summary>
+            <summary>The left</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions.TOP">
-            <summary>
-               The top
-            </summary>
+            <summary>The top</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions.RIGHT">
-            <summary>
-               The right
-            </summary>
+            <summary>The right</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.SubStageFlowDirections">
-            <summary>
-               Enum SubStageFlowDirections
-            </summary>
+            <summary>Enum SubStageFlowDirections</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.SubStageFlowDirections.LEFT_TO_RIGHT">
-            <summary>
-               The left to right
-            </summary>
+            <summary>The left to right</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.SubStageFlowDirections.RIGHT_TO_LEFT">
-            <summary>
-               The right to left
-            </summary>
+            <summary>The right to left</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.SubStageFlowDirections.TOP_TO_BOTTOM">
-            <summary>
-               The top to bottom
-            </summary>
+            <summary>The top to bottom</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.SubStageFlowDirections.BOTTOM_TO_TOP">
-            <summary>
-               The bottom to top
-            </summary>
+            <summary>The bottom to top</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ViewAlignments">
-            <summary>
-               Enum ViewAlignments
-            </summary>
+            <summary>Enum ViewAlignments</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ViewAlignments.START">
-            <summary>
-               The start
-            </summary>
+            <summary>The start</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ViewAlignments.MIDDLE">
-            <summary>
-               The middle
-            </summary>
+            <summary>The middle</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ViewAlignments.END">
-            <summary>
-               The end
-            </summary>
+            <summary>The end</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ViewAlignments.JUSTIFY">
-            <summary>
-               The justify
-            </summary>
+            <summary>The justify</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IOS_TOP_MARGIN">
-            <summary>
-               The ios top margin
-            </summary>
+            <summary>The ios top margin</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.NOT_VISIBLE_OPACITY">
-            <summary>
-               The not visible opacity
-            </summary>
+            <summary>The not visible opacity</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.VISIBLE_OPACITY">
-            <summary>
-               The visible opacity
-            </summary>
+            <summary>The visible opacity</summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.MAX_EXPIRATION_YEARS">
-            <summary>
-               The maximum expiration years
-            </summary>
+            <summary>The maximum expiration years</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.AddAnimationAndHapticFeedback(Xamarin.Forms.View,System.Boolean,System.Boolean)">
             <summary>Adds the animation and haptic feedback.</summary>
@@ -3237,9 +3156,7 @@
             <param name="factor">The factor.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.AdjustedForScreenHeightBug(System.Single)">
-            <summary>
-               Adjusteds for screen height bug.
-            </summary>
+            <summary>Adjusts for screen height b u g.</summary>
             <param name="originalHeight">Height of the original.</param>
             <returns>System.Single.</returns>
         </member>
@@ -3251,9 +3168,7 @@
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.AssignInternalDateTimeProperties(Xamarin.Forms.DatePicker,System.Double,System.Double,System.Int32)">
-            <summary>
-               Assigns the internal date time properties.
-            </summary>
+            <summary>Assigns the internal date time properties.</summary>
             <param name="picker">The picker.</param>
             <param name="itemHeight">Height of the item.</param>
             <param name="fontSize">Size of the font.</param>
@@ -3261,9 +3176,7 @@
             <returns>System.Int32.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.AssignInternalPickerProperties(Xamarin.Forms.Picker,System.Double,System.Double,System.Int32)">
-            <summary>
-               Assigns the internal picker properties.
-            </summary>
+            <summary>Assigns the internal picker properties.</summary>
             <param name="picker">The picker.</param>
             <param name="itemHeight">Height of the item.</param>
             <param name="fontSize">Size of the font.</param>
@@ -3271,9 +3184,7 @@
             <returns>System.Int32.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.AssignInternalViewProperties(Xamarin.Forms.View,System.Double,System.Int32)">
-            <summary>
-               Assigns the internal view properties.
-            </summary>
+            <summary>Assigns the internal view properties.</summary>
             <param name="view">The view.</param>
             <param name="itemHeight">Height of the item.</param>
             <param name="nextTabIndex">Index of the next tab.</param>
@@ -3285,25 +3196,19 @@
             <returns>System.Double.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ChooseEntryValidator(System.Type,Com.MarcusTS.SharedForms.ViewModels.ValidationTypes,System.Action)">
-            <remarks>
-               This only returns entry validators for the AllText case.
-            </remarks>
+            <remarks>This only returns entry validators for the AllText case.</remarks>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ClearCompletely(Xamarin.Forms.Grid)">
             <summary>Clears the completely.</summary>
             <param name="grid">The grid.</param>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.CompressedDate(System.DateTime)">
-            <summary>
-               Compresses the date.
-            </summary>
+            <summary>Compresses the date.</summary>
             <param name="dt">The dt.</param>
             <returns>System.String.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.CreateOffScreenRect(Xamarin.Forms.Size,System.Double,System.Double,Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OffScreenPositions,System.Boolean,System.Double)">
-            <summary>
-               Creates the off screen rect.
-            </summary>
+            <summary>Creates the off screen rect.</summary>
             <param name="parentViewSize">Size of the parent view.</param>
             <param name="width">The width.</param>
             <param name="height">The height.</param>
@@ -3314,10 +3219,9 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.CreateOnScreenRect(Xamarin.Forms.Size,System.Double,System.Double,Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions,Xamarin.Forms.Thickness,System.Boolean,System.Double)">
             <summary>
-               Creates an on-screen rectangle for the current control based on its width, height and position.
-               If forceLongSize==true, either the width or height are set to the maximum screen width or height, depending on the
-               position.
-               forceLongSize *only* works with basic positions --
+               Creates an on-screen rectangle for the current control based on its width, height and position. If
+               forceLongSize==true, either the width or height are set to the maximum screen width or height, depending on
+               the position. forceLongSize *only* works with basic positions --
                - LEFT_CENTER
                - TOP_CENTER
                - RIGHT_CENTER
@@ -3333,9 +3237,7 @@
             <returns>Rectangle.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.CreateOnScreenRectWithForcedSide(Xamarin.Forms.Size,System.Double,Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.OnScreenPositions,Xamarin.Forms.Thickness,System.Double)">
-            <summary>
-               Creates the on screen rect with forced side.
-            </summary>
+            <summary>Creates the on screen rect with forced side.</summary>
             <param name="parentViewSize">Size of the parent view.</param>
             <param name="widthHeight">Height of the width.</param>
             <param name="position">The position.</param>
@@ -3344,9 +3246,7 @@
             <returns>Rectangle.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.CreateShapeViewStyle(System.Nullable{Xamarin.Forms.Color},System.Nullable{System.Double},System.Nullable{Xamarin.Forms.Color},System.Nullable{System.Double})">
-            <summary>
-            Creates the shape view style.
-            </summary>
+            <summary>Creates the shape view style.</summary>
             <param name="backColor">Color of the back.</param>
             <param name="cornerRadius">The corner radius.</param>
             <param name="borderColor">Color of the border.</param>
@@ -3354,9 +3254,7 @@
             <returns>Style.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.CreateTasks(System.Threading.Tasks.Task[])">
-            <summary>
-               Creates the tasks.
-            </summary>
+            <summary>Creates the tasks.</summary>
             <param name="tasks">The tasks.</param>
             <returns>Task[].</returns>
         </member>
@@ -3368,14 +3266,10 @@
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.EstimateHeight(Xamarin.Forms.Label,System.Double)">
-            <remarks>
-               This is rough and inductive.
-            </remarks>
+            <remarks>This is rough and inductive.</remarks>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.FadeOut(Xamarin.Forms.View,System.UInt32,Xamarin.Forms.Easing)">
-            <summary>
-               Fades the out.
-            </summary>
+            <summary>Fades the out.</summary>
             <param name="view">The view.</param>
             <param name="fadeMilliseconds"></param>
             <param name="easing"></param>
@@ -3404,7 +3298,7 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetExpandingStackLayout">
             <summary>Gets the expanding stack layout.</summary>
-            <returns>StackLayout.</returns>
+            <returns>the Stack Layout.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetImage(System.String,System.Nullable{System.Double},System.Nullable{System.Double},Xamarin.Forms.Aspect,System.Nullable{Xamarin.Forms.LayoutOptions},System.Nullable{Xamarin.Forms.LayoutOptions},System.Nullable{Xamarin.Forms.Thickness},System.Boolean,System.Type)">
             <summary>Gets the image.</summary>
@@ -3420,9 +3314,7 @@
             <returns>Image.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetMarginForRuntimePlatform">
-            <summary>
-               Gets the margin for runtime platform.
-            </summary>
+            <summary>Gets the margin for runtime platform.</summary>
             <returns>Thickness.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetShapeView">
@@ -3452,15 +3344,11 @@
             <returns>BoxView.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetStartingYForRuntimePlatform">
-            <summary>
-               Gets the starting y for runtime platform.
-            </summary>
+            <summary>Gets the starting y for runtime platform.</summary>
             <returns>System.Single.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.HaveBecomeInvalid(Xamarin.Forms.Rectangle,System.String,Xamarin.Forms.Rectangle)">
-            <summary>
-               The bounds have become *invalid* (not changed necessarily) in relation to the last known bounds.
-            </summary>
+            <summary>The bounds have become *invalid* (not changed necessarily) in relation to the last known bounds.</summary>
             <param name="bounds">The bounds.</param>
             <param name="propName">Name of the property.</param>
             <param name="lastBounds">The last bounds.</param>
@@ -3486,9 +3374,7 @@
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsBoundsRelatedPropertyChange(System.String)">
             <summary>Determines whether [is bounds related property change] [the specified property name].</summary>
             <param name="propName">Name of the property.</param>
-            <returns>
-               <c>true</c> if [is bounds related property change] [the specified property name]; otherwise, <c>false</c>.
-            </returns>
+            <returns><c>true</c> if [is bounds related property change] [the specified property name]; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsDifferentThan(Xamarin.Forms.Color,Xamarin.Forms.Color)">
             <summary>Determines whether [is different than] [the specified second color].</summary>
@@ -3530,15 +3416,11 @@
             <returns><c>true</c> if the specified main rect is empty; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsIos">
-            <summary>
-               Determines whether this instance is ios.
-            </summary>
+            <summary>Determines whether this instance is ios.</summary>
             <returns><c>true</c> if this instance is ios; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsIOS">
-            <summary>
-               Determines whether this instance is ios.
-            </summary>
+            <summary>Determines whether this instance is ios.</summary>
             <returns><c>true</c> if this instance is ios; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsNotEmpty(Xamarin.Forms.Size)">
@@ -3562,9 +3444,7 @@
             <returns><c>true</c> if [is not valid] [the specified bounds]; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsNotVisible(Xamarin.Forms.View)">
-            <summary>
-               Determines whether [is not visible] [the specified view].
-            </summary>
+            <summary>Determines whether [is not visible] [the specified view].</summary>
             <param name="view">The view.</param>
             <returns><c>true</c> if [is not visible] [the specified view]; otherwise, <c>false</c>.</returns>
         </member>
@@ -3586,20 +3466,10 @@
             <param name="otherRect">The other rect.</param>
             <returns><c>true</c> if [is same as] [the specified other rect]; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsUnsetOrDefault(Xamarin.Forms.Color)">
-            <summary>Determines whether [is unset or default] [the specified color].</summary>
-            <param name="color">The color.</param>
-            <returns><c>true</c> if [is unset or default] [the specified color]; otherwise, <c>false</c>.</returns>
-        </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsValid(Xamarin.Forms.Rectangle)">
             <summary>Returns true if ... is valid.</summary>
             <param name="bounds">The bounds.</param>
             <returns><c>true</c> if the specified bounds is valid; otherwise, <c>false</c>.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsValid(Xamarin.Forms.Color)">
-            <summary>Returns true if ... is valid.</summary>
-            <param name="color">The color.</param>
-            <returns><c>true</c> if the specified color is valid; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.MergeStyle``1(Xamarin.Forms.Style,Xamarin.Forms.Style)">
             <summary>Merges the style.</summary>
@@ -3609,23 +3479,17 @@
             <returns>Style.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.PresentableDate(System.DateTime)">
-            <summary>
-               Presentables the date.
-            </summary>
+            <summary>Presentables the date.</summary>
             <param name="dt">The dt.</param>
             <returns>System.String.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.PresentableDollarAmount(System.Double)">
-            <summary>
-               Presentables the dollar amount.
-            </summary>
+            <summary>Presentables the dollar amount.</summary>
             <param name="dollars">The dollars.</param>
             <returns>System.String.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.PresentableWholeLongInt(System.Int64)">
-            <summary>
-               Presentables the whole long int.
-            </summary>
+            <summary>Presentables the whole long int.</summary>
             <param name="lng">The LNG.</param>
             <returns>System.String.</returns>
         </member>
@@ -3636,67 +3500,48 @@
             <returns>EnumT.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ToOffScreenPosition(Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions)">
-            <summary>
-               Converts to off screen position.
-            </summary>
+            <summary>Converts to off screen position.</summary>
             <param name="stageToolbarPosition">The stage toolbar position.</param>
             <returns>OffScreenPositions.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ToOffScreenPosition(Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.SubStageFlowDirections)">
-            <summary>
-            </summary>
+            <summary></summary>
             <param name="flowDirection"></param>
             <returns></returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ToOnScreenPosition(Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.StageToolbarPositions)">
-            <summary>
-               Converts to on-screen position.
-            </summary>
+            <summary>Converts to on-screen position.</summary>
             <param name="stageToolbarPosition">The stage toolbar position.</param>
             <returns>OnScreenPositions.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ToOptions(Xamarin.Forms.LayoutAlignment)">
-            <summary>
-               Converts to options.
-            </summary>
+            <summary>Converts to options.</summary>
             <param name="alignment">The alignment.</param>
             <returns>LayoutOptions.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ToTitleCase(System.String)">
-            <summary>
-               Use the current thread's culture info for conversion
-            </summary>
+            <summary>Use the current thread's culture info for conversion</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ToTitleCase(System.String,System.String)">
-            <summary>
-               Overload which uses the culture info with the specified name
-            </summary>
+            <summary>Overload which uses the culture info with the specified name</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ToTitleCase(System.String,System.Globalization.CultureInfo)">
-            <summary>
-               Overload which uses the specified culture info
-            </summary>
+            <summary>Overload which uses the specified culture info</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.ValidatorFromView(Xamarin.Forms.View)">
-            <summary>
-            
-            </summary>
+            <summary></summary>
             <param name="view"></param>
             <returns></returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetForcedHeight(System.Double,System.Boolean,Xamarin.Forms.Size)">
-            <summary>
-               Gets the height of the forced.
-            </summary>
+            <summary>Gets the height of the forced.</summary>
             <param name="height">The height.</param>
             <param name="forceLongSize">if set to <c>true</c> [force long size].</param>
             <param name="currentSize">Size of the current.</param>
             <returns>System.Double.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.GetForcedWidth(System.Double,System.Boolean,Xamarin.Forms.Size)">
-            <summary>
-               Gets the width of the forced.
-            </summary>
+            <summary>Gets the width of the forced.</summary>
             <param name="width">The width.</param>
             <param name="forceLongSize">if set to <c>true</c> [force long size].</param>
             <param name="currentSize">Size of the current.</param>
@@ -4423,11 +4268,6 @@
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_LABEL_TEXT_COLOR">
             <summary>
                The default label text color
-            </summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.DEFAULT_IMAGE_SUFFIX">
-            <summary>
-               The default image suffix
             </summary>
         </member>
         <member name="F:Com.MarcusTS.SharedForms.Views.Controls.EnumToggleImageLabelButtonBase`1.ButtonBackColorProperty">
@@ -5879,159 +5719,13 @@
             <seealso cref="T:Xamarin.Forms.Grid" />
             <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.IValidatablePicker" />
         </member>
-        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView">
-            <summary>
-               Interface IValidatableView Implements the <see cref="T:System.ComponentModel.INotifyPropertyChanged" />
-            </summary>
-            <seealso cref="T:System.ComponentModel.INotifyPropertyChanged" />
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView.BorderView">
-            <summary>Gets the border view.</summary>
-            <value>The border view.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView.InvalidBorderViewStyle">
-            <summary>Gets or sets the invalid border view style.</summary>
-            <value>The invalid border view style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView.InvalidInstructionsStyle">
-            <summary>Gets or sets the invalid instructions style.</summary>
-            <value>The invalid instructions style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView.InvalidPlaceholderStyle">
-            <summary>Gets or sets the invalid placeholder style.</summary>
-            <value>The invalid placeholder style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView.ValidBorderViewStyle">
-            <summary>Gets or sets the valid border view style.</summary>
-            <value>The valid border view style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView.ValidInstructionsStyle">
-            <summary>Gets or sets the valid instructions style.</summary>
-            <value>The valid instructions style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView.ValidPlaceholderStyle">
-            <summary>Gets or sets the valid placeholder style.</summary>
-            <value>The valid placeholder style.</value>
-        </member>
-        <member name="T:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase">
-            <summary>
-               A UI element that includes an Entry surrounded by a border. Implements the <see cref="T:Xamarin.Forms.Grid" />
-               Implements the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
-            </summary>
-            <seealso cref="T:Xamarin.Forms.Grid" />
-            <seealso cref="T:Com.MarcusTS.SharedForms.Views.Controls.IValidatableView" />
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.BORDER_VIEW_HEIGHT">
-            <summary>The default border view height</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.INSTRUCTIONS_HEIGHT">
-            <summary>The default instructions height</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.PLACEHOLDER_HEIGHT">
-            <summary>The default placeholder height</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.BORDER_VIEW_BORDER_WIDTH">
-            <summary>The default border view border width</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.GRID_SINGLE_PADDING">
-            <summary>The default grid single padding</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.PLACEHOLDER_INSET">
-            <summary>The placeholder inset</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.InvalidBorderViewStyleProperty">
-            <summary>The invalid border view style property</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.InvalidInstructionsStyleProperty">
-            <summary>The invalid instructions style property</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.InvalidPlaceholderStyleProperty">
-            <summary>The invalid placeholder style property</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ValidBorderViewStyleProperty">
-            <summary>The valid border view style property</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ValidInstructionsStyleProperty">
-            <summary>The valid instructions style property</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ValidPlaceholderStyleProperty">
-            <summary>The valid placeholder style property</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_BORDER_VIEW_BORDER_COLOR">
-            <summary>The default border view border color</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR">
-            <summary>The default instructions label font size</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_PLACEHOLDER_BACK_COLOR">
-            <summary>The default placeholder back color</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR">
-            <summary>The default placeholder label font size</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.DEFAULT_PLACEHOLDER_TEXT_COLOR">
-            <summary>The default placeholder text color</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.INVALID_FONT_ATTRIBUTES">
-            <summary>The invalid font attributes</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.INVALID_TEXT_COLOR">
-            <summary>The invalid text color</summary>
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.VALID_FONT_ATTRIBUTES">
-            <summary>The valid font attributes</summary>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.FontFamilyOverride">
-            <summary>The font family override</summary>
-        </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.BorderView">
             <summary>Gets the border view.</summary>
             <value>The border view.</value>
         </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CurrentInstructions">
-            <summary>Gets or sets the current instructions.</summary>
-            <value>The current instructions.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.InstructionsLabel">
-            <summary>Gets the instructions label.</summary>
-            <value>The instructions label.</value>
-        </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.InvalidBorderViewStyle">
             <summary>Gets or sets the invalid border view style.</summary>
             <value>The invalid border view style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.InvalidInstructionsStyle">
-            <summary>Gets or sets the invalid instructions style.</summary>
-            <value>The invalid instructions style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.InvalidPlaceholderStyle">
-            <summary>Gets or sets the invalid placeholder style.</summary>
-            <value>The invalid placeholder style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.PlaceholderLabel">
-            <summary>Gets the placeholder label.</summary>
-            <value>The placeholder label.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ValidBorderViewStyle">
-            <summary>Gets or sets the valid border view style.</summary>
-            <value>The valid border view style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ValidInstructionsStyle">
-            <summary>Gets or sets the valid instructions style.</summary>
-            <value>The valid instructions style.</value>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ValidPlaceholderStyle">
-            <summary>Gets or sets the valid placeholder style.</summary>
-            <value>The valid placeholder style.</value>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateValidatableViewBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase,``0,``0})">
-            <summary>Creates the validatable entry bindable property.</summary>
-            <typeparam name="PropertyTypeT">The type of the property type t.</typeparam>
-            <param name="localPropName">Name of the local property.</param>
-            <param name="defaultVal">The default value.</param>
-            <param name="bindingMode">The binding mode.</param>
-            <param name="callbackAction">The callback action.</param>
-            <returns>BindableProperty.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ConsiderLoweringPlaceholder(System.Object,Xamarin.Forms.FocusEventArgs)">
             <summary>Considers the lowering placeholder.</summary>
@@ -6040,9 +5734,7 @@
             <remarks>TODO Cannot avoid async void -- event handler.</remarks>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateViews">
-            <summary>
-               Creates the views.
-            </summary>
+            <summary>Creates the views.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ReportGlobalFocusAndRaisePlaceholder(System.Object,Xamarin.Forms.FocusEventArgs)">
             <summary>Raises the placeholder.</summary>
@@ -6053,37 +5745,8 @@
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ResetPlaceholderPosition">
             <summary>Resets the placeholder position.</summary>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ResetStyles">
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ReapplyStyles">
             <summary>Resets the styles.</summary>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateDefaultBorderViewStyle">
-            <summary>Creates the default border view style.</summary>
-            <returns>Style.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateDefaultInvalidInstructionsStyle">
-            <summary>Creates the default invalid instructions style.</summary>
-            <returns>Style.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateDefaultInvalidPlaceholderStyle">
-            <summary>Creates the default invalid placeholder style.</summary>
-            <returns>Style.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateDefaultValidInstructionsStyle">
-            <summary>Creates the default valid instructions style.</summary>
-            <returns>Style.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateDefaultValidPlaceholderStyle">
-            <summary>Creates the default valid placeholder style.</summary>
-            <returns>Style.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateInstructionsStyle(System.Boolean)">
-            <summary>Creates the instructions style.</summary>
-            <param name="isValid">if set to <c>true</c> [is valid].</param>
-            <returns>Style.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreatePlaceholderStyle">
-            <summary>Creates the placeholder style.</summary>
-            <returns>Style.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.HandleIsValidChanged(System.Nullable{System.Boolean})">
             <summary>Handles the is valid changed.</summary>
@@ -6259,10 +5922,7 @@
             <returns>View.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.AnimatedStackLayout.AnimateIn">
-            <summary>
-               Void because iOS objects to this being run as a task inside of Task.Run.
-               NOTE the async inside of MainThread.BeginInvokeOnMainThread.
-            </summary>
+            <summary>Void because iOS objects to this being run as a task inside of Task.Run.</summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Views.SubViews.FlexView">
             <summary>

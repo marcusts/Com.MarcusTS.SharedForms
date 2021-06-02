@@ -1,5 +1,30 @@
-﻿
-#define LOAD_BACKWARDS
+﻿// *********************************************************************************
+// Copyright @2021 Marcus Technical Services, Inc.
+// <copyright
+// file=AnimatedStackLayout.cs
+// company="Marcus Technical Services, Inc.">
+// </copyright>
+// 
+// MIT License
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
 
 namespace Com.MarcusTS.SharedForms.Views.SubViews
 {
@@ -11,52 +36,108 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
 
    public interface IAnimatedStackLayout
    {
-      int         AnimateInDelayMilliseconds { get; }
-      IList<View> SourceViews                { get; set; }
+      int         AnimateInDelayMilliseconds        { get; set; }
+      bool        AskChildrenToAnimateIn            { get; set; }
+      bool        LoadForwards                      { get; set; }
+      bool        LoadOnceOnlyUnlessChildrenChanged { get; set; }
+      IList<View> SourceViews                       { get; set; }
+      double      ViewSpacing                       { get; set; }
 
       void AnimateIn();
    }
 
    public class AnimatedStackLayout : StackLayout, IAnimatedStackLayout
    {
-      private const int DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS = 25;
+      private const int                 DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS = 25;
+      private static readonly Thickness DEFAULT_STACK_LAYOUT_MARGIN           = new Thickness(10.0.AdjustForOsAndDevice());
+      private static readonly double    DEFAULT_STACK_LAYOUT_SPACING          = 10.0.AdjustForOsAndDevice();
+      private bool                      _animateInEntered;
+      private bool                      _hasAnimatedOnce;
 
       public AnimatedStackLayout()
       {
-         this.SetViewDefaults();
-         Orientation = StackOrientation.Vertical;
-         Margin      = new Thickness(20.0.AdjustForOsAndDevice());
+         this.SetDefaults();
+         Margin  = DEFAULT_STACK_LAYOUT_MARGIN;
+         Spacing = DEFAULT_STACK_LAYOUT_SPACING;
       }
 
-      public int         AnimateInDelayMilliseconds { get; }      = DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS;
-      public IList<View> SourceViews                { get; set; } = new List<View>();
+      public int AnimateInDelayMilliseconds { get; set; } = DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS;
 
-      /// <summary>
-      ///    Void because iOS objects to this being run as a task inside of Task.Run.
-      ///    NOTE the async inside of MainThread.BeginInvokeOnMainThread.
-      /// </summary>
+      public bool AskChildrenToAnimateIn { get; set; }
+
+      public bool LoadForwards { get; set; }
+
+      public bool LoadOnceOnlyUnlessChildrenChanged { get; set; }
+
+      public IList<View> SourceViews { get; set; } = new List<View>();
+
+      public double ViewSpacing { get; set; } = DEFAULT_STACK_LAYOUT_SPACING;
+
+      /// <summary>Void because iOS objects to this being run as a task inside of Task.Run.</summary>
       public void AnimateIn()
       {
-         Children.Clear();
-
-         if (SourceViews.IsAnEmptyList())
+         if (_animateInEntered || _hasAnimatedOnce && LoadOnceOnlyUnlessChildrenChanged)
          {
             return;
          }
 
-#if LOAD_BACKWARDS
-         // Insert backwards at position 0; creates a cheap-thrills animation.
-         foreach (var view in SourceViews.Reverse().ToArray())
+         _animateInEntered = true;
+
+         try
          {
-            Children.Insert(0, view);
+            Children.Clear();
+            _hasAnimatedOnce = true;
+
+            if (SourceViews.IsAnEmptyList())
+            {
+               return;
+            }
+
+            if (LoadForwards)
+            {
+               // Insert backwards at position 0; creates a cheap-thrills animation.
+               foreach (var view in SourceViews.ToArray())
+               {
+                  Children.Add(view);
+                  ConsiderChildAnimation(view);
+               }
+            }
+            else
+            {
+               // Insert backwards at position 0; creates a cheap-thrills animation.
+               foreach (var view in SourceViews.Reverse().ToArray())
+               {
+                  Children.Insert(0, view);
+                  ConsiderChildAnimation(view);
+               }
+            }
          }
-#else
-         // Insert backwards at position 0; creates a cheap-thrills animation.
-         foreach (var view in SourceViews.ToArray())
+         finally
          {
-            Children.Add(view);
+            _animateInEntered = false;
          }
-#endif
+      }
+
+      protected override void OnAdded(View view)
+      {
+         base.OnAdded(view);
+
+         _hasAnimatedOnce = false;
+      }
+
+      protected override void OnRemoved(View view)
+      {
+         base.OnRemoved(view);
+
+         _hasAnimatedOnce = false;
+      }
+
+      private void ConsiderChildAnimation(View view)
+      {
+         if (AskChildrenToAnimateIn && view is IAnimatedStackLayout viewAsAnimatedStackLayout)
+         {
+            viewAsAnimatedStackLayout.AnimateIn();
+         }
       }
    }
 }

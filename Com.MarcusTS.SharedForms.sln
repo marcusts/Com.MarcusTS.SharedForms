@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.136
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Com.MarcusTS.SharedForms", "Com.MarcusTS.SharedForms.csproj", "{E8F465AC-6ECF-4EBE-A6AB-5F3675AD87FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedForms", "SharedForms.csproj", "{D0055C35-A119-428E-AAC1-BD7059F6B129}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E8F465AC-6ECF-4EBE-A6AB-5F3675AD87FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8F465AC-6ECF-4EBE-A6AB-5F3675AD87FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8F465AC-6ECF-4EBE-A6AB-5F3675AD87FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8F465AC-6ECF-4EBE-A6AB-5F3675AD87FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0055C35-A119-428E-AAC1-BD7059F6B129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0055C35-A119-428E-AAC1-BD7059F6B129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0055C35-A119-428E-AAC1-BD7059F6B129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0055C35-A119-428E-AAC1-BD7059F6B129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

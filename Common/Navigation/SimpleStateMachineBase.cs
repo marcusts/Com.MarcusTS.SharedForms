@@ -27,6 +27,7 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
    using System.Collections.Generic;
    using System.Threading.Tasks;
    using Utils;
+   using Xamarin.Essentials;
    using Xamarin.Forms;
 
    /// <summary>

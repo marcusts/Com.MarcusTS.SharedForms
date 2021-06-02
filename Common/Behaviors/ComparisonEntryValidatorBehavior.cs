@@ -25,13 +25,18 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    using SharedUtils.Utils;
    using Xamarin.Forms;
 
+   public interface IComparisonEntryValidatorBehavior : IEntryValidationBehavior
+   {
+      Entry CompareEntry { get; set; }
+   }
+
    /// <summary>
    ///    Can pass in an illegal character filter. Also, to be valid, the two strings *must* match. Implements the
    ///    <see
    ///       cref="EntryValidationBehavior" />
    /// </summary>
    /// <seealso cref="EntryValidationBehavior" />
-   public class ComparisonEntryValidatorBehavior : EntryValidationBehavior
+   public class ComparisonEntryValidatorBehavior : EntryValidationBehavior, IComparisonEntryValidatorBehavior
    {
       /// <summary>The compare entry</summary>
       private Entry _compareEntry;
@@ -63,27 +68,28 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          {
             if (_compareEntry != null)
             {
-               _compareEntry.PropertyChanged -= CompareEntryOnPropertyChanged;
+               // _compareEntry.PropertyChanged -= CompareEntryOnPropertyChanged;
+               _compareEntry.TextChanged -= CompareEntryOnPropertyChanged;
             }
 
             _compareEntry = value;
 
             if (_compareEntry != null)
             {
-               _compareEntry.PropertyChanged += CompareEntryOnPropertyChanged;
+               _compareEntry.TextChanged += CompareEntryOnPropertyChanged;
             }
          }
       }
 
       /// <summary>Compares the entry on property changed.</summary>
       /// <param name="sender">The sender.</param>
-      /// <param name="propertyChangedEventArgs">
-      ///    The <see cref="PropertyChangedEventArgs" /> instance containing the event data.
+      /// <param name="textChangedEventArgs"></param>
+      /// The <see cref="PropertyChangedEventArgs" /> instance containing the event data.
       /// </param>
       private void CompareEntryOnPropertyChanged
       (
-         object                   sender,
-         PropertyChangedEventArgs propertyChangedEventArgs
+         object               sender,
+         TextChangedEventArgs textChangedEventArgs
       )
       {
          Revalidate();

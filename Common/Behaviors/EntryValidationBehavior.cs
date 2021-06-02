@@ -65,7 +65,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
       public event EventUtils.GenericDelegate<bool?> IsValidChanged;
 
-      public bool DoNotForceMaskInitially { get; set; }
+      public int DoNotForceMaskInitially { get; set; }
       public string ExcludedChars { get; set; }
       public bool IsFocused { get; private set; }
 
@@ -122,19 +122,20 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          }
       }
 
-      public int MaxLength { get; set; }
-      public int MinLength { get; set; }
-      public string OriginalText { get; set; }
-      public bool TextMustChange { get; set; }
-      public string UnmaskedText { get; private set; }
+      public int             MaxLength      { get; set; }
+      public int             MinLength      { get; set; }
+      public string          StringFormat   { get; set; }
+      public string          OriginalText   { get; set; }
+      public bool            TextMustChange { get; set; }
+      public string          UnmaskedText   { get; private set; }
       public ValidationTypes ValidationType { get; set; }
 
       public static bool MinAnMaxLengthValidator(IEntryValidationBehavior behavior, string currentText)
       {
          return
-            (behavior.MinLength == 0 || currentText.IsNotEmpty() && currentText.Length >= behavior.MinLength)
+            (behavior.MinLength <= 0 || currentText.IsNotEmpty() && currentText.Length >= behavior.MinLength)
           &&
-            (behavior.MaxLength == 0 || currentText.IsNotEmpty() && currentText.Length <= behavior.MaxLength);
+            (behavior.MaxLength <= 0 || currentText.IsNotEmpty() && currentText.Length <= Math.Max(behavior.MaxLength, behavior.MinLength));
       }
 
       public virtual string PrepareTextForEditing(string entryText, bool firstFocused = false)
@@ -245,7 +246,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
          _entry = entry;
 
-         if (!DoNotForceMaskInitially)
+         if (DoNotForceMaskInitially.IsFalse())
          {
             ValidateText(_entry.Text, _entry.Text);
          }

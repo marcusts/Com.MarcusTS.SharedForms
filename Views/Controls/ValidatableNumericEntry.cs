@@ -1,28 +1,30 @@
-﻿// *********************************************************************** Assembly : Com.MarcusTS.SharedForms Author :
-// steph Created : 08-04-2019
-//
-// Last Modified By : steph Last Modified On : 08-08-2019
-// ***********************************************************************
-// <copyright file="ValidatableNumericEntry.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
+﻿// *********************************************************************************
+// Copyright @2021 Marcus Technical Services, Inc.
+// <copyright
+// file=ValidatableNumericEntry.cs
+// company="Marcus Technical Services, Inc.">
 // </copyright>
-// <summary></summary>
-
+// 
 // MIT License
-
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
-// Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// ***********************************************************************
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -32,7 +34,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    using Common.Interfaces;
    using SharedUtils.Utils;
    using ViewModels;
-   using Xamarin.Forms;
+using Xamarin.Forms;
 
    public interface IValidatableNumericEntry : IValidatableEntry
    {
@@ -42,54 +44,30 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    {
       private readonly ICanBeValid _validator;
 
-      public ValidatableNumericEntry
-      (
-         double?                         borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode                     bindingMode                        = BindingMode.TwoWay,
-         double? entryFontSize = null,
-         string                          fontFamilyOverride                 = "",
-         string                          instructions                       = "",
-         double?                         instructionsHeight                 = null,
-         Keyboard                        keyboard                           = null,
-         string                          placeholder                        = "",
-         double?                         placeholderHeight                  = null,
-         bool                            showInstructionsOrValidations      = false,
-         bool                            showValidationErrorsAsInstructions = true,
-         string                          stringFormat                       = null,
-         INumericEntryValidationBehavior validator                          = null,
-         string                          viewModelPropertyName              = ""
+      public ValidatableNumericEntry(
+         double?                         entryFontSize, 
+         string                          stringFormat, 
+         INumericEntryValidationBehavior validator, 
+         Keyboard                        keyboard = default, 
+         bool asleepInitially = false
       )
-         : base
-         (
-            borderViewHeight,
-            false,
-            bindingMode,
-            new StringToNumericConverter
-            {
-               // ConvertBackFunc = NumericConverterFromNumericType(validator),
-               StringFormat = stringFormat,
-               ValidationType = validator.IsNotNullOrDefault()
-                                   ? validator.ValidationType
-                                   : ValidationTypes.DecimalNumber
-            },
-            null,
-            entryFontSize,
-            fontFamilyOverride,
-            instructions,
-            instructionsHeight,
-            false,
-            keyboard,
-            placeholder,
-            placeholderHeight,
-            showInstructionsOrValidations,
-            showValidationErrorsAsInstructions,
-            stringFormat,
-            validator,
-            viewModelPropertyName
-         )
-
+      : base (entryFontSize: entryFontSize, keyboard:keyboard, asleepInitially:asleepInitially)
       {
          _validator = validator;
+
+         Converter =
+            new StringToNumericConverter
+            {
+               StringFormat = stringFormat,
+               ValidationType = validator.IsNotNullOrDefault()
+                  ? validator.ValidationType
+                  : ValidationTypes.DecimalNumber
+            };
+
+         if (!IsConstructing)
+         {
+            RecreateAllViewsBindingsAndStyles();
+         }
       }
 
       protected override bool DerivedViewIsFocused => false;
@@ -134,79 +112,79 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private static Func<string, object> DoubleFunc(string valueEntered)
       {
          return str =>
-                {
-                   if (valueEntered.IsNotEmpty() && double.TryParse(valueEntered, out var valueAsDouble))
-                   {
-                      return valueAsDouble;
-                   }
+         {
+            if (valueEntered.IsNotEmpty() && double.TryParse(valueEntered, out var valueAsDouble))
+            {
+               return valueAsDouble;
+            }
 
-                   return null;
-                };
+            return null;
+         };
       }
 
       private static Func<string, object> IntFunc(string valueEntered)
       {
          return str =>
-                {
-                   if (valueEntered.IsNotEmpty() && int.TryParse(valueEntered, out var valueAsInt))
-                   {
-                      return valueAsInt;
-                   }
+         {
+            if (valueEntered.IsNotEmpty() && int.TryParse(valueEntered, out var valueAsInt))
+            {
+               return valueAsInt;
+            }
 
-                   return null;
-                };
+            return null;
+         };
       }
 
       private static Func<string, object> LongFunc(string valueEntered)
       {
          return str =>
-                {
-                   if (valueEntered.IsNotEmpty() && long.TryParse(valueEntered, out var valueAsLong))
-                   {
-                      return valueAsLong;
-                   }
+         {
+            if (valueEntered.IsNotEmpty() && long.TryParse(valueEntered, out var valueAsLong))
+            {
+               return valueAsLong;
+            }
 
-                   return null;
-                };
+            return null;
+         };
       }
 
       private static Func<string, object> NullableDoubleFunc(string valueEntered)
       {
          return str =>
-                {
-                   if (valueEntered.IsNotEmpty() && double.TryParse(valueEntered, out var valueAsDouble))
-                   {
-                      return valueAsDouble as double?;
-                   }
+         {
+            if (valueEntered.IsNotEmpty() && double.TryParse(valueEntered, out var valueAsDouble))
+            {
+               return valueAsDouble as double?;
+            }
 
-                   return null;
-                };
+            return null;
+         };
       }
 
       private static Func<string, object> NullableIntFunc(string valueEntered)
       {
          return str =>
-                {
-                   if (valueEntered.IsNotEmpty() && int.TryParse(valueEntered, out var valueAsInt))
-                   {
-                      return valueAsInt as int?;
-                   }
+         {
+            if (valueEntered.IsNotEmpty() && int.TryParse(valueEntered, out var valueAsInt))
+            {
+               return valueAsInt as int?;
+            }
 
-                   return null;
-                };
+            return null;
+         };
       }
 
       private static Func<string, object> NullableLongFunc(string valueEntered)
       {
          return str =>
-                {
-                   if (valueEntered.IsNotEmpty() && long.TryParse(valueEntered, out var valueAsLong))
-                   {
-                      return valueAsLong as long?;
-                   }
+         {
+            if (valueEntered.IsNotEmpty() && long.TryParse(valueEntered, out var valueAsLong))
+            {
+               return valueAsLong as long?;
+            }
 
-                   return null;
-                };
+            return null;
+         };
       }
    }
 }

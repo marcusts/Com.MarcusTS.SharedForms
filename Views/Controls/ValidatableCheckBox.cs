@@ -1,30 +1,44 @@
-﻿// *********************************************************************** Assembly : Com.MarcusTS.SharedForms Author :
-// steph Created : 08-04-2019
-//
-// Last Modified By : steph Last Modified On : 08-08-2019
-// ***********************************************************************
-// <copyright file="ValidatableCheckBox.cs" company="Marcus Technical Services, Inc.">
-//     Copyright @2019 Marcus Technical Services, Inc.
+﻿// *********************************************************************************
+// Copyright @2021 Marcus Technical Services, Inc.
+// <copyright
+// file=ValidatableCheckBox.cs
+// company="Marcus Technical Services, Inc.">
 // </copyright>
-// <summary></summary>
+// 
+// MIT License
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// *********************************************************************************
 
 // MIT License
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 // documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the following conditions:
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
-// Software.
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// ***********************************************************************
-
-// #define USE_BACK_COLOR
+// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+// OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. ***********************************************************************
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -32,6 +46,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    using Common.Behaviors;
    using Common.Interfaces;
    using SharedUtils.Utils;
+using Xamarin.Essentials;
    using Xamarin.Forms;
 
    /// <summary>
@@ -51,66 +66,33 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    /// <seealso cref="Com.MarcusTS.SharedForms.Views.Controls.IValidatableCheckBox" />
    public class ValidatableCheckBox : ValidatableViewBase, IValidatableCheckBox
    {
-      private          CustomCheckBox  _editableCheckBox;
+      private CustomCheckBox _editableCheckBox;
 
-      public ValidatableCheckBox
-      (
-         double?                  borderViewHeight                   = BORDER_VIEW_HEIGHT,
-         BindingMode              bindingMode                        = BindingMode.TwoWay,
-         IValueConverter          converter                          = null,
-         object                   converterParameter                 = null,
-         string                   fontFamilyOverride                 = "",
-         string                   instructions                       = "",
-         double?                  instructionsHeight                 = null,
-         Action                   onIsValidChangedAction             = null,
-         string                   placeholder                        = "",
-         double?                  placeholderHeight                  = null,
-         bool                     showInstructionsOrValidations      = false,
-         bool                     showValidationErrorsAsInstructions = true,
-         string                   stringFormat                       = null,
-         ICanBeValid              validator                          = null,
-         string                   viewModelPropertyName              = ""
+      public ValidatableCheckBox(
+         ICanBeValid validator              = default, 
+         Action      onIsValidChangedAction = default,
+         bool        asleepInitially        = false
       )
          : base
+         (
+            CustomCheckBox.IsCheckedProperty,
+            validator
+            ??
+            new ViewValidationBehavior
             (
-               CustomCheckBox.IsCheckedProperty,
-               borderViewHeight,
-               bindingMode,
-               converter,
-               converterParameter,
-               fontFamilyOverride,
-               instructions,
-               instructionsHeight,
-               placeholder,
-               placeholderHeight,
-               showInstructionsOrValidations,
-               showValidationErrorsAsInstructions,
-               stringFormat,
-               validator
-               ??
-                  new ViewValidationBehavior
-                  (
-                     view => view is IValidatableCheckBox viewAsValidatableCheckBox && viewAsValidatableCheckBox.EditableCheckBox.IsNotNullOrDefault()
-                                ?
-                                viewAsValidatableCheckBox.EditableCheckBox.IsChecked
-                                :
-                                default,
-                     onIsValidChangedAction
-                  ),
-               viewModelPropertyName
-            )
+               view => view is IValidatableCheckBox viewAsValidatableCheckBox &&
+                  viewAsValidatableCheckBox.EditableCheckBox.IsNotNullOrDefault()
+                     ? viewAsValidatableCheckBox.EditableCheckBox.IsChecked
+                     : default,
+               onIsValidChangedAction
+            ),
+            asleepInitially
+         )
       {
-         CallCreateViews();
-      }
-
-      private static object NullableLongFunc(string valueEntered)
-      {
-         if (valueEntered.IsNotEmpty() && long.TryParse(valueEntered, out var valueAsLong))
+         if (!IsConstructing)
          {
-            return valueAsLong as long?;
+            RecreateAllViewsBindingsAndStyles();
          }
-
-         return default(long?);
       }
 
       protected override bool DerivedViewIsFocused => false;
@@ -130,43 +112,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             {
                _editableCheckBox = new CustomCheckBox { BackgroundColor = Color.Transparent, Margin = 7.5 };
 
-               _editableCheckBox.PropertyChanged +=
+               _editableCheckBox.IsCheckedChanged +=
                   (sender, args) =>
                   {
-                     if (args.PropertyName.IsSameAs(CustomCheckBox.IsCheckedProperty.PropertyName))
-                     {
-                        CallRevalidate();
-                     }
+                     CallRevalidate();
+
+                     //MainThread.BeginInvokeOnMainThread(() =>
+                     //                                   {
+                     //                                      _editableCheckBox.Unfocus();
+                     //                                   });
                   };
             }
 
             return _editableCheckBox;
          }
       }
-
-      //private class StringToNumericConverter : IValueConverter
-      //{
-      //   public static readonly StringToNumericConverter StringToNumericConverter_Static = new StringToNumericConverter();
-
-      //   public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-      //   {
-      //      if (parameter is Func<string, object>  parameterAsFunc)
-      //      {
-      //         return parameterAsFunc(value.IsNullOrDefault() ? "" : value.ToString());
-      //      }
-
-      //      return default;
-      //   }
-
-      //   public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-      //   {
-      //      if (value.IsNullOrDefault())
-      //      {
-      //         return "";
-      //      }
-
-      //      return value.ToString();
-      //   }
-      //}
    }
 }
