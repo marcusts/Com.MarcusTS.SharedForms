@@ -41,18 +41,22 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
       bool        LoadForwards                      { get; set; }
       bool        LoadOnceOnlyUnlessChildrenChanged { get; set; }
       IList<View> SourceViews                       { get; set; }
-      double      ViewSpacing                       { get; set; }
+      
+      // double      ViewSpacing                       { get; set; }
 
       void AnimateIn();
    }
 
    public class AnimatedStackLayout : StackLayout, IAnimatedStackLayout
    {
-      private const int                 DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS = 25;
-      private static readonly Thickness DEFAULT_STACK_LAYOUT_MARGIN           = new Thickness(10.0.AdjustForOsAndDevice());
-      private static readonly double    DEFAULT_STACK_LAYOUT_SPACING          = 10.0.AdjustForOsAndDevice();
-      private bool                      _animateInEntered;
-      private bool                      _hasAnimatedOnce;
+      private const           int       DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS = 25;
+      private static readonly double    MARGIN_SPACING_SINGLE_FACTOR          = 10.0.AdjustForOsAndDevice();
+      private static readonly Thickness DEFAULT_STACK_LAYOUT_MARGIN           = new Thickness(MARGIN_SPACING_SINGLE_FACTOR);
+      private static readonly double    DEFAULT_STACK_LAYOUT_SPACING          = MARGIN_SPACING_SINGLE_FACTOR;
+      private                 bool      _animateInEntered;
+      private                 bool      _hasAnimatedOnce;
+      
+      // private                 double    _viewSpacing = DEFAULT_STACK_LAYOUT_SPACING;
 
       public AnimatedStackLayout()
       {
@@ -71,8 +75,21 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
 
       public IList<View> SourceViews { get; set; } = new List<View>();
 
-      public double ViewSpacing { get; set; } = DEFAULT_STACK_LAYOUT_SPACING;
-
+      /*
+      public double ViewSpacing
+      {
+         get => _viewSpacing;
+         set
+         {
+            if (_viewSpacing.IsDifferentThan(value))
+            {
+               _viewSpacing = value;
+               Spacing      = _viewSpacing;
+            }
+         }
+      }
+      */
+      
       /// <summary>Void because iOS objects to this being run as a task inside of Task.Run.</summary>
       public void AnimateIn()
       {

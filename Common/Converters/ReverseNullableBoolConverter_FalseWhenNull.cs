@@ -22,13 +22,15 @@
 
 namespace Com.MarcusTS.SharedForms.Common.Converters
 {
-   public class ReverseBoolConverter : OneWayConverter<bool, bool>
-   {
-      public static readonly ReverseBoolConverter INSTANCE = new ReverseBoolConverter();
+   using SharedUtils.Utils;
 
-      protected override bool Convert(bool value, object parameter)
+   public class ReverseNullableBoolConverter_FalseWhenNull : OneWayConverter<bool?, bool>
+   {
+      public static readonly ReverseNullableBoolConverter_FalseWhenNull INSTANCE = new ReverseNullableBoolConverter_FalseWhenNull();
+
+      protected override bool Convert(bool? value, object parameter)
       {
-         return !value;
+         return !value.IsTrue();
       }
    }
 }

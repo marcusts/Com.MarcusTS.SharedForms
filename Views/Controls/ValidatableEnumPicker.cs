@@ -96,14 +96,9 @@ using Xamarin.Essentials;
                };
 
                _editableEnumPicker.SelectedIndexChanged +=
-                  async (sender, args) =>
+                  (sender, args) =>
                   {
                      CallRevalidate();
-
-                     //MainThread.BeginInvokeOnMainThread(() =>
-                     //                                   {
-                     //                                      _editableEnumPicker.Unfocus();
-                     //                                   });
                   };
             }
 

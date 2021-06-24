@@ -31,12 +31,11 @@
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
    using System;
-   using System.Runtime.CompilerServices;
    using System.Threading.Tasks;
-   using Com.MarcusTS.SharedForms.ViewModels;
    using Common.Images;
    using Common.Utils;
    using SharedUtils.Utils;
+   using ViewModels;
    using Xamarin.Essentials;
    using Xamarin.Forms;
 
@@ -104,7 +103,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          bool asleepInitially = false
       )
          : base(Entry.TextProperty, asleepInitially: asleepInitially)
-         //   : base (default, asleepInitially:asleepInitially)
       {
          _keyboard          = keyboard;
          _isPassword        = isPassword;
@@ -145,9 +143,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
                   editGrid.AddStarColumn();
                   editGrid.AddAutoColumn();
-                  editGrid.Children.Add(EditableEntry);
-                  SetColumn(EditableEntry, 0);
-
+                  editGrid.AddAndSetRowsAndColumns(EditableEntry, column:0);
+                  
                   var showHideImageWidthHeight = BorderView.HeightRequest * 0.85;
 
                   _showHideImage = FormsUtils.GetImage("", showHideImageWidthHeight, showHideImageWidthHeight,
@@ -156,19 +153,22 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   _showHideImage.InputTransparent = false;
                   var tapGesture = new TapGestureRecognizer();
 
-                  tapGesture.Tapped += async (sender, args) =>
+                  tapGesture.Tapped += (sender, args) =>
                                        {
                                           var cursorIdx = EditableEntry.CursorPosition;
                                           
                                           IsPasswordShowing = !IsPasswordShowing;
 
-                                          await Task.Delay(100).WithoutChangingContext();
-
-                                          MainThread.BeginInvokeOnMainThread(() =>
+                                          MainThread.BeginInvokeOnMainThread(async () =>
                                                                              {
-                                                                                // Go back to editing
-                                                                                EditableEntry.Focus();
-                                                                                EditableEntry.CursorPosition = cursorIdx;
+                                                                                await Task.Delay(100).WithoutChangingContext();
+
+                                                                                MainThread.BeginInvokeOnMainThread(() =>
+                                                                                                                   {
+                                                                                                                      // Go back to editing
+                                                                                                                      EditableEntry.Focus();
+                                                                                                                      EditableEntry.CursorPosition = cursorIdx;
+                                                                                                                   });
                                                                              });
                                        };
                   _showHideImage.GestureRecognizers.Add(tapGesture);
@@ -179,8 +179,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   _showHideImage.Unfocused -= ConsiderLoweringPlaceholder;
                   _showHideImage.Unfocused += ConsiderLoweringPlaceholder;
 
-                  editGrid.Children.Add(_showHideImage);
-                  SetColumn(_showHideImage, 1);
+                  editGrid.AddAndSetRowsAndColumns(_showHideImage, column:1);
                   editGrid.RaiseChild(_showHideImage);
 
                   _editableViewContainer = editGrid;

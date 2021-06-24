@@ -132,8 +132,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             {
                if (callbackAction != null)
                {
-                  var bindableAsOverlayButton = bindable as T;
-                  if (bindableAsOverlayButton != null)
+                  if (bindable is T bindableAsOverlayButton)
                   {
                      callbackAction(bindableAsOverlayButton, (U) oldVal,
                         (U) newVal);

@@ -44,8 +44,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          IsClippedToBounds = true;
       }
 
-      public new Color BorderColor => Border?.Color ?? default;
+      public Color BorderColor => Border?.Color ?? default;
 
-      public new float BorderThickness => Border?.Thickness ?? default;
+      public float BorderThickness => Border?.Thickness ?? default;
    }
 }

@@ -138,7 +138,7 @@
          return button;
       }
 
-      protected virtual (View, ICanBeValid) CreateEditableEntry
+      protected virtual (IValidatableView, ICanBeValid) CreateEditableEntry
       (
          PropertyInfo                  propInfo,
          IViewModelValidationAttribute attribute,
@@ -203,11 +203,12 @@
             var result =
                CreateEditableEntry(keyValuePair.Key, keyValuePair.Value, _allBehaviors?.Count);
 
-            var view          = result.Item1;
+            var view          = result.Item1 as View;
             var viewValidator = result.Item2;
 
             if (view.IsNotNullOrDefault())
             {
+               // ReSharper disable once PossibleNullReferenceException
                view.BindingContext = BindingContext;
 
                // HACK around broken binding

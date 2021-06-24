@@ -34,8 +34,6 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    {
       string OriginalText { get; set; }
 
-      bool TextMustChange { get; set; }
-
       string UnmaskedText { get; }
 
       string PrepareTextForEditing(string entryText, bool firstFocused = false);
@@ -126,7 +124,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       public int             MinLength      { get; set; }
       public string          StringFormat   { get; set; }
       public string          OriginalText   { get; set; }
-      public bool            TextMustChange { get; set; }
+      public int             TextMustChange { get; set; }
       public string          UnmaskedText   { get; private set; }
       public ValidationTypes ValidationType { get; set; }
 
@@ -227,7 +225,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
          }
 
          // Check against the original text, if any
-         if (TextMustChange)
+         if (TextMustChange.IsTrue())
          {
             return _entry.Text.IsDifferentThan(OriginalText);
          }

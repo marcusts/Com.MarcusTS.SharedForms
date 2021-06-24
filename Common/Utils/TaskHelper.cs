@@ -110,11 +110,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
                   if (taskCallback.IsNotNullOrDefault())
                   {
-                     await MainThread.InvokeOnMainThreadAsync(async () => { await taskCallback.WithoutChangingContext(); });
+                     MainThread.BeginInvokeOnMainThread(async () => { await taskCallback.WithoutChangingContext(); });
                   }
                   else if (actionCallback.IsNotNullOrDefault())
                   {
-                     await MainThread.InvokeOnMainThreadAsync(() => { actionCallback?.Invoke(); }).WithoutChangingContext();
+                     MainThread.BeginInvokeOnMainThread(() => { actionCallback?.Invoke(); });
                   }
                }
             );

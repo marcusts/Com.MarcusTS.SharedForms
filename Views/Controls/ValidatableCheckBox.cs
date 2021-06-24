@@ -116,11 +116,6 @@ using Xamarin.Essentials;
                   (sender, args) =>
                   {
                      CallRevalidate();
-
-                     //MainThread.BeginInvokeOnMainThread(() =>
-                     //                                   {
-                     //                                      _editableCheckBox.Unfocus();
-                     //                                   });
                   };
             }
 

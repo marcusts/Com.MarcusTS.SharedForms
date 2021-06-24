@@ -33,7 +33,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    using Common.Interfaces;
    using Common.Utils;
    using SharedUtils.Utils;
-   using Xamarin.Essentials;
    using Xamarin.Forms;
 
    /// <summary>
@@ -57,20 +56,20 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    {
       public static readonly BindableProperty NullableResultProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(NullableResult),
-            default(DateTime?),
-            BindingMode.TwoWay,
             (
-               view,
-               oldVal,
-               newVal
-            ) =>
-            {
-               view.EditableDatePicker.Date = newVal.GetValueOrDefault();
-               view.NullableResultChanged?.Invoke(newVal);
-            }
-         );
+             nameof(NullableResult),
+             default(DateTime?),
+             BindingMode.TwoWay,
+             (
+                view,
+                oldVal,
+                newVal
+             ) =>
+             {
+                view.EditableDatePicker.Date = newVal.GetValueOrDefault();
+                view.NullableResultChanged?.Invoke(newVal);
+             }
+            );
 
       private readonly double?    _fontSize;
       private          DatePicker _editableDateTime;
@@ -85,25 +84,25 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          bool        asleepInitially         = false
       )
          : base
-         (
-            returnNonNullableResult ? DatePicker.DateProperty : NullableResultProperty,
-            validator
-            ??
-            new ViewValidationBehavior
-               (
-                  view => view is IValidatableDateTime viewAsValidatableDateTime
-                     ? returnNonNullableResult
-                        ? viewAsValidatableDateTime.EditableDatePicker?.Date
-                        : viewAsValidatableDateTime.NullableResult
-                     : default,
-                  onIsValidChangedAction
-               )
-               { EmptyAllowed = emptyAllowed },
-            asleepInitially
-         )
+            (
+             returnNonNullableResult ? DatePicker.DateProperty : NullableResultProperty,
+             validator
+           ??
+             new ViewValidationBehavior
+             (
+              view => view is IValidatableDateTime viewAsValidatableDateTime
+                         ? returnNonNullableResult
+                              ? viewAsValidatableDateTime.EditableDatePicker?.Date
+                              : viewAsValidatableDateTime.NullableResult
+                         : default,
+              onIsValidChangedAction
+             )
+             { EmptyAllowed = emptyAllowed },
+             asleepInitially
+            )
       {
          _fontSize = fontSize;
-         
+
          if (!IsConstructing)
          {
             RecreateAllViewsBindingsAndStyles();
@@ -127,26 +126,16 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             if (_editableDateTime.IsNullOrDefault())
             {
                _editableDateTime = new DatePicker
-               {
-                  FontSize        = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE
-                 //,
-                 // BackgroundColor = Color.Transparent
-               };
+                                   {
+                                      FontSize = _fontSize ?? FormsConst.EDITABLE_VIEW_FONT_SIZE
+                                   };
 
                _editableDateTime.DateSelected +=
-                  async (sender, args) =>
+                  (sender, args) =>
                   {
                      NullableResult = _editableDateTime.Date;
 
                      CallRevalidate();
-
-                     //MainThread.BeginInvokeOnMainThread(() =>
-                     //                               {
-                     //                                  _editableDateTime.Unfocus();
-                     //                               });
-                     
-                     // custom dialog shown to user ...
-                     // await ResetPlaceholderPosition().WithoutChangingContext();
                   };
             }
 
@@ -169,6 +158,13 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
+      }
+
+      protected override void OnBindingContextChanged()
+      {
+         base.OnBindingContextChanged();
+
+         NullableResult = EditableDatePicker?.Date;
       }
    }
 }

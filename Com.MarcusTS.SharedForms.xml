@@ -1851,26 +1851,6 @@
             <param name="culture">The culture.</param>
             <returns>System.Object.</returns>
         </member>
-        <member name="T:Com.MarcusTS.SharedForms.Common.Converters.ReverseBoolConverter">
-            <summary>
-            Class ReverseBoolConverter.
-            Implements the <see cref="!:OneWayConverter&lt;FromT,ToT&gt;.Boolean, System.Boolean&gt;" />
-            </summary>
-            <seealso cref="!:OneWayConverter&lt;FromT,ToT&gt;.Boolean, System.Boolean&gt;" />
-        </member>
-        <member name="F:Com.MarcusTS.SharedForms.Common.Converters.ReverseBoolConverter.INSTANCE">
-            <summary>
-            The instance
-            </summary>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Converters.ReverseBoolConverter.Convert(System.Boolean,System.Object)">
-            <summary>
-            Converts the specified value.
-            </summary>
-            <param name="value">if set to <c>true</c> [value].</param>
-            <param name="parameter">The parameter.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Converters.StringToDateTimeConverter">
             <summary>
             Class StringToDateTimeConverter.
@@ -2985,8 +2965,6 @@
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.Y_PROPERTY_NAME">
             <summary>The y property name</summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DEFAULT_CORNER_RADIUS_FACTOR" -->
-        <!-- Badly formed XML comment ignored for member "F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.DEFAULT_CORNER_RADIUS_FIXED" -->
         <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.BUTTON_RADIUS_FACTOR">
             <summary>
             The button radius factor
@@ -5736,6 +5714,9 @@
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateViews">
             <summary>Creates the views.</summary>
         </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ReapplyStyles">
+            <summary>Resets the styles.</summary>
+        </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ReportGlobalFocusAndRaisePlaceholder(System.Object,Xamarin.Forms.FocusEventArgs)">
             <summary>Raises the placeholder.</summary>
             <param name="sender">The sender.</param>
@@ -5744,9 +5725,6 @@
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ResetPlaceholderPosition">
             <summary>Resets the placeholder position.</summary>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ReapplyStyles">
-            <summary>Resets the styles.</summary>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.HandleIsValidChanged(System.Nullable{System.Boolean})">
             <summary>Handles the is valid changed.</summary>

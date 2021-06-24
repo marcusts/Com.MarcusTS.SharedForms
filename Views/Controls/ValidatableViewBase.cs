@@ -26,7 +26,7 @@
 // SOFTWARE.
 // *********************************************************************************
 
-// #define SHOW_BACK_COLOR
+// #define SUPPRESS_PROP_CHANGED
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
@@ -40,14 +40,23 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
    using ViewModels;
    using Xamarin.Forms;
 
-   public interface IValidatableView : IViewModelValidationAttributeBase
+   public interface IValidatableView : IValidatableViewCommon
    {
-      ShapeView        BorderView               { get; }
+      ShapeView BorderView { get; }
+
+      ICanBeValid Validator { get; set; }
+
+      void CallRevalidate();
+
+      void StopConstructionAndRefresh();
+   }
+
+   public interface IValidatableViewCommon : IViewModelValidationAttributeBase
+   {
       Color            BorderViewBorderColor    { get; set; }
       BindableProperty BoundProperty            { get; set; }
       IValueConverter  Converter                { get; set; }
       object           ConverterParameter       { get; set; }
-      string           CurrentInstructions      { get; set; }
       Label            InstructionsLabel        { get; }
       Color            InstructionsTextColor    { get; set; }
       Style            InvalidBorderViewStyle   { get; set; }
@@ -57,355 +66,373 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       Color            PlaceholderBackColor     { get; set; }
       Label            PlaceholderLabel         { get; }
       Color            PlaceholderTextColor     { get; set; }
-      ICanBeValid      Validator                { get; set; }
       Style            ValidBorderViewStyle     { get; set; }
       Style            ValidInstructionsStyle   { get; set; }
       Style            ValidPlaceholderStyle    { get; set; }
       Color            ValidTextColor           { get; set; }
 
-      void CallRevalidate();
-      int  SetTabIndexes(int incomingTabIndex);
-      void StopConstructionAndRefresh();
+      int SetTabIndexes(int incomingTabIndex);
    }
 
    public abstract class ValidatableViewBase : Grid, IValidatableView
    {
-      public static readonly double DEFAULT_BORDER_VIEW_BORDER_WIDTH =
-         (FormsUtils.IsIos() ? 1.25 : 1.75).AdjustForOsAndDevice();
-      public const double DEFAULT_BORDER_VIEW_HEIGHT                   = 0;  // unset
-      public const double DEFAULT_GRID_SINGLE_PADDING                  = 8;
-      public const double DEFAULT_INSTRUCTIONS_HEIGHT                  = 30;
-      public const double DEFAULT_PLACEHOLDER_HEIGHT                   = 20;
-      public const double DEFAULT_PLACEHOLDER_INSET                    = 8;
-      public const double DEFAULT_PLACEHOLDER_LABEL_SIDE_MARGIN        = 6;
-      public const double DEFAULT_PLACEHOLDER_TOP_MARGIN_ADJUSTMENT    = -4;
-      public const double DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR  = 0.5d;
-      public const double DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR   = 2 / 3d;
+      public const double DEFAULT_BORDER_VIEW_HEIGHT = 0;
 
-      private static readonly Color  DEFAULT_INVALID_TEXT_COLOR        = Color.Red;
-      private static readonly Color  DEFAULT_PLACEHOLDER_BACK_COLOR    = Color.White;
-      private static readonly Color  DEFAULT_PLACEHOLDER_TEXT_COLOR    = Color.DimGray;
-      private static readonly Color  DEFAULT_BORDER_VIEW_BORDER_COLOR  = Color.Black;
-
-      public const FontAttributes DEFAULT_INVALID_FONT_ATTRIBUTES      =
-         FontAttributes.Bold | FontAttributes.Italic;
+      // unset
+      public const double DEFAULT_GRID_SINGLE_PADDING = 8;
 
       public const FontAttributes DEFAULT_INSTRUCTIONS_FONT_ATTRIBUTES =
          FontAttributes.Italic | FontAttributes.Bold;
 
-      public static readonly Color DEFAULT_INSTRUCTIONS_TEXT_COLOR     = Color.Purple;
-      public static readonly Color DEFAULT_VALID_TEXT_COLOR            = Color.Black;
+      public const double DEFAULT_INSTRUCTIONS_HEIGHT                 = 30;
+      public const double DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR = 2 / 3d;
+      public const double DEFAULT_VALIDATION_FONT_SIZE_FACTOR         = 2 / 3d;
 
-      public static readonly FontAttributes VALID_FONT_ATTRIBUTES      = FontAttributes.None;
+      public const FontAttributes DEFAULT_INVALID_FONT_ATTRIBUTES =
+         FontAttributes.Bold | FontAttributes.Italic;
+
+      public const double DEFAULT_PLACEHOLDER_HEIGHT                 = 20;
+      public const double DEFAULT_PLACEHOLDER_INSET                  = 8;
+      public const double DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR = 2 / 3d;
+      public const double DEFAULT_PLACEHOLDER_LABEL_SIDE_MARGIN      = 8;
+      public const double DEFAULT_PLACEHOLDER_TOP_MARGIN_ADJUSTMENT  = -4;
+
+      public static readonly double DEFAULT_BORDER_VIEW_BORDER_WIDTH =
+         (FormsUtils.IsIos() ? 1.25 : 1.75).AdjustForOsAndDevice();
+
+      public static readonly Color DEFAULT_INSTRUCTIONS_TEXT_COLOR = Color.Purple;
+      public static readonly Color DEFAULT_VALID_TEXT_COLOR        = Color.Black;
+
+      private static readonly Color DEFAULT_BORDER_VIEW_BORDER_COLOR = Color.Black;
+      private static readonly Color DEFAULT_INVALID_TEXT_COLOR       = Color.Red;
+      private static readonly Color DEFAULT_PLACEHOLDER_BACK_COLOR   = Color.White;
+      private static readonly Color DEFAULT_PLACEHOLDER_TEXT_COLOR   = Color.DimGray;
 
       public static readonly BindableProperty BorderViewBorderColorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(BorderViewBorderColor),
-            DEFAULT_BORDER_VIEW_BORDER_COLOR
-         );
+            (
+             nameof(BorderViewBorderColor),
+             DEFAULT_BORDER_VIEW_BORDER_COLOR
+            );
 
       public static readonly BindableProperty BorderViewBorderWidthProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(BorderViewBorderWidth),
-            DEFAULT_BORDER_VIEW_BORDER_WIDTH
-         );
+            (
+             nameof(BorderViewBorderWidth),
+             DEFAULT_BORDER_VIEW_BORDER_WIDTH
+            );
 
       public static readonly BindableProperty BorderViewCornerRadiusFactorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(BorderViewCornerRadiusFactor),
-            (double) FormsConst.DEFAULT_CORNER_RADIUS_FACTOR
-         );
+            (
+             nameof(BorderViewCornerRadiusFactor),
+             (double) FormsConst.DEFAULT_CORNER_RADIUS_FACTOR
+            );
 
       public static readonly BindableProperty BorderViewHeightProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(BorderViewHeight),
-            DEFAULT_BORDER_VIEW_HEIGHT
-         );
+            (
+             nameof(BorderViewHeight),
+             DEFAULT_BORDER_VIEW_HEIGHT
+            );
 
       public static readonly BindableProperty BoundModeProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(BoundMode),
-            BindingMode.TwoWay
-         );
+            (
+             nameof(BoundMode),
+             BindingMode.TwoWay
+            );
 
       public static readonly BindableProperty BoundPropertyProperty =
          // CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
          CreateValidatableViewBindableProperty
-         (
-            nameof(BoundProperty),
-            default(BindableProperty)
-         );
+            (
+             nameof(BoundProperty),
+             default(BindableProperty)
+            );
 
       public static readonly BindableProperty ConverterParameterProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(ConverterParameter),
-            default(object)
-         );
+            (
+             nameof(ConverterParameter),
+             default(object)
+            );
 
       public static readonly BindableProperty ConverterProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(Converter),
-            default(IValueConverter)
-         );
+            (
+             nameof(Converter),
+             default(IValueConverter)
+            );
 
       // No impact on anything
       public static readonly BindableProperty CurrentInstructionsProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(CurrentInstructions),
-            default(string)
-         );
+            (
+             nameof(CurrentInstructions),
+             default(string)
+            );
 
       public static readonly BindableProperty FontFamilyOverrideProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(FontFamilyOverride),
-            Font.SystemFontOfSize(1d).FontFamily
-         );
+            (
+             nameof(FontFamilyOverride),
+             Font.SystemFontOfSize(1d).FontFamily
+            );
 
       public static readonly BindableProperty GridSinglePaddingProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(GridSinglePadding),
-            DEFAULT_GRID_SINGLE_PADDING
-         );
+            (
+             nameof(GridSinglePadding),
+             DEFAULT_GRID_SINGLE_PADDING
+            );
 
       public static readonly BindableProperty InstructionsFontAttributesProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(InstructionsFontAttributes),
-            DEFAULT_INSTRUCTIONS_FONT_ATTRIBUTES
-         );
+            (
+             nameof(InstructionsFontAttributes),
+             DEFAULT_INSTRUCTIONS_FONT_ATTRIBUTES
+            );
 
       public static readonly BindableProperty InstructionsHeightProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(InstructionsHeight),
-            DEFAULT_INSTRUCTIONS_HEIGHT
-         );
+            (
+             nameof(InstructionsHeight),
+             DEFAULT_INSTRUCTIONS_HEIGHT
+            );
 
       public static readonly BindableProperty InstructionsLabelFontSizeFactorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(InstructionsLabelFontSizeFactor),
-            DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR
-         );
+            (
+             nameof(InstructionsLabelFontSizeFactor),
+             DEFAULT_INSTRUCTIONS_LABEL_FONT_SIZE_FACTOR
+            );
 
       public static readonly BindableProperty InstructionsTextColorProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(InstructionsTextColor),
-            DEFAULT_INSTRUCTIONS_TEXT_COLOR
-         );
+            (
+             nameof(InstructionsTextColor),
+             DEFAULT_INSTRUCTIONS_TEXT_COLOR
+            );
 
       // No impact on anything
       public static readonly BindableProperty InstructionsTextProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(InstructionsText),
-            default(string)
-         );
+            (
+             nameof(InstructionsText),
+             default(string)
+            );
 
       public static readonly BindableProperty InvalidBorderViewStyleProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(InvalidBorderViewStyle),
-            default(Style)
-         );
+            (
+             nameof(InvalidBorderViewStyle),
+             default(Style)
+            );
 
       public static readonly BindableProperty InvalidFontAttributesProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(InvalidFontAttributes),
-            DEFAULT_INVALID_FONT_ATTRIBUTES
-         );
+            (
+             nameof(InvalidFontAttributes),
+             DEFAULT_INVALID_FONT_ATTRIBUTES
+            );
 
       public static readonly BindableProperty InvalidInstructionsStyleProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(InvalidInstructionsStyle),
-            default(Style)
-         );
+            (
+             nameof(InvalidInstructionsStyle),
+             default(Style)
+            );
 
       public static readonly BindableProperty InvalidPlaceholderStyleProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(InvalidPlaceholderStyle),
-            default(Style)
-         );
+            (
+             nameof(InvalidPlaceholderStyle),
+             default(Style)
+            );
 
       public static readonly BindableProperty InvalidTextColorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(InvalidTextColor),
-            DEFAULT_INVALID_TEXT_COLOR
-         );
+            (
+             nameof(InvalidTextColor),
+             DEFAULT_INVALID_TEXT_COLOR
+            );
 
       public static readonly BindableProperty PlaceholderBackColorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderBackColor),
-            DEFAULT_PLACEHOLDER_BACK_COLOR
-         );
+            (
+             nameof(PlaceholderBackColor),
+             DEFAULT_PLACEHOLDER_BACK_COLOR
+            );
 
       public static readonly BindableProperty PlaceholderHeightProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderHeight),
-            DEFAULT_PLACEHOLDER_HEIGHT
-         );
+            (
+             nameof(PlaceholderHeight),
+             DEFAULT_PLACEHOLDER_HEIGHT
+            );
 
       public static readonly BindableProperty PlaceholderInsetProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderInset),
-            DEFAULT_PLACEHOLDER_INSET
-         );
+            (
+             nameof(PlaceholderInset),
+             DEFAULT_PLACEHOLDER_INSET
+            );
 
       public static readonly BindableProperty PlaceholderLabelFontSizeFactorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderLabelFontSizeFactor),
-            DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR
-         );
+            (
+             nameof(PlaceholderLabelFontSizeFactor),
+             DEFAULT_PLACEHOLDER_LABEL_FONT_SIZE_FACTOR
+            );
 
       public static readonly BindableProperty PlaceholderLabelSideMarginProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderLabelSideMargin),
-            DEFAULT_PLACEHOLDER_LABEL_SIDE_MARGIN
-         );
+            (
+             nameof(PlaceholderLabelSideMargin),
+             DEFAULT_PLACEHOLDER_LABEL_SIDE_MARGIN
+            );
 
       public static readonly BindableProperty PlaceholderTextColorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderTextColor),
-            DEFAULT_PLACEHOLDER_TEXT_COLOR
-         );
+            (
+             nameof(PlaceholderTextColor),
+             DEFAULT_PLACEHOLDER_TEXT_COLOR
+            );
 
       public static readonly BindableProperty PlaceholderTextProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderText),
-            default(string)
-         );
+            (
+             nameof(PlaceholderText),
+             default(string)
+            );
 
       public static readonly BindableProperty PlaceholderTopMarginAdjustmentProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(PlaceholderTopMarginAdjustment),
-            DEFAULT_PLACEHOLDER_TOP_MARGIN_ADJUSTMENT
-         );
+            (
+             nameof(PlaceholderTopMarginAdjustment),
+             DEFAULT_PLACEHOLDER_TOP_MARGIN_ADJUSTMENT
+            );
 
       public static readonly BindableProperty ShowInstructionsProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(ShowInstructions),
-            default(int)
-         );
+            (
+             nameof(ShowInstructions),
+             default(int)
+            );
 
       public static readonly BindableProperty ShowValidationErrorsAsInstructionsProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(ShowValidationErrorsAsInstructions),
-            default(int)
-         );
+            (
+             nameof(ShowValidationErrorsWithInstructions),
+             default(int)
+            );
+
+      public static readonly BindableProperty ShowValidationErrorsProperty =
+         CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
+            (
+             nameof(ShowValidationErrors),
+             default(int)
+            );
 
       public static readonly BindableProperty StringFormatProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(StringFormat),
-            default(string)
-         );
+            (
+             nameof(StringFormat),
+             default(string)
+            );
+
+      public static readonly FontAttributes VALID_FONT_ATTRIBUTES = FontAttributes.None;
 
       public static readonly BindableProperty ValidatorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(Validator),
-            default(ICanBeValid)
-         );
+            (
+             nameof(Validator),
+             default(ICanBeValid)
+            );
+
+      public static readonly BindableProperty ValidationFontSizeFactorProperty =
+         CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
+            (
+             nameof(ValidationFontSizeFactor),
+             DEFAULT_VALIDATION_FONT_SIZE_FACTOR
+            );
 
       public static readonly BindableProperty ValidBorderViewStyleProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(ValidBorderViewStyle),
-            default(Style)
-         );
+            (
+             nameof(ValidBorderViewStyle),
+             default(Style)
+            );
 
       public static readonly BindableProperty ValidFontAttributesProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(ValidFontAttributes),
-            VALID_FONT_ATTRIBUTES
-         );
+            (
+             nameof(ValidFontAttributes),
+             VALID_FONT_ATTRIBUTES
+            );
 
       public static readonly BindableProperty ValidInstructionsStyleProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(ValidInstructionsStyle),
-            default(Style)
-         );
+            (
+             nameof(ValidInstructionsStyle),
+             default(Style)
+            );
 
       public static readonly BindableProperty ValidPlaceholderStyleProperty =
          CreateValidatableViewBindableProperty
-         (
-            nameof(ValidPlaceholderStyle),
-            default(Style)
-         );
+            (
+             nameof(ValidPlaceholderStyle),
+             default(Style)
+            );
 
       public static readonly BindableProperty ValidTextColorProperty =
          CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles
-         (
-            nameof(ValidTextColor),
-            DEFAULT_VALID_TEXT_COLOR
-         );
+            (
+             nameof(ValidTextColor),
+             DEFAULT_VALID_TEXT_COLOR
+            );
 
       public static readonly BindableProperty ViewModelPropertyNameProperty =
          CreateValidatableViewBindablePropertyAndRespondByRecreatingViews
-         (
-            nameof(ViewModelPropertyName),
-            default(string)
-         );
+            (
+             nameof(ViewModelPropertyName),
+             default(string)
+            );
 
-      private bool           _recreateAllViewsBindingsAndStylesEntered;
-      private AbsoluteLayout _canvas;
-      private Rectangle      _lastBorderViewBounds;
-      private Rectangle      _lastEditableViewContainerBounds;
-      private Style          _lastValidBorderViewStyle;
-      private Grid           _placeholderGrid;
-      private bool           _placeholderLabelHasBeenShown;
+      private                 AbsoluteLayout _canvas;
+      private                 Rectangle      _lastBorderViewBounds;
+      private                 Rectangle      _lastEditableViewContainerBounds;
+      private                 Style          _lastValidBorderViewStyle;
+      private                 Grid           _placeholderGrid;
+      private                 bool           _placeholderLabelHasBeenShown;
+      private                 bool           _recreateAllViewsBindingsAndStylesEntered;
 
-      protected ValidatableViewBase(BindableProperty boundProp, 
-                                    ICanBeValid validator = default, 
-                                    bool asleepInitially = false)
+      protected ValidatableViewBase(BindableProperty boundProp,
+                                    ICanBeValid      validator       = default,
+                                    bool             asleepInitially = false)
       {
          this.SetDefaults();
 
-         BoundProperty = boundProp;
-         Validator     = validator;
-         
-#if SHOW_BACK_COLOR
-         BackgroundColor = Color.Cyan;
-#else
+         BoundProperty   = boundProp;
+         Validator       = validator;
          BackgroundColor = Color.Transparent;
-#endif
-         ColumnSpacing = 0;
-         RowSpacing    = 0;
+         ColumnSpacing   = 0;
+         RowSpacing      = 0;
 
          IsConstructing = asleepInitially;
       }
 
-      protected abstract bool DerivedViewIsFocused  { get; }
-      protected abstract View EditableView          { get; }
-      protected abstract View EditableViewContainer { get; }
-      protected bool IsConstructing { get; private set; }
+      public string StringFormat
+      {
+         get => (string) GetValue(StringFormatProperty);
+         set => SetValue(StringFormatProperty, value);
+      }
+
+      protected abstract bool DerivedViewIsFocused       { get; }
+      protected abstract View EditableView               { get; }
+      protected abstract View EditableViewContainer      { get; }
+      protected          bool IsConstructing             { get; private set; }
       protected abstract bool UserHasEnteredValidContent { get; }
 
       private double InstructionsFactoredFontSize => GetFactoredFontSize(InstructionsLabelFontSizeFactor);
@@ -602,16 +629,22 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          set => SetValue(ShowInstructionsProperty, value);
       }
 
-      public int ShowValidationErrorsAsInstructions
+      public int ShowValidationErrors
+      {
+         get => (int) GetValue(ShowValidationErrorsProperty);
+         set => SetValue(ShowValidationErrorsProperty, value);
+      }
+
+      public int ShowValidationErrorsWithInstructions
       {
          get => (int) GetValue(ShowValidationErrorsAsInstructionsProperty);
          set => SetValue(ShowValidationErrorsAsInstructionsProperty, value);
       }
 
-      public string StringFormat
+      public double ValidationFontSizeFactor
       {
-         get => (string) GetValue(StringFormatProperty);
-         set => SetValue(StringFormatProperty, value);
+         get => (double)GetValue(ValidationFontSizeFactorProperty);
+         set => SetValue(ValidationFontSizeFactorProperty, value);
       }
 
       public ICanBeValid Validator
@@ -664,18 +697,24 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       public virtual int SetTabIndexes(int incomingTabIndex)
       {
          BorderView.IsTabStop = false;
-         // BorderView.TabIndex  = incomingTabIndex++;
+         // BorderView.TabIndex = incomingTabIndex++;
 
          if (EditableViewContainer.IsNotAnEqualReferenceTo(EditableView))
          {
             EditableViewContainer.IsTabStop = false;
-            // EditableViewContainer.TabIndex  = incomingTabIndex++;
+            // EditableViewContainer.TabIndex = incomingTabIndex++;
          }
-         
+
          EditableView.IsTabStop = true;
          EditableView.TabIndex  = incomingTabIndex++;
 
          return incomingTabIndex;
+      }
+
+      public void StopConstructionAndRefresh()
+      {
+         IsConstructing = false;
+         RecreateAllViewsBindingsAndStyles();
       }
 
       public static BindableProperty CreateValidatableViewBindableProperty<PropertyTypeT>
@@ -687,25 +726,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction);
-      }
-
-      public static BindableProperty CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles<PropertyTypeT>
-      (
-         string        localPropName,
-         PropertyTypeT defaultVal  = default,
-         BindingMode   bindingMode = BindingMode.OneWay
-      )
-      {
-         return CreateValidatableViewBindableProperty(localPropName, defaultVal, bindingMode,
-            (
-               view,
-               oldVal,
-               newVal
-            ) =>
-            {
-               // Request style refresh
-               view.ReapplyStyles();
-            });
       }
 
       public static BindableProperty CreateValidatableViewBindablePropertyAndRespondByRecreatingViews<PropertyTypeT>
@@ -727,31 +747,23 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                                                       });
       }
 
-      protected void RecreateAllViewsBindingsAndStyles()
+      public static BindableProperty CreateValidatableViewBindablePropertyAndRespondByRefreshingStyles<PropertyTypeT>
+      (
+         string        localPropName,
+         PropertyTypeT defaultVal  = default,
+         BindingMode   bindingMode = BindingMode.OneWay
+      )
       {
-         if (_recreateAllViewsBindingsAndStylesEntered || IsConstructing)
-         {
-            return;
-         }
-
-         _recreateAllViewsBindingsAndStylesEntered = true;
-
-         try
-         {
-            CreateViews();
-            CreateBindings();
-            ReapplyStyles();
-         }
-         finally
-         {
-            _recreateAllViewsBindingsAndStylesEntered = false;
-         }
-      }
-
-      public void StopConstructionAndRefresh()
-      {
-         IsConstructing = false;
-         RecreateAllViewsBindingsAndStyles();
+         return CreateValidatableViewBindableProperty(localPropName, defaultVal, bindingMode,
+                                                      (
+                                                         view,
+                                                         oldVal,
+                                                         newVal
+                                                      ) =>
+                                                      {
+                                                         // Request style refresh
+                                                         view.ReapplyStyles();
+                                                      });
       }
 
       /// <summary>Considers the lowering placeholder.</summary>
@@ -773,24 +785,24 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          // Avoid redundant bindings
          EditableView.RemoveBinding(BoundProperty);
-         
+
          if (Converter.IsNotNullOrDefault())
          {
             if (StringFormat.IsNotEmpty())
             {
                EditableView.SetUpBinding(BoundProperty, ViewModelPropertyName, BoundMode, Converter,
-                  ConverterParameter, StringFormat);
+                                         ConverterParameter, StringFormat);
             }
             else
             {
                EditableView.SetUpBinding(BoundProperty, ViewModelPropertyName, BoundMode, Converter,
-                  ConverterParameter);
+                                         ConverterParameter);
             }
          }
          else if (StringFormat.IsNotEmpty())
          {
             EditableView.SetUpBinding(BoundProperty, ViewModelPropertyName, BoundMode,
-               stringFormat: StringFormat);
+                                      stringFormat: StringFormat);
          }
          else
          {
@@ -811,10 +823,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          BorderView.Border =
             FormsUtils.CreateShapeViewBorder(BorderViewBorderColor, BorderViewBorderWidth);
 
-         // Allow for the border view's height and the vertical padding
-         var totalHeight = BorderViewHeight + GridSinglePadding;
+         // Allow for the border view's height and the vertical padding var totalHeight = BorderViewHeight + GridSinglePadding;
 
-#if !SUPPRESS_PROP_CHANGED         
+#if !SUPPRESS_PROP_CHANGED
          // BorderView is newly created, so the += subscription is not redundant
          BorderView.PropertyChanged +=
             async (sender, args) =>
@@ -825,10 +836,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   await ResetPlaceholderPosition().WithoutChangingContext();
                }
             };
-#endif         
-
-#if SHOW_BACK_COLOR
-         BorderView.BackgroundColor = Color.Pink;
 #endif
 
          // Row 0 holds the border view and entry
@@ -836,15 +843,17 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          this.AddAndSetRowsAndColumns(BorderView, 0);
 
          // Row 1 (optional) holds the instructions InstructionsText might not show up until run-time
-         if (ShowInstructions.IsTrue() && InstructionsText.IsNotEmpty())
+         if (ShowInstructions.IsTrue())
          {
             InstructionsLabel =
                FormsUtils.GetSimpleLabel(
-                  InstructionsText,
-                  fontFamilyOverride: FontFamilyOverride,
-                  textColor: InstructionsTextColor,
-                  fontAttributes: InstructionsFontAttributes,
-                  fontSize: InstructionsFactoredFontSize);
+                                         InstructionsText,
+                                         fontFamilyOverride: FontFamilyOverride,
+                                         textColor: InstructionsTextColor,
+                                         fontAttributes: InstructionsFontAttributes,
+                                         fontSize: InstructionsFactoredFontSize,
+                                         labelBindingPropertyName: nameof(CurrentInstructions),
+                                         labelBindingSource: this);
             InstructionsLabel.HorizontalOptions = LayoutOptions.FillAndExpand;
             InstructionsLabel.VerticalOptions   = LayoutOptions.StartAndExpand;
             // InstructionsLabel.HeightRequest = InstructionsHeight;
@@ -853,14 +862,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
             InstructionsLabel.Margin = new Thickness(0, smallMargin);
 
-            // Allow for the margins
-            totalHeight += InstructionsLabel.HeightRequest;
-
             this.AddAutoRow();
             this.AddAndSetRowsAndColumns(InstructionsLabel, 1);
 
-            // The current instructions always show in this label; to change the content, change the property.
-            InstructionsLabel.SetUpBinding(Label.TextProperty, nameof(CurrentInstructions), source: this);
+            //// The current instructions always show in this label; to change the content, change the property.
+            //InstructionsLabel.SetUpBinding(Label.TextProperty, nameof(CurrentInstructions), source: this);
          }
          else
          {
@@ -871,8 +877,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          if (PlaceholderText.IsNotEmpty())
          {
             PlaceholderLabel = FormsUtils.GetSimpleLabel(PlaceholderText, fontFamilyOverride: FontFamilyOverride,
-               textColor: PlaceholderTextColor,
-               fontSize: PlaceholderFactoredFontSize);
+                                                         textColor: PlaceholderTextColor,
+                                                         fontSize: PlaceholderFactoredFontSize);
 
             PlaceholderLabel.HeightRequest = PlaceholderHeight;
             PlaceholderLabel.Text          = PlaceholderText;
@@ -888,10 +894,6 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
             // Absolute layout for _canvas position -- this overlays the other rows
             _canvas = FormsUtils.GetExpandingAbsoluteLayout();
-
-            //#if SHOW_BACK_COLOR
-            //          _canvas.BackgroundColor = Color.LimeGreen;
-            //#endif
 
             // IMPORTANT -- the canvas is on top of other things, so must let user input through
             _canvas.InputTransparent = true;
@@ -938,15 +940,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             Validator.Revalidate();
          }
 
-         HeightRequest = totalHeight;
+         // HeightRequest = totalHeight;
 
-#if !SUPPRESS_PROP_CHANGED         
+#if !SUPPRESS_PROP_CHANGED
          if (EditableViewContainer.IsNotNullOrDefault())
          {
             EditableViewContainer.PropertyChanged -= EditableViewContainerOnPropertyChanged();
             EditableViewContainer.PropertyChanged += EditableViewContainerOnPropertyChanged();
          }
-#endif         
+#endif
       }
 
       // WARNING: Async void
@@ -957,6 +959,51 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          EditableView.BindingContext = BindingContext;
 
          await ResetPlaceholderPosition().WithoutChangingContext();
+      }
+
+      /// <summary>Resets the styles.</summary>
+      protected virtual void ReapplyStyles()
+      {
+         if (IsConstructing)
+         {
+            return;
+         }
+
+         // HACK
+         Padding = new Thickness(0, 0, 0, -GridSinglePadding);
+
+         ValidPlaceholderStyle    = CreatePlaceholderStyle();
+         InvalidPlaceholderStyle  = CreatePlaceholderStyle();
+         InvalidInstructionsStyle = CreateInstructionsStyle(false);
+         ValidInstructionsStyle   = CreateInstructionsStyle(true);
+         InvalidBorderViewStyle =
+            FormsUtils.CreateShapeViewStyle(borderColor: InvalidTextColor, borderThickness: BorderViewBorderWidth);
+         ValidBorderViewStyle =
+            FormsUtils.CreateShapeViewStyle(borderColor: ValidTextColor, borderThickness: BorderViewBorderWidth);
+
+         // If the validator is null, we are valid by default.
+         HandleIsValidChanged(Validator.IsNullOrDefault() || Validator.IsValid.GetValueOrDefault());
+      }
+
+      protected void RecreateAllViewsBindingsAndStyles()
+      {
+         if (_recreateAllViewsBindingsAndStylesEntered || IsConstructing)
+         {
+            return;
+         }
+
+         _recreateAllViewsBindingsAndStylesEntered = true;
+
+         try
+         {
+            CreateViews();
+            CreateBindings();
+            ReapplyStyles();
+         }
+         finally
+         {
+            _recreateAllViewsBindingsAndStylesEntered = false;
+         }
       }
 
       /// <summary>Raises the placeholder.</summary>
@@ -975,7 +1022,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          // Make sure we have a valid placeholder
          if (PlaceholderLabel.IsNullOrDefault() || PlaceholderLabel.Text.IsEmpty() || EditableView.IsNullOrDefault() ||
-            BorderView.IsNullOrDefault() || !BorderView.Height.IsGreaterThan(0) || _placeholderGrid.IsNullOrDefault())
+             BorderView.IsNullOrDefault() || !BorderView.Height.IsGreaterThan(0) || _placeholderGrid.IsNullOrDefault())
          {
             return;
          }
@@ -1008,68 +1055,46 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
       }
 
-      /// <summary>Resets the styles.</summary>
-      protected virtual void ReapplyStyles()
-      {
-         if (IsConstructing)
-         {
-            return;
-         }
-         
-         // HACK
-         Padding = new Thickness(0, 0, 0, -GridSinglePadding);
-
-         ValidPlaceholderStyle = CreatePlaceholderStyle();
-         InvalidPlaceholderStyle = CreatePlaceholderStyle();
-         InvalidInstructionsStyle = CreateInstructionsStyle(false);
-         ValidInstructionsStyle = CreateInstructionsStyle(true);
-         InvalidBorderViewStyle = FormsUtils.CreateShapeViewStyle(borderColor: InvalidTextColor, borderThickness: BorderViewBorderWidth);
-         ValidBorderViewStyle = FormsUtils.CreateShapeViewStyle(borderColor: ValidTextColor, borderThickness: BorderViewBorderWidth);
-
-         // If the validator is null, we are valid by default.
-         HandleIsValidChanged(Validator.IsNullOrDefault() || Validator.IsValid.GetValueOrDefault());
-      }
-
       private Style CreateInstructionsStyle(bool isValid)
       {
          return FormsUtils.CreateLabelStyle(
-            FontFamilyOverride,
-            InstructionsFactoredFontSize,
-            Color.Transparent,
-            isValid ? ValidTextColor : InvalidTextColor,
-            isValid ? ValidFontAttributes : InvalidFontAttributes
-         );
+                                            FontFamilyOverride,
+                                            InstructionsFactoredFontSize,
+                                            Color.Transparent,
+                                            InstructionsTextColor,
+                                            FontAttributes.None
+                                           );
       }
 
       private Style CreatePlaceholderStyle()
       {
          return FormsUtils.CreateLabelStyle(
-            FontFamilyOverride,
-            PlaceholderFactoredFontSize,
-            PlaceholderBackColor,
-            PlaceholderTextColor
-         );
+                                            FontFamilyOverride,
+                                            PlaceholderFactoredFontSize,
+                                            PlaceholderBackColor,
+                                            PlaceholderTextColor
+                                           );
       }
 
       private PropertyChangedEventHandler EditableViewContainerOnPropertyChanged()
       {
          return async (sender, args) =>
-         {
-            if (EditableViewContainer.Bounds.AreValidAndHaveChanged(args.PropertyName,
-               _lastEditableViewContainerBounds))
-            {
-               _lastEditableViewContainerBounds = EditableViewContainer.Bounds;
-               await ResetPlaceholderPosition().WithoutChangingContext();
-            }
-         };
+                {
+                   if (EditableViewContainer.Bounds.AreValidAndHaveChanged(args.PropertyName,
+                                                                           _lastEditableViewContainerBounds))
+                   {
+                      _lastEditableViewContainerBounds = EditableViewContainer.Bounds;
+                      await ResetPlaceholderPosition().WithoutChangingContext();
+                   }
+                };
       }
 
       private double GetFactoredFontSize(double factor)
       {
          // TODO Very bad idea to randomly assign the font size.
          return EditableView is Entry editableViewAsEntry
-            ? editableViewAsEntry.FontSize * factor
-            : Device.GetNamedSize(NamedSize.Small, typeof(Label));
+                   ? editableViewAsEntry.FontSize * factor
+                   : Device.GetNamedSize(NamedSize.Small, typeof(Label));
       }
 
       /// <summary>Handles the is valid changed.</summary>
@@ -1078,7 +1103,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          // If the validator issues a validation error, show that in place of the instructions (below the border view).
          if (Validator.IsNotNullOrDefault() && Validator.LastValidationError.IsNotEmpty() &&
-            ShowValidationErrorsAsInstructions.IsTrue())
+             ShowValidationErrors.IsTrue()  && ShowValidationErrorsWithInstructions.IsTrue())
          {
             CurrentInstructions = Validator.LastValidationError;
          }
@@ -1087,11 +1112,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             CurrentInstructions = "";
          }
 
-         if (!isValid.HasValue || isValid.GetValueOrDefault())
+         if (ShowValidationErrors.IsTrue() && !isValid.HasValue || isValid.GetValueOrDefault())
          {
             BorderView?.SetAndForceStyle(_lastValidBorderViewStyle.IsNotNullOrDefault()
-               ? _lastValidBorderViewStyle
-               : ValidBorderViewStyle);
+                                            ? _lastValidBorderViewStyle
+                                            : ValidBorderViewStyle);
 
             PlaceholderLabel?.SetAndForceStyle(ValidPlaceholderStyle);
             InstructionsLabel?.SetAndForceStyle(ValidInstructionsStyle);
@@ -1100,7 +1125,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          {
             // The corner radius is always uniform in or examples so randomly picking top left
             _lastValidBorderViewStyle = FormsUtils.CreateShapeViewStyle(BorderView?.BackgroundColor,
-               BorderView?.CornerRadius.TopLeft, BorderView?.BorderColor, BorderView?.BorderThickness);
+                                                                        BorderView?.CornerRadius.TopLeft,
+                                                                        BorderView?.BorderColor,
+                                                                        BorderView?.BorderThickness);
 
             PlaceholderLabel?.SetAndForceStyle(InvalidPlaceholderStyle);
             BorderView?.SetAndForceStyle(InvalidBorderViewStyle);

@@ -57,8 +57,9 @@ namespace Com.MarcusTS.SharedForms.ViewModels
    {
       public WizardViewModel()
       {
-         NextCommand   = new Command(async () => await RunFinalValidation().WithoutChangingContext(), () => ValidationHelper.PageIsValid);
-         CancelCommand = new Command(async () => await SetOutcome(Outcomes.Cancel).WithoutChangingContext());
+         // WARNING No way to properly call TPL
+         NextCommand   = new Command(() => RunFinalValidation().FireAndForget(), () => ValidationHelper.PageIsValid);
+         CancelCommand = new Command( () => SetOutcome(Outcomes.Cancel).FireAndForget());
 
          ValidationHelper.PageIsValidChanged +=
             val => { VerifyCommandCanExecute(); };

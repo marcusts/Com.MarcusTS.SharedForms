@@ -50,7 +50,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
    /// <seealso cref="IBehaviorBase" />
    public abstract class BehaviorBase : Behavior<Entry>, IBehaviorBase
    {
-      private static readonly Color ILLEGAL_ENTRY_COLOR = Color.Red;
+      // private static readonly Color ILLEGAL_ENTRY_COLOR = Color.Red;
 
       /// <summary>The illegal character filter</summary>
       private readonly Func<string, string> _illegalCharFilter;
@@ -112,7 +112,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
                var simpleValidBool = _isValid.IsTrue();
 
-               _bindable.BackgroundColor = simpleValidBool ? Color.White : ILLEGAL_ENTRY_COLOR;
+               // _bindable.BackgroundColor = simpleValidBool ? Color.White : ILLEGAL_ENTRY_COLOR;
 
                // Notify that a change has taken place
                _onIsValidChangedAction?.Invoke();

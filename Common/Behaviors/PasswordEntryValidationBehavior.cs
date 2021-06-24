@@ -30,7 +30,7 @@ using Com.MarcusTS.SharedForms.ViewModels;
    using SharedUtils.Utils;
    using Utils;
 
-   public interface IPasswordEntryValidationBehavior : IEntryValidationBehavior, IPasswordProps
+   public interface IPasswordEntryValidationBehavior : IEntryValidationBehavior, ICommonPasswordProps
    {
    }
 
@@ -50,11 +50,11 @@ using Com.MarcusTS.SharedForms.ViewModels;
       }
 
       public int MinCapitalCharacterCount { get; set; } = DEFAULT_MIN_CAPITAL_CHARACTER_COUNT;
-      public int MinCharacterCount { get; set; } = DEFAULT_MIN_CHARACTER_COUNT;
-      public int MaxCharacterCount { get; set; } = DEFAULT_MAX_CHARACTER_COUNT;
+      public int MinCharacterCount        { get; set; } = DEFAULT_MIN_CHARACTER_COUNT;
+      public int MaxCharacterCount        { get; set; } = DEFAULT_MAX_CHARACTER_COUNT;
       public int MinLowCaseCharacterCount { get; set; } = DEFAULT_MIN_LOW_CASE_CHARACTER_COUNT;
       public int MinNumericCharacterCount { get; set; } = DEFAULT_MIN_NUMERIC_CHARACTER_COUNT;
-      public int MaxRepeatChars { get; set; } = DEFAULT_MAX_REPEAT_CHARS;
+      public int MaxRepeatChars           { get; set; } = DEFAULT_MAX_REPEAT_CHARS;
       public int MinSpecialCharacterCount { get; set; } = DEFAULT_MIN_SPECIAL_CHARACTER_COUNT;
 
       protected override string IllegalCharFilter(IEntryValidationBehavior behavior,
@@ -111,31 +111,31 @@ using Com.MarcusTS.SharedForms.ViewModels;
 
          if (capitalCharacterCount < MinCapitalCharacterCount)
          {
-            IssueValidationError(MinCapitalCharacterCount + " total capital characters.");
+            IssueValidationError(MinCapitalCharacterCount + " total capital character(s).");
             return false;
          }
 
          if (lowCaseCharacterCount < MinLowCaseCharacterCount)
          {
-            IssueValidationError(MinLowCaseCharacterCount + " total lower-case characters.");
+            IssueValidationError(MinLowCaseCharacterCount + " total lower-case character(s).");
             return false;
          }
 
          if (numericCharacterCount < MinNumericCharacterCount)
          {
-            IssueValidationError(MinNumericCharacterCount + " total numeric characters.");
+            IssueValidationError(MinNumericCharacterCount + " total numeric character(s).");
             return false;
          }
 
          if (specialCharacterCount < MinSpecialCharacterCount)
          {
-            IssueValidationError(MinSpecialCharacterCount + " total special characters.");
+            IssueValidationError(MinSpecialCharacterCount + " total special character(s).");
             return false;
          }
 
          if (repeatedAdjacentCharacterCount > 0)
          {
-            LastValidationError = "The password should not have more than " + MaxRepeatChars + " adjacent characters";
+            LastValidationError = "The password should not have more than " + MaxRepeatChars + " adjacent character(s)";
             return false;
          }
          
@@ -150,7 +150,7 @@ using Com.MarcusTS.SharedForms.ViewModels;
 
       private void IssueMinLengthValidationError()
       {
-         IssueValidationError(MinCharacterCount + " total characters.");
+         IssueValidationError(MinCharacterCount + " total character(s).");
       }
 
       private void IssueValidationError(string validationSuffix)

@@ -29,14 +29,10 @@
       
       public static readonly double EDITABLE_VIEW_FONT_SIZE = Device.GetNamedSize(NamedSize.Small, typeof(View));
 
-      /// <summary>
-      /// <summary>
-      /// The default corner radius factor
-      /// </summary>
-      public const float DEFAULT_CORNER_RADIUS_FACTOR = 0.04f;
-      /// The default corner radius fixed
-      /// </summary>
+      public const float DEFAULT_CORNER_RADIUS_FACTOR = 0.06f;
+      
       public static float DEFAULT_CORNER_RADIUS_FIXED = 6;
+      
       public const double DEFAULT_SHAPE_VIEW_RADIUS = 6;
 
       /// <summary>

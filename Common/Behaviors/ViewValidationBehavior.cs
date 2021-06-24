@@ -44,7 +44,6 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
       private bool? _isValid = Extensions.EmptyNullableBool;
       private readonly Func<View, object> _getValueFromViewFunc;
       private bool _emptyAllowed;
-      private readonly bool _isNumeric;
 
       public ViewValidationBehavior(Func<View, object> getValueFromViewFunc, Action onIsValidChangedAction)
       {
