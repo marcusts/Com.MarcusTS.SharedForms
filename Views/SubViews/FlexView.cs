@@ -192,7 +192,7 @@
 
          // Get the custom attributes from the view model
          var propInfoDict =
-            BindingContext.GetType().CreateViewModelValidationPropertiesDict();
+            BindingContext.GetType().CreateViewModelValidationPropertiesDict<ViewModelValidationAttribute>();
 
          var retViews = new List<View>();
 

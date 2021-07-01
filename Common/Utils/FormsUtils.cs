@@ -48,9 +48,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    using Xamarin.Essentials;
    using Xamarin.Forms;
    using Xamarin.Forms.PancakeView;
-using Xamarin.Forms.Xaml;
 
-/// <summary>Class FormsUtils.</summary>
+   /// <summary>Class FormsUtils.</summary>
    public static class FormsUtils
    {
       /// <summary>Enum OffScreenPositions</summary>
@@ -1180,8 +1179,8 @@ using Xamarin.Forms.Xaml;
          }
       }
 
-      public static IDictionary<PropertyInfo, IViewModelValidationAttribute> CreateViewModelValidationPropertiesDict(
-         this Type type)
+      public static IDictionary<PropertyInfo, AttributeT> CreateViewModelValidationPropertiesDict<AttributeT>(this Type type)
+        where AttributeT : Attribute, IViewModelValidationAttribute 
       {
          if (type.IsNullOrDefault())
          {
@@ -1195,13 +1194,13 @@ using Xamarin.Forms.Xaml;
             return default;
          }
 
-         var retPropertiesDict = new ConcurrentDictionary<PropertyInfo, IViewModelValidationAttribute>();
+         var retPropertiesDict = new ConcurrentDictionary<PropertyInfo, AttributeT>();
 
          // Reduce the public properties down to those with the custom attribute
          // ReSharper disable once PossibleNullReferenceException
          foreach (var propInfo in publicProperties)
          {
-            var customAttribute = propInfo.GetCustomAttribute<ViewModelValidationAttribute>();
+            var customAttribute = propInfo.GetCustomAttribute<AttributeT>();
 
             // Only add properties with a custom attribute
             if (customAttribute.IsNotNullOrDefault())

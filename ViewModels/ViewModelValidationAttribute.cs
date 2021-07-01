@@ -202,9 +202,8 @@ namespace Com.MarcusTS.SharedForms.ViewModels
 
         public static void CopyCommonAttributeValuesUsingAttribute<ViewT, AttributeT>(
          this ViewT toView,
-              AttributeT attribute
+         AttributeT attribute
       )
-         where AttributeT : IViewModelValidationAttribute
         {
             // 1. Coerce and copy the hex colors
             // 2. Copy properties *if* they are set, *else ignore*
