@@ -1550,7 +1550,7 @@
             <summary>Gets a value indicating whether this instance is focused.</summary>
             <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
         </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.BehaviorBase.IsPositive">
+        <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.BehaviorBase.IsValid">
             <summary>Returns true if ... is valid.</summary>
             <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
         </member>
@@ -1929,23 +1929,13 @@
                Occurs when [is busy changed].
             </summary>
         </member>
-        <member name="T:Com.MarcusTS.SharedForms.Common.Interfaces.IAmValid">
-            <summary>
-               Implements IsPositive and IsInvalid booleans.
-            </summary>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.IAmValid.IsPositive">
+        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.IAmValid.IsValid">
             <summary>
                Returns true if ... is valid.
             </summary>
             <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
         </member>
-        <member name="T:Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid">
-            <summary>
-               Implements IsPositive and IsInvalid booleans.
-            </summary>
-        </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid.IsPositive">
+        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid.IsValid">
             <summary>
                Returns true if ... is valid.
             </summary>
@@ -2975,6 +2965,16 @@
                The default image suffix
             </summary>
         </member>
+        <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.NOT_VISIBLE_OPACITY">
+            <summary>
+            The not visible opacity
+            </summary>
+        </member>
+        <member name="F:Com.MarcusTS.SharedForms.Common.Utils.FormsConst.VISIBLE_OPACITY">
+            <summary>
+            The visible opacity
+            </summary>
+        </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils">
             <summary>Class FormsUtils.</summary>
         </member>
@@ -3637,34 +3637,6 @@
             <param name="namedSize"></param>
             <param name="additionalFactor"></param>
             <returns></returns>
-        </member>
-        <member name="T:Com.MarcusTS.SharedForms.Common.Utils.TaskHelper">
-            <summary>
-               Class TaskHelper.
-            </summary>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.TaskHelper.BeginInvokeOnMainThreadAsync``1(System.Func{``0})">
-            <summary>
-               Begins the invoke on main thread asynchronous.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="a">a.</param>
-            <returns>Task&lt;T&gt;.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.TaskHelper.BeginInvokeOnMainThreadAsync(System.Action)">
-            <summary>
-               Begins the invoke on main thread asynchronous.
-            </summary>
-            <param name="a">a.</param>
-            <returns>Task.</returns>
-        </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.TaskHelper.RunParallel(System.Threading.Tasks.Task,System.Threading.Tasks.Task,System.Action)">
-            <summary>
-               Runs the parallel.
-            </summary>
-            <param name="task">The task.</param>
-            <param name="taskCallback">The task callback.</param>
-            <param name="actionCallback">The action callback.</param>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Utils.ThemeUtils">
             <summary>Class ThemeUtils.</summary>
@@ -4791,7 +4763,7 @@
             <summary>Handles the tap gesture tapped.</summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
-            <remarks>TODO Cannot avoid async void -- event handler.</remarks>
+            <remarks>Cannot avoid async void -- event handler.</remarks>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ImageLabelButtonBase.OnButtonCommandCreated">
             <summary>Called when [button command created].</summary>
@@ -5250,12 +5222,6 @@
                Initializes a new instance of the <see cref="T:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton" /> class.
             </summary>
         </member>
-        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.IsDisabled">
-            <summary>
-               Gets a value indicating whether this instance is disabled.
-            </summary>
-            <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
-        </member>
         <member name="P:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.ButtonBackColor">
             <summary>
                Gets or sets the color of the button back.
@@ -5310,7 +5276,13 @@
             </summary>
             <value>The color of the label text.</value>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.CreateSimpleImageLabelButton(System.String,Xamarin.Forms.Color,System.Double,System.Double,System.Double,System.Object,Xamarin.Forms.Color,Xamarin.Forms.Color,Xamarin.Forms.LayoutOptions,Xamarin.Forms.LayoutOptions,System.String,System.String,System.Single,Xamarin.Forms.FontAttributes,System.Single,System.String,System.Boolean,System.Boolean)">
+        <member name="P:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.IsDisabled">
+            <summary>
+               Gets a value indicating whether this instance is disabled.
+            </summary>
+            <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.CreateSimpleImageLabelButton(System.String,Xamarin.Forms.Color,System.Double,System.Double,System.Double,System.Object,Xamarin.Forms.Color,Xamarin.Forms.Color,Xamarin.Forms.LayoutOptions,Xamarin.Forms.LayoutOptions,System.String,System.String,System.Single,Xamarin.Forms.FontAttributes,System.Single,System.String,System.Boolean,System.Boolean,Xamarin.Forms.FontAttributes)">
             <summary>
                Creates the simple image label button.
             </summary>
@@ -5332,6 +5304,7 @@
             <param name="buttonCommandBindingName">Name of the button command binding.</param>
             <param name="animateButton"></param>
             <param name="includeHapticFeedback"></param>
+            <param name="fontAttributes"></param>
             <returns>ISimpleImageLabelButton.</returns>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton.CreateSimpleImageLabelButtonBindableProperty``1(System.String,``0,Xamarin.Forms.BindingMode,System.Action{Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton,``0,``0},System.Func{Com.MarcusTS.SharedForms.Views.Controls.SimpleImageLabelButton,``0,``0})">
@@ -5709,7 +5682,7 @@
             <summary>Considers the lowering placeholder.</summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
-            <remarks>TODO Cannot avoid async void -- event handler.</remarks>
+            <remarks>Cannot avoid async void -- event handler.</remarks>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.CreateViews">
             <summary>Creates the views.</summary>
@@ -5721,7 +5694,7 @@
             <summary>Raises the placeholder.</summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:Xamarin.Forms.FocusEventArgs" /> instance containing the event data.</param>
-            <remarks>TODO Cannot avoid async void -- event handler.</remarks>
+            <remarks>Cannot avoid async void -- event handler.</remarks>
         </member>
         <member name="M:Com.MarcusTS.SharedForms.Views.Controls.ValidatableViewBase.ResetPlaceholderPosition">
             <summary>Resets the placeholder position.</summary>
@@ -5899,8 +5872,10 @@
             </summary>
             <returns>View.</returns>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Views.SubViews.AnimatedStackLayout.AnimateIn">
-            <summary>Void because iOS objects to this being run as a task inside of Task.Run.</summary>
+        <member name="T:Com.MarcusTS.SharedForms.Views.SubViews.AnimatedStackLayout">
+            <summary>
+            AnimateInDelayMilliseconds is now ignored; it is not compatible with threading
+            </summary>
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Views.SubViews.FlexView">
             <summary>

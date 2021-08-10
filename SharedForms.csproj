@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.43</Version>
+    <Version>1.0.45</Version>
     <Authors>Stephen Marcus</Authors>
     <Company>Marcus Technical Services, Inc.</Company>
     <Product>Shared Forms Library</Product>
     <Description>Provides support for Xamarin.Forms projects.</Description>
     <Copyright>Copyright @2021 Marcus Technical Services, Inc.</Copyright>
     <PackageTags>xamarin-forms xamarin-forms-utilities xamarin-forms-components</PackageTags>
-    <AssemblyVersion>1.0.43.0</AssemblyVersion>
+    <AssemblyVersion>1.0.45.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <FileVersion>1.0.43.0</FileVersion>
+    <FileVersion>1.0.45.0</FileVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <LangVersion>8.0</LangVersion>
     <AssemblyName>Com.MarcusTS.SharedForms</AssemblyName>
@@ -62,6 +62,8 @@
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
     <PackageReference Include="AsyncAwaitBestPractices" Version="6.0.0" />
     <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="6.0.0" />
+    <PackageReference Include="Com.MarcusTS.SharedUtils" Version="1.0.28" />
+    <PackageReference Include="Com.MarcusTS.SmartDI" Version="1.0.31" />
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
      <PackageReference Include="PropertyChanged.Fody" Version="3.4.0">
         <PrivateAssets>All</PrivateAssets>
@@ -72,11 +74,6 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SharedUtils\SharedUtils.csproj" />
-    <ProjectReference Include="..\SmartDI\Com.MarcusTS.SmartDI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
