@@ -291,7 +291,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          CreateImageLabelButtonBaseBindableProperty
          (
             nameof(ButtonCornerRadiusFixed),
-            (double)FormsConst.DEFAULT_SHAPE_VIEW_RADIUS,
+            FormsConst.DEFAULT_SHAPE_VIEW_RADIUS,
             BindingMode.OneWay,
             (
                viewButton,
@@ -996,7 +996,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          styleIdx = ImageLabelButtonStyles.IndexOf(foundStyle);
 
          // Should never occur due to constraints set up at this class's constructor
-         if (styleIdx < 0 || ImageLabelButtonStyles.Count < styleIdx)
+         if ((styleIdx < 0) || (ImageLabelButtonStyles.Count < styleIdx))
          {
             return false;
          }
@@ -1035,7 +1035,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>Handles the tap gesture tapped.</summary>
       /// <param name="sender">The sender.</param>
       /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-      /// <remarks>TODO Cannot avoid async void -- event handler.</remarks>
+      /// <remarks>Cannot avoid async void -- event handler.</remarks>
       protected async void HandleTapGestureTapped
       (
          object    sender,
@@ -1044,7 +1044,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       {
          if (_tappedListenerEntered ||
             CannotTap ||
-            IsDisabled && !CanTapOnDisabled ||
+            (IsDisabled && !CanTapOnDisabled) ||
             ImageLabelButtonStyles.IsEmpty() ||
             CurrentStyle.IsNullOrDefault() ||
             CurrentStyle.InternalButtonState.IsEmpty())
@@ -1056,8 +1056,8 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
          ImageLabelButtonPressed?.Invoke();
 
-         if (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles ||
-            SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles)
+         if ((SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles) ||
+            (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles))
          {
             ToggleCurrentStyle();
          }
@@ -1123,7 +1123,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
 
          // Should never occur due to constraints set up at this class's constructor
-         if (styleIdx < 0 || ImageLabelButtonStyles.Count < styleIdx)
+         if ((styleIdx < 0) || (ImageLabelButtonStyles.Count < styleIdx))
          {
             return;
          }
@@ -1240,7 +1240,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       protected virtual void ToggleCurrentStyle()
       {
          // Corner case: cannot manually deselect if selected and if the SelectionGroup is set
-         if (IsSelected && SelectionGroup > 0)
+         if (IsSelected && (SelectionGroup > 0))
          {
             return;
          }
@@ -1316,7 +1316,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>Broadcasts if selected.</summary>
       private void BroadcastIfSelected()
       {
-         if (SelectionGroup > 0 && IsSelected)
+         if ((SelectionGroup > 0) && IsSelected)
          {
             // Raise a static event to notify others in this selection group that they should be *deselected*
             IAmSelectedStatic?.Invoke(this);
@@ -1365,9 +1365,9 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       private void HandleStaticSelectionChanges(IImageLabelButton button)
       {
          // Do not recur onto our own broadcast; also only respond to the same selection group.
-         if (button.SelectionGroup == SelectionGroup && !ReferenceEquals(button, this) &&
-            (SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles ||
-               SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles && button.IsSelected))
+         if ((button.SelectionGroup == SelectionGroup) && !ReferenceEquals(button, this) &&
+            ((SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionAsFirstTwoStyles) ||
+               ((SelectionStyle == ImageLabelButtonSelectionStyles.ToggleSelectionThroughAllStyles) && button.IsSelected)))
          {
             Deselect();
          }
@@ -1429,7 +1429,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>Sets the corner radius.</summary>
       private void SetCornerRadius()
       {
-         if (ButtonCornerRadiusFactor.HasValue && Bounds.IsValid())
+         if (ButtonCornerRadiusFactor.HasValue && Bounds.IsPositive())
          {
             CornerRadius =
                Convert.ToSingle(Math.Min(Bounds.Width, Bounds.Height) * ButtonCornerRadiusFactor.GetValueOrDefault());
@@ -1440,7 +1440,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
          else
          {
-            CornerRadius = (double)FormsConst.DEFAULT_SHAPE_VIEW_RADIUS;
+            CornerRadius = FormsConst.DEFAULT_SHAPE_VIEW_RADIUS;
          }
       }
 

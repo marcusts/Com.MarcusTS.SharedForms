@@ -769,7 +769,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>Considers the lowering placeholder.</summary>
       /// <param name="sender">The sender.</param>
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
-      /// <remarks>TODO Cannot avoid async void -- event handler.</remarks>
+      /// <remarks>Cannot avoid async void -- event handler.</remarks>
       protected async void ConsiderLoweringPlaceholder(object sender, FocusEventArgs e)
       {
          await ResetPlaceholderPosition().WithoutChangingContext();
@@ -1009,7 +1009,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <summary>Raises the placeholder.</summary>
       /// <param name="sender">The sender.</param>
       /// <param name="e">The <see cref="FocusEventArgs" /> instance containing the event data.</param>
-      /// <remarks>TODO Cannot avoid async void -- event handler.</remarks>
+      /// <remarks>Cannot avoid async void -- event handler.</remarks>
       protected async void ReportGlobalFocusAndRaisePlaceholder(object sender, FocusEventArgs e)
       {
          FormsMessengerUtils.Send(new ViewIsBeingEditedMessage { Payload = true });
@@ -1037,6 +1037,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
          }
          else
          {
+            // ReSharper disable once ArrangeMissingParentheses
             targetY = (BorderViewHeight + GridSinglePadding - PlaceholderHeight) / 2;
          }
 
@@ -1091,7 +1092,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
 
       private double GetFactoredFontSize(double factor)
       {
-         // TODO Very bad idea to randomly assign the font size.
+         // TODO Very bad idea to manually assign the font size.
          return EditableView is Entry editableViewAsEntry
                    ? editableViewAsEntry.FontSize * factor
                    : Device.GetNamedSize(NamedSize.Small, typeof(Label));
@@ -1112,7 +1113,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             CurrentInstructions = "";
          }
 
-         if (ShowValidationErrors.IsTrue() && !isValid.HasValue || isValid.GetValueOrDefault())
+         if (ShowValidationErrors.IsTrue() && (!isValid.HasValue || isValid.GetValueOrDefault()))
          {
             BorderView?.SetAndForceStyle(_lastValidBorderViewStyle.IsNotNullOrDefault()
                                             ? _lastValidBorderViewStyle

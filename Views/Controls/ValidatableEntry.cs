@@ -145,7 +145,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
                   editGrid.AddAutoColumn();
                   editGrid.AddAndSetRowsAndColumns(EditableEntry, column:0);
                   
-                  var showHideImageWidthHeight = BorderView.HeightRequest * 0.85;
+                  var showHideImageWidthHeight = BorderView.Height * 0.85;
 
                   _showHideImage = FormsUtils.GetImage("", showHideImageWidthHeight, showHideImageWidthHeight,
                      Aspect.AspectFit, getFromResources: true, resourceClass: GetType());

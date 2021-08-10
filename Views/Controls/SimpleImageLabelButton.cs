@@ -27,9 +27,9 @@
 
 namespace Com.MarcusTS.SharedForms.Views.Controls
 {
-   using System;
    using Common.Utils;
    using SharedUtils.Utils;
+   using System;
    using Xamarin.Forms;
 
    /// <summary>
@@ -256,7 +256,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// </summary>
       public SimpleImageLabelButton(double labelWidth, double labelHeight, string fontFamilyOverride = "")
       {
-         CanSelect             = false;
+         CanSelect = false;
          ButtonToggleSelection = false;
          ButtonLabel = FormsUtils.GetSimpleLabel("", width: labelWidth, height: labelHeight,
             fontFamilyOverride: fontFamilyOverride);
@@ -264,18 +264,12 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       }
 
       /// <summary>
-      ///    Gets a value indicating whether this instance is disabled.
-      /// </summary>
-      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
-      protected override bool IsDisabled => false;
-
-      /// <summary>
       ///    Gets or sets the color of the button back.
       /// </summary>
       /// <value>The color of the button back.</value>
       public Color ButtonBackColor
       {
-         get => (Color) GetValue(ButtonBackColorProperty);
+         get => (Color)GetValue(ButtonBackColorProperty);
          set => SetValue(ButtonBackColorProperty, value);
       }
 
@@ -285,7 +279,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color of the button border.</value>
       public Color ButtonBorderColor
       {
-         get => (Color) GetValue(ButtonBorderColorProperty);
+         get => (Color)GetValue(ButtonBorderColorProperty);
          set => SetValue(ButtonBorderColorProperty, value);
       }
 
@@ -295,7 +289,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The width of the button border.</value>
       public float ButtonBorderWidth
       {
-         get => (float) GetValue(ButtonBorderWidthProperty);
+         get => (float)GetValue(ButtonBorderWidthProperty);
          set => SetValue(ButtonBorderWidthProperty, value);
       }
 
@@ -305,7 +299,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The image file path.</value>
       public string ImageFilePath
       {
-         get => (string) GetValue(ImageFilePathProperty);
+         get => (string)GetValue(ImageFilePathProperty);
          set => SetValue(ImageFilePathProperty, value);
       }
 
@@ -321,7 +315,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The label font attributes.</value>
       public FontAttributes LabelFontAttributes
       {
-         get => (FontAttributes) GetValue(LabelFontAttributesProperty);
+         get => (FontAttributes)GetValue(LabelFontAttributesProperty);
          set => SetValue(LabelFontAttributesProperty, value);
       }
 
@@ -331,7 +325,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The size of the label font.</value>
       public double LabelFontSize
       {
-         get => (double) GetValue(LabelFontSizeProperty);
+         get => (double)GetValue(LabelFontSizeProperty);
          set => SetValue(LabelFontSizeProperty, value);
       }
 
@@ -341,7 +335,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The label text.</value>
       public string LabelText
       {
-         get => (string) GetValue(LabelTextProperty);
+         get => (string)GetValue(LabelTextProperty);
          set => SetValue(LabelTextProperty, value);
       }
 
@@ -351,9 +345,15 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <value>The color of the label text.</value>
       public Color LabelTextColor
       {
-         get => (Color) GetValue(LabelTextColorProperty);
+         get => (Color)GetValue(LabelTextColorProperty);
          set => SetValue(LabelTextColorProperty, value);
       }
+
+      /// <summary>
+      ///    Gets a value indicating whether this instance is disabled.
+      /// </summary>
+      /// <value><c>true</c> if this instance is disabled; otherwise, <c>false</c>.</value>
+      protected override bool IsDisabled => false;
 
       /// <summary>
       ///    Creates the simple image label button.
@@ -376,52 +376,55 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <param name="buttonCommandBindingName">Name of the button command binding.</param>
       /// <param name="animateButton"></param>
       /// <param name="includeHapticFeedback"></param>
+      /// <param name="fontAttributes"></param>
       /// <returns>ISimpleImageLabelButton.</returns>
       public static ISimpleImageLabelButton CreateSimpleImageLabelButton
       (
-         string         labelText,
-         Color          labelTextColor,
-         double         labelFontSize,
-         double         widthRequest,
-         double         heightRequest,
-         object         bindingContext,
-         Color          buttonBackColor,
-         Color          buttonBorderColor,
-         LayoutOptions  horizontalOptions,
-         LayoutOptions  verticalOptions,
-         string         fontFamilyOverride       = "",
-         string         imageFilePath            = "",
-         float          buttonBorderWidth        = default,
-         FontAttributes labelFontAttributes      = default,
-         float          cornerRadiusFactor       = DEFAULT_BUTTON_RADIUS_FACTOR,
-         string         buttonCommandBindingName = "",
-         bool           animateButton            = true,
-         bool           includeHapticFeedback    = true
+         string labelText,
+         Color labelTextColor,
+         double labelFontSize,
+         double widthRequest,
+         double heightRequest,
+         object bindingContext,
+         Color buttonBackColor,
+         Color buttonBorderColor,
+         LayoutOptions horizontalOptions,
+         LayoutOptions verticalOptions,
+         string fontFamilyOverride = "",
+         string imageFilePath = "",
+         float buttonBorderWidth = default,
+         FontAttributes labelFontAttributes = default,
+         float cornerRadiusFactor = DEFAULT_BUTTON_RADIUS_FACTOR,
+         string buttonCommandBindingName = "",
+         bool animateButton = true,
+         bool includeHapticFeedback = true,
+         FontAttributes fontAttributes = FontAttributes.None
       )
       {
-         var newSimpleImageLabelButton = 
+         var newSimpleImageLabelButton =
             new SimpleImageLabelButton(widthRequest, heightRequest, fontFamilyOverride)
-               {
-                  LabelText                = labelText,
-                  LabelTextColor           = labelTextColor,
-                  LabelFontSize            = labelFontSize,
-                  WidthRequest             = widthRequest,
-                  HeightRequest            = heightRequest,
-            BindingContext           = bindingContext,
-            ButtonBackColor          = buttonBackColor,
-            ButtonBorderColor        = buttonBorderColor,
-            HorizontalOptions        = horizontalOptions,
-            VerticalOptions          = verticalOptions,
-            ImageFilePath            = imageFilePath,
-                  ButtonBorderWidth        = buttonBorderWidth,
-                  LabelFontAttributes      = labelFontAttributes,
-                  ButtonCornerRadiusFactor = cornerRadiusFactor,
-                  ButtonCommandBindingName = buttonCommandBindingName
-               };
+            {
+               LabelText = labelText,
+               LabelTextColor = labelTextColor,
+               LabelFontSize = labelFontSize,
+               WidthRequest = widthRequest,
+               HeightRequest = heightRequest,
+               BindingContext = bindingContext,
+               ButtonBackColor = buttonBackColor,
+               ButtonBorderColor = buttonBorderColor,
+               HorizontalOptions = horizontalOptions,
+               VerticalOptions = verticalOptions,
+               ImageFilePath = imageFilePath,
+               ButtonBorderWidth = buttonBorderWidth,
+               LabelFontAttributes = labelFontAttributes,
+               ButtonCornerRadiusFactor = cornerRadiusFactor,
+               ButtonCommandBindingName = buttonCommandBindingName
+            };
 
          if (newSimpleImageLabelButton.ButtonLabel != null)
          {
             newSimpleImageLabelButton.ButtonLabel.BindingContext = bindingContext;
+            newSimpleImageLabelButton.ButtonLabel.FontAttributes = fontAttributes;
          }
 
          if (newSimpleImageLabelButton.ButtonImage != null)
@@ -429,7 +432,7 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
             newSimpleImageLabelButton.ButtonImage.BindingContext = bindingContext;
          }
 
-         newSimpleImageLabelButton.AnimateButton         = animateButton;
+         newSimpleImageLabelButton.AnimateButton = animateButton;
          newSimpleImageLabelButton.IncludeHapticFeedback = includeHapticFeedback;
 
          return newSimpleImageLabelButton;
@@ -447,11 +450,11 @@ namespace Com.MarcusTS.SharedForms.Views.Controls
       /// <returns>BindableProperty.</returns>
       public static BindableProperty CreateSimpleImageLabelButtonBindableProperty<PropertyTypeT>
       (
-         string                                                       localPropName,
-         PropertyTypeT                                                defaultVal          = default,
-         BindingMode                                                  bindingMode         = BindingMode.OneWay,
-         Action<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT> callbackAction      = null,
-         Func<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT>   coerceValueDelegate = default
+         string localPropName,
+         PropertyTypeT defaultVal = default,
+         BindingMode bindingMode = BindingMode.OneWay,
+         Action<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT> callbackAction = null,
+         Func<SimpleImageLabelButton, PropertyTypeT, PropertyTypeT> coerceValueDelegate = default
       )
       {
          return BindableUtils.CreateBindableProperty(localPropName, defaultVal, bindingMode, callbackAction,

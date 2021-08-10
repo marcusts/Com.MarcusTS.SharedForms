@@ -46,5 +46,25 @@
       ///    The default image suffix
       /// </summary>
       public const string DEFAULT_IMAGE_SUFFIX = ".png";
+
+      public const           int       DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS = 25;
+      public static readonly double    MARGIN_SPACING_SINGLE_FACTOR          = 10.0.AdjustForOsAndDevice();
+      public static readonly double MARGIN_SPACING_DOUBLE_FACTOR = MARGIN_SPACING_SINGLE_FACTOR * 2;
+      public static readonly Thickness DEFAULT_STACK_LAYOUT_MARGIN           = new Thickness(MARGIN_SPACING_SINGLE_FACTOR);
+      public static readonly double    DEFAULT_STACK_LAYOUT_SPACING          = MARGIN_SPACING_SINGLE_FACTOR;
+
+      /// <summary>
+      /// The not visible opacity
+      /// </summary>
+      public const double NOT_VISIBLE_OPACITY = 0;
+
+      /// <summary>
+      /// The visible opacity
+      /// </summary>
+      public const double VISIBLE_OPACITY = 1;
+
+      public const double MODERATE_OPACITY = 1.0/2.0;
+
+      public static readonly Color PALE_GRAY = Color.FromRgb(240, 240, 240);
    }
 }

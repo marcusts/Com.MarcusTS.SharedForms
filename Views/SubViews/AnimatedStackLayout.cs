@@ -28,111 +28,94 @@
 
 namespace Com.MarcusTS.SharedForms.Views.SubViews
 {
-   using System.Collections.Generic;
+   using System;
+   using Com.MarcusTS.SharedForms.Common.Interfaces;
    using System.Linq;
-   using Common.Utils;
-   using SharedUtils.Utils;
+   using System.Threading.Tasks;
+   using Com.MarcusTS.SharedUtils.Controls;
+   using Com.MarcusTS.SharedForms.Common.Utils;
+   using Com.MarcusTS.SharedUtils.Utils;
    using Xamarin.Forms;
 
-   public interface IAnimatedStackLayout
+   public interface IAnimatedStackLayout : ICanAnimate
    {
-      int         AnimateInDelayMilliseconds        { get; set; }
-      bool        AskChildrenToAnimateIn            { get; set; }
-      bool        LoadForwards                      { get; set; }
-      bool        LoadOnceOnlyUnlessChildrenChanged { get; set; }
-      IList<View> SourceViews                       { get; set; }
-      
-      // double      ViewSpacing                       { get; set; }
-
-      void AnimateIn();
+      bool LoadForwards { get; set; }
    }
 
+   /// <summary>
+   /// AnimateInDelayMilliseconds is now ignored; it is not compatible with threading
+   /// </summary>
+   [Obsolete]
    public class AnimatedStackLayout : StackLayout, IAnimatedStackLayout
    {
-      private const           int       DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS = 25;
-      private static readonly double    MARGIN_SPACING_SINGLE_FACTOR          = 10.0.AdjustForOsAndDevice();
-      private static readonly Thickness DEFAULT_STACK_LAYOUT_MARGIN           = new Thickness(MARGIN_SPACING_SINGLE_FACTOR);
-      private static readonly double    DEFAULT_STACK_LAYOUT_SPACING          = MARGIN_SPACING_SINGLE_FACTOR;
       private                 bool      _animateInEntered;
       private                 bool      _hasAnimatedOnce;
-      
-      // private                 double    _viewSpacing = DEFAULT_STACK_LAYOUT_SPACING;
 
       public AnimatedStackLayout()
       {
          this.SetDefaults();
-         Margin  = DEFAULT_STACK_LAYOUT_MARGIN;
-         Spacing = DEFAULT_STACK_LAYOUT_SPACING;
+         Margin  = FormsConst.DEFAULT_STACK_LAYOUT_MARGIN;
+         Spacing = FormsConst.DEFAULT_STACK_LAYOUT_SPACING;
       }
 
-      public int AnimateInDelayMilliseconds { get; set; } = DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS;
+      public int AnimateInDelayMilliseconds { get; set; } = FormsConst.DEFAULT_ANIMATE_IN_DELAY_MILLISECONDS;
+      public bool AutoReloadOnAnySourceViewChange { get; set; }
 
-      public bool AskChildrenToAnimateIn { get; set; }
+      public bool CascadeChildAnimations { get; set; }
 
       public bool LoadForwards { get; set; }
 
       public bool LoadOnceOnlyUnlessChildrenChanged { get; set; }
 
-      public IList<View> SourceViews { get; set; } = new List<View>();
+      public IBetterObservableCollection<View> SourceViews { get; private set; } = new BetterObservableCollection<View>();
 
-      /*
-      public double ViewSpacing
+      public Task SetSourceViews(View[] views)
       {
-         get => _viewSpacing;
-         set
-         {
-            if (_viewSpacing.IsDifferentThan(value))
-            {
-               _viewSpacing = value;
-               Spacing      = _viewSpacing;
-            }
-         }
+         SourceViews = new BetterObservableCollection<View>(views);
+
+         return Task.CompletedTask;
       }
-      */
-      
-      /// <summary>Void because iOS objects to this being run as a task inside of Task.Run.</summary>
-      public void AnimateIn()
+
+      public async Task AnimateIn()
       {
-         if (_animateInEntered || _hasAnimatedOnce && LoadOnceOnlyUnlessChildrenChanged)
+         if (_animateInEntered || (_hasAnimatedOnce && LoadOnceOnlyUnlessChildrenChanged))
          {
             return;
          }
 
          _animateInEntered = true;
 
-         try
+         Children.Clear();
+         _hasAnimatedOnce = true;
+
+         if (SourceViews.IsAnEmptyList())
          {
-            Children.Clear();
-            _hasAnimatedOnce = true;
+            return;
+         }
 
-            if (SourceViews.IsAnEmptyList())
+         if (LoadForwards)
+         {
+            // Insert backwards at position 0; creates a cheap-thrills animation.
+            foreach (var view in SourceViews.ToArray())
             {
-               return;
-            }
-
-            if (LoadForwards)
-            {
-               // Insert backwards at position 0; creates a cheap-thrills animation.
-               foreach (var view in SourceViews.ToArray())
-               {
-                  Children.Add(view);
-                  ConsiderChildAnimation(view);
-               }
-            }
-            else
-            {
-               // Insert backwards at position 0; creates a cheap-thrills animation.
-               foreach (var view in SourceViews.Reverse().ToArray())
-               {
-                  Children.Insert(0, view);
-                  ConsiderChildAnimation(view);
-               }
+               Children.Add(view); 
             }
          }
-         finally
+         else
          {
-            _animateInEntered = false;
+            // Insert backwards at position 0; creates a cheap-thrills animation.
+            foreach (var view in SourceViews.Reverse().ToArray())
+            {
+               Children.Insert(0, view);
+            }
          }
+
+         foreach (var view in SourceViews.ToArray())
+         {
+            await ConsiderChildAnimation(view).WithoutChangingContext();
+         }
+
+         _animateInEntered = false;
       }
 
       protected override void OnAdded(View view)
@@ -149,11 +132,12 @@ namespace Com.MarcusTS.SharedForms.Views.SubViews
          _hasAnimatedOnce = false;
       }
 
-      private void ConsiderChildAnimation(View view)
+      private async Task ConsiderChildAnimation(View view)
       {
-         if (AskChildrenToAnimateIn && view is IAnimatedStackLayout viewAsAnimatedStackLayout)
+         // If the view is itself a container that implements ICanAnimate, request that automatically.
+         if (CascadeChildAnimations && view is ICanAnimate viewAsAnimatable)
          {
-            viewAsAnimatedStackLayout.AnimateIn();
+            await viewAsAnimatable.AnimateIn().WithoutChangingContext();
          }
       }
    }

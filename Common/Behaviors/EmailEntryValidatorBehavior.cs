@@ -76,7 +76,7 @@ namespace Com.MarcusTS.SharedForms.Common.Behaviors
 
          foreach (var c in newText)
          {
-            if (!atSignFound && c == AT_SIGN)
+            if (!atSignFound && (c == AT_SIGN))
             {
                retStr      += c;
                atSignFound =  true;

@@ -26,7 +26,6 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
    using SmartDI;
    using System.Collections.Generic;
    using System.Threading.Tasks;
-   using Utils;
    using Xamarin.Essentials;
    using Xamarin.Forms;
 
@@ -178,7 +177,17 @@ namespace Com.MarcusTS.SharedForms.Common.Navigation
          // Done early to prevent recursion
          _lastAppState = newState;
 
-         await RespondToAppStateChange(newState, andRebuildToolbars).WithoutChangingContext();
+         if (MainThread.IsMainThread)
+         {
+            await RespondToAppStateChange(newState, andRebuildToolbars).WithoutChangingContext();
+         }
+         else
+         {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+               await RespondToAppStateChange(newState, andRebuildToolbars).WithoutChangingContext();
+            });
+         }
       }
 
       /// <summary>

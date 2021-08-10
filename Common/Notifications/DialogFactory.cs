@@ -173,12 +173,12 @@ namespace Com.MarcusTS.SharedForms.Common.Notifications
          }
 
          newConfig.SetDuration(
-            TimeSpan.FromSeconds(useTimeout && toastDissolveSeconds > 0 ? toastDissolveSeconds : WAIT_FOREVER));
+            TimeSpan.FromSeconds(useTimeout && (toastDissolveSeconds > 0) ? toastDissolveSeconds : WAIT_FOREVER));
 
          var newAction = new ToastAction();
 
          // Must add "SetAction"
-         if (action != null || actionText.IsNotEmpty())
+         if ((action != null) || actionText.IsNotEmpty())
          {
             if (action != null)
             {

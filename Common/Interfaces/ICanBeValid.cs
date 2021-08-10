@@ -28,9 +28,6 @@ namespace Com.MarcusTS.SharedForms.Common.Interfaces
 {
    using SharedUtils.Utils;
 
-   /// <summary>
-   ///    Implements IsValid and IsInvalid booleans.
-   /// </summary>
    public interface ICanBeValid
    {
       /// <summary>

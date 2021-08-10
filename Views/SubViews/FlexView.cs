@@ -5,6 +5,7 @@
    using System.Linq;
    using System.Reflection;
    using System.Threading.Tasks;
+   using Com.MarcusTS.SharedUtils.Controls;
    using Common.Interfaces;
    using Common.Utils;
    using Controls;
@@ -241,13 +242,13 @@
             }
          }
 
-         MasterLayout.SourceViews = retViews;
+         MasterLayout.SetSourceViews(retViews.ToArray());
 
          // Critical to bubble validations up to the view model and commands
          _viewModelAsValidator?.ValidationHelper.AddBehaviors(_allBehaviors.ToArray());
 
          // TODO use the newer flex view with tasks when it is available
-         AfterSourceViewsLoaded().RunParallel(actionCallback: MasterLayout.AnimateIn);
+         AfterSourceViewsLoaded().RunParallel(actionCallback: async () => await MasterLayout.AnimateIn().WithoutChangingContext());
       }
    }
 }

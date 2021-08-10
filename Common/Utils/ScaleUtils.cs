@@ -48,11 +48,17 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
 
       private const double BASELINE_SCREEN_HEIGHT = 812;
 
+      public static readonly double CURRENT_DEVICE_HEIGHT = 
+         DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
+
       private static readonly double CURRENT_DEVICE_LENGTH_RATIO =
-         DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density / BASELINE_SCREEN_HEIGHT;
+         CURRENT_DEVICE_HEIGHT / BASELINE_SCREEN_HEIGHT;
+
+      public static readonly double CURRENT_DEVICE_WIDTH = 
+         DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
       private static readonly double CURRENT_DEVICE_WIDTH_RATIO =
-         DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density / BASELINE_SCREEN_WIDTH;
+         CURRENT_DEVICE_WIDTH / BASELINE_SCREEN_WIDTH;
 
       private static readonly double MAX_OS_AND_DEVICE_ADJUSTMENT =
          Math.Min(CURRENT_DEVICE_WIDTH_RATIO, CURRENT_DEVICE_LENGTH_RATIO);

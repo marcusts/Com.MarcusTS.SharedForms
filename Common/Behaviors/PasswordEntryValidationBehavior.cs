@@ -91,7 +91,7 @@ using Com.MarcusTS.SharedForms.ViewModels;
          var lowCaseCharacterCount = currentText.Count(char.IsLower);
          var characterCount =  currentText.Count();
          var numericCharacterCount = currentText.Count(char.IsNumber);
-         var repeatedAdjacentCharacterCount = currentText.GetAdjacentCharacterCount(MaxRepeatChars);
+         var hasRepeatedChars = !currentText.DoesNotRepeatCharacters(MaxRepeatChars);
          var specialCharacterCount =
             currentText.Length - capitalCharacterCount - lowCaseCharacterCount - numericCharacterCount;
 
@@ -133,7 +133,7 @@ using Com.MarcusTS.SharedForms.ViewModels;
             return false;
          }
 
-         if (repeatedAdjacentCharacterCount > 0)
+         if (hasRepeatedChars)
          {
             LastValidationError = "The password should not have more than " + MaxRepeatChars + " adjacent character(s)";
             return false;

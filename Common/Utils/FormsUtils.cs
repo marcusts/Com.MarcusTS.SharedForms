@@ -48,6 +48,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
    using Xamarin.Essentials;
    using Xamarin.Forms;
    using Xamarin.Forms.PancakeView;
+   using Xamarin.Forms.Shapes;
 
    /// <summary>Class FormsUtils.</summary>
    public static class FormsUtils
@@ -278,7 +279,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
             var yearsList = new List<int>();
             var thisYear  = DateTime.Now.Year;
 
-            for (var yearIdx = thisYear; yearIdx < thisYear + MAX_EXPIRATION_YEARS; yearIdx++)
+            for (var yearIdx = thisYear; yearIdx < (thisYear + MAX_EXPIRATION_YEARS); yearIdx++)
             {
                yearsList.Add(yearIdx);
             }
@@ -609,12 +610,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
       public static bool AreValidAndHaveChanged
       (
-         this Rectangle bounds,
+         this Xamarin.Forms.Rectangle bounds,
          string         propName,
-         Rectangle      lastBounds
+         Xamarin.Forms.Rectangle      lastBounds
       )
       {
-         return propName.IsBoundsRelatedPropertyChange() && bounds.IsValid() && bounds.IsDifferentThan(lastBounds);
+         return propName.IsBoundsRelatedPropertyChange() && bounds.IsPositive() && bounds.IsDifferentThan(lastBounds);
       }
 
       /// <summary>Assigns the internal date time properties.</summary>
@@ -797,7 +798,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="forceLongSize">if set to <c>true</c> [force long size].</param>
       /// <param name="additionalTopAllowance">The additional top allowance.</param>
       /// <returns>Rectangle.</returns>
-      public static Rectangle CreateOffScreenRect
+      public static Xamarin.Forms.Rectangle CreateOffScreenRect
       (
          Size               parentViewSize,
          double             width,
@@ -816,21 +817,21 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          {
             case OffScreenPositions.LEFT:
                height = GetForcedHeight(height, forceLongSize, parentViewSize);
-               return new Rectangle(-width - 1, adjustedHeight + additionalTopAllowance, width,
+               return new Xamarin.Forms.Rectangle(-width - 1, adjustedHeight + additionalTopAllowance, width,
                                     height - additionalTopAllowance);
 
             case OffScreenPositions.TOP:
                width = GetForcedWidth(width, forceLongSize, parentViewSize);
-               return new Rectangle(adjustedWidth, -height, width, height);
+               return new Xamarin.Forms.Rectangle(adjustedWidth, -height, width, height);
 
             case OffScreenPositions.RIGHT:
                height = GetForcedHeight(height, forceLongSize, parentViewSize);
-               return new Rectangle(parentViewSize.Width + 1, adjustedHeight + additionalTopAllowance, width,
+               return new Xamarin.Forms.Rectangle(parentViewSize.Width + 1, adjustedHeight + additionalTopAllowance, width,
                                     height               - additionalTopAllowance);
 
             case OffScreenPositions.BOTTOM:
                width = GetForcedWidth(width, forceLongSize, parentViewSize);
-               return new Rectangle(adjustedWidth, parentViewSize.Height + 1, width, height);
+               return new Xamarin.Forms.Rectangle(adjustedWidth, parentViewSize.Height + 1, width, height);
 
             default:
                return default;
@@ -854,7 +855,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="forceLongSize">if set to <c>true</c> [force long size].</param>
       /// <param name="additionalTopAllowance">The additional top allowance.</param>
       /// <returns>Rectangle.</returns>
-      public static Rectangle CreateOnScreenRect
+      public static Xamarin.Forms.Rectangle CreateOnScreenRect
       (
          Size              parentViewSize,
          double            width,
@@ -963,7 +964,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                return default;
          }
 
-         var rect = new Rectangle(newLeftX, newTopY, width, height);
+         var rect = new Xamarin.Forms.Rectangle(newLeftX, newTopY, width, height);
          return rect;
       }
 
@@ -974,7 +975,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <param name="parentViewPadding">The parent view padding.</param>
       /// <param name="additionalTopAllowance">The additional top allowance.</param>
       /// <returns>Rectangle.</returns>
-      public static Rectangle CreateOnScreenRectWithForcedSide
+      public static Xamarin.Forms.Rectangle CreateOnScreenRectWithForcedSide
       (
          Size              parentViewSize,
          double            widthHeight,
@@ -1347,11 +1348,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                                            NOT_VISIBLE_OPACITY, easing);
          fadeAnimation.Commit(view, "fadeAnimation", length:fadeMilliseconds, easing:easing);
 #else
-         await view.FadeTo(NOT_VISIBLE_OPACITY, fadeMilliseconds, easing).WithoutChangingContext();
+         await view.FadeTo(NOT_VISIBLE_OPACITY, fadeMilliseconds, easing ?? Easing.CubicOut).WithoutChangingContext();
 #endif
       }
 
-      public static Rectangle ForceAspect(this Rectangle rect, double aspect)
+      public static Xamarin.Forms.Rectangle ForceAspect(this Xamarin.Forms.Rectangle rect, double aspect)
       {
          var currentAspect = rect.Width / rect.Height;
          var newWidth      = rect.Width;
@@ -1376,7 +1377,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          var heightDiff = Math.Max(0, rect.Height - newHeight);
          var widthDiff  = Math.Max(0, rect.Width  - newWidth);
 
-         return new Rectangle(rect.X + widthDiff / 2, rect.Y + heightDiff / 2, newWidth, newHeight);
+         return new Xamarin.Forms.Rectangle(rect.X + widthDiff / 2, rect.Y + heightDiff / 2, newWidth, newHeight);
       }
 
       /// <summary>Forces the style.</summary>
@@ -1433,28 +1434,24 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
          }
       }
 
-      public static int GetAdjacentCharacterCount(this string str, int maxCharsAllowed)
+      public static bool DoesNotRepeatCharacters(this string str, int maxCharsAllowed)
       {
          if (str.IsEmpty())
          {
-            return 0;
+            return false;
          }
-
-         var maxViolations = 0;
 
          for (var idx = maxCharsAllowed; idx < str.Length; idx++)
          {
-            // Test the idx and characters directly to its left The min idx is the exact characters allowed: Assuming 2
-            // consecutive characters are allowed - 3 is a violation --
+            // Test the idx and characters directly to its left The min idx is the exact characters allowed:
+            // Assuming 2 consecutive characters are allowed - 3 is a violation --
 
             // ABCDDD
 
             // The idx finally gets to the end of the string, so is at idx 5 We start at 4, one to the left (no need to
             // check the idx we are on). We end at 3 because that's all we need for a violation: The character "D" at
             // indexes 3, 4 and 5
-            var minIdx = idx - maxCharsAllowed;
-
-            for (var subIdx = idx - 1; subIdx >= minIdx; subIdx--)
+            for (var subIdx = idx - maxCharsAllowed; subIdx <= idx; subIdx++)
             {
                // Not the same, so not illegal
                if (str[idx] != str[subIdx])
@@ -1463,16 +1460,16 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
                }
 
                // All characters matched
-               if (subIdx == minIdx)
+               if (subIdx == idx)
                {
-                  maxViolations++;
+                  return false;
                }
 
                // Else continue checking
             }
          }
 
-         return maxViolations;
+         return true;
       }
 
       /// <summary>Gets the expanding absolute layout.</summary>
@@ -1764,12 +1761,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
       public static bool HaveBecomeInvalid
       (
-         this Rectangle bounds,
+         this Xamarin.Forms.Rectangle bounds,
          string         propName,
-         Rectangle      lastBounds
+         Xamarin.Forms.Rectangle      lastBounds
       )
       {
-         return propName.IsBoundsRelatedPropertyChange() && bounds.IsNotValid() && lastBounds.IsValid();
+         return propName.IsBoundsRelatedPropertyChange() && bounds.IsNotValid() && lastBounds.IsPositive();
       }
 
       /// <summary>The bounds have become *invalid* OR *changed* in relation to the last known bounds.</summary>
@@ -1779,12 +1776,12 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
       public static bool HaveBecomeInvalidOrChangedWithoutPermission
       (
-         this Rectangle bounds,
+         this Xamarin.Forms.Rectangle bounds,
          string         propName,
-         Rectangle      lastBounds
+         Xamarin.Forms.Rectangle      lastBounds
       )
       {
-         return propName.IsBoundsRelatedPropertyChange() && lastBounds.IsValid() &&
+         return propName.IsBoundsRelatedPropertyChange() && lastBounds.IsPositive() &&
                 (bounds.IsNotValid() || bounds.IsDifferentThan(lastBounds));
       }
 
@@ -1865,8 +1862,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if [is different than] [the specified other rect]; otherwise, <c>false</c>.</returns>
       public static bool IsDifferentThan
       (
-         this Rectangle mainRect,
-         Rectangle      otherRect
+         this Xamarin.Forms.Rectangle mainRect,
+         Xamarin.Forms.Rectangle      otherRect
       )
       {
          return !mainRect.IsSameAs(otherRect);
@@ -1894,7 +1891,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if the specified main rect is empty; otherwise, <c>false</c>.</returns>
       public static bool IsEmpty
       (
-         this Rectangle mainRect
+         this Xamarin.Forms.Rectangle mainRect
       )
       {
          return mainRect.X.IsLessThanOrEqualTo(0)     &&
@@ -1943,7 +1940,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if [is not empty] [the specified main rect]; otherwise, <c>false</c>.</returns>
       public static bool IsNotEmpty
       (
-         this Rectangle mainRect
+         this Xamarin.Forms.Rectangle mainRect
       )
       {
          return !mainRect.IsEmpty();
@@ -1952,9 +1949,9 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>Determines whether [is not valid] [the specified bounds].</summary>
       /// <param name="bounds">The bounds.</param>
       /// <returns><c>true</c> if [is not valid] [the specified bounds]; otherwise, <c>false</c>.</returns>
-      public static bool IsNotValid(this Rectangle bounds)
+      public static bool IsNotValid(this Xamarin.Forms.Rectangle bounds)
       {
-         return !bounds.IsValid();
+         return !bounds.IsPositive();
       }
 
       //public static double IosHeightHack(bool isNested)
@@ -1994,8 +1991,8 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <returns><c>true</c> if [is same as] [the specified other rect]; otherwise, <c>false</c>.</returns>
       public static bool IsSameAs
       (
-         this Rectangle mainRect,
-         Rectangle      otherRect
+         this Xamarin.Forms.Rectangle mainRect,
+         Xamarin.Forms.Rectangle      otherRect
       )
       {
          return mainRect.Width.IsSameAs(otherRect.Width)
@@ -2021,14 +2018,14 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>Returns true if ... is valid.</summary>
       /// <param name="bounds">The bounds.</param>
       /// <returns><c>true</c> if the specified bounds is valid; otherwise, <c>false</c>.</returns>
-      public static bool IsValid(this Rectangle bounds)
+      public static bool IsPositive(this Xamarin.Forms.Rectangle bounds)
       {
-         return bounds.Width > 0 && bounds.Height > 0;
+         return (bounds.Width.IsANumberGreaterThanZero()) && (bounds.Height.IsANumberGreaterThanZero());
       }
 
-      public static bool IsValid(this Size size)
+      public static bool IsPositive(this Size size)
       {
-         return size.Width > 0 && size.Height > 0;
+         return (size.Width.IsANumberGreaterThanZero()) && (size.Height.IsANumberGreaterThanZero());
       }
 
       /*
@@ -2037,7 +2034,7 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       /// <summary>Returns true if ... is valid.</summary>
       /// <param name="color">The color.</param>
       /// <returns><c>true</c> if the specified color is valid; otherwise, <c>false</c>.</returns>
-      public static bool IsValid(this Color color)
+      public static bool IsPositive(this Color color)
       {
          return !color.IsUnsetOrDefault();
       }
@@ -2410,6 +2407,11 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       {
          width = forceLongSize ? currentSize.Width : width;
          return width;
+      }
+
+      public static bool IntersectsWithInAnyWay(this Xamarin.Forms.Rectangle parentRect, Xamarin.Forms.Rectangle compareRect)
+      {
+         return parentRect.Intersect(compareRect).IsNotEmpty();
       }
    }
 }

@@ -1550,7 +1550,7 @@
             <summary>Gets a value indicating whether this instance is focused.</summary>
             <value><c>true</c> if this instance is focused; otherwise, <c>false</c>.</value>
         </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.BehaviorBase.IsValid">
+        <member name="P:Com.MarcusTS.SharedForms.Common.Behaviors.BehaviorBase.IsPositive">
             <summary>Returns true if ... is valid.</summary>
             <value><c>null</c> if [is valid] contains no value, <c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
         </member>
@@ -1931,10 +1931,10 @@
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Interfaces.IAmValid">
             <summary>
-               Implements IsValid and IsInvalid booleans.
+               Implements IsPositive and IsInvalid booleans.
             </summary>
         </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.IAmValid.IsValid">
+        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.IAmValid.IsPositive">
             <summary>
                Returns true if ... is valid.
             </summary>
@@ -1942,10 +1942,10 @@
         </member>
         <member name="T:Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid">
             <summary>
-               Implements IsValid and IsInvalid booleans.
+               Implements IsPositive and IsInvalid booleans.
             </summary>
         </member>
-        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid.IsValid">
+        <member name="P:Com.MarcusTS.SharedForms.Common.Interfaces.ICanBeValid.IsPositive">
             <summary>
                Returns true if ... is valid.
             </summary>
@@ -3444,7 +3444,7 @@
             <param name="otherRect">The other rect.</param>
             <returns><c>true</c> if [is same as] [the specified other rect]; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsValid(Xamarin.Forms.Rectangle)">
+        <member name="M:Com.MarcusTS.SharedForms.Common.Utils.FormsUtils.IsPositive(Xamarin.Forms.Rectangle)">
             <summary>Returns true if ... is valid.</summary>
             <param name="bounds">The bounds.</param>
             <returns><c>true</c> if the specified bounds is valid; otherwise, <c>false</c>.</returns>
