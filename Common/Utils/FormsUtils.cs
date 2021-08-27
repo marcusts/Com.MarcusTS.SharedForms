@@ -2015,6 +2015,16 @@ namespace Com.MarcusTS.SharedForms.Common.Utils
       }
       */
 
+      public static bool IsANumberGreaterThanZero(this object o)
+      {
+         if (double.TryParse(o?.ToString(), out var testDouble))
+         {
+            return testDouble.IsGreaterThan(0);
+         }
+
+         return false;
+      }
+
       /// <summary>Returns true if ... is valid.</summary>
       /// <param name="bounds">The bounds.</param>
       /// <returns><c>true</c> if the specified bounds is valid; otherwise, <c>false</c>.</returns>
